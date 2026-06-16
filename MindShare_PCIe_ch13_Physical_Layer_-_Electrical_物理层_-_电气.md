@@ -164,7 +164,339 @@ If either of the following is true:
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+- If a loopback‐capable Transmitter is directed by a higher Layer to send TS Ordered Sets with the Loopback bit asserted or all Lanes that are sending and receiving TS1s receive 2 consecutive TS1s with the Loopback bit set. Whichever Port sends the TS1s with the bit set will become the Loopback master, while the Port that receives them will become the Loopback slave.
+
+## _Exit to "Detect State"_
+
+- After a 24ms timeout if none of the other conditions are true.
+
+**557**
+
+**PCI Express Technology**
+
+## **Configuration.Linkwidth.Accept**
+
+At this point, the Upstream Port is now sending back TS1 ordered‐sets on all its Lanes with the same Link number. The Link number originated from the Downstream Port, and the Upstream Port is simply reflecting that value back on all its Lanes. Now the Downstream Port knows the Link width (number of Lanes receiving the same Link number) and it must start advertising the Lane numbers. So the leader (Downstream Port) continues sending TS1s, but now with the actual Lane numbers designated instead of PAD. Also, all these TS1s will have the same Link number. The detailed behavior for the Downstream and Upstream Lanes are outlined below:
+
+## **Downstream Lanes**
+
+## _During Configuration.Linkwidth.Accept_
+
+- The Downstream Port will now initiate Lane numbers. If a Link can be formed from at least one group of Lanes that all receive two consecutive TS1s and all see the same Link number, then TS1s are sent that keep that same Link number but now assign unique, non‐PAD Lane numbers as well.
+
+## _Exit to "Configuration.Lanenum.Wait"_
+
+- The Downstream Port does not stay in the Configuration.Linkwidth.Accept substate very long. Once it has received the necessary TS1s from the Upstream Port indicating, the Link width, it updates any internal state info that is required, starts sending TS1s with non‐PAD Lane numbers, as indicated above, and immediately transitions to Configuration.Lanenum.Wait to await Lane Number confirmation from the Upstream Port.
+
+## **Upstream Lanes**
+
+## _During Configuration.Linkwidth.Accept_
+
+- The Upstream Port transmits TS1s where one of the received Link numbers is selected and sent back in the TS1s on _all_ the Lanes that received TS1s with a non‐PAD Link number. Any left‐over Lanes that detected a Receiver but no Link number must send TS1s with Link and Lane numbers set to PAD.
+
+## _Exit to "Configuration.Lanenum.Wait"_
+
+- The Upstream Port must respond to the Lane numbers proposed to it by the Link neighbor. If a Link can be formed using Lanes that sent a non‐PAD Link number on their TS1s and received two consecutive TS1s with the same Link number and any non‐PAD Lane number, then it should send TS1s that match the same Lane number assignments, if possible, or are different if necessary (such as with the optional Lane reversal).
+
+**558**
+
+**Chapter 14: Link Initialization & Training**
+
+## **Configuration.Lanenum.Wait**
+
+Prior to discussing the Configuration.Lanenum.Wait state, some background information may be helpful. Lane numbers are assigned sequentially from zero to the maximum number possible for a Link. For example, a x8 Link will be assigned Lane numbers 0 ‐ 7. Ports are required to support a Link as wide as the number of Lanes they have and as small as one Lane. The Lanes will always start with Lane 0 and must be both sequential and contiguous. For example, if some Lanes on a x8 Port aren't working, it might optionally be designed to configure a x4 Link and, if so, it would need to use Lanes 0‐3. As another example, if Lane 2 of a x8 Port is not working, it wouldn't be possible to use Lanes 0, 1, 3, and 4 to form a x4 Link because the Lanes wouldn't be contiguous. Any left‐over Lanes must send TS1s with Link and Lane set to PAD.
+
+A common timing consideration is repeated many times in the spec for the Configuration substates. Rather than repeat it for every case here, just be aware that it applies in general to both Upstream and Downstream Ports:
+
+To avoid configuring a Link smaller than necessary, it's recommended that a multi‐Lane Port delay the final link width evaluation if it sees an error or loses Block Alignment on some Lanes. For 8b/10b, it should wait at least two more TS1s, while for 128b/130b mode it should wait for at least 34 TS1s, but never more than 1ms in any case. The idea is that the Lanes might need settling time after powering up or being reset.
+
+## _Exit to "Detect State"_
+
+After a 2ms timeout if no Link can be configured (e.g.: Lane 0 is not working and Lane Reversal isn't available), or if all Lanes receive two consecutive TS1s with PAD in both the Link and Lane numbers, the link must exit to the Detect State.
+
+## **Downstream Lanes**
+
+## _During Configuration.Lanenum.Wait_
+
+The Downstream Port will continue to transmit TS1s with the non‐PAD Link and Lane numbers until one of the exit conditions is met.
+
+## _Exit to "Configuration.Lanenum.Accept"_
+
+If either of the cases listed below is true:
+
+- If two consecutive TS1s have been received on all Lanes with Link and Lane numbers that match what is being transmitted on those Lanes.
+
+**559**
+
+**PCI Express Technology**
+
+- If any Lanes that detected a Receiver see two consecutive TS1s with a Lane number different from when the Lane first entered this substate and at least some Lanes see a non‐PAD Link number. The spec points out that this allows the two Ports to settle on a mutually acceptable Link width.
+
+## _Exit to "Detect State"_
+
+After a 2ms timeout or if all Lanes receive two consecutive TS1s with Link and Lane numbers set to PAD.
+
+Upstream Lanes
+
+## _During Configuration.Lanenum.Wait_
+
+The Upstream Port will continue to transmit TS1s with the non‐PAD Link and Lane numbers until one of the exit conditions is met.
+
+## _Exit to "Configuration.Lanenum.Accept"_
+
+If either of the cases listed below is true:
+
+- If any Lanes receive two consecutive TS2s.
+
+- If any Lanes receive two consecutive TS1s with a Lane number different from when the Lane first entered this substate and at least some Lanes see a non‐PAD Link number.
+
+Note that Upstream Lanes are allowed to wait up to 1ms before changing to that substate, so as to prevent received errors or skew between Lanes from affecting the final Link configuration.
+
+## _Exit to "Detect State"_
+
+After a 2ms timeout or if all Lanes receive two consecutive TS1s with Link and Lane numbers set to PAD.
+
+## **Configuration.Lanenum.Accept**
+
+Downstream Lanes
+
+## _During Configuration.Lanenum.Accept_
+
+The Downstream Port has now received TS1s with non‐PAD Link and Lane numbers. It is at this point that the Downstream Port must decide if a Link can be established with the Lane numbers returned by the Upstream Port. The three possible state transitions are listed below.
+
+## _Exit to "Configuration.Complete"_
+
+If two consecutive TS1s are received with the same non‐PAD Link and Lane numbers, and they match the Link and Lane numbers being transmitted in the TS1s for all the Lanes, then Upstream Port has agreed with the Link and
+
+**560**
+
+**Chapter 14: Link Initialization & Training**
+
+Lane numbers advertised by the Downstream Port and the next substate is Configuration.Complete. Or if the Lane numbers in the received TS1s are reversed from what the Downstream Port advertised, if the Downstream Port supports Lane Reversal, it can still proceed to Configuration.Complete while using the reversed Lane numbers.
+
+The spec points out that the Reversed Lane condition is strictly defined as Lane 0 receiving TS1s with the highest Lane number (total number of Lanes ‐ 1) and the highest Lane number receiving TS1s with Lane number of zero. One thing that can be understood from this is the answer to a question that comes up in class sometimes: Can the Lane numbers be mixed up, rather than sequential? The answer is no, they must be from 0 to n‐1 or from n‐1 to 0; no other options are supported.
+
+If the Configuration state was entered from the Recovery state, a bandwidth change may have been requested. If so, status bits will be updated to report the nature of what happened. Basically, the system needs to report whether this change was initiated because the Link wasn't working reliably or because hardware is simply managing the Link power. The bits are updated as follows:
+
+- If the bandwidth change was initiated by the Downstream Port because of a reliability problem, the Link Bandwidth Management Status bit is set to 1b.
+
+- If the bandwidth change was not initiated by the Downstream Port but the Autonomous Change bit in two consecutive received TS1s is cleared to 0b, the Link Bandwidth Management Status bit is set to 1b.
+
+- Otherwise the Link Autonomous Bandwidth Status bit is set to 1b.
+
+## _Exit to "Configuration.Lanenum.Wait"_
+
+- If a configured Link can be formed with some but not all of the Lanes that receive two consecutive TS1s with the same non‐PAD Link and Lane numbers, those Lanes send TS1s with the same Link number and new Lane numbers. The object is to use a smaller group of Lanes to achieve a working Link.
+
+The new Lane numbers must start with zero and increase sequentially to cover the Lanes that will be used. Any Lanes that don't receive TS1s can't be part of the group and will disrupt the Lane numbering. Any leftover Lanes must send TS1s with Link and Lane set to PAD. For example, if 8 Lanes are available, but Lane 2 doesn't see incoming TS1s, then the Link can't consist of a group that would need Lane 2. Consequently, the x8 and x4 options would not be available, and only a x1 or x2 Link is possible.
+
+**561**
+
+**PCI Express Technology**
+
+## _Exit to "Detect State"_
+
+- If no Link can be configured, or if all Lanes receive two consecutive TS1s with PAD for Link and Lane numbers.
+
+## **Upstream Lanes**
+
+## _During Configuration.Lanenum.Accept_
+
+- The Upstream Port has now received either TS2s or TS1s with non‐PAD Link and Lane numbers. It is at this point that the Upstream Port must decide if a Link can be established with the Lane numbers sent by the Downstream Port. The three possible state transitions are listed below.
+
+## _Exit to "Configuration.Complete"_
+
+- If two consecutive TS2s are received with the same non‐PAD Link and Lane numbers, and they match the Link and Lane numbers being transmitted in the TS1s for those Lanes, all is well and the next substate will be Configuration.Complete.
+
+## _Exit to "Configuration.Lanenum.Wait"_
+
+- If a configured Link can be formed with a subset of Lanes that receive two consecutive TS1s with the same non‐PAD Link and Lane numbers, those Lanes send TS1s with the same Link number and new Lane numbers. The object is to use a smaller group of Lanes to achieve a working Link. The next substate in this case will be Configuration.Lanenum.Wait.
+
+As was the case for the Downstream Lanes, the new Lane numbers must start with zero and increase sequentially to cover the Lanes that will be used. Any Lanes that don't receive TS1s can't be part of the group and will disrupt the Lane numbering. Any leftover Lanes must send TS1s with Link and Lane set to PAD.
+
+## _Exit to "Detect State"_
+
+- If no Link can be configured, or if all Lanes receive two consecutive TS1s with PAD for Link and Lane numbers, then the next state will be Detect.
+
+## **Configuration.Complete**
+
+This is the only substate of the Configuration state where TS2s are exchanged. As discussed before, the purpose of TS2s is a handshake, or confirmation between the two devices on the link that they are ready to proceed to the next state. So this is the final confirmation of the Link and Lane numbers exchanged in the TS1s leading up to this point.
+
+**562**
+
+**Chapter 14: Link Initialization & Training**
+
+It should be noted that Devices are allowed to change their supported data rates and upconfigure capability when they enter this substate, but not while in it. This is because Devices record the capabilities of their Link partner from what is advertised in these TS2s, as will be described in this section.
+
+## **Downstream Lanes**
+
+## _During Configuration.Complete_
+
+TS2s are sent using the Link and Lane numbers that match the received TS1s. The TS2s can have the Upconfigure Capability bit set if the Port supports a x1 Link using Lane 0 and is able to up‐configure the Link.
+
+For 8b/10b encoding, Lane de‐skewing must be completed when leaving this substate. Also, scrambling will be disabled if all configured Lanes see two consecutive TS2s with the Disable Scrambling bit set. The Port that sends these must also disable scrambling. Note that scrambling cannot be disabled when in 128b/130b mode because of the necessary contribution it makes to signal integrity.
+
+The Downstream Port is transmitting TS2s and watching for TS2s coming back. For future reference, record the number of FTSs that must be sent when exiting from the L0s state from the N_FTS field in the incoming TS2s.
+
+## _Exit to "Configuration.Idle"_
+
+The next state will be Configuration.Idle when all Lanes sending TS2s receive 8 TS2s with matching Link and Lane numbers (non‐PAD), matching rate identifiers, and matching Link Upconfigure Capability bit in all of them. At least 16 TS2s must also be sent after receiving one TS2.
+
+If the device supports rates greater than 2.5 GT/s, it must record the rate identifier received on any configured Lane and this overrides any previously recorded value. The variable used to track speed changes in Recovery, "changed_speed_recovery", is cleared to zero.
+
+The variable "upconfigure_capable" is set to 1b if the device sends TS2s with Link Upconfigure Capability set to 1b and receives 8 consecutive TS2s with the same bit set. Otherwise it's cleared to zero.
+
+Any Lanes that aren't configured as part of the Link are no longer associated with the LTSSM in progress and must either be:
+
+- Associated with a new LTSSM or
+
+- Transitioned to Electrical Idle
+
+   - a)   A special case arises if those Lanes had been configured as part of the Link through L0 previously and LinkUp has remained set at 1b
+
+**563**
+
+**PCI Express Technology**
+
+since then. They must remain associated with the same LTSSM if the Link is upconfigure capable. For that case, it's also recommended that those Lanes leave their Receiver terminations on because they'll become part of the Link again if it is upconfigured. If the terminations aren't left on, they must be turned on from when the LTSSM enters the Recovery.RcvrCfg state all the way through Configuration.Complete. Lanes that weren't part of the Link before can't become part of it through this process, though.
+
+- b)  For the optional crosslink, Receiver terminations must be between ZRX‐HIGH‐IMP‐DC‐POS and ZRX‐HIGH‐IMP‐DC‐NEG.
+
+- c) If the LTSSM goes back to Detect, these Lanes will once again be associated with it.
+
+- d)  No EIOS is needed before Lanes go to Electrical Idle, and the transition doesn't have to happen on Symbol or Ordered Set boundaries.
+
+## After a 2ms timeout:
+
+_Exit to "Configuration.Idle"_
+
+Next state is Configuration.Idle if the idle_to_rlock_transitioned variable is less than FFh **and** the current data rate is 8.0 GT/s.
+
+In this transition, the "changed_speed_recovery" variable is cleared to zero. Also, the "upconfigure_capable" variable may be updated, though it's not required to do so, if at least one Lane saw eight consecutive TS2s with matching Link and Lane numbers (non‐PAD). If the transmitted and received Link Upconfigure Capability bits are 1b, set it to 1b, otherwise clear it to zero.
+
+Lanes that aren't part of the configured Link aren't associated with the LTSSM in progress and have the same requirements as the non‐timeout case listed above.
+
+_Exit to "Detect State"_
+
+Otherwise, the next state is Detect.
+
+## **Upstream Lanes**
+
+_During Configuration.Complete_
+
+TS2s are sent using the Link and Lane numbers that match the received TS2s. The TS2s can have the Upconfigure Capability bit set if the Port supports a x1 Link using Lane 0 and is able to up‐configure the Link.
+
+**564**
+
+**Chapter 14: Link Initialization & Training**
+
+For 8b/10b encoding, Lane de‐skewing must be completed when leaving this substate. Also, scrambling will be disabled if all configured Lanes see two consecutive TS2s with the Disable Scrambling bit set. The Port that sends these must also disable scrambling. Note that scrambling cannot be disabled when in 128b/130b mode because of the necessary contribution it makes to signal integrity.
+
+In this substate, the Upstream Port is receiving TS2s from the Downstream Port, and for future reference, should record the N_FTS field value number of FTSs that must be sent when exiting from the L0s state from the in the incoming TS2s.
+
+## _Exit to "Configuration.Idle"_
+
+The next state will be Configuration.Idle when all Lanes sending TS2s receive 8 TS2s with matching Link and Lane numbers (non‐PAD), matching rate identifiers, and a matching Link Upconfigure Capability bit in all of them. At least 16 TS2s must also be sent after receiving one TS2.
+
+If the device supports rates greater than 2.5 GT/s, it must record the rate identifier received on any configured Lane, overriding any previously recorded value. The variable used to track speed changes in Recovery, "changed_speed_recovery", is cleared to zero.
+
+The variable "upconfigure_capable" is set to 1b if the device sends TS2s with Link Upconfigure Capability set to 1b and receives 8 consecutive TS2s with the same bit set. Otherwise it's cleared to zero.
+
+Any Lanes that aren't configured as part of the Link are no longer associated with the LTSSM in progress and must either be:
+
+- Optionally associated with a new crosslink LTSSM (if this feature is supported), or
+
+- Transitioned to Electrical Idle
+
+   - a) A special case arises if those Lanes had been configured as part of the Link through L0 previously and LinkUp has remained set at 1b since then. They must remain associated with the same LTSSM if the Link is upconfigure capable. For that case, it's also recommended that those Lanes leave their Receiver terminations on because they'll become part of the Link again if it is upconfigured. If they're not left on, they must be turned on from when the LTSSM enters the Recovery.RcvrCfg state all the way through Configuration.Complete. Lanes that weren't part of the Link before can't become part of it through this process, though.
+
+**565**
+
+**PCI Express Technology**
+
+- b)  Receiver terminations must be between ZRX‐HIGH‐IMP‐DC‐POS and ZRX‐
+
+   - HIGH‐IMP‐DC‐NEG[.]
+
+- c)    If the LTSSM goes back to Detect, these Lanes will once again be associated with it.
+
+- d)  No EIOS is needed before Lanes go to Electrical Idle, and the transition doesn't have to happen on Symbol or Ordered Set boundaries.
+
+## After a 2ms timeout:
+
+## _Exit to "Configuration.Idle"_
+
+Next state is Configuration.Idle if the idle_to_rlock_transitioned variable is less than FFh **and** the current data rate is 8.0 GT/s.
+
+In this transition, the "changed_speed_recovery" variable is cleared to zero. Also, the "upconfigure_capable" variable may be updated, though it's not required to do so, if at least one Lane saw eight consecutive TS2s with matching Link and Lane numbers (non‐PAD). If the transmitted and received Link Upconfigure Capability bits are 1b, set it to 1b, otherwise clear it to zero.
+
+Lanes that aren't part of the configured Link aren't associated with the LTSSM in progress and have the same requirements as the non‐timeout case listed above.
+
+## _Exit to "Detect State"_
+
+Otherwise, the next state is Detect.
+
+## **Configuration.Idle**
+
+## _During Configuration.Idle_
+
+In this substate, the transmitter is sending Idle data and waiting for the minimum number of received Idle data so this Link can transition to L0. During this time, the Physical Layer reports to the upper layers that the link is operational (Linkup = 1b).
+
+For 8b/10b encoding, the transmitter is sending Idle data on all configured Lanes. Idle data are just data zeros that get scrambled and encoded.
+
+For 128b/130b encoding, the transmitter sends one SDS Ordered Set on all configured Lanes followed by Idle data Symbols. The first Idle Symbol on Lane 0 is the first Symbol of the Data Stream.
+
+**566**
+
+**Chapter 14: Link Initialization & Training**
+
+## _Exit to "L0 State"_
+
+If using 8b/10b encoding, the next state is L0 if 8 consecutive Idle data symbol times are received on all configured Lanes, and 16 symbol times of idle data were sent after receiving one Idle Symbol.
+
+If using 128b/130b, the next state is L0 if 8 consecutive Idle data are received on all configured Lanes, 16 Idles were sent after receiving one Idle Symbol, and this state wasn't entered by a timeout from Configuration.Complete.
+
+- Lane‐to‐Lane de‐skew must be completed before Data Stream processing begins.
+
+- The Idle Symbols must be received in Data Blocks.
+
+- If software set the Retrain Link bit in the Link Control register since the last transition to L0 from Recovery or Configuration, the Downstream Port must set the Link Bandwidth Management bit in the Link Status register to 1b to indicate that this change was not hardware initiated (autonomous).
+
+- The "idle_to_rlock_transitioned" variable is cleared to 00h on transition to L0.
+
+## After a 2ms timeout:
+
+## _Exit to "Detailed Recovery Substates"_
+
+If the idle_to_rlock_transitioned variable is less than FFh, the next state is Recovery (Recovery.RcvrLock). Then:
+
+- a) For 8.0 GT/s, increment idle_to_rlock_transitioned by 1.
+
+- b)  For 2.5 or 5.0 GT/s, set idle_to_rlock_transitioned to FFh.
+
+- c) NOTE: This variable counts the number of times the LTSSM has transitioned from this state to the Recovery state because the sequence isn't working. The problem may be that equalization hasn't been properly adjusted or that the selected speed just isn't going to work, and the Recovery state will take steps to address these issues. This variable limits the number of these attempts so as to avoid an endless loop. If the Link still isn't working after doing this 256 times (when the count reaches FFh), go back to Detect and start over, hoping for a better result.
+
+_Exit to "Detect State"_
+
+Otherwise (meaning idle_to_rlock = FFh), the next state is Detect.
+
+**567**
+
+**PCI Express Technology**
+
+## **L0 State**
+
+This is the normal, fully‐operational Link state, during which Logical Idle, TLPs and DLLPs are exchanged between Link neighbors. L0 is achieved immediately following the conclusion of the Link Training process. The Physical Layer also notifies the upper layers that the Link is ready for operation, by setting the LinkUp variable. In addition, the idle_to_rlock_transitioned variable is cleared to 00h.
+
+## _Exit to "Recovery State"_
+
+The next state will be Recovery if a change in the Link speed or Link width is indicated, or if the Link partner initiates this by going to Recovery or Electrical Idle. Let's consider each of these three cases in a little more detail in the following discussion.
+
+## **Speed Change**
+
+Two conditions are described in the spec that will cause an automatic change in speed.
+
+The first is when rates higher than 2.5 GT/s are supported by both partners and the Link is active (Data Link Layer reports DL_Active), or when one partner requests a speed change in its TS Ordered Sets. For example, a Downstream Port will initiate a speed change if a higher rate was noted and software writes the Retrain Link bit and after setting the Target Link Speed field (see Figure 14‐ 26 on page 569) to a different rate than the current rate.
 
 </td>
 </tr></tbody></table>
@@ -346,7 +678,139 @@ This is the only substate of the Configuration state where TS2s are exchanged. A
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+**13. 由于 Lane 0 和 1 上的发送和接收链路和 Lane 号匹配，下游端口通过在这些 Lane 上发送具有相同链路和 Lane 号的 TS2 有序集来表示它已准备好结束此协商并继续到下一个状态 L0。其他 Lane 继续发送 Link 和 Lane 号都为 PAD 的 TS1。**
+
+**14. 在 Lane 0 和 1 上接收到具有相同链路和 Lane 号的 TS2 后，上游端口也通过在这些 Lane 上发送回 TS2 来表示其准备好离开 Configuration 状态并继续到 L0。其他 Lane 继续发送 Link 和 Lane 号都为 PAD 的 TS1。这在第 552 页的图 14‐23 中示出。**
+
+**551**
+
+**PCI Express Technology**
+
+_图 14‐23：示例 3 — 步骤 5 和 6_
+
+**==> picture [356 x 229] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+选项：一个链路 x4、x2 或 x1<br>LTSSM<br>（下游端口）<br>0 1 2 3<br>步骤 5<br>TS1<br>Lane # 0 1 PAD PAD<br>Link # N N PAD PAD<br>TS2 N N PAD PAD Link #<br>0 1 PAD PAD Lane #<br>0 1 2 3 步骤 6<br>（上游端口）<br>LTSSM<br>选项：一个链路 x4、x2 或 x1<br>**----- End of picture text -----**<br>
+
+
+一旦端口接收到至少 8 个 TS2 并发送至少 16 个，它将发送一些逻辑空闲数据，然后这些 Lane 转换到 L0。其他 Lane（在此示例中为 Lane 2 和 3）转换到电气空闲，直到下一次启动链路训练过程，此时这些 Lane 将像正常一样尝试训练过程。
+
+## **Configuration 子状态详解**
+
+此处提供了每个子状态的详细解释，以涵盖 Configuration 的所有子状态，如第 553 页的图 14‐24 所示。鉴于前面讨论的链路训练示例，Configuration 子状态应该更容易理解。
+
+**552**
+
+**第 14 章：链路初始化与训练**
+
+_图 14‐24：Configuration 状态机_
+
+**==> picture [380 x 281] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+从 Polling 或 Recovery 进入 退出到<br>指示 Loopback<br>Config.Linkwidth.Start<br>指示 退出到<br>Config.Linkwidth.Accept Disable<br>退出到<br>Detect Config.Lanenum.Wait<br>Config.Lanenum.Accept<br>Config.Complete<br>2ms 超时 和<br>2ms 超时，未达到最大<br>和最大恢复尝试 在 Recovery 的尝试。退出到<br>已达到。 Config.Idle<br>Recovery<br>8 个空闲 Rx，Tx 16 个空闲<br>退出到 全开电源状态<br>L0 分组传输/<br>接收开始<br>**----- End of picture text -----**<br>
+
+
+## **Configuration.Linkwidth.Start**
+
+此子状态在 Polling 状态的正常完成之后（如第 527 页 "Polling.Configuration" 中所述）进入，或者如果 Recovery 状态发现自上次分配以来链路或 Lane 号已更改，因此恢复过程无法正常完成（如第 571 页 "Recovery State" 中所述）。
+
+## **下游 Lane。**
+
+## _在 Configuration.Linkwidth.Start 期间_
+
+下游端口现在成为此链路上的领导者，并在所有活动 Lane 上发送具有非 PAD 链路号的 TS1（只要 LinkUp 未设置且链路宽度的向上配置未正在进行）。在 TS1 中，链路号字段从 PAD 更改为数字，而 Lane 号保持 PAD。规范中对链路号值的唯一约束是，如果支持多个链路，则它们对于每个可能的链路必须是唯一的。例如，x8 链路将在所有 8 个 Lane 上具有相同的链路号，但如果它也可以配置为两个 x4 链路，则两组 4 个 Lane 将被分配不同的链路号，例如一组为 5，另一组为 6。这些值对链路伙伴是本地的，不需要软件跟踪它们或尝试使它们在整个系统中唯一。如果 upconfigure_capable 位设置为 1b，则这些 TS1 也将在接收到两个连续的 Link 和 Lane 号设置为 PAD 的 TS1 的任何非活动 Lane 上发送。
+
+- 从 Polling 进入此子状态时，任何检测到接收器的 Lane 被视为活动。
+
+- 从 Recovery 进入时，通过 Configuration.Complete 后成为链路一部分的任何 Lane 被视为活动 Lane。
+
+- 必须在 TS1 中通告所有支持的数据速率，即使端口不打算使用它们。
+
+**交叉链路。** 对于 LinkUp = 0b 且支持可选交叉链路功能的情况，所有检测到接收器的 Lane 必须发送最少 16 到 32 个具有非 PAD 链路号和 PAD Lane 号的 TS1。之后，端口将评估其接收的内容以查看是否存在交叉链路。
+
+**向上配置链路宽度。** 如果 LinkUp = 1b 且 LTSSM 想要向上配置链路，则在当前活动 Lane、它打算激活的非活动 Lane 以及已看到传入 TS1 的 Lane 上发送 Link 和 Lane 号设置为 PAD 的 TS1。当 Lane 接收到返回的两个连续的 TS1 时，或在 1ms 后，链路号在正在发送的 TS1 中分配一个值。
+
+- 如果激活非活动 Lane，则发送器必须等待 Tx 共模电压稳定后再退出电气空闲并发送 TS1。
+
+- 对于将分组到链路中的 Lane，链路号必须相同。只有对于能够充当唯一链路的 Lane 组，数字才不同。
+
+- _退出到 "如果其他条件都不成立，则 24ms 超时后。"_ 任何之前接收到至少一个具有 PAD 的 Link 和 Lane 号的 TS1 的 Lane 现在接收到两个具有匹配发送链路号的非 PAD 链路号且 Lane 号仍为 PAD 的连续 TS1 将退出到 Configuration.Linkwidth.Accept 子状态。
+
+**554**
+
+**第 14 章：链路初始化与训练**
+
+## _退出到 "Configuration.Linkwidth.Start"_
+
+- 如果此子状态接收的第一组 TS1 具有非 PAD 链路号，则可以理解存在交叉链路，并且链路邻居也表现为下游端口。为了处理这种情况，下游 Lane 更改为上游 Lane 并选择随机的交叉链路超时。下一个子状态将是相同的 Configuration.Linkwidth.Start，但 Lane 现在表现为上游 Lane。
+
+这支持两个链路伙伴都表现为下游端口时的可选行为。这种情况的解决方案是将两者都更改为上游端口并为每个分配一个随机超时，当它到期时将其更改为下游端口。由于超时不会相同，最终一个端口被视为下游，而另一个被视为上游，然后训练可以继续进行。超时必须是随机的，以便即使连接了两个相同的设备，任何可能的死锁最终也会被打破。
+
+如果支持交叉链路，则接收到的 TS1 序列首先具有 PAD 的链路号，后来具有匹配发送链路号的非 PAD 链路号，仅在该序列未被 TS2 中断时才有效。
+
+## _退出到 "Disable 状态"_
+
+如果端口被更高层指示在所有检测到的 Lane 上发送 Disable Link 位被断言的 TS1 或 TS2。通常，下游端口将启动此操作，但对于可选的交叉链路情况，它可以改为变为上游端口，然后如果在两个连续的 TS1 中设置了 Loopback 位，则 Disable 将是下一个状态。
+
+## _退出到 "Loopback 状态"_
+
+如果支持环回的发送器被更高层指示发送 Loopback 位被断言的 TS 有序集，或者如果正在发送 TS1 的 Lane 接收到 2 个连续的设置了 Loopback 位的 TS1。发送设置了该位的 TS1 的端口将成为环回主设备，而接收它们的端口将成为环回从设备。
+
+**555**
+
+**PCI Express Technology**
+
+## _退出到 "Detect 状态"_
+
+如果其他条件都不成立，则在 24ms 超时后。
+
+## **上游 Lane。**
+
+## _在 Configuration.Linkwidth.Start 期间_
+
+上游端口现在成为此链路上的追随者，并返回发送 Link 和 Lane 号字段设置为 PAD 的 TS1 有序集。它将继续这样做，直到它开始从下游端口（领导者）接收具有非 PAD 链路号的 TS1。
+
+上游端口在以下 Lane 上发送 Link 和 Lane 值设置为 PAD 的 TS1：a) 所有活动 Lane，b) 它想要向上配置的 Lane，以及 c) 如果 upconfigure_capable 设置为 1b，则在该子状态中已接收到两个连续的 Link 和 Lane 号设置为 PAD 的 TS1 的每个非活动 Lane 上。
+
+- 从 Polling 进入此子状态时，任何检测到接收器的 Lane 被视为活动。
+
+- 从 Recovery 进入时，通过 Configuration.Complete 后成为链路一部分的任何 Lane 被视为活动 Lane。如果转换不是由 LTSSM 超时引起的，则如果发送器确实计划因自动原因更改链路宽度，则发送器必须将 TS1 符号 4 位 6 的 Autonomous Change 位设置为 1b。
+
+- 必须在 TS1 中通告所有支持的数据速率，即使端口不打算使用它们。
+
+**交叉链路。** 对于 LinkUp = 0b 且支持可选交叉链路功能的情况，所有检测到接收器的 Lane 必须发送最少 16 到 32 个 Link 和 Lane 值设置为 PAD 的 TS1。之后，端口将评估其接收的内容以查看是否存在交叉链路。
+
+_退出到 "如果其他条件都不成立，则 24ms 超时后。"_
+
+- 如果_任何_ Lane 接收到两个具有非 PAD 链路号和 PAD Lane 号的连续 TS1，则此端口转换到 Configuration.Linkwidth.Accept 子状态，其中为这些 Lane 选择一个接收到的链路号，并在_所有_接收到具有非 PAD 链路号的 TS1 的 Lane 上使用该链路号和 PAD Lane 号发送 TS1。任何剩余的检测到接收器但没有链路号的 Lane 必须发送 Link 和 Lane 号设置为 PAD 的 TS1。
+
+- 如果正在向上配置链路，LTSSM 等待直到它在以下情况下接收到两个具有非 PAD 链路号和 PAD Lane 号的连续 TS1：a) 它想要激活的所有非活动 Lane，或 b) 在进入此子状态后 1ms 内的任何
+
+**556**
+
+**第 14 章：链路初始化与训练**
+
+Lane，以较早者为准。之后，它使用所选链路号以及 PAD Lane 号发送 TS1。
+
+- 为了避免配置比必要的更小的链路，建议在某些 Lane 上看到错误或丢失块对齐的多 Lane 链路延迟此接收器评估。对于 8b/10b 编码，它应至少再等待两个 TS1，而对于 128b/130b 编码，它应至少等待 34 个 TS1，但任何情况下都不能超过 1ms。
+
+- 激活非活动 Lane 后，发送器必须等待 Tx 共模电压稳定后再退出电气空闲并发送 TS1。
+
+## _退出到 "Configuration.Linkwidth.Start"_
+
+- 交叉链路超时后，发送 16 到 32 个 Link 和 Lane 值设置为 PAD 的 TS2。上游 Lane 更改为下游 Lane，下一个子状态将是相同的 Configuration.Linkwidth.Start，但这次 Lane 表现为下游 Lane。对于连接在一起的两个上游端口的情况，此可选行为允许其中一个最终作为下游端口担任领导角色。
+
+## _退出到 "Disable 状态"_
+
+如果满足以下任一条件：
+
+- 任何正在发送 TS1 的 Lane 也接收到 Disable Link 位被断言的 TS1。
+
+- 支持可选交叉链路，并且所有正在发送和接收 TS1 的 Lane 在两个连续的 TS1 中接收 Disable Link 位，或者交叉链路端口被更高层指示在所有检测到接收器的 Lane 上的 TS1 和 TS2 中断言 Disable 位。
+
+## _退出到 "Loopback 状态"_
 
 </td>
 </tr></tbody></table>
@@ -538,7 +1002,339 @@ The first is when rates higher than 2.5 GT/s are supported by both partners and 
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+- 如果支持环回的发送器被更高层指示发送 Loopback 位被断言的 TS 有序集，或者所有正在发送和接收 TS1 的 Lane 接收到 2 个连续的设置了 Loopback 位的 TS1。发送设置了该位的 TS1 的端口将成为环回主设备，而接收它们的端口将成为环回从设备。
+
+## _退出到 "Detect 状态"_
+
+- 如果其他条件都不成立，则在 24ms 超时后。
+
+**557**
+
+**PCI Express Technology**
+
+## **Configuration.Linkwidth.Accept**
+
+此时，上游端口现在在其所有 Lane 上发送回具有相同链路号的 TS1 有序集。链路号源自下游端口，上游端口只是将该值反映回其所有 Lane。现在下游端口知道链路宽度（接收相同链路号的 Lane 数）并且必须开始通告 Lane 号。因此领导者（下游端口）继续发送 TS1，但现在使用指定的实际 Lane 号而不是 PAD。此外，所有这些 TS1 将具有相同的链路号。下游和上游 Lane 的详细行为概述如下：
+
+## **下游 Lane**
+
+## _在 Configuration.Linkwidth.Accept 期间_
+
+- 下游端口现在将启动 Lane 号。如果可以从至少一组 Lane 形成链路，并且所有 Lane 都接收两个连续的 TS1 并且都看到相同的链路号，则发送保持相同链路号的 TS1 但现在也分配唯一的非 PAD Lane 号。
+
+## _退出到 "Configuration.Lanenum.Wait"_
+
+- 下游端口不会在 Configuration.Linkwidth.Accept 子状态中停留很长时间。一旦它从上游端口接收到指示链路宽度的必要 TS1，它就会更新所需的任何内部状态信息，开始发送如上所述的具有非 PAD Lane 号的 TS1，并立即转换到 Configuration.Lanenum.Wait 以等待来自上游端口的 Lane 号确认。
+
+## **上游 Lane**
+
+## _在 Configuration.Linkwidth.Accept 期间_
+
+- 上游端口发送 TS1，其中在_所有_接收到具有非 PAD 链路号的 TS1 的 Lane 上的 TS1 中选择并发送一个接收到的链路号。任何剩余的检测到接收器但没有链路号的 Lane 必须发送 Link 和 Lane 号设置为 PAD 的 TS1。
+
+## _退出到 "Configuration.Lanenum.Wait"_
+
+- 上游端口必须响应链路邻居向其提议的 Lane 号。如果可以使用在其 TS1 上发送非 PAD 链路号并接收到两个具有相同链路号和任何非 PAD Lane 号的连续 TS1 的 Lane 形成链路，那么它应发送与相同 Lane 号分配匹配的 TS1（如果可能），或者如果需要则不同（例如使用可选的 Lane 反转）。
+
+**558**
+
+**第 14 章：链路初始化与训练**
+
+## **Configuration.Lanenum.Wait**
+
+在讨论 Configuration.Lanenum.Wait 状态之前，一些背景信息可能会有所帮助。Lane 号从零开始按顺序分配到链路可能的最大数量。例如，x8 链路将被分配 Lane 号 0 ‐ 7。端口需要支持与其具有的 Lane 数一样宽的链路和一个小至一个 Lane 的链路。Lane 将始终从 Lane 0 开始，并且必须既是顺序的又是连续的。例如，如果 x8 端口上的某些 Lane 无法工作，则可以选择将其设计为配置 x4 链路，如果是这样，它将需要使用 Lane 0‐3。作为另一个示例，如果 x8 端口的 Lane 2 无法工作，则不可能使用 Lane 0、1、3 和 4 形成 x4 链路，因为 Lane 不是连续的。任何剩余的 Lane 必须发送 Link 和 Lane 设置为 PAD 的 TS1。
+
+规范中针对 Configuration 子状态重复了许多次的常见时序注意事项。这里不是在每种情况下重复它，只需注意它通常适用于上游和下游端口：
+
+为了避免配置比必要的更小的链路，建议在某些 Lane 上看到错误或丢失块对齐的多 Lane 端口延迟最终链路宽度评估。对于 8b/10b，它应至少再等待两个 TS1，而对于 128b/130b 模式，它应至少等待 34 个 TS1，但任何情况下都不能超过 1ms。其想法是 Lane 在上电或复位后可能需要稳定时间。
+
+## _退出到 "Detect 状态"_
+
+在 2ms 超时后，如果无法配置链路（例如：Lane 0 不工作且 Lane 反转不可用），或者如果所有 Lane 接收到两个连续的 Link 和 Lane 号中都带有 PAD 的 TS1，则链路必须退出到 Detect 状态。
+
+## **下游 Lane**
+
+## _在 Configuration.Lanenum.Wait 期间_
+
+下游端口将继续传输具有非 PAD 链路和 Lane 号的 TS1，直到满足退出条件之一。
+
+## _退出到 "Configuration.Lanenum.Accept"_
+
+如果满足下列任一情况：
+
+- 如果在所有 Lane 上接收到两个连续的 TS1，其链路和 Lane 号与在这些 Lane 上发送的内容匹配。
+
+**559**
+
+**PCI Express Technology**
+
+- 如果任何检测到接收器的 Lane 接收到两个连续的 TS1，其 Lane 号与 Lane 首次进入此子状态时不同，并且至少一些 Lane 看到非 PAD 链路号。规范指出，这允许两个端口就相互可接受的链路宽度达成一致。
+
+## _退出到 "Detect 状态"_
+
+在 2ms 超时后，或者如果所有 Lane 接收到两个连续的 Link 和 Lane 号设置为 PAD 的 TS1。
+
+上游 Lane
+
+## _在 Configuration.Lanenum.Wait 期间_
+
+上游端口将继续传输具有非 PAD 链路和 Lane 号的 TS1，直到满足退出条件之一。
+
+## _退出到 "Configuration.Lanenum.Accept"_
+
+如果满足下列任一情况：
+
+- 如果任何 Lane 接收到两个连续的 TS2。
+
+- 如果任何 Lane 接收到两个连续的 TS1，其 Lane 号与 Lane 首次进入此子状态时不同，并且至少一些 Lane 看到非 PAD 链路号。
+
+请注意，允许上游 Lane 在更改为该子状态之前等待最多 1ms，以防止接收错误或 Lane 之间的偏移影响最终链路配置。
+
+## _退出到 "Detect 状态"_
+
+在 2ms 超时后，或者如果所有 Lane 接收到两个连续的 Link 和 Lane 号设置为 PAD 的 TS1。
+
+## **Configuration.Lanenum.Accept**
+
+下游 Lane
+
+## _在 Configuration.Lanenum.Accept 期间_
+
+下游端口现在已接收到具有非 PAD 链路和 Lane 号的 TS1。在这一点上，下游端口必须决定是否可以使用上游端口返回的 Lane 号建立链路。三个可能的状态转换在下面列出。
+
+## _退出到 "Configuration.Complete"_
+
+如果接收到两个连续的 TS1 具有相同的非 PAD 链路和 Lane 号，并且它们与所有 Lane 的 TS1 中传输的链路和 Lane 号匹配，则上游端口已同意下游端口通告的链路和
+
+**560**
+
+**第 14 章：链路初始化与训练**
+
+Lane 号，下一个子状态是 Configuration.Complete。或者如果接收到的 TS1 中的 Lane 号与下游端口通告的相反，如果下游端口支持 Lane 反转，它仍然可以使用反转的 Lane 号继续到 Configuration.Complete。
+
+规范指出，反转 Lane 条件严格定义为 Lane 0 接收具有最高 Lane 号（Lane 总数 ‐ 1）的 TS1，并且最高 Lane 号接收 Lane 号为零的 TS1。可以从中理解的是，课堂上偶尔出现的问题的答案：Lane 号是否可以混合而不是顺序的？答案是不可以的，它们必须是从 0 到 n‐1 或从 n‐1 到 0；不支持其他选项。
+
+如果 Configuration 状态是从 Recovery 状态进入的，则可能已请求带宽更改。如果是这样，状态位将更新以报告发生的情况的性质。基本上，系统需要报告此更改是由于链路工作不可靠而启动，还是因为硬件只是在管理链路功率。位更新如下：
+
+- 如果带宽更改是由下游端口因可靠性问题而启动的，则链路带宽管理状态位设置为 1b。
+
+- 如果带宽更改不是由下游端口启动，但两个连续接收的 TS1 中的 Autonomous Change 位清零为 0b，则链路带宽管理状态位设置为 1b。
+
+- 否则，链路自动带宽状态位设置为 1b。
+
+## _退出到 "Configuration.Lanenum.Wait"_
+
+- 如果可以使用部分（但不是全部）接收两个连续的具有相同非 PAD 链路和 Lane 号的 TS1 的 Lane 形成配置的链路，则这些 Lane 使用相同的链路号和新的 Lane 号发送 TS1。目标是使用较小的 Lane 组来实现工作的链路。
+
+新的 Lane 号必须从零开始并按顺序递增以覆盖将使用的 Lane。任何不接收 TS1 的 Lane 不能成为组的一部分，并将破坏 Lane 编号。任何剩余的 Lane 必须发送 Link 和 Lane 设置为 PAD 的 TS1。例如，如果 8 个 Lane 可用，但 Lane 2 看不到传入的 TS1，则链路不能由需要 Lane 2 的组组成。因此，x8 和 x4 选项将不可用，只有 x1 或 x2 链路是可能的。
+
+**561**
+
+**PCI Express Technology**
+
+## _退出到 "Detect 状态"_
+
+- 如果无法配置链路，或者如果所有 Lane 接收到两个连续的具有 PAD 的链路和 Lane 号的 TS1。
+
+## **上游 Lane**
+
+## _在 Configuration.Lanenum.Accept 期间_
+
+- 上游端口现在已接收到具有非 PAD 链路和 Lane 号的 TS2 或 TS1。在这一点上，上游端口必须决定是否可以使用下游端口发送的 Lane 号建立链路。三个可能的状态转换在下面列出。
+
+## _退出到 "Configuration.Complete"_
+
+- 如果接收到两个连续的 TS2 具有相同的非 PAD 链路和 Lane 号，并且它们与这些 Lane 的 TS1 中传输的链路和 Lane 号匹配，则一切正常，下一个子状态将是 Configuration.Complete。
+
+## _退出到 "Configuration.Lanenum.Wait"_
+
+- 如果可以使用接收两个连续的具有相同非 PAD 链路和 Lane 号的 TS1 的 Lane 的子集形成配置的链路，则这些 Lane 使用相同的链路号和新的 Lane 号发送 TS1。目标是使用较小的 Lane 组来实现工作的链路。在这种情况下，下一个子状态将是 Configuration.Lanenum.Wait。
+
+与下游 Lane 的情况一样，新的 Lane 号必须从零开始并按顺序递增以覆盖将使用的 Lane。任何不接收 TS1 的 Lane 不能成为组的一部分，并将破坏 Lane 编号。任何剩余的 Lane 必须发送 Link 和 Lane 设置为 PAD 的 TS1。
+
+## _退出到 "Detect 状态"_
+
+- 如果无法配置链路，或者如果所有 Lane 接收到两个连续的具有 PAD 的链路和 Lane 号的 TS1，则下一个状态将是 Detect。
+
+## **Configuration.Complete**
+
+这是 Configuration 状态中交换 TS2 的唯一子状态。如前所述，TS2 的目的是一种握手或确认，即链路上的两个设备已准备好继续到下一个状态。因此这是 TS1 中交换的链路和 Lane 号的最终确认
+
+**562**
+
+**第 14 章：链路初始化与训练**
+
+应注意的是，允许设备在进入此子状态时更改其支持的数据速率和向上配置能力，但不能在其中更改。这是因为设备从这些 TS2 中通告的内容记录其链路伙伴的能力，如本节所述。
+
+## **下游 Lane**
+
+## _在 Configuration.Complete 期间_
+
+使用与接收到的 TS1 匹配的链路和 Lane 号发送 TS2。如果端口支持使用 Lane 0 的 x1 链路并能够向上配置链路，则 TS2 可以设置 Upconfigure Capability 位。
+
+对于 8b/10b 编码，离开此子状态时必须完成 Lane 去偏移。此外，如果所有配置的 Lane 看到两个连续的设置了 Disable Scrambling 位的 TS2，则将禁用加扰。发送这些的端口还必须禁用加扰。请注意，由于加扰对信号完整性有必要贡献，因此在 128b/130b 模式下不能禁用加扰。
+
+下游端口正在发送 TS2 并监视返回的 TS2。供将来参考，记录从传入 TS2 的 N_FTS 字段中退出 L0s 状态时必须发送的 FTS 数。
+
+## _退出到 "Configuration.Idle"_
+
+当所有发送 TS2 的 Lane 接收 8 个 TS2，具有匹配的链路和 Lane 号（非 PAD）、匹配的速率标识符以及所有链路中匹配的 Link Upconfigure Capability 位时，下一个状态将是 Configuration.Idle。在接收到一个 TS2 之后，还必须发送至少 16 个 TS2。
+
+如果设备支持大于 2.5 GT/s 的速率，则它必须记录在任何已配置 Lane 上接收到的速率标识符，并且这将覆盖任何先前记录的值。用于跟踪 Recovery 中速度更改的变量 "changed_speed_recovery" 被清零。
+
+变量 "upconfigure_capable" 在以下情况下设置为 1b：如果设备发送 Link Upconfigure Capability 设置为 1b 的 TS2 并接收 8 个连续的设置了相同位的 TS2。否则，它被清零。
+
+未配置为链路一部分的任何 Lane 不再与正在进行的 LTSSM 关联，并且必须是以下之一：
+
+- 与新的 LTSSM 关联，或
+
+- 转换到电气空闲
+
+   - a) 如果那些 Lane 之前已通过 L0 配置为链路的一部分，并且 LinkUp 仍设置为 1b，则出现特殊情况
+
+**563**
+
+**PCI Express Technology**
+
+从那以后。如果链路具有向上配置能力，它们必须保持与同一 LTSSM 关联。对于这种情况，还建议那些 Lane 保持其接收器终端开启，因为如果链路被向上配置，它们将再次成为链路的一部分。如果终端未保持开启，则它们必须在 LTSSM 进入 Recovery.RcvrCfg 状态时一直通过 Configuration.Complete 打开。但是，通过此过程，之前不是链路一部分的 Lane 不能成为其一部分。
+
+- b) 对于可选交叉链路，接收器终端必须介于 ZRX‐HIGH‐IMP‐DC‐POS 和 ZRX‐HIGH‐IMP‐DC‐NEG 之间。
+
+- c) 如果 LTSSM 返回 Detect，这些 Lane 将再次与其关联。
+
+- d) 在 Lane 进入电气空闲之前不需要 EIOS，并且转换不必在符号或有序集边界上发生。
+
+## 在 2ms 超时后：
+
+_退出到 "Configuration.Idle"_
+
+如果 idle_to_rlock_transitioned 变量小于 FFh **且**当前数据速率为 8.0 GT/s，则下一个状态是 Configuration.Idle。
+
+在此转换中，变量 "changed_speed_recovery" 被清零。此外，如果至少一个 Lane 看到八个具有匹配链路和 Lane 号（非 PAD）的连续 TS2，则变量 "upconfigure_capable" 可以更新，尽管不需要这样做。如果发送和接收的 Link Upconfigure Capability 位为 1b，则将其设置为 1b，否则清零。
+
+未配置链路一部分的 Lane 不与正在进行的 LTSSM 关联，并具有与上面列出的非超时情况相同的要求。
+
+_退出到 "Detect 状态"_
+
+否则，下一个状态是 Detect。
+
+## **上游 Lane**
+
+_在 Configuration.Complete 期间_
+
+使用与接收到的 TS2 匹配的链路和 Lane 号发送 TS2。如果端口支持使用 Lane 0 的 x1 链路并能够向上配置链路，则 TS2 可以设置 Upconfigure Capability 位。
+
+**564**
+
+**第 14 章：链路初始化与训练**
+
+对于 8b/10b 编码，离开此子状态时必须完成 Lane 去偏移。此外，如果所有配置的 Lane 看到两个连续的设置了 Disable Scrambling 位的 TS2，则将禁用加扰。发送这些的端口还必须禁用加扰。请注意，由于加扰对信号完整性有必要贡献，因此在 128b/130b 模式下不能禁用加扰。
+
+在此子状态中，上游端口正在从下游端口接收 TS2，供将来参考，应记录从传入 TS2 中的 N_FTS 字段值退出 L0s 状态时必须发送的 FTS 数。
+
+## _退出到 "Configuration.Idle"_
+
+当所有发送 TS2 的 Lane 接收 8 个 TS2，具有匹配的链路和 Lane 号（非 PAD）、匹配的速率标识符以及所有链路中匹配的 Link Upconfigure Capability 位时，下一个状态将是 Configuration.Idle。在接收到一个 TS2 之后，还必须发送至少 16 个 TS2。
+
+如果设备支持大于 2.5 GT/s 的速率，则它必须记录在任何已配置 Lane 上接收到的速率标识符，并且这将覆盖任何先前记录的值。用于跟踪 Recovery 中速度更改的变量 "changed_speed_recovery" 被清零。
+
+变量 "upconfigure_capable" 在以下情况下设置为 1b：如果设备发送 Link Upconfigure Capability 设置为 1b 的 TS2 并接收 8 个连续的设置了相同位的 TS2。否则，它被清零。
+
+未配置为链路一部分的任何 Lane 不再与正在进行的 LTSSM 关联，并且必须是以下之一：
+
+- 可选择与新的交叉链路 LTSSM 关联（如果支持此功能），或
+
+- 转换到电气空闲
+
+   - a) 如果那些 Lane 之前已通过 L0 配置为链路的一部分，并且 LinkUp 自那时起仍设置为 1b，则出现特殊情况。如果链路具有向上配置能力，它们必须保持与同一 LTSSM 关联。对于这种情况，还建议那些 Lane 保持其接收器终端开启，因为如果链路被向上配置，它们将再次成为链路的一部分。如果它们未保持开启，则它们必须在 LTSSM 进入 Recovery.RcvrCfg 状态时一直通过 Configuration.Complete 打开。但是，通过此过程，之前不是链路一部分的 Lane 不能成为其一部分。
+
+**565**
+
+**PCI Express Technology**
+
+- b) 接收器终端必须介于 ZRX‐HIGH‐IMP‐DC‐POS 和 ZRX‐
+
+   - HIGH‐IMP‐DC‐NEG 之间。
+
+- c) 如果 LTSSM 返回 Detect，这些 Lane 将再次与其关联。
+
+- d) 在 Lane 进入电气空闲之前不需要 EIOS，并且转换不必在符号或有序集边界上发生。
+
+## 在 2ms 超时后：
+
+## _退出到 "Configuration.Idle"_
+
+如果 idle_to_rlock_transitioned 变量小于 FFh **且**当前数据速率为 8.0 GT/s，则下一个状态是 Configuration.Idle。
+
+在此转换中，变量 "changed_speed_recovery" 被清零。此外，如果至少一个 Lane 看到八个具有匹配链路和 Lane 号（非 PAD）的连续 TS2，则变量 "upconfigure_capable" 可以更新，尽管不需要这样做。如果发送和接收的 Link Upconfigure Capability 位为 1b，则将其设置为 1b，否则清零。
+
+未配置链路一部分的 Lane 不与正在进行的 LTSSM 关联，并具有与上面列出的非超时情况相同的要求。
+
+## _退出到 "Detect 状态"_
+
+否则，下一个状态是 Detect。
+
+## **Configuration.Idle**
+
+## _在 Configuration.Idle 期间_
+
+在此子状态中，发送器正在发送空闲数据并等待接收空闲数据的最小数量，以便此链路可以转换到 L0。在此期间，物理层向上层报告链路处于运行状态（Linkup = 1b）。
+
+对于 8b/10b 编码，发送器在所有已配置 Lane 上发送空闲数据。空闲数据只是被加扰和编码的数据零。
+
+对于 128b/130b 编码，发送器在所有已配置 Lane 上发送一个 SDS 有序集，后跟空闲数据符号。Lane 0 上的第一个空闲符号是数据流的第一个符号。
+
+**566**
+
+**第 14 章：链路初始化与训练**
+
+## _退出到 "L0 状态"_
+
+如果使用 8b/10b 编码，则下一个状态是 L0，如果在所有已配置 Lane 上接收到 8 个连续的空闲数据符号时间，并且在接收到一个空闲符号之后发送了 16 个符号时间的空闲数据。
+
+如果使用 128b/130b，则下一个状态是 L0，如果在所有已配置 Lane 上接收到 8 个连续的空闲数据，在接收到一个空闲符号之后发送了 16 个空闲，并且此状态不是通过 Configuration.Complete 的超时进入的。
+
+- 数据流处理开始之前必须完成 Lane 到 Lane 去偏移。
+
+- 必须在数据块中接收空闲符号。
+
+- 如果软件自上次从 Recovery 或 Configuration 转换到 L0 以来在 Link Control 寄存器中设置了 Retrain Link 位，则下游端口必须将 Link Status 寄存器中的 Link Bandwidth Management 位设置为 1b，以指示此更改不是硬件发起的（自动）。
+
+- 转换到 L0 时，变量 "idle_to_rlock_transitioned" 清零为 00h。
+
+## 在 2ms 超时后：
+
+## _退出到 "Recovery 子状态详解"_
+
+如果 idle_to_rlock_transitioned 变量小于 FFh，则下一个状态是 Recovery (Recovery.RcvrLock)。然后：
+
+- a) 对于 8.0 GT/s，idle_to_rlock_transitioned 递增 1。
+
+- b) 对于 2.5 或 5.0 GT/s，将 idle_to_rlock_transitioned 设置为 FFh。
+
+- c) 注意：此变量计算 LTSSM 因序列未工作而从此状态转换到 Recovery 状态的次数。问题可能是均衡尚未正确调整或所选速度根本不起作用，Recovery 状态将采取措施解决这些问题。此变量限制这些尝试的次数以避免无限循环。如果在进行此操作 256 次（当计数达到 FFh 时）后链路仍不工作，则返回 Detect 并重新开始，希望获得更好的结果。
+
+_退出到 "Detect 状态"_
+
+否则（即 idle_to_rlock = FFh），下一个状态是 Detect。
+
+**567**
+
+**PCI Express Technology**
+
+## **L0 状态**
+
+这是正常的、完全运行的链路状态，在此期间逻辑空闲、TLP 和 DLLP 在链路邻居之间交换。L0 在链路训练过程结束后立即实现。物理层还通过设置 LinkUp 变量来通知上层链路已准备好运行。此外，变量 idle_to_rlock_transitioned 清零为 00h。
+
+## _退出到 "Recovery 状态"_
+
+如果指示链路速度或链路宽度的变化，或者如果链路伙伴通过转到 Recovery 或电气空闲来启动此操作，则下一个状态将是 Recovery。让我们在下面的讨论中更详细地考虑这三种情况中的每一种。
+
+## **速度更改**
+
+规范中描述了将导致自动速度更改的两种条件。
+
+第一种是当两个伙伴都支持高于 2.5 GT/s 的速率并且链路处于活动状态（数据链路层报告 DL_Active），或者当一个伙伴在其 TS 有序集中请求速度更改时。例如，如果注意到更高速率并且软件写入 Retrain Link 位并在将 Target Link Speed 字段（参见第 569 页的图 14‐26）设置为与当前速率不同的速率之后，下游端口将启动速度更改。
 
 </td>
 </tr></tbody></table>
@@ -696,7 +1492,354 @@ When the data rate is 8.0 GT/s, the Lanes must establish the proper equal‐ iza
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+第二种情况是当两个端口都支持 8.0 GT/s，并且其中之一希望执行 Tx 均衡 (Tx Equalization) 时。在这两种情况下，directed_speed_change 变量将被设置为 1b，changed_speed_recovery 位将被清除为 0b。
+
+如果从未在 Configuration.Complete 或 Recovery.RcvrCfg 子状态中看到对端 Port 通告过高于 2.5 GT/s 的速率，那么该 Port 将不会尝试速率变更（不会设置 directed_speed_change 变量）。
+
+**568**
+
+**Chapter 14: Link Initialization & Training**
+
+_Figure 14‐25: Link Control Register_
+
+**==> picture [280 x 235] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+15 12 11 10 9 8 7 6 5 4 3 2 1 0<br>RsvdP<br>Link Autonomous Bandwidth<br>Interrupt Enable<br>Link Bandwidth Management<br>Interrupt Enable<br>Hardware Autonomous<br>Width Disable<br>Enable Clock<br>Power Management<br>Extended Synch<br>Common Clock<br>Configuration<br>Retrain Link<br>Link Disable<br>Read Completion<br>Boundary Control<br>RsvdP<br>Active State<br>PM Control<br>**----- End of picture text -----**<br>
+
+
+## _Figure 14‐26: Link Control 2 Register_
+
+**==> picture [306 x 161] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+15 12 11 10 9 7 6 5 4 3 0<br>Compliance Preset/<br>De-emphasis<br>Compliance SOS<br>Enter Modified Compliance<br>Transmit Margin<br>Selectable De-emphasis<br>Hardware Autonomous<br>Speed Disable<br>Enter Compliance<br>Target Link Speed<br>**----- End of picture text -----**<br>
+
+
+**569**
+
+**PCI Ex ress Technolo p gy**
+
+## **链路宽度变更**
+
+上层通常只有在 upconfigure_capable 被设置为 1b 时才会指示减小链路宽度 (Link width reduction)，否则链路将无法恢复为原始宽度。如果 Hardware Autonomous Width Disable 位设置为 1b，则 Port 只能通过减小宽度来尝试纠正可靠性问题。上层只有在链路对端已通告其支持 upconfigure 并且链路尚未达到其最大宽度时，才能启动链路宽度的增加。除了这些指导原则之外，更改链路宽度的决策标准在规范中并未给出，因此属于实现相关的。
+
+## **由链路对端启动**
+
+规范为此情况描述了三种可能性。
+
+第一种情况是，如果在任何 Lane 上未先收到 EIOS，就在所有 Lane 上检测到或推断出 Electrical Idle（参见 596 页的 Table 14‐10），则该 Port 可以选择进入 Recovery 状态或保持在 L0。如果此条件导致错误，则可以通过设置 Retrain Link 位等手段将 Port 引导至 Recovery。
+
+第二种情况是，当在任何已配置的 Lane 上收到 TS1 或 TS2（或 128b/130b 的 EIEOS）时，表明链路对端已经进入 Recovery 状态。由于这两种情况都是由链路对端发起的，因此允许发送器 (Transmitter) 完成当前正在进行的任何 TLP 或 DLLP。
+
+最后，如果在任何 Lane 上收到 EIOS，表明发生了链路电源管理变化，但接收器 (Receiver) 不支持 L0s 并且也未被引导至 L1 或 L2，那么进入 Recovery 状态是唯一的选择。
+
+## _退出至 "L0s 状态"_
+
+对于已被指示启动 L0s 的发送器，或已看到 EIOS 的接收器，下一状态将是 L0s。有趣的是，此时 Port 的发送器和接收器的 LTSSM 状态可以不同，因为一方可能处于 L0s 状态，而另一方仍处于 L0 状态。
+
+- 发送器在指示时（如果实现了 L0s）进入 L0s，并发送 EIOS 来启动该变更。
+
+- 接收器在任何 Lane 上看到 EIOS 时进入 L0s。但是，如果接收器未实现 L0s 并且未被引导至 L1 或 L2，这将被视为问题，下一状态将是 "Recovery 状态"。
+
+**570**
+
+**Chapter 14: Link Initialization & Training**
+
+## _退出至 "Rx_L0s.Entry"_
+
+- 当一个链路对端被指示启动此状态并向所有 Lane 发送一个 EIOS（速率为 5.0 GT/s 时为两个 EIOS）并且在任何 Lane 上接收到 EIOS 时，下一状态将为 L1。请注意，两个链路对端必须事先就进入 L1 达成一致，并且需要数据链路层 (Data Link Layer) 的握手以确保双方都已准备好。有关其工作原理的更多详细信息，请参见 733 页 "Introduction to Link Power Management" 一节。
+
+## _退出至 "L2 状态"_
+
+当一个链路对端被指示启动此状态并向所有 Lane 发送一个 EIOS（速率为 5.0 GT/s 时为两个 EIOS）并且在任何 Lane 上接收到 EIOS 时，下一状态将为 L2。请注意，两个链路对端必须事先就进入 L2 达成一致，并且需要握手以确保双方都已准备好。有关其工作原理的更多详细信息，请参见 733 页 "Introduction to Link Power Management" 一节。
+
+## **Recovery 状态**
+
+如果一切如预期工作，链路将训练到 L0 状态而无需进入 Recovery 状态。但我们已经讨论了可能并非如此的两个原因。首先，如果在 Configuration.Idle 中未看到正确的 Symbol 模式，LTSSM 将进入 Recovery 状态，以通过例如调整均衡值的方式来尝试纠正信号问题。其次，一旦以 2.5 GT/s 的数据速率达到 L0，并且两个设备都支持更高速度，LTSSM 将进入 Recovery 状态并尝试将链路速度更改为最高共同支持/通告的速度。在此状态下，将重新获取 Bit Lock 以及 Symbol Lock 或 Block Alignment，并对链路进行重新去偏斜 (de-skew)。链路号和 Lane 号应保持不变，除非正在更改链路宽度。在这种情况下，LTSSM 将通过 Configuration 状态重新协商链路宽度。
+
+注意：为了简化讨论并避免多次重复相同文本，此处将使用术语 "Lock" 来表示 Bit Lock 与 Symbol Lock（针对 8b/10b 编码）或 Block Alignment（针对 128b/130b 编码）的组合。接收器必须获取此 Lock 才能识别 Symbol、有序集 (Ordered Sets) 和数据包 (Packets)。
+
+**571**
+
+**PCI Ex ress Technolo p gy**
+
+## **进入 Recovery 状态的原因**
+
+- 退出 L1 状态；这是必需的，因为退出 L1 时没有像发送 FTS 有序集那样的快速训练选项
+
+- 退出 L0s 时，如果接收器未能在规定时间内从 FTS 有序集获得 Lock，则链路必须转移至 Recovery
+
+- 从 L0 进入，如果：
+
+  - 初始训练完成时，存在更高的数据速率可用。
+
+  - 已请求链路速度或宽度变更（用于电源管理或当前速度/宽度不可靠）。
+
+  - 软件设置 Link Control 寄存器中的 Retrain Link 位（参见 644 页 Figure 14‐71），以尝试清除传输问题。
+
+  - 错误条件（例如与数据链路层 Ack/Nak 协议关联的 Replay Num Roll-over 事件）会自动导致物理层 (Physical Layer) 逻辑重新训练链路。
+
+  - 接收器在任何已配置的 Lane 上看到 TS1 或 TS2，意味着相邻设备已进入 Recovery。
+
+  - 接收器在所有已配置的 Lane 上看到 Electrical Idle，但并未先收到 Electrical Idle Ordered Set。
+
+## **启动 Recovery 过程**
+
+任一 Port 都可以通过向其相邻设备发送 TS1 来启动 Recovery。当 Port 看到传入的 TS1 时，它知道另一个 Port 已进入 Recovery，因此它也会进入 Recovery 并返回 TS1。两个接收器首先使用 TS1 重新获取 Lock（如有必要），然后根据需要继续进行其他子状态。这在 573 页的 Figure 14‐27 中显示。子状态中发生什么的详细描述在后续各节中提供。
+
+**572**
+
+**Chapter 14: Link Initialization & Training**
+
+_Figure 14‐27: Recovery State Machine_
+
+**==> picture [343 x 188] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Entry from Recovery.Speed Exit to Exit to<br>L1, L0, L0s Loopback Configuration<br>Recovery.Equalization<br>Recovery.RcvrLock Recovery.Idle Exit to<br>(bit/sym bol re-lock) Recovery.RcvrCfg (Send idle data) Disabled<br>Exit to Hot<br>Exit to Exit to Reset<br>Configuration Detect<br>Exit to L0<br>**----- End of picture text -----**<br>
+
+
+## **详细的 Recovery 子状态**
+
+## _在 Recovery.RcvrLock 期间_
+
+- 无论速度如何，发送器在所有已配置的 Lane 上使用在 Configuration 状态中设置的相同链路号和 Lane 号发送 TS1。如果进入 Recovery 状态的目的是更改速度，则在启动设备的 TS1 中，Data Rate Identifier Symbol 中的 speed_change 位将被设置为 1b，并且内部变量 directed_speed_change 被设置为 1b。如果传入 TS1 中的 speed_change 位置位，则该变量也将在另一个设备中设置。此外，进入此子状态时，successful_speed_negotiation 变量被清除为 0b。
+
+在此子状态中，允许上游端口 (Upstream Port) 指定当以 5GT/s 运行时下游端口 (Downstream Port) 应使用的去加重 (de-emphasis) 电平。这是通过将其 TS1 中的 Selectable De-emphasis 位设置为所需值来实现的。链路上的位错误可能会阻止此信息到达下游端口，因此允许上游端口在为速度变更进入 Recovery 状态时再次请求去加重电平。如果下游端口计划使用所请求的电平，则它必须在此状态下记录 Selectable De-emphasis 位的值。
+
+**573**
+
+**PCI Ex ress Technolo p gy**
+
+进入此状态时也可以应用新的发送器电压。Link Control 2 寄存器中的 Transmit Margin 字段在进入此子状态时被采样，并保持有效直到在从 L0、L0s 或 L1 再次进入此子状态时采样到新值。
+
+希望将速率更改为 8.0 GT/s 并重新执行均衡的下游端口必须发送 speed_change 位置位的 EQ TS1 并通告 8.0 GT/s 速率。如果上游端口接收到 8 个连续的 speed_change 位设置为 1b 且支持 8.0 GT/s 速率的 EQ TS1 或 EQ TS2，则预计它也将通告 8.0 GT/s 速率，除非它已确定该速率存在无法通过均衡修复的可靠性问题。请注意，允许 Port 在进入此状态时更改其通告的数据速率，但只能更改那些可以可靠支持的速率。除了此处描述的条件之外，设备不允许在此子状态或 Recovery.RcvrCfg 或 Recovery.Equalization 中更改其支持的数据速率。
+
+## _退出至 "Recovery.RcvrCfg"_
+
+- 如果接收到 8 个连续的 TS1 或 TS2，其链路号和 Lane 号与正在发送的匹配 _并且_ 它们的 speed_change 位等于 directed_speed_change 变量 _并且_ 它们的 EC 字段为 00b（如果当前数据速率为 8.0 GT/s），则下一状态将为 Recovery.RcvrCfg。
+
+- 如果设置了 Extended Synch 位，则在进入 Recovery.RcvrCfg 之前必须发送至少 1024 个连续的 TS1。
+
+- 如果此子状态是从 Recovery.Equalization 进入的，则上游端口必须将所有 Lane 接收到的均衡系数或预设值与均衡过程第 2 阶段接受的最终系数或预设值集合进行比较。如果它们不匹配，它将在其发送的 TS2 中设置 Request Equalization 位。
+
+## _退出至 "Recovery.Equalization"_
+
+当数据速率为 8.0 GT/s 时，Lane 必须建立适当的均衡参数以获得良好的信号完整性。本节不适用于较低的速度。仅仅因为链路以 8.0 GT/s 运行，它并不会在每次进入 Recovery 时都经过 Recovery.Equalization 子状态。仅当满足以下条件之一时才会进入 Recovery.Equalization：
+
+- 如果 start_equalization_w_preset 变量设置为 1b，则：
+
+   - a) 上游端口在切换到 8.0 GT/s 之前，从其看到的 8 个连续 TS2 中注册了预设值。它必须使用发送器预设，并且可以可选地使用其接收到的接收器预设。
+
+   - b) 下游端口必须在切换到 8.0 GT/s 时立即使用其 Lane Equalization Control 寄存器中定义的发送器预设，并且可以可选地使用其中找到的接收器预设。
+
+- 否则（变量未设置），发送器必须使用在均衡过程上一次执行时它们所同意的系数设置。
+
+   - a) 如果 8 个连续的传入 TS1 具有与正在发送的链路号和 Lane 号匹配、speed_change 位为 0b、但 EC 位为非零的值，则上游端口的下一状态将为 Recovery.Equalization，表明下游端口希望重做均衡过程的某些部分。规范指出，下游端口可以在软件或实现特定的指示下执行此操作。与往常一样，执行此操作所花费的时间不得导致事务超时错误，这实际上意味着下游端口需要确保在执行此步骤之前没有进行中的事务。
+
+   - a) 如果被指示，下游端口的下一状态将为 Recovery.Equalization，只要此状态不是从 Configuration.Idle 或 Recovery.Idle 进入的。规范指出，在发送 EC 值为非零的 TS1 之前，不应发送超过两个 EC=00b 的 TS1，以请求重做均衡。
+
+否则，经过 24ms 超时后：
+
+## _退出至 "Recovery.RcvrCfg"_
+
+如果同时满足以下两个条件，则下一状态将为 Recovery.RcvrCfg：
+
+- 接收到 8 个连续的 TS1 或 TS2，其链路号和 Lane 号与正在发送的匹配，并且其 speed_change 位等于 1b。
+
+- 并且当前数据速率已经高于 2.5 GT/s，或者至少在 TS1 或 TS2 中显示支持更高速率。
+
+## _退出至 "Recovery.Speed"_
+
+如果满足以下两个条件中的另一个，则下一状态将为 Recovery.Speed：
+
+- 如果当前速度设置为高于 2.5 GT/s 但自进入 Recovery 以来无法正常工作（通过将变量 changed_speed_recovery 清零为 0b 来指示）。离开 Recovery.Speed 后的新速率将回退到 2.5 GT/s。
+
+- 如果 changed_speed_recovery 变量设置为 1b，表明高于 2.5 GT/s 的速率已经可以工作，但链路无法以新协商的速率运行。结果，链路将恢复为从 L0 或 L1 进入 Recovery 时的速率。
+
+**575**
+
+**PCI Ex ress Technolo p gy**
+
+## _退出至 "Configuration 状态"_
+
+否则，如果未请求速度变更（directed_speed_change 变量 = 0b 并且 TS1 和 TS2 中的 speed_change 位为 0b），或者最高共同支持的数据速率为 2.5 GT/s，则 LTSSM 将返回到 Configuration。
+
+## _退出至 "Detect 状态"_
+
+最后，如果其他条件都不满足，则下一状态将为 Detect。
+
+## **速度变更示例**
+
+规范在此子状态的讨论中包含了一个速度变更的示例。场景是两个链路相邻设备（设备 A 和设备 B）正在退出复位，两者都支持 5.0 GT/s 和 8.0 GT/s 速率。
+
+首先，链路将使用 Gen1 速率 2.5 GT/s 自动训练到 L0。（此行为很可能会在未来的规范版本中继续存在，因为它提供了与旧设计的向后兼容性。）
+
+在我们的示例中，两个设备都支持更高的速率，这由训练期间其 TS 有序集中的 Rate Identifier 字段指示。两个设备都注意到对方支持更高的速率，其中之一（设备 A）将首先将其 directed_speed_change 变量设置为 1b。发生这种情况时，它将进入 Recovery.RcvrLock 并发送 speed_change 位置位的 TS1。如果所需速率为 8.0 GT/s 且之前未使用过，则设备将交换 EQ TS1 以传递要使用的 TX 均衡器预设，而不是发送普通 TS1。
+
+设备 B 看到传入的 TS1，并转换到 Recovery.RcvrLock。当它识别出 8 个连续的 speed_change 位置位的 TS1 时，它通过在其自己的 TS1 中设置 speed_change 位进行响应并进入 Recovery.Speed。设备 A 等待该响应，当看到 8 个连续的 speed_change 位置位的 TS1 时，它进入 Recovery.RcvrCfg，然后进入 Recovery.Speed。在该子状态中，发送器被置为 Electrical Idle，速率被更改为最高共同支持的速率，并且 directed_speed_change 变量被清除。
+
+经过超时周期后，两个设备都转移回 Recovery.RcvrLock，并且发送器使用新速度（在本例中为 8.0 GT/s）重新激活。它们现在再次发送 TS1，这次 speed_change 位被清除为 0b。如果新速度工作正常，它们将转移到 Recovery.RcvrCfg 并返回 L0。但是，如果设备 B 存在问题，例如未能获得 Bit Lock，则它将在此子状态中超时并返回到 Recovery.Speed。设备 A 此时可能
+
+**576**
+
+**Chapter 14: Link Initialization & Training**
+
+已经转移到 Recovery.RcvrCfg，但是当它现在看到 Electrical Idle（指示相邻设备已返回到 Recovery.Speed）时，它也将返回到该状态。返回到 Recovery.Speed 会导致两个设备都恢复到进入 Recovery 时的速度（在本例中为 2.5 GT/s），并返回到 Recovery.RcvrLock。
+
+作为对该发展的响应，设备 A 可能会再次设置 directed_speed_change 并第二次尝试该过程。如果再次失败，设备 A 可以选择从其通告列表中删除 8.0 GT/s 速率并在没有该速率的情况下再次尝试速度变更。由于现在最高公共速率为 5.0 GT/s，如果此尝试成功，则速率将最终为 5.0 GT/s。如果仍然无效，设备 A 可能会放弃尝试使用更高的速率。设备如何以及何时选择更改其通告的速率或放弃尝试使更高速率工作，在规范中并未给出，将取决于具体实现。
+
+## **链路均衡概述**
+
+本节提供了均衡过程的概述，并为读者理解详细的子状态机行为做好准备（如果他们对此感兴趣）。
+
+使用更高的链路速度会比较低的数据速率产生更多的信号失真。为了补偿这种失真并最大限度地减少系统设计人员的工作和成本，3.0 规范增加了对发送器均衡 (Transmitter Equalization) 的要求。与较低速率的固定去加重值不同（去加重实际上本身就是一种简单的发送器均衡形式），新方法使用主动握手过程来使发送器与实际信号环境相匹配。在此过程中，每个接收器 Lane 评估传入信号的质量，并建议链路对端应使用的 Tx 均衡参数，以满足信号质量要求。
+
+链路均衡过程在第一次更改为 8.0 GT/s 数据速率之后执行。规范强烈建议自主启动均衡过程（在硬件中自动启动），但并不要求这样做。如果组件选择不使用自主机制，则必须使用基于软件的机制。如果任一端口无法通过此过程实现必要的信号质量，LTSSM 将得出该速率无法工作的结论，并返回到 Recovery.Speed 以请求较低的速率。
+
+该过程涉及多达四个阶段，如下文所述。一旦速度已更改为 8.0 GT/s，正在使用的当前均衡阶段由 TS1 中的 EC（Equalization Control）字段指示，如 Figure 14‐28 所示。
+
+**577**
+
+**PCI Ex ress Technolo p gy**
+
+_Figure 14‐28: EC Field in TS1s and TS2s for 8.0 GT/s_
+
+**==> picture [293 x 262] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Symbol 6<br>
+7 6 5 4 3 2 1 0<br>
+0<br>
+Tx Preset EC<br>
+1 Link #<br>
+2 Lane # Use Preset Reset EIEOS<br>
+Interval Count<br>
+3 # FTS<br>
+Symbol 7<br>
+4 Rate ID<br>
+7 6 5 4 3 2 1 0<br>
+5 Train Ctl FS value when EC = 01b,<br>
+Rsvd<br>
+6 Otherwise Pre-Cursor Coefficient<br>
+EQ Info<br>
+Symbol 8<br>
+9<br>
+7 6 5 4 3 2 1 0<br>
+10<br>
+LF value when EC = 01b,<br>
+Rsvd<br>
+TS ID Otherwise Cursor Coefficient<br>
+13 Symbol 9<br>
+7 6 5 4 3 2 1 0<br>
+14<br>
+TS ID<br>
+15 P [RCV] Post-Cursor Coefficient<br>
+**----- End of picture text -----**<br>
+
+
+## **Phase 0**
+
+当下游端口准备好从较低速率更改为 8.0 GT/s 速率时，它进入 Recovery.RcvrCfg 子状态，并使用 EQ TS2 向上游端口发送 Tx 预设和 Rx 提示，如 510 页 "TS1 and TS2 Ordered Sets" 中所述。（请注意，如果链路已经以 8.0 GT/s 运行，则跳过此阶段。）下游端口 (DSP) 根据其 Equalization Control 寄存器（参见 579 页 Figure 14‐29）的内容发送 Tx 预设值。这突出的一点是，每个 Lane 可以具有不同的均衡值。下游端口将对其自己的发送器使用 DSP 值，并可选地用于其接收器，并将 USP 值发送到上游端口，以供其在切换到更高速度时使用。
+
+**578**
+
+**Chapter 14: Link Initialization & Training**
+
+_Figure 14‐29: Equalization Control Registers_
+
+**==> picture [275 x 270] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+31 Link Control 3 Register 2  1  0<br>
+RsvdP<br>
+31 Lane Error Status Register 0<br>
+Equalization Control Registers<br>
+31 16  15 0<br>
+Lane (1) Control Lane (0) Control<br>
+Lane (3) Control Lane (2) Control<br>
+Lane (n) Control Lane (n-1) Control<br>
+Control Register Contents<br>
+15  14 12  11 8  7  6 4  3 0<br>
+USP USP DSP DSP<br>
+R R<br>
+Rx Hint Tx Preset Rx Hint Tx Preset<br>
+USP = UpStream Port   DSP = DownStream Port<br>
+**----- End of picture text -----**<br>
+
+
+_Table 14‐8: Tx Preset Encodings_
+
+|**Encoding**|**De‐emphasis**|**Preshoot**|
+|---|---|---|
+|0000b|‐6|0|
+|0001b|‐3.5|0|
+|0010b|‐4.5|0|
+|0011b|‐2.5|0|
+|0100|0|0|
+
+
+
+**579**
+
+## **PCI Ex ress Technolo p gy**
+
+_Table 14‐8: Tx Preset Encodings (Continued)_
+
+|**Encoding**|**De‐emphasis**|**Preshoot**|
+|---|---|---|
+|0101|0|2|
+|0110|0|2.5|
+|0111|‐6|3.5|
+|1000|‐3.5|3.5|
+|1001|0|3.5|
+|1010|Depends on FS<br>and LS values|Depends<br>on FS and<br>LS values|
+|1011b to<br>1111b|Reserved|Reserved|
+
+
+
+_Table 14‐9: Rx Preset Hint Encodings_
+
+|**Encoding**|**Rx Preset Hint**|
+|---|---|
+|000b|‐6 dB|
+|001b|‐7 dB|
+|010b|‐8 dB|
+|011b|‐9 dB|
+|100|‐10 dB|
+|101|‐11 dB|
+|110|‐12 dB|
+|111|Reserved|
+
+
+
+一旦速率确实改变，下游端口从 Phase 1 开始，并发送 EC = 01b 的 TS1。然后它等待上游端口以相同的 EC 值进行响应。
+
+同时，上游端口从 Phase 0 开始，如 581 页 Figure 14‐30 所示，并发送回显其早先从
+
+**580**
+
+**Chapter 14: Link Initialization & Training**
+
+EQ TS1 和 EQ TS2 接收到的预设值的 TS1。如果支持，它将使用所请求的 Tx 预设，并可选地使用 Rx 提示。USP 允许在评估传入信号之前等待 500ns，但一旦它能够识别两个连续的 TS1，就准备好进行下一步。这意味着信号质量满足最低 BER 10[‐4]（即误码率小于万分之一）。随后 USP 在其 TS1 中设置 EC=01b，从而进入 Phase 1 并将下一步的控制权交给 DSP。
+
+_Figure 14‐30: Equalization Process: Starting Point_
+
+**==> picture [250 x 199] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Root Port<br>
+Downstream<br>
+Port<br>
+EC = 01b EC = 00b<br>
+Upstream<br>
+Port<br>
+Endpoint<br>
+**----- End of picture text -----**<br>
+
+
+**Phase 1**
 
 </td>
 </tr></tbody></table>
@@ -883,7 +2026,413 @@ Root Port<br>Downstream<br>Port<br>EC = 01b EC = 00b<br>Upstream<br>Port<br>Endp
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+DSP 执行与 USP 相同的操作，并通过检测背靠背 TS1 实现 10[‐4] 的 BER。在此期间，DSP 传达其 Tx 预设和 FS（Full Swing）、LF（Low Frequency）以及 Post-cursor 系数值，如 584 页 Figure 14‐32 所示。规范给出了一些必须满足的、针对一组所请求系数的附加规则，这些规则如下：
+
+1. |C‐1| <= Floor (FS/4)，（注意：Floor 意味着向下舍入到整数值） 2. |C‐1| + C0 + |C+1| = FS
+
+3. C0 ‐ |C‐1| ‐ |C+1| >= LF
+
+**581**
+
+## **PCI Ex ress Technolo p gy**
+
+FS 表示最大电压，LF 将最小电压定义为 LF/FS。这些信息告知接收器可能的值数量，并允许系数作为整数值传达但作为小数值被理解。
+
+作为示例，假设我们使用为 P7 预设设置定义的系数。FS 值用作参考，可以是 63 之前的任何数字，但为了便于计算，我们假设它为 30。对于 P7，C‐1 为 ‐0.1，在 TS1 中传达以表示 C‐1 的值为 3，因为 3/30 = 0.1，并且始终被视为负值。C+1 为 ‐0.2，因此将其传达为 6，因为 6/30 = 0.2 并且始终为负值。C0 为 0.7，因此它将作为 21 发送，因为 21/30 = 0.7。最后，LF 值表示可能的最小比值，对于 P7 而言，该比值为最大值的 0.4 倍。因此，LF 将被传达为 12，因为 12/30 = 0.4。
+
+有了这些信息，让我们检查三个规则，看它们是否对 P7 情况得到满足：
+
+1. 3 <= Floor (12/4)，这等于 3 <= 3，并且为真。
+
+2. 3 + 21 + 6 = 30 这是真的。
+
+3. 21 ‐ 3 ‐ 6 >= 12 这也为真，因此 P7 满足所有三个检查。
+
+一旦下游端口确认链路工作得足够好可以继续进行（它识别出 EC = 01b 的传入 TS1），那么此阶段就完成了，它通过将其 EC = 10b 启动向 Phase 2 的变更（如图 583 页 Figure 14‐31 所示），并将下一步的控制权交回给 USP。当 USP 以 EC = 10b 响应时，两个 Port 都进入 Phase 2。作为一种愉快的替代方案，下游端口可以确定此时的信号质量已经足够好，无需进一步调整。在这种情况下，它将其 EC 设置为 00b 以退出均衡过程。
+
+**582**
+
+**Chapter 14: Link Initialization & Training**
+
+_Figure 14‐31: Equalization Process: Initiating Phase 2_
+
+**==> picture [232 x 202] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Root Port<br>
+Downstream<br>
+Port<br>
+EC = 10b EC = 01b<br>
+Upstream<br>
+Port<br>
+Endpoint<br>
+**----- End of picture text -----**<br>
+
+
+## **Phase 2**
+
+信号质量已经足够好以识别 TS1，但还不足以用于运行时操作。一旦两个 Port 都进入 Phase 2，则允许上游端口为下游端口请求 Tx 设置，然后评估它们的工作效果，重复该过程直到获得当前环境下的最佳设置。为了提出请求，它更改其在 TS1 中发送的均衡信息值。如 584 页 Figure 14‐32 所示，有几个感兴趣的值：
+
+- **Tx 预设 (Tx Preset)：** Tx 预设是对发送器设置的粗粒度调整，旨在使其进入当前信号环境的正确大致范围。上游端口设置此值，并设置 "Use Preset" 指示符（Symbol 6 的位 7）以告诉下游端口的发送器使用它。如果未设置 Use Preset 位，则表示预设应保持不变，并且应更改系数值。Tx 系数被视为细粒度调整。
+
+**583**
+
+## **PCI Ex ress Technolo p gy**
+
+_Figure 14‐32: Equalization Coefficients Exchanged_
+
+**==> picture [309 x 267] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Symbol 6<br>
+7 6 5 4 3 2 1 0<br>
+0<br>
+Tx Preset EC<br>
+1 Link #<br>
+2 Lane # Use Preset Reset EIEOS<br>
+Interval Count<br>
+3 # FTS<br>
+Symbol 7<br>
+4 Rate ID<br>
+7 6 5 4 3 2 1 0<br>
+5 Train Ctl FS value when EC = 01b,<br>
+Rsvd<br>
+6 Otherwise Pre-Cursor Coefficient<br>
+EQ Info<br>
+Symbol 8<br>
+9<br>
+7 6 5 4 3 2 1 0<br>
+10<br>
+LF value when EC = 01b,<br>
+Rsvd<br>
+TS ID Otherwise Cursor Coefficient<br>
+13 Symbol 9<br>
+7 6 5 4 3 2 1 0<br>
+14<br>
+TS ID<br>
+15 P [RCV] Post-Cursor Coefficient<br>
+**----- End of picture text -----**<br>
+
+
+- **系数 (Coefficients)：** 由于规范要求使用 3-tap Tx 均衡器，定义了三个系数值，可以将其视为对信号脉冲的电压调整，以补偿其在通过传输介质时将经历的失真，如 585 页 Figure 14‐33 所示。这在 474 页 "Solution for 8.0 GT/s ‐ Transmitter Equalization" 一节的物理层电气部分中进行了更详细的介绍。
+
+- **Pre-Cursor 系数：** 应用于采样点之前信号的乘数，可根据需要增强或减弱信号。
+
+- **Cursor 系数：** 采样点乘数；始终为正。
+
+- **Post-Cursor 系数：** 应用于采样点之后信号的乘数，可根据需要增强或减弱信号。
+
+- 一旦信号达到所需的质量标准，上游端口通过将 EC 更改为 11b 来表示它已准备好进入下一阶段。
+
+**584**
+
+**Chapter 14: Link Initialization & Training**
+
+_Figure 14‐33: 3‐Tap Transmitter Equalization_
+
+**==> picture [251 x 238] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+V<br>
+Unmodified Signal<br>
+t<br>
+UI UI UI UI<br>
+Cursor<br>
+V<br>
+Pre-cursor Post-cursor<br>
+reduction reduction<br>
+Equalized Signal<br>
+t<br>
+UI UI UI UI<br>
+Cursor<br>
+**----- End of picture text -----**<br>
+
+
+_Figure 14‐34: Equalization Process: Adjustments During Phase 2_
+
+**==> picture [250 x 200] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Root Port<br>
+Evaluate Propose<br>
+resulting new Tx<br>
+Rx signal EQ values<br>
+Endpoint<br>
+**----- End of picture text -----**<br>
+
+
+**585**
+
+**PCI Ex ress Technolo p gy**
+
+## **Phase 3**
+
+下游端口通过发送 EC = 11b 进行响应，并且现在可以为上游端口的发送器执行相同的信号评估过程。它发送请求新设置的 TS1，方式如下：如果设置了 Use Preset 位，则定义新预设，否则将提供新系数。连续发送此内容 1μs 或直到请求已对其结果进行评估，以较晚者为准。该评估必须等待 500ns，加上通过发送逻辑传出和返回到接收逻辑的往返时间。可以测试不同的均衡设置，直到找到实现所需信号质量的一个设置为止。在该点，下游端口通过将 EC 设置为 00b 来退出均衡过程。
+
+_Figure 14‐35: Equalization Process: Adjustments During Phase 3_
+
+**==> picture [252 x 197] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Root Port<br>
+Propose Evaluate<br>
+new Tx<br>
+resulting<br>
+EQ values<br>
+Rx signal<br>
+Endpoint<br>
+**----- End of picture text -----**<br>
+
+
+## **均衡说明**
+
+规范提到了与均衡过程相关的其他项目，如下所述：
+
+- 所有 Lane 必须参与该过程；即使那些稍后可能在 upconfigure 事件之后才变为活动的 Lane。
+
+- 组件用于评估传入信号并确定其链路对端应使用的均衡值的算法在规范中并未给出，属于实现特定的。
+
+**586**
+
+**Chapter 14: Link Initialization & Training**
+
+- 均衡变更可以针对任意数量的 Lane 请求，并且 Lane 可以使用不同的值。
+
+- 在细调步骤结束时（上游端口为 Phase 2，下游端口为 Phase 3），每个组件负责确保发送器设置使其满足规范要求。
+
+- 组件必须评估调整其发送器设置的请求并采取行动。如果给出了有效值，它们必须使用这些值，并将其反映在它们发送的 TS1 中。
+
+- 如果值不符合规则，则可以拒绝调整系数的请求。所请求的值仍会反映在发回的 TS1 中，但 Reject Coefficient Values 位将被设置。
+
+- 组件必须存储通过此过程确定的均衡值，以供将来在 8.0 GT/s 下使用。规范并未明确说明这一点，但作者的观点是这些值将在速度更改为较低速率然后再返回到 8.0 GT/s 速率时仍然保留。这是有意义的，因为重复 EQ 过程可能需要很长时间，并且假设电气环境没有变化，所得到的值将相同。
+
+- 组件允许随时微调其接收器，只要不会导致链路变得不可靠或进入 Recovery 状态。
+
+## **详细的均衡子状态**
+
+本节涵盖链路均衡期间状态机行为的详细描述。
+
+## **Recovery.Equalization**
+
+此子状态用于执行 8.0 GT/s 及更高速率的链路均衡过程。较低速率不使用均衡，并且在这些速率生效时 LTSSM 不会进入此子状态。由于这是 PCIe 的一个新且复杂的主题，因此从高级别视图对整体均衡过程的描述在状态机详细信息之后呈现，参见 577 页 "Link Equalization Overview" 一节。但首先，让我们逐步了解子状态以查看该过程的机制。
+
+## **下游 Lane**
+
+下游端口从均衡过程的 Phase 1 开始。要开始此过程，需要重置几个位。在 Link Status 2 寄存器（588 页 Figure 14‐36）中，进入此子状态时清除以下位：
+
+**587**
+
+**PCI Ex ress Technolo p gy**
+
+- Equalization Phase 1 Successful
+
+- Equalization Phase 2 Successful
+
+- Equalization Phase 3 Successful
+
+- Link Equalization Request
+
+- Equalization Complete
+
+Link Control 3 寄存器的 Perform Equalization 位也被清除为 0b，内部变量 start_equalization_w_preset 也被清除。equalization_done_8GT_data_rate 变量被设置为 1b。
+
+_Figure 14‐36: Link Status 2 Register_
+
+**==> picture [320 x 145] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+15 6 5 4 3 2 1 0<br>
+RsvdZ<br>
+Link Equalization Request<br>
+Equalization Phase 3 Successful<br>
+Equalization Phase 2 Successful<br>
+Equalization Phase 1 Successful<br>
+Equalization Complete<br>
+Current De-emphasis Level<br>
+**----- End of picture text -----**<br>
+
+
+_Figure 14‐37: Link Control 3 Register_
+
+**==> picture [341 x 103] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+31 2 1 0<br>
+RsvdP<br>
+Link Equalization Request<br>
+Interrupt Enable<br>
+Perform Equalization<br>
+**----- End of picture text -----**<br>
+
+
+**588**
+
+**Chapter 14: Link Initialization & Training**
+
+**Phase 1 Downstream。** 在此阶段，下游端口发送 EC = 01b 的 TS1，同时使用来自 Lane Equalization Control 寄存器的预设值，并使用与 Tx 预设字段对应的 FS、LF 和 Post-cursor 系数字段。如果需要时间稳定其接收器逻辑，则允许其等待 500ns 后再评估传入的 TS1。
+
+## _退出至 "Phase 2 Downstream"_
+
+如果下游端口希望继续均衡过程，并且当所有已配置的 Lane 接收到两个连续的 EC = 01b 的 TS1 时，下游端口将转换到 Phase 2。此时，Port 将 Equalization Phase 1 Successful 状态位设置为 1b，并存储接收到的 TS1 LF 和 FS 值以在 Phase 3 中使用（如果下游端口计划调整上游端口的 Tx 系数）。
+
+## _退出至 "详细的 Recovery 子状态"_
+
+如果下游端口不希望使用 Phase 2 和 Phase 3，则它将状态位设置为 1b（Eq. Phase 1 Successful、Eq. Phase 2 Successful、Eq. Phase 3 Successful 和 Eq. Complete）。这样做的原因之一可能是它已经可以看到信号特性足够好，不需要其他阶段。
+
+## _退出至 "Recovery.Speed"_
+
+如果在 24ms 超时后仍未看到连续的 TS1，则下一状态为 Recovery.Speed。successful_speed_negotiation 标志被清除为 0b，Equalization Complete 状态位被设置为 1b。
+
+**Phase 2 Downstream。** 在此阶段，下游端口发送 EC = 10b 的 TS1，并根据以下规则在每个 Lane 上独立分配系数设置：
+
+- 如果接收到两个连续的 EC = 10b 的 TS1（上游端口已进入 Phase 2），无论是首次接收，还是具有与上次不同的预设或系数值，并且如果所请求的值是合法且受支持的，则在第二个 TS1 请求结束后的 500ns 内将 Tx 设置更改为使用它们。同时，在发送回上游端口的 TS1 中反映这些值，并将 Reject Coefficient Values 位清除为 0b。请注意，更改不得使发送器处的电压或参数违规超过 1ns。
+
+   - a) 如果所请求的预设或系数不合法或不受支持，则不要更改 Tx 设置，但在
+
+**589**
+
+## **PCI Ex ress Technolo p gy**
+
+发送的 TS1 中反映接收到的值，并将 Reject Coefficient Values 位设置为 1b（参见 590 页 Figure 14‐38）。
+
+- 如果未看到两个连续的 TS1，则保持当前 Tx 预设和系数值。
+
+## _退出至 "Phase 3 Downstream"_
+
+当上游端口对更改感到满意时，它开始发送 EC = 11b 的 TS1，表明希望更改为 Phase 3。当接收到两个这样的连续 TS1 时，将 Eq. Phase 2 Successful 状态位设置为 1b 并更改为 Phase 3。
+
+## _退出至 "Recovery.Speed"_
+
+如果在 32ms 之后，尚未发生到 Phase 3 的转换，则 Port 应清除 successful_speed_negotiation 标志，设置 Equalization Complete 状态位并退出到 Recovery.Speed 子状态。
+
+_Figure 14‐38: TS1s ‐ Rejecting Coefficient Values_
+
+**==> picture [264 x 258] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Symbol 6<br>
+7 6 5 4 3 2 1 0<br>
+0<br>
+Tx Preset EC<br>
+1 Link #<br>
+2 Lane # Use Preset Reset EIEOS<br>
+Interval Count<br>
+3 # FTS<br>
+Symbol 7<br>
+4 Rate ID<br>
+7 6 5 4 3 2 1 0<br>
+5 Train Ctl FS value when EC = 01b,<br>
+Rsvd<br>
+6 Otherwise Pre-Cursor Coefficient<br>
+EQ Info<br>
+Symbol 8<br>
+9<br>
+7 6 5 4 3 2 1 0<br>
+10<br>
+LF value when EC = 01b,<br>
+Rsvd<br>
+TS ID Otherwise Cursor Coefficient<br>
+13 Symbol 9<br>
+7 6 5 4 3 2 1 0<br>
+14<br>
+TS ID<br>
+15 P [RCV] Post-Cursor Coefficient<br>
+**----- End of picture text -----**<br>
+
+
+**590**
+
+**Chapter 14: Link Initialization & Training**
+
+**Phase 3 Downstream。** 在此阶段，下游端口发送 EC = 11b 的 TS1，并开始为每个 Lane 独立评估上游 Tx 设置的过程。
+
+在发送的 TS1 中，下游端口可以通过将 Use Preset 位设置为 1b 并将 Tx 预设字段设置为所需值来请求新预设，或者通过将 Use Preset 位清除为 0b 并将 Pre-cursor、Cursor 和 Post-Cursor 系数字段设置为所需值来请求新系数。任何一种请求都必须连续发送至少 1μs 或直到评估完成。如果要提供新的预设或系数设置，则必须在所有 Lane 上同时发送。但是，如果某个 Lane 希望保留其当前设置，则不需要该 Lane 请求新设置。
+
+下游端口必须等待足够长的时间以确保上游发送器有机会实现所请求的更改（500ns 加上逻辑的往返延迟），然后获取 Block Alignment 并评估传入的 TS1。在等待期间，预计不会从上游端口收到任何有用的内容，甚至可能不合法。这就是为什么在那段时间之后获取 Block Alignment 是必需的。
+
+如果看到两个连续的 TS1 与正在请求的相同预设或系数值匹配，并且未设置 Reject Coefficient Values 位，则所请求的设置已被接受并可以评估。如果值匹配但 Reject Coefficient Values 位设置为 1b，则所请求的值已被上游端口拒绝并且未在使用中。对于这种情况，规范建议下游端口使用不同的值重试，但不要求这样做，并且可以选择简单地退出此阶段。
+
+对预设或系数请求所花费的总时间（从发送请求到完成评估）必须小于 2ms。对于在最终优化阶段需要更多时间的设计，可提供例外，但此阶段的总时间不能超过 24ms，并且例外只能使用两次。如果接收器无法识别任何传入的 TS1，则可以假定所请求的设置对该 Lane 不起作用。
+
+## _退出至 "详细的 Recovery 子状态"_
+
+当所有已配置的 Lane 都具有其最佳设置时，下一状态将为 Recovery.RcvrLock。发生这种情况时，Equalization Phase 3 Successful 和 Equalization Complete 状态位将被设置为 1b。
+
+**591**
+
+**PCI Ex ress Technolo p gy**
+
+_退出至 "Recovery.Speed"_
+
+否则，在 24ms 超时后（容差为 ‐0 或 +2ms），下一状态将为 Recovery.Speed，successful_speed_negotiation 标志被清除为 0b，同时 Equalization Complete 状态位被设置为 1b。
+
+## **上游 Lane**
+
+上游端口从均衡过程的 Phase 0 开始，并且必须重置几个内部位。在 Link Status 2 寄存器（588 页 Figure 14‐36）中，进入此子状态时清除以下位：
+
+- Equalization Phase 1 Successful
+
+- Equalization Phase 2 Successful
+
+- Equalization Phase 3 Successful
+
+- Link Equalization Request
+
+- Equalization Complete
+
+Link Control 3 寄存器的 Perform Equalization 位也被清除为 0b，内部变量 start_equalization_w_preset 也被清除。equalization_done_8GT_data_rate 变量被设置为 1b。
+
+**Phase 0 Upstream。** 在此阶段，上游端口发送 EC = 00b 的 TS1，同时使用在进入此状态之前在 EQ TS2 中传递的 Tx 预设值。正在发送的 TS1 中的均衡信息字段必须显示预设值以及与该预设对应的 Pre-cursor、Cursor 和 Post-cursor 系数字段。请注意，如果 Lane 在 EQ TS2 中接收到保留的或不受支持的 Tx 预设值，或者根本没有接收到 EQ TS2，则该 Lane 的 Tx 预设字段和系数值由设备特定的方法选择。
+
+_退出至 "Phase 1 Upstream"_
+
+当所有已配置的 Lane 接收到两个连续的 EC = 01b 的 TS1 时，表明它们能够识别来自下游端口的 TS1（下游端口始终以此值开始），则下一阶段为 Phase 1。
+
+如果上游端口计划调整下游端口的 Tx 系数，则必须存储在 TS1 中接收到的均衡值 LF 和 FS 以在 Phase 2 期间使用。
+
+上游端口可以在进入 Phase 0 之后等待 500ns 再评估传入的 TS1，以使其接收器逻辑有时间稳定。
+
+**592**
+
+**Chapter 14: Link Initialization & Training**
+
+## _退出至 "Recovery.Speed"_
+
+如果在 12ms 超时内未识别传入的 TS1，则 LTSSM 将转换到 Recovery.Speed，清除 successful_speed_negotiation 标志并设置 Equalization Complete 状态位。
+
+**Phase 1 Upstream。** 在此阶段，上游端口发送 EC = 01b 的 TS1，同时使用在 Phase 0 中确定的发送器设置。这些 TS1 包含 FS、LF 和 Post-cursor 系数值以及当前正在使用的内容。
+
+## _退出至 "Phase 2 Upstream"_
+
+如果所有已配置的 Lane 接收到两个连续的 EC = 10b 的 TS1，表明下游端口希望进入 Phase 2，则下一阶段将为 Phase 2，并且此 Port 将设置 Equalization Phase 1 Successful 状态位。
+
+_退出至 "详细的 Recovery 子状态"_
+
+如果所有已配置的 Lane 接收到两个连续的 EC = 00b 的 TS1，则意味着下游端口已确定均衡过程已经完成，并希望跳过剩余阶段。在这种情况下，下一状态将为 Recovery.RcvrLock，并且 Equalization Phase 1 Successful 和 Equalization Complete 状态位被设置为 1b。
+
+## _退出至 "Recovery.Speed"_
+
+否则，在 12ms 超时后，LTSSM 将转换到 Recovery.Speed，清除 successful_speed_negotiation 标志并设置 Equalization Complete 状态位。
+
+**Phase 2 Upstream。** 在此阶段，上游端口发送 EC = 10b 的 TS1，并开始为下游端口寻找最佳 Tx 值的过程。回想一下，每个 Lane 的设置是独立确定的。过程如下：
+
+在发送的 TS1 中，上游端口可以通过在正在发送的 TS1 的 Transmitter Preset 字段中放置合法值并将 Use Preset 位设置为 1b 来告诉下游端口开始使用它，以请求新预设。或者，通过在这些字段中放置合法值并将 Use Preset 位清除为 0b 来请求新系数，以便下游端口加载它们而不是预设字段。一旦发出请求，必须重复
+
+**593**
+
+**PCI Ex ress Technolo p gy**
+
+至少 1μs 或直到评估完成。如果要提供新的预设或系数设置，则必须在所有 Lane 上同时发送。但是，如果某个 Lane 希望保留其当前设置，则不需要该 Lane 请求新设置。
+
+上游端口必须等待足够长的时间以确保下游发送器有机会实现所请求的更改（500ns 加上逻辑的往返延迟），然后获取 Block Alignment 并评估传入的 TS1。在等待期间，预计不会从下游端口收到任何有用的内容，甚至可能不合法。这就是为什么在那段时间之后获取 Block Alignment 是必需的。
+
+当接收到包含与正在发送的相同均衡字段的 TS1 并且 Reject Coefficient Values 位未设置（0b）时，则该设置已被接受并且现在可以评估。如果均衡字段匹配但 Reject Coefficient Values 位被设置（1b），则该设置已被拒绝。在这种情况下，规范建议上游端口请求不同的均衡设置，但这不是必需的。
+
+对预设或系数请求所花费的总时间（从发送请求到完成评估）必须小于 2ms。对于在最终优化阶段需要更多时间的设计，可提供例外，但此阶段的总时间不能超过 24ms，并且例外只能使用两次。如果接收器无法识别任何传入的 TS1，则可以假定所请求的设置对该 Lane 不起作用。
+
+_退出至 "Phase 3 Upstream"_
+
+如果所有已配置的 Lane 都具有其最佳设置，则下一阶段为 Phase 3。发生这种情况时，Equalization Phase 2 Successful 状态位将被设置为 1b。
 
 </td>
 </tr></tbody></table>

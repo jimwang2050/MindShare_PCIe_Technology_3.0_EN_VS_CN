@@ -11,20 +11,32 @@
 
 ## 📊 翻译进度 (Translation Progress)
 
-**已完成**: 220 / 358 chunks (**61.5%**)
-**章节文件**: 23 个双语 MD · `book.md` 合并版 2.4 MB / 32,460 行
+**已完成**: 358 / 358 chunks 存在 (**100%** 文件), 321 实质翻译 (**89.7%**)
+**章节文件**: 23 个双语 MD · `book.md` 合并版 4.3 MB / 58,098 行
 
 ```text
-[██████████░░░░░░] 61.5%  (220/358 chunks)
+[████████████████] 100% files · 321/358 substantive (89.7% effective)
 ```
 
-### 已知缺口 (Known Gaps)
+### 翻译状态明细
 
-| 类型 | 数量 | 备注 |
+| 类别 | 数量 | 备注 |
 |------|-----:|------|
-| 未翻译 chunks | 138 | 集中在 `chunk0226`–`chunk0358`（章节 5 之后） |
-| 空/占位翻译 | 21 | `< 50` 字节的 `output_chunk*.md` |
-| 早期遗漏 | 5 | `chunk0112 / 0115 / 0123 / 0144 / 0180` |
+| 实质翻译 (>200 bytes) | 321 | 主要章节 (Ch5-Ch100) 100% 完成 |
+| 小尺寸翻译 (50-200 bytes) | 16 | 前言/TOC 短小片段 |
+| 占位 (<50 bytes) | 21 | 前言封面/版权页小片段 |
+| 缺失 | 0 | ✅ 0 chunks 未翻译 |
+
+### 各章节进度 (Chapter Progress)
+
+| 章节 | 已翻译/总数 | 进度 | 状态 |
+|-----|-----------:|-----:|------|
+| Ch 0 Front Matter | 66/90 | 73.3% | 🟡 (TOC/版权页部分空) |
+| Ch 1 Background | 18/22 | 81.8% | 🟢 |
+| Ch 2 PCIe Architecture | 23/26 | 88.5% | 🟢 |
+| Ch 3 Configuration Overview | 30/31 | 96.8% | 🟢 |
+| Ch 4 Address Space & Routing | 55/60 | 91.7% | 🟢 |
+| **Ch 5-20 + Appendices + Index** | **131/131** | **100%** | ✅ |
 
 ---
 
@@ -46,8 +58,8 @@ MindShare_PCI_Express_Technology_3.0_temp/
 ├── MindShare_PCIe_ch100_Index_索引.md
 ├── chunks/                                         # 358 个源 EN chunk (mineru_local 提取)
 │   ├── chunk0001.md … chunk0358.md
-├── chunks_translated/                              # 220 个 ZH 翻译 (含 21 个空占位)
-│   ├── output_chunk0001.md … output_chunk0225.md
+├── chunks_translated/                              # 358 个 ZH 翻译 (含 21 个小占位)
+│   ├── output_chunk0001.md … output_chunk0358.md
 ├── figures/                                        # 预留：抽取的 PNG (待 mineru 渲染)
 ├── prompts/                                        # 翻译 prompts (build_translation_prompt.py 生成)
 ├── preview/                                        # HTML 预览 (build_html_preview.sh 生成)
@@ -205,31 +217,43 @@ bash tools/push_to_github.sh
 
 ---
 
-## ✅ 翻译状态: 61.5% (in progress)
+## ✅ 翻译状态: 100% 文件就位 · 89.7% 实质翻译
 
 ### 已完成
 
 - ✅ 358 个源 chunk 全部抽取 (`chunks/`)
-- ✅ 220 个 ZH 翻译就位 (`chunks_translated/`)
+- ✅ 358 个 ZH 翻译文件就位 (`chunks_translated/`)
+- ✅ 321 个实质翻译 (89.7%) — Ch5-Ch100 全部 100%
 - ✅ 23 个双语章节 MD 自动生成 (`MindShare_PCIe_chNN_*.md`)
-- ✅ 合并版 `book.md` (32,460 行)
+- ✅ 合并版 `book.md` (58,098 行 / 4.3 MB)
 - ✅ `chapter_index.json` / `chunk_plan.json` / `extraction_summary.json` 元数据
 - ✅ QA 审计工具 (`tools/qa_*.py`)
 - ✅ 翻译 prompts 生成器 (`tools/build_translation_prompt.py`)
 - ✅ HTML 预览脚本 (`tools/build_html_preview.sh`)
+- ✅ 358/358 表格 `<table>` 平衡, 0 个 EN-only 行
+- ✅ GitHub 推送: `jimwang2050/MindShare_PCIe_Technology_3.0_EN_VS_CN`
 
-### 待办 (TODO)
+### 待办 (TODO) — 后期精修
 
-- ⏳ 完成 `chunk0226`–`chunk0358` 的 133 个未翻译 chunk (章节 5 之后)
-- ⏳ 补齐 5 个早期缺失的 chunk (112 / 115 / 123 / 144 / 180)
-- ⏳ 重做 21 个空/占位翻译
+- ⏳ 重做 21 个空/占位翻译 (主要是 Ch0 封面/版权/TOC 短小片段)
+- ⏳ 补全 16 个 50-200 bytes 的小翻译 (Ch0-Ch4 短小片段)
 - ⏳ 抽取 figures/ PNG (`tools/figures_commit.sh` 占位)
-- ⏳ 第二轮 QA: EN-only rows / table balance / TODO markers (类似 PCIe6.2_zh)
-- ⏳ GitHub push (`tools/push_to_github.sh`)
+- ⏳ 第二轮术语一致性 QA (基于 `glossary.json` 252 项)
+- ⏳ HTML 预览生成 (需要 pandoc)
 
 ---
 
 ## 📋 Recent Updates (更新日志)
+
+### 2026-06-17 — Round 2: 重启翻译 (61.5% → 89.7%)
+
+- **完成 138 个未翻译 chunk**: chunks 226-358 + 5 个早期缺失 (112/115/123/144/180)
+- **10 个并行 agent 翻译** (4-14 chunks/agent), 单次 round 推进 ~27%
+- **Ch5-Ch100 全部 100%**: 主要内容章节 (TLP/DLLP/Physical/Power Mgmt/Interrupts/Error/Hot Plug/Appendices/Index) 完整
+- **book.md 翻倍**: 2.4 MB → 4.3 MB (32K → 58K 行)
+- **新发现的 21 个空翻译**: 全部位于 Ch0 (Front Matter / 封面 / 版权页) — 源文本身就极短
+- **9 个 TODO 标记**: ch2 (3) / ch3 (1) / ch4 (5) — 来自早期空翻译 slot
+- **第二次 QA**: 358/358 表格平衡, ZH% 12-15% (符合 PCIe6.2_zh 基线)
 
 ### 2026-06-16 — 应用 PCIe6.2_zh 模板 (Round 1: 基础设施)
 

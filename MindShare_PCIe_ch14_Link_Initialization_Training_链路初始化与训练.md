@@ -198,7 +198,356 @@ _Figure 14‐37: Link Control 3 Register_
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+_退出至 "Recovery.Speed"_
+
+否则，在 24ms 超时后（容差为 ‐0 或 +2ms），下一状态将为 Recovery.Speed，successful_speed_negotiation 标志被清除为 0b，同时 Equalization Complete 状态位被设置为 1b。
+
+**Phase 3 Upstream。** 在此阶段，上游端口发送 EC = 11b 的 TS1，并响应来自下游端口的 Tx 值请求。
+
+**594**
+
+**Chapter 14: Link Initialization & Training**
+
+如果未看到两个连续的 TS1，则保持当前 Tx 预设和系数值。但是，如果接收到两个连续的 EC = 11b 的 TS1（下游端口已进入 Phase 3），无论是首次接收，还是具有与上次不同的预设或系数值，并且如果所请求的值是合法且受支持的，则在第二个 TS1 请求结束后的 500ns 内将 Tx 设置更改为使用它们。必须在发送回上游端口的 TS1 中反映所请求的值，并将 Reject Coefficient Values 位清除为 0b。请注意，更改不得使发送器处的电压或参数违规超过 1ns。
+
+- 如果所请求的预设或系数不合法或不受支持，则不要更改 Tx 设置，但在发送的 TS1 中反映接收到的值，并将 Reject Coefficient Values 位设置为 1b（参见 590 页 Figure 14‐38）。
+
+_退出至 "详细的 Recovery 子状态"_
+
+当下游端口对更改感到满意时，它开始发送 EC = 00b 的 TS1，表明希望完成均衡过程。当接收到两个这样的连续 TS1 时，将 Equalization Phase 3 Successful 和 Equalization Complete 状态位设置为 1b。
+
+_退出至 "Recovery.Speed"_
+
+如果在 32ms 超时内未满足上述条件，则下一状态将为 Recovery.Speed。successful_speed_negotiation 标志将被清除为 0b，并将设置 Equalization Complete 状态位。
+
+## **Recovery.Speed**
+
+进入此子状态时，设备必须使其发送器进入 Electrical Idle，并等待其接收器进入 Electrical Idle。在此之后，如果速度变更成功（successful_speed_negotiation = 1b），它必须保持在该状态至少 800ns；如果速度变更未成功（successful_speed_negotiation = 0b），则保持至少 6μs，但不超过额外的 1ms。
+
+如果当前速率为 2.5 GT/s 或 8.0 GT/s，则在进入此子状态之前必须发送一个 EIOS，如果当前速率为 5.0 GT/s，则必须发送两个。当已看到这些 EIOS 或以其他方式检测或推断出 Electrical Idle 时（如 736 页 "Electrical Idle" 中所述），Lane 上存在 Electrical Idle 条件。
+
+**595**
+
+**PCI Ex ress Technolo p gy**
+
+工作频率仅在接收器 Lane 已进入 Electrical Idle 之后才允许更改。如果链路已经以最高共同支持的速率运行，则即使执行此子状态，速率也不会更改。
+
+如果协商的速率为 5.0 GT/s，则必须根据 select_deemphasis 变量的设置选择去加重电平：如果变量为 0b，则应用 ‐6 dB 去加重，但如果变量为 1b，则改为应用 ‐3.5 dB 去加重。
+
+奇怪的是，在此子状态期间不必将 DC 共模电压保持在规范限制范围内。
+
+如果此子状态是在成功的速度协商之后进入的（successful_speed_negotiation = 1b），则可以如 596 页 Table 14‐10 所示推断 Electrical Idle。规范指出，这涵盖了双方链路对端都已识别传入 TS1 和 TS2 的情况，因此它们的不存在可以解释为进入 Electrical Idle。
+
+如果此子状态是在不成功的速度协商之后进入的（successful_speed_negotiation = 0b），如果在指定时间内未在任何已配置的 Lane 上检测到 Electrical Idle 退出，则可以推断 Electrical Idle。这旨在涵盖链路的至少一方无法识别 TS 有序集的情况，因此较长间隔内未退出 Electrical Idle 可以视为进入 Electrical Idle。
+
+_Table 14‐10: Conditions for Inferring Electrical Idle_
+
+|**State**|**2.5 GT/s**|**5.0 GT/s**|**8.0 GT/s**|
+|---|---|---|---|
+|L0|Absence of Flow<br>Control Update<br>DLLP or SOS in a<br>128μs window|Absence of Flow Con-<br>trol Update DLLP or<br>SOS in a 128μs win-<br>dow|Absence of Flow<br>Control Update<br>DLLP or SOS in a<br>128μs window|
+|Recovery.RcvrCfg|Absence of a TS1 or<br>TS2 in a 1280 UI<br>interval|Absence of a TS1 or<br>TS2 in a 1280 UI inter-<br>val|Absence of a TS1 or<br>TS2 in a 4ms win-<br>dow|
+|Recovery.Speed when<br>successful_speed_neg<br>otiation = 1b|Absence of a TS1 or<br>TS2 in a 1280 UI<br>interval|Absence of a TS1 or<br>TS2 in a 1280 UI inter-<br>val|Absence of a TS1 or<br>TS2 in a 4680 inter-<br>val|
+
+
+
+**596**
+
+**Chapter 14: Link Initialization & Training**
+
+_Table 14‐10: Conditions for Inferring Electrical Idle (Continued)_
+
+|**State**|**2.5 GT/s**|**5.0 GT/s**|**8.0 GT/s**|
+|---|---|---|---|
+|Recovery.Speed when<br>successful_speed_neg<br>otiation = 0b|Absence of an Elec-<br>trical Idle exit in a<br>2000 UI interval|Absence of an Electri-<br>cal Idle exit in a 16000<br>UI interval|Absence of an Electri-<br>cal Idle exit in a<br>16000 UI interval|
+|Loopback.Active (as a<br>slave)|Absence of an Elec-<br>trical Idle exit in a<br>128μs window|N/A|N/A|
+
+
+
+directed_speed_change 变量将被清除为 0b，并且新数据速率必须可见于 Link Status 寄存器（如图 14‐39 所示）的 Current Link Speed 字段中。
+
+如果速度因链路带宽变更而更改：
+
+- 如果 successful_speed_negotiation 设置为 1b 并且 8 个连续 TS2 中的 Autonomous Change 位设置为 1b，或者速度变更由下游端口出于自主原因启动（不是可靠性问题，也不是由软件设置 Link Retrain 位引起的），则 Link Status 寄存器中的 Link Autonomous Bandwidth Status 位设置为 1b。
+
+- 否则，Link Bandwidth Management Status 位设置为 1b。
+
+_Figure 14‐39: Link Status Register_
+
+**==> picture [373 x 178] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+15 14 13 12 11 10 9 4 3 0<br>
+Link Autonomous<br>
+Bandwidth Status<br>
+Link Bandwidth<br>
+Management Status<br>
+Data Link Layer<br>
+Link Active<br>
+Slot Clock<br>
+Configuration<br>
+Link Training<br>
+Undefined<br>
+Negotiated<br>
+Link Width<br>
+Current Link Speed<br>
+**----- End of picture text -----**<br>
+
+
+**597**
+
+**PCI Ex ress Technolo p gy**
+
+## _退出至 "详细的 Recovery 子状态"_
+
+一旦超时已过，下一状态将为 Recovery.RcvrLock
+
+如果此子状态是从 Recovery.RcvrCfg 进入的，并且速度变更成功，则所有已配置的 Lane 的新数据速率将更改为最高共同支持的速率，并将 changed_speed_recovery 变量设置为 1b。
+
+如果此子状态是在从 L0 或 L1 进入 Recovery 以来第二次进入的（通过 changed_speed_recovery = 1b 指示），则新数据速率将是 LTSSM 进入 Recovery 时正在使用的速率，并且 changed_speed_recovery 变量被清除为 0b。
+
+否则，新数据速率将恢复为 2.5 GT/s，并且 changed_speed_recovery 变量保持清除为 0b。规范指出，这表示 L0 中的速率高于 2.5 GT/s，但一个链路对端无法以该速率运行并在首次通过时在 Recovery.RcvrLock 中超时的情况。
+
+## _退出至 "Detect 状态"_
+
+如果不符合退出到 Recovery.RcvrLock 的任何条件，则下一状态将为 Detect，尽管规范指出在正常情况下这应该是不可能的。它将意味着链路相邻设备根本无法再通信。
+
+## **Recovery.RcvrCfg**
+
+此状态只能从 Recovery.RcvrLock 进入，前提是至少接收到 8 个 TS1 或 TS2 有序集，且其链路号和 Lane 号与之前协商的相同。这意味着已建立位和符号或块锁定 (bit and symbol or block lock)，现在该 Port 必须确定 Recovery 状态中是否还有其他需要处理的项目。如果进入 Recovery 的目的只是重新建立位和符号锁定以离开链路电源管理状态，那么可能会在此处交换 TS2 并继续进行到 Recovery.Idle。但是，如果存在进入 Recovery 状态的其他原因（例如速度变更或链路宽度变更），则将在此子状态中确定并发生适当的状态转换。
+
+在此子状态期间，发送器在所有已配置的 Lane 上发送 TS2，其链路号和 Lane 号与之前配置的相同。如果 directed_speed_change 变量设置为 1b，则 TS2 中的 speed_change 位也必须被设置。TS2 中的 N_FTS 值应反映当前速率所需的数量。进入此子状态时，start_equalization_w_preset 变量被清除为 0b。
+
+**598**
+
+**Chapter 14: Link Initialization & Training**
+
+如果速度已更改，则 TS2 中现在可能会看到不同的 N_FTS 数字。该值必须用于退出将来的 L0s 低功耗链路状态。对于 8b/10b 编码，必须在离开此子状态之前完成 Lane 间去偏斜。设备必须注意传入 TS2 中通告的速率标识符，并使用它来覆盖任何先前记录的值。使用 128b/130b 编码时，设备必须注意 Request Equalization 位的值以供将来参考。
+
+有关此子状态的说明：变量 successful_speed_negotiation 被设置为 1b。此时注意到 TS2 中以 speed_change 位置位通告的数据速率以供将来参考，并且 Autonomous Change 位用于在 Recovery.Speed 期间在 Link Status 寄存器中可能记录日志。将在 Recovery.Speed 中选择的速率是最高共同支持的速率。有趣的是，在这种情况下即使链路已经以最高支持的速率运行，仍会发生到 Recovery.Speed 的更改，尽管在这种情况下速率实际上不会改变。
+
+如果速度将更改为 8.0 GT/s，则下游端口将需要发送 EQ TS2（Symbol 6 的位 7 设置为 1b 以指示 EQ 训练序列）。如果 8.0 GT/s 是共同支持的，并且在任何已配置的 Lane 上看到 8 个连续的 speed_change 位置位的 TS1 或 TS2，或者 equalization_done_8GT_data_rate 变量为 0b，或者被指示，则将识别这种情况。如果当前数据速率为 8.0 GT/s 且均衡过程存在问题，则上游端口可以设置 Request Equalization 位。任何一端都可以通过将 Request Equalization 和 Quiesce Guarantee 位都设置为 1b 来请求再次执行均衡。
+
+上游端口根据接收到的 TS2 中的 Selectable De-emphasis 位设置其 select_deemphasis 变量。并且，如果 TS2 是 EQ TS2，则它们将 start_equalization_w_preset 变量设置为 1b，并使用新信息更新其 Lane Equalization 寄存器（即：更新寄存器中的 Upstream Port Transmitter Preset 和 Receiver Preset Hint 字段）。任何未接收到 EQ TS2 的已配置 Lane 将以设计特定的方式选择其 8.0 GT/s 操作的预设值。如果 equalization_done_8GT_data_rate 变量被清除为 0b 或被指示，则下游端口必须将其 start_equalization_w_preset 变量设置为 1b。
+
+最后，如果使用 128b/130b 编码，则设备必须注意 Request Equalization 位的值。如果已设置，则必须将其与 Quiesce Guarantee 位一起存储以供将来参考。
+
+**599**
+
+**PCI Ex ress Technolo p gy**
+
+## _退出至 "Recovery.Idle"_
+
+如果满足以下两个条件，则下一状态将为 Recovery.Idle：
+
+- 在任何已配置的 Lane 上接收到 8 个连续的 TS2，其链路号和 Lane 号以及速率标识符与正在发送的匹配，并且以下任一条件：
+
+   - a) TS2 中的 speed_change 位被清除为 0b，或者
+
+   - b) 没有高于 2.5 GT/s 的速率被共同支持。
+
+- 在接收到一个 TS2 之后已发送 16 个 TS2，并且它们未被任何中间的 EIEOS 中断。changed_speed_recovery 和 directed_speed_change 变量在进入此子状态时都被清除为 0b。
+
+## _退出至 "Recovery.Speed"_
+
+如果以下列出的所有三个条件都为真，则 LTSSM 将进入 Recovery.Speed：
+
+- 在任何已配置的 Lane 上接收到 8 个连续的 speed_change 位置位的 TS2，速率标识符相同，Symbol 6 中的值相同，并且：
+
+   - a) TS2 是标准 8b/10b TS2，或者
+
+   - b) TS2 是 EQ TS2，或者
+
+   - c) 自在任何已配置的 Lane 上接收到 8 个 EQ TS2 以来已过去 1ms。
+
+- 两个链路对端都支持高于 2.5 GT/s 的速率，或者速率已经高于 2.5 GT/s。
+
+- 对于 8b/10b 编码，在同一已配置的 Lane 上接收到一个 speed_change 位设置为 1b 的 TS2 之后，至少发送了 32 个 speed_change 位设置为 1b 的 TS2 而没有任何中间的 EIEOS。对于 128b/130b 编码，在同一已配置的 Lane 上接收到一个 speed_change 位设置为 1b 的 TS2 之后，发送了至少 128 个 speed_change 位设置为 1b 的 TS2。
+
+如果自上次从 L0 或 L1 进入 Recovery 以来（changed_speed_recovery = 1b）速率已更改为相互协商的速率，并且任何已配置的 Lane 已看到 EIOS 或检测到/推断出 Electrical Idle 并且自进入此子状态以来未看到 TS2，则也可以发生到 Recovery.Speed 的转换。这意味着尝试了更高速率，但链路对端表示出于某种原因它无法工作。新速率将返回到从 L0 或 L1 进入 Recovery 时的速率。
+
+导致到 Recovery.Speed 的转换的最后一种情况是，如果自上次从 L0 进入 Recovery 以来速率 _未_ 更改
+
+**600**
+
+**Chapter 14: Link Initialization & Training**
+
+或者 L1（changed_speed_recovery = 0b），并且当前速率已经高于 2.5 GT/s，并且任何已配置的 Lane 已看到 EIOS 或检测到/推断出 Electrical Idle 并且自进入此子状态以来未看到 TS2。在这种情况下，理解是当前速率不起作用，解决方案是降下来，因此新速率将变为 2.5 GT/s。
+
+## _退出至 "Configuration 状态"_
+
+如果在任何已配置的 Lane 上接收到 8 个连续的 TS1，其链路号或 Lane 号与正在发送的不匹配，并且 speed_change 位被清除为 0b，或者没有高于 2.5 GT/s 的速率被共同支持，则下一状态将为 Configuration。
+
+当 LTSSM 转换到 Configuration 时，变量 changed_speed_recovery 和 directed_speed_change 被清除为 0b。如果 N_FTS 值自上次以来已更改，则新值必须用于将来的 L0s。
+
+## _退出至 "Detect 状态"_
+
+在 48ms 内未解决为先前定义的状态转换之一后，如果数据速率为 2.5 GT/s 或 5.0 GT/s，则下一状态将为 Detect。
+
+如果速率为 8.0 GT/s，则存在另一种可能性，因为尝试次数可能尚未超过。这由 idle_to_rlock_transitioned 变量指示，并且当速率为 8.0 GT/s 且其小于 FFh 时，新状态将为 "Recovery.Idle"。如果进行了该转换，则变量 changed_speed_recovery 和 directed_speed_change 将被清除为 0b。但是，一旦 idle_to_rlock_transitioned 达到 FFh 并且看到 48ms 超时，则下一状态将为 Detect。
+
+## **Recovery.Idle**
+
+顾名思义，发送器通常在此子状态中发送 Idles，作为更改为完全可操作的 L0 状态的准备。对于 8b/10b 模式，Idle 数据通常在所有 Lane 上发送，而对于 128b/130b，发送 SDS 以启动 Data Stream，然后在所有 Lane 上发送 Idle 数据符号。
+
+## _退出至 "L0 状态"_
+
+如果以下任一情况为真，则下一状态为 L0。在任一情况下，如果 Retrain Link 位自上次从 Recovery 或 Configuration 转换到 L0 以来已写入 1b，则下游端口将 Link Bandwidth Management Status 位设置为 1b（参见 597 页 Figure 14‐39）。
+
+- 使用 8b/10b 编码并且已接收到 8 个连续的 Symbol Times 的 Idle 数据，并且自接收到第一个 16 个 Idle 数据符号以来已发送。
+
+**601**
+
+## **PCI Ex ress Technolo p gy**
+
+- 使用 128b/10b 编码，已接收到 8 个连续的 Symbol Times 的 Idle 数据，并且自接收到第一个 16 个 Idle 数据符号以来已发送，并且此状态不是从 Recovery.RcvrCfg 进入的。请注意，Idle 数据符号必须包含在 Data Block 中，Lane 间去偏斜必须在 Data Stream 处理开始之前完成，并且 idle_to_rlock_transitioned 变量在转换到 L0 时被清除为 00h。
+
+## _退出至 "Configuration 状态"_
+
+如果以下任一情况，则下一状态为 Configuration：
+
+- Port 被更高层指示以选择性地重新配置链路，例如更改链路宽度。
+
+- 任何已配置的 Lane 看到两个连续的 Lane 号设置为 PAD 的传入 TS1（要转换到 Configuration 以更改链路的 Port 将在所有 Lane 上发送 PAD Lane 号）。规范建议 LTSSM 在更改链路宽度时使用此转换，以减少所需的时间。
+
+## _退出至 "Disable 状态"_
+
+如果以下任一情况，则下一状态为 Disabled：
+
+- 下游或可选 crosslink Port 被更高层指示在其 TS1 或 TS2 中设置 Disable Link 位。
+
+- 上游或可选 crosslink Port 的任何已配置的 Lane 看到两个连续的传入 TS1 中设置了 Disable Link 位。
+
+## _退出至 "Hot Reset 状态"_
+
+如果以下任一情况，则下一状态为 Hot Reset：
+
+- 下游或可选 crosslink Port 被更高层指示在其 TS1 或 TS2 中设置 Hot Reset 位。
+
+- 上游或可选 crosslink Port 的任何已配置的 Lane 看到两个连续的传入 TS1 中设置了 Hot Reset 位。
+
+## _退出至 "Loopback 状态"_
+
+如果以下任一情况，则下一状态为 Loopback：
+
+- 已知发送器具有 Loopback Master 能力（设计特定的；规范不提供验证方法）并被更高层指示在其 TS1 或 TS2 中设置 Loopback 位。
+
+- 上游或可选 crosslink Port 的任何已配置的 Lane 看到两个连续的传入 TS1 中设置了 Loopback 位。接收设备随后成为 Loopback slave。
+
+**602**
+
+**Chapter 14: Link Initialization & Training**
+
+## _退出至 "Detect 状态"_
+
+否则，在 2ms 超时后，下一状态将为 Detect，除非 idle_to_rlock_transitioned 变量小于 FFh，在这种情况下下一状态将为 "详细的 Recovery 子状态"。对于到 Recovery.RcvrLock 的转换，如果数据速率为 8.0 GT/s，则 idle_to_rlock_transitioned 变量加 1b，而对于 2.5 或 5.0 GT/s，它将被设置为 FFh。
+
+## **L0s 状态**
+
+这是具有到 L0 的最短退出延迟的低功耗链路状态。设备在硬件控制下自动管理此状态的进入和退出，无需任何软件参与。链路的每个方向可以独立地进入和退出 L0s 状态。
+
+## **L0s 发送器状态机**
+
+L0s 状态对于发送器和接收器具有不同的子状态。将首先描述发送器子状态。如 603 页 Figure 14‐40 所示，与 L0s 状态关联的发送器状态机是一个简单的状态机。
+
+_Figure 14‐40: L0s Tx State Machine_
+
+**==> picture [288 x 186] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Entry<br>
+from L0<br>
+Tx sends  Transmitter sends<br>
+EIOS FTSs on all Lanes<br>
+TTX-IDLE-MIN<br>
+= 20 ns Tx_L0s.Idle Directed<br>
+Tx_L0s.Entry Tx_L0s.FTS<br>
+(Tx Electrical Idle)<br>
+Transmitter sends<br>
+SOS or EIEOS<br>
+Exit to<br>
+L0<br>
+**----- End of picture text -----**<br>
+
+
+**603**
+
+**PCI Ex ress Technolo p gy**
+
+## **Tx_L0s.Entry**
+
+当被上层指示时，发送器进入 L0s。规范未给出此决策标准，但凭直觉，它将基于不活动超时发生：给定时间内未发送 TLP 或 DLLP。要进入 L0s，发送器发送一个 EIOS（5.0 GT/s 速率为两个 EIOS）并进入 Electrical Idle。但是，发送器不会被关闭，并且必须将 DC 共模电压保持在规范范围内。
+
+## _退出至 "Tx_L0s.Idle"_
+
+下一状态将在 TTX-IDLE-MIN 超时（20ns）后为 Tx_L0s.Idle。该时间旨在确保发送器已建立 Electrical Idle 条件。
+
+## **Tx_L0s.Idle**
+
+在此子状态中，发送器继续 Electrical Idle 状态，直到被指示离开。由于此方向的链路处于 Electrical Idle 状态，因此将产生节能效益，这是 L0s 状态的整个目的。
+
+_退出至 "Tx_L0s.FTS"_
+
+下一状态将在被指示时为 Tx_L0s.FTS，例如当 Port 需要恢复数据包传输时。LTSSM 将以设计特定的方式被指示退出此状态。
+
+## **Tx_L0s.FTS**
+
+在此子状态中，发送器将开始发送 FTS 有序集以重新训练链路对端的接收器。发送的 FTS 数量是链路对端在上次训练到 L0 期间的 TS 有序集中通告的 N_FTS 值。规范指出，如果接收器在尝试执行此操作时超时，它可以选择在 Recovery 状态期间增加其通告的 N_FTS 值。
+
+如果设置了 Extended Synch 位（参见 644 页 Figure 14‐71），则发送器必须发送 4096 个 FTS，而不是 N_FTS 数量。这扩展了可用于同步外部测试和分析逻辑的时间，该逻辑可能无法像嵌入式逻辑那样快地恢复 Bit Lock。
+
+对于所有数据速率，在发送任何 FTS 之前不能发送 SOS。但是，对于 5.0 GT/s 速率，必须在发送 FTS 之前发送 4 到 8 个 EIE 符号。对于 128b/130b，必须在 FTS 之前发送 EIEOS。
+
+**604**
+
+**Chapter 14: Link Initialization & Training**
+
+## _退出至 "L0 状态"_
+
+一旦已发送所有 FTS，发送器将转换到 L0 状态，并且：
+
+- a) 对于 8b/10b 编码，一个 SOS 在所有已配置的 Lane 上发送，尽管在 FTS 之前或期间不发送任何 SOS。
+
+- b) 对于 128b/130b 编码，发送一个 EIEOS 后跟一个 SDS 和 Data Stream。
+
+## **L0s 接收器状态机**
+
+605 页 Figure 14‐41 显示了接收器 L0s 状态机。如果 Link Capability 寄存器中的 ASPM Support 字段显示支持 L0s，则接收器需要实现 L0s 支持，即使未指示支持也允许实现。
+
+_Figure 14‐41: L0s Receiver State Machine_
+
+**==> picture [327 x 184] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Entry<br>
+from L0<br>
+Rx detects<br>
+EIOS Exit from FTSs Received<br>
+TTX-IDLE-MIN Electrical<br>
+= 20 ns Rx_L0s.Idle Idle<br>
+Rx_L0s.Entry Rx_L0s.FTS<br>
+(Rx Electrical Idle)<br>
+Tx sends N_FTS<br>
+SOS or EIEOS Timeout<br>
+Exit to Exit to<br>
+L0 Recovery<br>
+**----- End of picture text -----**<br>
+
+
+**605**
+
+**PCI Ex ress Technolo p gy**
+
+## **Rx_L0s.Entry**
+
+当接收器接收到 EIOS 时进入，前提是它支持 L0s 并且未被引导至 L1 或 L2。
+
+_退出至 "Rx_L0s.Idle"_
+
+下一状态将在 TTX-IDLE-MIN 超时（20ns）后为 Rx_L0s.Idle。
+
+## **Rx_L0s.Idle**
+
+接收器现在处于 Electrical Idle 模式，并且只是等待看到退出 Electrical Idle。
 
 </td>
 </tr></tbody></table>
@@ -352,7 +701,133 @@ The next phase is Phase 3 if all configured Lanes have their optimal set‐ ting
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+下游端口 (Downstream Port) 如果希望继续进行均衡过程,以及当所有已配置的 Lane 接收到两个连续的 EC = 01b 的 TS1 时,将转换到 Phase 2。此时,该端口将 Equalization Phase 1 Successful 状态位置为 1b,并存储接收到的 TS1 LF 和 FS 值,以供 Phase 3 使用(如果下游端口计划调整上游端口的 Tx 系数)。
+
+## _退出到"详细恢复子状态"_
+
+如果下游端口不希望使用 Phase 2 和 Phase 3,则将状态位都置为 1b(Eq. Phase 1 Successful、Eq. Phase 2 Successful、Eq. Phase 3 Successful 和 Eq. Complete)。这样做的原因之一是它已经能够看到信号特性足够好,其余阶段不需要了。
+
+## _退出到"Recovery.Speed"_
+
+如果在 24ms 超时后未看到连续的 TS1,则下一个状态是 Recovery.Speed。successful_speed_negotiation 标志被清除为 0b,Equalization Complete 状态位被置为 1b。
+
+**Phase 2 下游端口。** 在此阶段,下游端口发送 EC = 10b 的 TS1,并根据以下规则在每个 Lane 上独立分配系数设置:
+
+- 如果接收到两个连续的 EC = 10b 的 TS1(上游端口已进入 Phase 2),无论是第一次收到,还是与上次预设或系数值不同,并且如果请求的值是合法且受支持的,那么在第二个 TS1 请求结束后的 500ns 内将 Tx 设置更改为使用这些值。此外,在发回上游端口的 TS1 中反映这些值,并将 Reject Coefficient Values 位清零至 0b。请注意,此更改不得导致发送器上的电压或参数非法超过 1ns。
+
+   - a) 如果请求的预设或系数是非法或不受支持的,则不更改 Tx 设置,但在发送的 TS1 中反映接收到的值,并将 Reject Coefficient Values 位置为 1b(参见第 590 页的 Figure 14-38)。
+
+- 如果未看到两个连续的 TS1,则保持当前的 Tx 预设和系数值。
+
+## _退出到"Phase 3 下游端口"_
+
+当上游端口对更改满意时,它将开始发送 EC = 11b 的 TS1,表示希望更改为 Phase 3。当接收到两个这样的连续 TS1 时,将 Eq. Phase 2 Successful 状态位置为 1b,并更改为 Phase 3。
+
+## _退出到"Recovery.Speed"_
+
+如果在 32ms 之后,Phase 3 的转换尚未发生,则该端口应清除 successful_speed_negotiation 标志,设置 Equalization Complete 状态位并退出到 Recovery.Speed 子状态。
+
+_Figure 14-38: TS1 - 拒绝系数值_
+
+**==> picture [264 x 258] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Symbol 6<br>7 6 5 4 3 2 1 0<br>0<br>Tx Preset EC<br>1 Link #<br>2 Lane # Use Preset Reset EIEOS<br>Interval Count<br>3 # FTS<br>Symbol 7<br>4 Rate ID<br>7 6 5 4 3 2 1 0<br>5 Train Ctl FS value when EC = 01b,<br>Rsvd<br>6 Otherwise Pre-Cursor Coefficient<br>EQ Info<br>Symbol 8<br>9<br>7 6 5 4 3 2 1 0<br>10<br>LF value when EC = 01b,<br>Rsvd<br>TS ID Otherwise Cursor Coefficient<br>13 Symbol 9<br>7 6 5 4 3 2 1 0<br>14<br>TS ID<br>15 P [RCV] Post-Cursor Coefficient<br>**----- End of picture text -----**<br>
+
+
+**590** 
+
+**Chapter 14: Link Initialization & Training** 
+
+**Phase 3 下游端口。** 在此阶段,下游端口发送 EC = 11b 的 TS1,并开始为每个 Lane 独立评估上游端口的 Tx 设置。
+
+在传输的 TS1 中,下游端口可以通过将 Use Preset 位置为 1b 并将 Tx Preset 字段设置为所需值来请求新的预设,或者通过将 Use Preset 位清零至 0b 并将 Pre-cursor、Cursor 和 Post-Cursor Coefficient 字段设置为所需值来请求新的系数。任何请求必须持续至少 1µs,或直到评估完成。如果要呈现新的预设或系数设置,则必须同时在所有 Lane 上发送。但是,如果给定 Lane 希望保留其当前设置,则不要求它请求新设置。
+
+下游端口必须等待足够长的时间以确保上游发送器有机会实现请求的更改(500ns 加上逻辑的往返延迟),然后获取 Block Alignment 并评估传入的 TS1。在等待期间,预计不会有任何有用的内容来自上游端口,甚至可能是不合法的。这就是为什么之后获取 Block Alignment 是必需的原因。
+
+如果看到两个连续的 TS1 与正在请求的相同预设或系数值匹配,并且 Reject Coefficient Values 位未设置,则请求的设置已被接受并可以评估。如果值匹配但 Reject Coefficient Values 位置为 1b,则请求的值已被上游端口拒绝且未被使用。对于这种情况,规范建议下游端口使用不同的值再试一次,但不要求这样做,也可以选择直接退出此阶段。
+
+从请求发送之时到其评估完成之时,每个预设或系数请求所花费的总时间必须小于 2ms。对于在最终优化阶段需要更多时间的设计,可以有一个例外,但此阶段的总时间不能超过 24ms,并且该例外只能使用两次。如果接收器未识别任何传入的 TS1,则可以假设所请求的设置对该 Lane 不起作用。
+
+## _退出到"详细恢复子状态"_
+
+当所有已配置的 Lane 都具有最佳设置时,下一个状态将是 Recovery.RcvrLock。发生这种情况时,Equalization Phase 3 Successful 和 Equalization Complete 状态位将置为 1b。
+
+**591** 
+
+**PCI Ex ress Technolo p gy** 
+
+_退出到"Recovery.Speed"_
+
+否则,经过 24ms 超时(容差为 -0 或 +2ms)后,下一个状态将是 Recovery.Speed,successful_speed_negotiation 标志被清零至 0b,而 Equalization Complete 状态位置为 1b。
+
+## **上游 Lane** 
+
+上游端口从均衡过程的 Phase 0 开始,必须重置若干内部位。在 Link Status 2 寄存器(第 588 页的 Figure 14-36)中,以下位在进入此子状态时被清除:
+
+- Equalization Phase 1 Successful 
+
+- Equalization Phase 2 Successful 
+
+- Equalization Phase 3 Successful 
+
+- Link Equalization Request 
+
+- Equalization Complete 
+
+Link Control 3 寄存器的 Perform Equalization 位也被清零至 0b,内部变量 start_equalization_w_preset 也被清零。变量 equalization_done_8GT_data_rate 被置为 1b。
+
+**Phase 0 上游端口。** 在此阶段,上游端口发送 EC = 00b 的 TS1,同时使用在进入此状态之前的 EQ TS2 中传递的 Tx Preset 值。正在发送的 TS1 中的均衡信息字段必须显示预设值以及与该预设对应的 Pre-cursor、Cursor 和 Post-cursor 系数字段。注意,如果 Lane 在 EQ TS2 中接收到保留或不受支持的 Tx Preset 值,或者根本没有收到 EQ TS2,则 Tx Preset 字段和系数值由该 Lane 的设备特定方法选择。
+
+_退出到"Phase 1 上游端口"_
+
+当所有已配置的 Lane 收到两个连续的 EC = 01b 的 TS1,表明它们可以识别始终以该值开始的来自下游端口的 TS1 时,下一个阶段是 Phase 1。
+
+在 TS1 中接收到的均衡值 LF 和 FS 必须被存储并用于 Phase 2,如果上游端口计划调整下游端口的 Tx 系数的话。
+
+上游端口在进入 Phase 0 之后,在评估传入的 TS1 之前可以等待 500ns,以便其接收器逻辑有时间稳定。
+
+**592** 
+
+**Chapter 14: Link Initialization & Training** 
+
+## _退出到"Recovery.Speed"_
+
+如果在 12ms 超时内未识别出传入的 TS1,则 LTSSM 将转换到 Recovery.Speed,清除 successful_speed_negotiation 标志并设置 Equalization Complete 状态位。
+
+**Phase 1 上游端口。** 在此阶段,上游端口发送 EC = 01b 的 TS1,同时使用在 Phase 0 中确定的发送器设置。这些 TS1 包含当前正在使用的 FS、LF 和 Post-cursor Coefficient 值。
+
+## _退出到"Phase 2 上游端口"_
+
+如果所有已配置的 Lane 接收到两个连续的 EC = 10b 的 TS1,表明下游端口希望转到 Phase 2,则下一个阶段将是 Phase 2,并且此端口将设置 Equalization Phase 1 Successful 状态位。
+
+_退出到"详细恢复子状态"_
+
+如果所有已配置的 Lane 接收到两个连续的 EC = 00b 的 TS1,这意味着下游端口已决定均衡过程已经完成,并希望跳过剩余的阶段。在这种情况下,下一个状态将是 Recovery.RcvrLock,并且 Equalization Phase 1 Successful 和 Equalization Complete 状态位置为 1b。
+
+## _退出到"Recovery.Speed"_
+
+否则,经过 12ms 超时后,LTSSM 将转换到 Recovery.Speed,清除 successful_speed_negotiation 标志并设置 Equalization Complete 状态位。
+
+**Phase 2 上游端口。** 在此阶段,上游端口发送 EC = 10b 的 TS1,并开始为下游端口寻找最佳 Tx 值的过程。请记住,设置是为每个 Lane 独立确定的。过程如下:
+
+在传输的 TS1 中,上游端口可以通过在正在发送的 TS1 的 Transmitter Preset 字段中放入合法值并将 Use Preset 位置为 1b 来请求新的预设,以告诉下游端口开始使用它。或者,通过在这些字段中放入合法值并将 Use Preset 位清零至 0b 来请求新系数,以便下游端口加载它们而不是预设字段。一旦发出请求,必须重复
+
+**593** 
+
+**PCI Ex ress Technolo p gy** 
+
+至少 1µs,或直到评估完成。如果要呈现新的预设或系数设置,则必须同时在所有 Lane 上发送。但是,如果给定 Lane 希望保留其当前设置,则不要求它请求新设置。
+
+上游端口必须等待足够长的时间以确保下游发送器有机会实现请求的更改(500ns 加上逻辑的往返延迟),然后获取 Block Alignment 并评估传入的 TS1。在等待期间,预计不会有任何有用的内容来自下游端口,甚至可能是不合法的。这就是为什么之后获取 Block Alignment 是必需的原因。
+
+当接收到包含与正在发送的均衡字段相同且 Reject Coefficient Values 位未设置(0b)的 TS1 时,则该设置已被接受并可以评估。如果均衡字段匹配但 Reject Coefficient Values 位置为 1b,则该设置已被拒绝。在这种情况下,规范建议上游端口请求不同的均衡设置,但这不是必需的。
+
+从请求发送之时到其评估完成之时,每个预设或系数请求所花费的总时间必须小于 2ms。对于在最终优化阶段需要更多时间的设计,可以有一个例外,但此阶段的总时间不能超过 24ms,并且该例外只能使用两次。如果接收器未识别任何传入的 TS1,则可以假设所请求的设置对该 Lane 不起作用。
+
+_退出到"Phase 3 上游端口"_
+
+如果所有已配置的 Lane 都具有最佳设置,则下一个阶段是 Phase 3。发生这种情况时,Equalization Phase 2 Successful 状态位将置为 1b。
 
 </td>
 </tr></tbody></table>
@@ -499,7 +974,313 @@ The next state will be Recovery.Idle if two conditions are true:
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+_退出到"Recovery.Speed"_
+
+否则,经过 24ms 超时(容差为 -0 或 +2ms)后,下一个状态将是 Recovery.Speed,successful_speed_negotiation 标志被清零至 0b,而 Equalization Complete 状态位置为 1b。
+
+**Phase 3 上游端口。** 在此阶段,上游端口发送 EC = 11b 的 TS1,并响应来自下游端口的请求 Tx 值。
+
+**594** 
+
+**Chapter 14: Link Initialization & Training** 
+
+如果未看到两个连续的 TS1,则保持当前的 Tx 预设和系数值。但是,如果接收到两个连续的 EC = 11b 的 TS1(下游端口已进入 Phase 3),无论是第一次收到,还是与上次预设或系数值不同,并且如果请求的值是合法且受支持的,那么在第二个 TS1 请求结束后的 500ns 内将 Tx 设置更改为使用这些值。请求的值必须反映在发回上游端口的 TS1 中,并将 Reject Coefficient Values 位清零至 0b。请注意,此更改不得导致发送器上的电压或参数非法超过 1ns。
+
+- 如果请求的预设或系数是非法或不受支持的,则不更改 Tx 设置,但在发送的 TS1 中反映接收到的值,并将 Reject Coefficient Values 位置为 1b(参见第 590 页的 Figure 14-38)。
+
+_退出到"详细恢复子状态"_
+
+当下游端口对更改满意时,它将开始发送 EC = 00b 的 TS1,表示希望完成均衡过程。当接收到两个这样的连续 TS1 时,将 Equalization Phase 3 Successful 和 Equalization Complete 状态位置为 1b。
+
+_退出到"Recovery.Speed"_
+
+如果在 32ms 超时内不满足上述条件,则下一个状态将是 Recovery.Speed。successful_speed_negotiation 标志将被清零至 0b,Equalization Complete 状态位将被设置。
+
+## **Recovery.Speed** 
+
+进入此子状态时,设备必须在其发送器上进入 Electrical Idle,并等待其接收器进入 Electrical Idle。在此之后,如果速率更改成功(successful_speed_negotiation = 1b),则必须保持至少 800ns;如果速率更改不成功(successful_speed_negotiation = 0b),则必须保持至少 6µs,但不超过额外的 1ms。
+
+如果当前速率为 2.5 GT/s 或 8.0 GT/s,则在进入此子状态之前必须发送一个 EIOS;如果当前速率为 5.0 GT/s,则必须发送两个 EIOS。当已看到这些 EIOS 或以其他方式检测或推断出 Lane 上的 Electrical Idle 条件(如第 736 页的"Electrical Idle"中所述)时,Lane 上存在 Electrical Idle 条件。
+
+**595** 
+
+**PCI Ex ress Technolo p gy** 
+
+只有在接收器 Lane 进入 Electrical Idle 后,才允许更改工作频率。如果 Link 已经以最高共同支持的速率运行,则即使执行此子状态,也不会更改速率。
+
+如果协商的速率为 5.0 GT/s,则必须根据 select_deemphasis 变量的设置来选择去加重级别:如果变量为 0b,则应用 -6 dB 去加重;但如果变量为 1b,则应用 -3.5 dB 去加重。
+
+奇怪的是,在此子状态期间,DC 共模电压不必保持在规范限制范围内。
+
+如果在成功的速率协商(successful_speed_negotiation = 1b)之后进入此子状态,则可以如第 596 页的 Table 14-10 所示推断 Electrical Idle。规范指出,这涵盖了链路两端都已识别传入 TS1 和 TS2 的情况,因此它们的缺失可以解释为进入 Electrical Idle。
+
+如果在未成功的速率协商(successful_speed_negotiation = 0b)之后进入此子状态,则如果在指定时间内未在任何已配置的 Lane 上检测到至少一次 Electrical Idle 退出,则可以推断 Electrical Idle。这是为了涵盖链路的至少一端无法识别 TS Ordered Sets 的情况,因此在较长时间内未退出 Electrical Idle 可以视为进入 Electrical Idle。
+
+_Table 14-10: 推断 Electrical Idle 的条件_ 
+
+|**状态**|**2.5 GT/s**|**5.0 GT/s**|**8.0 GT/s**|
+|---|---|---|---|
+|L0|在 128µs 窗口中<br>缺少流控更新<br>DLLP 或 SOS|在 128µs 窗口中<br>缺少流控更新<br>DLLP 或 SOS|在 128µs 窗口中<br>缺少流控更新<br>DLLP 或 SOS|
+|Recovery.RcvrCfg|在 1280 UI 间隔<br>中缺少 TS1 或 TS2|在 1280 UI 间隔<br>中缺少 TS1 或 TS2|在 4ms 窗口<br>中缺少 TS1 或 TS2|
+|Recovery.Speed 当<br>successful_speed_neg<br>otiation = 1b|在 1280 UI 间隔<br>中缺少 TS1 或 TS2|在 1280 UI 间隔<br>中缺少 TS1 或 TS2|在 4680 间隔<br>中缺少 TS1 或 TS2|
+
+
+
+**596** 
+
+**Chapter 14: Link Initialization & Training** 
+
+_Table 14-10: 推断 Electrical Idle 的条件(续)_ 
+
+|**状态**|**2.5 GT/s**|**5.0 GT/s**|**8.0 GT/s**|
+|---|---|---|---|
+|Recovery.Speed 当<br>successful_speed_neg<br>otiation = 0b|在 2000 UI 间隔<br>中缺少 Electrical<br>Idle 退出|在 16000 UI<br>间隔中缺少<br>Electrical Idle 退出|在 16000 UI 间隔<br>中缺少 Electrical<br>Idle 退出|
+|Loopback.Active(作为<br>slave)|在 128µs 窗口<br>中缺少 Electrical<br>Idle 退出|N/A|N/A|
+
+
+
+directed_speed_change 变量将被清零至 0b,新数据速率必须显示在 Link Status 寄存器的 Current Link Speed 字段中,如图 14-39 所示。
+
+如果因链路带宽更改而更改了速率:
+
+- 如果 successful_speed_negotiation 设置为 1b,并且 8 个连续 TS2 中的 Autonomous Change 位置为 1b,或速率更改是由下游端口出于自治原因发起的(不是可靠性问题,也不是由软件设置 Link Retrain 位引起的),则 Link Status 寄存器中的 Link Autonomous Bandwidth Status 位置为 1b。
+
+- 否则,Link Bandwidth Management Status 位置为 1b。
+
+_Figure 14-39: Link Status 寄存器_ 
+
+**==> picture [373 x 178] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+15 14 13 12 11 10 9 4 3 0<br>Link Autonomous<br>Bandwidth Status<br>Link Bandwidth<br>Management Status<br>Data Link Layer<br>Link Active<br>Slot Clock<br>Configuration<br>Link Training<br>Undefined<br>Negotiated<br>Link Width<br>Current Link Speed<br>**----- End of picture text -----**<br>
+
+
+**597** 
+
+**PCI Ex ress Technolo p gy** 
+
+## _退出到"详细恢复子状态"_
+
+一旦超时到期,下一个状态将是 Recovery.RcvrLock
+
+如果此子状态是从 Recovery.RcvrCfg 进入的,并且速率更改成功,则新数据速率将在所有已配置的 Lane 上更改为最高共同支持的速率,并且 changed_speed_recovery 变量设置为 1b。
+
+如果自从从 L0 或 L1 进入 Recovery 以来第二次进入此子状态(由 changed_speed_recovery = 1b 指示),则新数据速率将是 LTSSM 进入 Recovery 时正在使用的速率,并且 changed_speed_recovery 变量清零至 0b。
+
+否则,新数据速率将恢复为 2.5 GT/s,并且 changed_speed_recovery 变量保持清零至 0b。规范指出,这表示 L0 中的速率大于 2.5 GT/s,但一个链路伙伴无法以该速率运行并在第一次通过时在 Recovery.RcvrLock 中超时的情况。
+
+## _退出到"Detect 状态"_
+
+如果不满足退出到 Recovery.RcvrLock 的任何条件,则下一个状态将是 Detect,虽然规范指出这在正常情况下应该是不可能的。这将意味着链路邻居根本无法再进行通信。
+
+## **Recovery.RcvrCfg** 
+
+只有在接收到至少 8 个具有相同先前协商的 Link 和 Lane 编号的 TS1 或 TS2 有序集之后,才能从 Recovery.RcvrLock 进入此状态。这意味着已建立位、符号或块锁,现在端口必须确定在 Recovery 状态中是否还有任何其他需要处理的项目。如果进入 Recovery 的目的只是要在离开链路电源管理状态后重新建立位和符号锁,那么这里可能会交换 TS2 并继续进行到 Recovery.Idle。但是,如果进入 Recovery 状态有其他原因(例如速率更改或链路宽度更改),则将在此子状态中确定,并发生适当的状态转换。
+
+在此子状态期间,发送器在所有已配置的 Lane 上发送 TS2,具有先前配置的相同 Link 和 Lane 编号。如果 directed_speed_change 变量设置为 1b,则 TS2 中的 speed_change 位也必须被设置。TS2 中的 N_FTS 值应反映当前速率所需的数量。start_equalization_w_preset 变量在进入此子状态时被清零至 0b。
+
+**598** 
+
+**Chapter 14: Link Initialization & Training** 
+
+如果速率已更改,可能会在 TS2 中看到不同的 N_FTS 数字。该值必须用于退出未来的 L0s 低功耗链路状态。对于 8b/10b 编码,必须在离开此子状态之前完成 Lane-to-Lane 去偏移。设备必须注意传入 TS2 中通告的速率标识符,并使用它来覆盖任何先前记录的值。使用 128b/130b 编码时,设备必须记录 Request Equalization 位的值以供将来参考。
+
+关于此子状态的说明:变量 successful_speed_negotiation 被设置为 1b。在此时记录在 TS2 中以 speed_change 位设置的 TS2 中通告的数据速率以供将来参考,以及 Autonomous Change 位以供在 Recovery.Speed 期间可能记录到 Link Status 寄存器中。将在 Recovery.Speed 中选择的速率将是最高共同支持的速率。有趣的是,即使 Link 已经在最高支持的速率下运行,这种情况下也会发生到 Recovery.Speed 的转换,虽然在这种情况下速率实际上不会更改。
+
+如果速率将要更改为 8.0 GT/s,则下游端口将需要发送 EQ TS2(Symbol 6 的位 7 设置为 1b 以指示 EQ 训练序列)。如果共同支持 8.0 GT/s 并且在任何已配置的 Lane 上看到 8 个连续的 speed_change 位设置的 TS1 或 TS2,或者如果 equalization_done_8GT_data_rate 变量为 0b,或者如果已指示,则会识别这种情况。如果当前数据速率为 8.0 GT/s 且均衡过程出现问题,上游端口可以设置 Request Equalization 位。任何一端都可以通过将 Request Equalization 和 Quiesce Guarantee 位都设置为 1b 来请求重新进行均衡。
+
+上游端口根据接收到的 TS2 中的 Selectable De-emphasis 位设置其 select_deemphasis 变量。并且,如果 TS2 是 EQ TS2,则将 start_equalization_w_preset 变量设置为 1b,并使用新信息更新其 Lane Equalization 寄存器(即:更新寄存器中的上游端口发送器预设和接收器预设提示字段)。任何未收到 EQ TS2 的已配置 Lane 将以设计特定的方式选择其 8.0 GT/s 操作的预设值。如果 equalization_done_8GT_data_rate 变量被清零至 0b,或如果已指示,则下游端口必须将 start_equalization_w_preset 变量设置为 1b。
+
+最后,如果使用 128b/130b 编码,设备必须记录 Request Equalization 位的值。如果已设置,则必须将其和 Quiesce Guarantee 位一起存储以供将来参考。
+
+**599** 
+
+**PCI Ex ress Technolo p gy** 
+
+## _退出到"Recovery.Idle"_
+
+如果满足以下两个条件,则下一个状态将是 Recovery.Idle:
+
+- 在任何已配置的 Lane 上接收到 8 个连续的 TS2,具有与正在发送的 Link 和 Lane 编号以及速率标识符相匹配的内容,并且:
+   - a) TS2 中的 speed_change 位被清零至 0b,或
+   - b) 没有高于 2.5 GT/s 的速率被共同支持。
+
+- 在接收到一个 TS2 后已发送了 16 个 TS2,并且它们没有被任何中间的 EIEOS 中断。changed_speed_recovery 和 directed_speed_change 变量在进入此子状态时都被清零至 0b。
+
+## _退出到"Recovery.Speed"_
+
+如果下面列出的所有三个条件都为真,则 LTSSM 将进入 Recovery.Speed:
+
+- 在任何已配置的 Lane 上接收到 8 个连续的 speed_change 位设置的 TS2,具有相同的速率标识符,Symbol 6 中具有相同的值,并且:
+   - a) TS2 是标准的 8b/10b TS2,或
+   - b) TS2 是 EQ TS2,或
+   - c) 在任何已配置的 Lane 上接收到 8 个 EQ TS2 后已过去 1ms。
+
+- 两个链路伙伴都支持高于 2.5 GT/s 的速率,或者该速率已经高于 2.5 GT/s。
+
+- 对于 8b/10b 编码,在已配置的同一 Lane 上接收到一个 speed_change 位设置为 1b 的 TS2 后,至少已发送 32 个 speed_change 位设置为 1b 的 TS2 而没有任何中间的 EIEOS。对于 128b/130b 编码,在已配置的同一 Lane 上接收到一个 speed_change 位设置为 1b 的 TS2 后,至少已发送 128 个 speed_change 位设置为 1b 的 TS2。
+
+如果自从从 L0 或 L1 进入 Recovery 以来,速率已更改为协商的速率(changed_speed_recovery = 1b),并且任何已配置的 Lane 已看到 EIOS 或检测到/推断出 Electrical Idle,并且自进入此子状态以来未看到 TS2,则也可以发生到 Recovery.Speed 的转换。这意味着尝试了较高的速率,但链路伙伴表明由于某种原因该速率不起作用。新速率将恢复为从 L0 或 L1 进入 Recovery 时的速率。
+
+最后一种可能导致转换到 Recovery.Speed 的情况是,如果自从从 L0 进入 Recovery 以来速率尚未更改为协商的速率
+
+**600** 
+
+**Chapter 14: Link Initialization & Training** 
+
+或 L1(changed_speed_recovery = 0b),并且当前速率已经高于 2.5 GT/s,并且任何已配置的 Lane 已看到 EIOS 或检测到/推断出 Electrical Idle,并且自进入此子状态以来未看到 TS2。在这种情况下,理解是当前速率不起作用,解决方案是降低速率,因此新速率将变为 2.5 GT/s。
+
+## _退出到"Configuration 状态"_
+
+如果在任何已配置的 Lane 上接收到 8 个连续的 TS1,其 Link 或 Lane 编号与正在发送的编号不匹配,并且 speed_change 位被清零至 0b,或没有高于 2.5 GT/s 的速率被共同支持,则下一个状态将是 Configuration。
+
+当 LTSSM 转换到 Configuration 时,变量 changed_speed_recovery 和 directed_speed_change 被清零至 0b。如果 N_FTS 值自上次以来已更改,则必须将新值用于以后的 L0s。
+
+## _退出到"Detect 状态"_
+
+经过 48ms 仍未解析为先前定义的状态转换之一时,如果数据速率为 2.5 GT/s 或 5.0 GT/s,则下一个状态将是 Detect。
+
+如果速率为 8.0 GT/s,则还有另一种可能性,因为尝试次数可能尚未超过。这由 idle_to_rlock_transitioned 变量指示,如果在速率为 8.0 GT/s 时它小于 FFh,则新状态将是"Recovery.Idle"。如果进行此转换,则变量 changed_speed_recovery 和 directed_speed_change 将被清零至 0b。但是,一旦 idle_to_rlock_transitioned 达到 FFh,并且看到 48ms 超时,则下一个状态将是 Detect。
+
+## **Recovery.Idle** 
+
+顾名思义,发送器通常在此子状态中发送 Idles,作为更改为完全操作的 L0 状态的准备。对于 8b/10b 模式,通常在所有 Lane 上发送 Idle 数据,而对于 128b/130b,发送 SDS 以启动数据流,然后在所有 Lane 上发送 Idle 数据符号。
+
+## _退出到"L0 状态"_
+
+如果以下任一情况为真,则下一个状态是 L0。在任一情况下,如果自上次从 Recovery 或 Configuration 转换到 L0 以来,Retrain Link 位已被写入 1b,则下游端口将 Link Bandwidth Management Status 位置为 1b(参见第 597 页的 Figure 14-39)。
+
+- 正在使用 8b/10b 编码,并且已接收到 8 个连续 Symbol Time 的 Idle 数据,并且自接收到第一个以来已发送了 16 个 Idle 数据符号。
+
+**601** 
+
+## **PCI Ex ress Technolo p gy** 
+
+- 正在使用 128b/130b 编码,已接收到 8 个连续 Symbol Time 的 Idle 数据,并且自接收到第一个以来已发送了 16 个 Idle 数据符号,并且此状态不是从 Recovery.RcvrCfg 进入的。请注意,Idle 数据符号必须包含在数据块中,Lane-to-Lane 去偏移必须在数据流处理开始之前完成,并且 idle_to_rlock_transitioned 变量在转换到 L0 时被清零至 00h。
+
+## _退出到"Configuration 状态"_
+
+如果满足以下任一条件,则下一个状态是 Configuration:
+
+- 端口被更高层指示可选地重新配置链路,例如更改链路宽度。
+
+- 任何已配置的 Lane 看到两个连续的传入 TS1,其 Lane 编号设置为 PAD(将转换到 Configuration 以更改链路的端口将在所有 Lane 上发送 PAD Lane 编号)。规范建议 LTSSM 在更改链路宽度时使用此转换,以减少将花费的时间。
+
+## _退出到"Disable 状态"_
+
+如果满足以下任一条件,则下一个状态是 Disabled:
+
+- 下游或可选的 crosslink 端口被更高层指示在其 TS1 或 TS2 中设置 Disable Link 位。
+
+- 上游或可选的 crosslink 端口的任何已配置 Lane 看到两个连续的传入 TS1 中设置了 Disable Link 位。
+
+## _退出到"Hot Reset 状态"_
+
+如果满足以下任一条件,则下一个状态是 Hot Reset:
+
+- 下游或可选的 crosslink 端口被更高层指示在其 TS1 或 TS2 中设置 Hot Reset 位。
+
+- 上游或可选的 crosslink 端口的任何已配置 Lane 看到两个连续的传入 TS1 中设置了 Hot Reset 位。
+
+## _退出到"Loopback 状态"_
+
+如果满足以下任一条件,则下一个状态是 Loopback:
+
+- 已知发送器具有 Loopback Master 能力(设计特定;规范未提供验证方法)并被更高层指示在其 TS1 或 TS2 中设置 Loopback 位。
+
+- 上游或可选的 crosslink 端口的任何已配置 Lane 看到两个连续的传入 TS1 中设置了 Loopback 位。然后接收设备成为 Loopback slave。
+
+**602** 
+
+**Chapter 14: Link Initialization & Training** 
+
+## _退出到"Detect 状态"_
+
+否则,经过 2ms 超时后,下一个状态将是 Detect,除非 idle_to_rlock_transitioned 变量小于 FFh,在这种情况下,下一个状态将是"详细恢复子状态"。对于到 Recovery.RcvrLock 的转换,如果数据速率为 8.0 GT/s,则 idle_to_rlock_transitioned 变量加 1b;而对于 2.5 或 5.0 GT/s,它将被设置为 FFh。
+
+## **L0s 状态** 
+
+这是具有从 L0 返回的最短退出延迟的低功耗链路状态。设备在硬件控制下自动管理此状态的进入和退出,无需任何软件参与。链路的每个方向可以独立于彼此进入和退出 L0s 状态。
+
+## **L0s 发送器状态机** 
+
+L0s 状态对发送器和接收器有不同的子状态。将首先描述发送器子状态。如第 603 页的 Figure 14-40 所示,与 L0s 状态关联的发送器状态机是一个简单的状态机。
+
+_Figure 14-40: L0s Tx 状态机_ 
+
+**==> picture [288 x 186] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Entry<br>from L0<br>Tx sends  Transmitter sends<br>EIOS FTSs on all Lanes<br>TTX-IDLE-MIN<br>= 20 ns Tx_L0s.Idle Directed<br>Tx_L0s.Entry Tx_L0s.FTS<br>(Tx Electrical Idle)<br>Transmitter sends<br>SOS or EIEOS<br>Exit to<br>L0<br>**----- End of picture text -----**<br>
+
+
+**603** 
+
+**PCI Ex ress Technolo p gy** 
+
+## **Tx_L0s.Entry。** 
+
+当上层指示时,发送器进入 L0s。规范未给出此决定的决策标准,但凭直觉,这将基于不活动超时发生:在给定时间内没有发送 TLP 或 DLLP。要进入 L0s,发送器发送一个 EIOS(对于 5.0 GT/s 速率为两个 EIOS)并进入 Electrical Idle。但是,发送器未关闭,必须保持 DC 共模电压在规范范围内。
+
+## _退出到"Tx_L0s.Idle"_
+
+下一个状态将在 TTX-IDLE-MIN 超时(20ns)后是 Tx_L0s.Idle。此时间旨在确保发送器已建立 Electrical Idle 条件。
+
+## **Tx_L0s.Idle。** 
+
+在此子状态中,发送器继续处于 Electrical Idle 状态,直到被指示离开。由于此方向的链路处于 Electrical Idle,因此将带来节能优势,这正是 L0s 状态的整个目的。
+
+_退出到"Tx_L0s.FTS"_
+
+当被指示时(例如当端口需要恢复分组传输时),下一个状态将是 Tx_L0s.FTS。LTSSM 将以设计特定的方式被指示退出此状态。
+
+## **Tx_L0s.FTS。** 
+
+在此子状态中,发送器将开始发送 FTS 有序集以重新训练链路伙伴的接收器。发送的 FTS 数量是链路伙伴在上次训练序列(导致 L0)期间在其 TS 有序集中通告的 N_FTS 值。规范指出,如果接收器在尝试执行此操作时超时,则可以选择在 Recovery 状态期间增加其通告的 N_FTS 值。
+
+如果设置了 Extended Synch 位(参见第 644 页的 Figure 14-71),则发送器必须发送 4096 个 FTS 而不是 N_FTS 数字。这扩展了同步外部测试和分析逻辑的可用时间,这些逻辑可能无法像嵌入式逻辑那样快地恢复位锁。
+
+对于所有数据速率,在发送任何 FTS 之前不能发送 SOS。但是,对于 5.0 GT/s 速率,必须在发送 FTS 之前发送 4 到 8 个 EIE 符号。对于 128b/130b,必须在 FTS 之前发送 EIEOS。
+
+**604** 
+
+**Chapter 14: Link Initialization & Training** 
+
+## _退出到"L0 状态"_
+
+一旦所有 FTS 都已发送,发送器将转换到 L0 状态,并且:
+
+- a) 对于 8b/10b 编码,在所有已配置的 Lane 上发送一个 SOS,尽管在 FTS 之前或期间不发送任何 SOS。
+
+- b) 对于 128b/130b 编码,发送一个 EIEOS,然后是 SDS 和数据流。
+
+## **L0s 接收器状态机** 
+
+Figure 14-41(第 605 页)显示了接收器 L0s 状态机。如果 Link Capability 寄存器中的 ASPM Support 字段显示支持 L0s,则要求接收器实现 L0s 支持;即使未指示支持,允许实现它。
+
+_Figure 14-41: L0s 接收器状态机_ 
+
+**==> picture [327 x 184] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Entry<br>from L0<br>Rx detects<br>EIOS Exit from FTSs Received<br>TTX-IDLE-MIN Electrical<br>= 20 ns Rx_L0s.Idle Idle<br>Rx_L0s.Entry Rx_L0s.FTS<br>(Rx Electrical Idle)<br>Tx sends N_FTS<br>SOS or EIEOS Timeout<br>Exit to Exit to<br>L0 Recovery<br>**----- End of picture text -----**<br>
+
+
+**605** 
+
+**PCI Ex ress Technolo p gy** 
+
+## **Rx_L0s.Entry。** 
+
+当接收器接收到 EIOS 时进入,前提是它支持 L0s 并且尚未被指示为 L1 或 L2。
+
+_退出到"Rx_L0s.Idle"_
+
+下一个状态将在 TTX-IDLE-MIN 超时(20ns)后是 Rx_L0s.Idle。
+
+## **Rx_L0s.Idle。** 
+
+接收器现在处于 Electrical Idle 模式,只是等待看到退出 Electrical Idle。
 
 </td>
 </tr></tbody></table>
@@ -705,7 +1486,133 @@ The Receiver is now in Electrical Idle mode and is just waiting to see an exit f
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+关于 Electrical Idle 的旁注,规范的早期版本预计 Electrical Idle 将基于测量电压阈值的 squelch 检测电路。后来,随着速度增加,检测如此小的电压差异变得越来越困难。因此,较新的规范版本允许通过观察链路行为来推断 Electrical Idle,而不是实际测量电压。但是,如果未使用电压电平来检测进入 Electrical Idle,那么它也不能用于检测退出 Electrical Idle。为了处理该问题,引入了一种称为 EIEOS(Electrical Idle Exit Ordered Set)的新有序集。EIEOS 由全零和全 1 的交替字节组成,在 Lane 上产生低频时钟的效果。一旦接收器进入 Electrical Idle,它可以监视信号上的此模式以通知它链路正在退出 Electrical Idle。
+
+_退出到"Rx_L0s.FTS"_
+
+在接收器检测到退出 Electrical Idle 之后,下一个状态将是 Rx_L0s.FTS。
+
+## **Rx_L0s.FTS。** 
+
+在此子状态中,接收器已注意到退出 Electrical Idle,现在正尝试在传入的位流(实际上是 FTS 有序集)上重新建立位和符号或块锁。
+
+_退出到"L0 状态"_
+
+如果在 8b/10b 编码中所有已配置的 Lane 上接收到 SOS,或者在 128b/130b 编码中接收到 SDS,则下一个状态将是 L0。接收器必须能够在此之后立即接受有效数据,并且必须在离开此状态之前完成 Lane-to-Lane 去偏移。
+
+**606** 
+
+**Chapter 14: Link Initialization & Training** 
+
+## _退出到"Recovery 状态"_
+
+否则,在 N_FTS 超时后,下一个状态将是 Recovery。如果是这样,发送器也必须进入 Recovery,尽管允许完成正在进行的任何 TLP 或 DLLP。如果发生超时,规范建议增加 N_FTS 值以降低再次发生的可能性。N_FTS 超时定义如下:
+
+对于 8b/10b,最小超时为 40 * [N_FTS + 3] * UI,而最大允许为该时间的两倍。由于每个符号需要 10 位(UI 表示一个位时间),因此这等于 (4*N_FTS + 12) 个符号。额外的 12 个符号解释为:最大大小 SOS 的 6 个 + 4 个用于可能的额外 FTS + 2 个用于符号裕度。总之,最小时间是发送所请求的 FTS 数量加上 12 个符号所需的时间,而最大时间是该时间的两倍。
+
+如果设置了扩展同步位,则最小时间 = 2048 FTS,最大时间 = 4096 FTS。接收器将使用的实际超时值还必须考虑 2.5 GT/s 以外速度的 4 到 8 个 EIE 符号。
+
+对于 128b/130b,超时值被给定为最小 130 * [N_FTS + 5 + 12 + Floor(N_FTS/32)] * UI,最大为该时间的两倍。值 130 * UI 意味着 130 个位时间,代表一个块,因此如果我们删除这两个值,我们可以说我们正在查看 [N_FTS + 5 + 12 + Floor(N_FTS/32)] 个块。值 [5 + Floor(N_FTS/32)] 表示在此期间需要发送的 EIEOS 数。每 32 个 FTS 之后将发送一个 EIEOS,因此 Floor(N_FTS/32) 给出该数字。另一个 5 是由第一个 EIEOS、最后一个 EIEOS、SDS、周期性 EIEOS 和当 N_FTS 能被 32 整除时发送两个 EIEOS 后跟一个 SDS 的情况下发送的额外 EIEOS 解释的。最后,值 12 表示如果设置了扩展同步位将发送的 SOS 数量。当设置了该位时,超时将使用 N_FTS = 4096。
+
+## **L1 状态** 
+
+此链路电源状态与 L0s 状态相比,权衡了更长的退出延迟以获得更积极的电源管理。L1 是 ASPM 的一个选项,像 L0s 一样,意味着设备可以在硬件控制下自动进入和退出此状态,无需任何软件参与。但是,与 L0s 不同,软件也能够指示上游端口发起更改为 L1,它通过将设备电源状态写入较低级别(D1、D2 或 D3)来执行此操作。L1 状态与 L0s 的不同之处还在于它影响链路的两个方向。
+
+**607** 
+
+## **PCI Ex ress Technolo p gy** 
+
+_Figure 14-42: L1 状态机_ 
+
+**==> picture [260 x 199] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Entry<br>from L0<br>Directed and Remain in<br>EIOS Tx & Rx TTX-IDLE-MIN Electrical Idle<br>= 20 ns L1.Idle<br>L1.Entry<br>(Electrical Idle)<br>Tx in Electrical Idle Tx Directed or<br>Rx sees Electrical Idle Exit<br>Exit to<br>Recovery<br>**----- End of picture text -----**<br>
+
+
+由于进入 Electrical Idle 可能表示链路伙伴希望进入 L0s、L1 或 L2,因此通过让两个伙伴事先同意何时将进入 L1 来处理应将哪个作为下一个状态。握手通知他们伙伴已准备好,因此可以安全地继续。有关此工作原理的更多详细信息,请参阅第 733 页的"Link Power Management 简介"部分。第 608 页的 Figure 14-42 显示了 L1 状态机,将在以下部分中描述。
+
+## **L1.Entry** 
+
+要使上游端口进入此状态,它必须向其链路伙伴发送进入 L1 的请求,并收到可以进入 L1 状态的确认。请求进入 L1 的原因可能是由于 ASPM 或软件参与。一旦接收到 L1 请求确认,上游端口将进入 L1.Entry 子状态。
+
+要使下游端口进入此状态,它必须从上游端口接收 L1 进入请求,并向该请求发送肯定响应。然后下游端口等待接收 Electrical Idle Ordered Set (EIOS) 并让其接收 Lane 下降至 Electrical Idle。此时,下游端口进入 L1.Entry 子状态。
+
+**608** 
+
+**Chapter 14: Link Initialization & Training** 
+
+## _在 L1.Entry 期间_
+
+所有已配置的发送器发送一个 EIOS 并进入 Electrical Idle,同时保持适当的 DC 共模电压。
+
+## _退出到"L1.Idle"_
+
+下一个状态将在 TTX-IDLE-MIN 超时(20ns)后是 L1.Idle。此时间旨在确保发送器已建立 Electrical Idle 条件。
+
+## **L1.Idle** 
+
+在此子状态期间,发送器保持处于 Electrical Idle 状态。
+
+对于 2.5 GT/s 以外的速率,LTSSM 必须在此子状态中保持至少 40ns。在规范中,此延迟被称为"用于补偿逻辑电平中的延迟,以防链路进入 L1 后立即退出时使能 Electrical Idle 检测电路"。
+
+## _退出到"Recovery 状态"_
+
+当发送器被指示更改或任何接收器检测到退出 Electrical Idle 时,下一个状态将是 Recovery。离开 L1 的原因包括需要传递 DLLP 或 TLP,或希望更改链路宽度或速度。如果需要速度更改,则允许端口将 directed_speed_change 变量设置为 1b,并且必须将 changed_speed_recovery 变量清零至 0b。可选地,端口可以退出 L1,然后通过将 directed_speed_change 设置为 1b 并从 L0 进入 Recovery 来稍后启动速度更改。
+
+## **L2 状态** 
+
+这是比 L1 更深的电源状态,具有更长的退出延迟。当其设备置于 D3Cold 电源状态并且已完成的相应链路握手后,电源管理软件指示上游端口发起进入 L2(链路的两个方向都进入 L2)。
+
+一旦系统了解到一切就绪,主电源将被关闭。断电后,链路电源状态将变为 L2 或 L3,具体取决于是否可获得称为 VAUX(辅助电压)的辅助电源。如果存在 VAUX,则链路进入 L2;如果不存在,则进入 L3。
+
+L2 的动机是使用 VAUX 提供的小功率来通知系统何时发生需要恢复链路电源的事件。
+
+**609** 
+
+## **PCI Ex ress Technolo p gy** 
+
+有两种标准方式设备可以通知系统此类事件。一种是称为 WAKE# 引脚的边带信号,另一种是称为"Beacon"的带内信号。L2 状态对于 WAKE# 是不需要的,但如果要使用可选的 Beacon,则是必需的。规范明确指出,以 5.0 或 8.0 GT/s 运行的设备不需要支持 Beacon,因此这似乎是旧版支持,仅对以 2.5 GT/s 运行的设备有意义。有关链路唤醒选项的更多详细信息,请参阅第 772 页的"Waking Non-Communicating Links"。
+
+如果支持,Beacon 是低频(30 KHz - 500 MHz)带内信号,支持唤醒功能的上游端口必须能够在至少 Lane 0 上发送它,下游端口必须能够接收它。像交换机这样的中间设备,如果在下游端口上接收到 Beacon,必须将其转发到其上游端口。Beacon 的最终目的地是根复合体 (Root Complex),因为这是系统电源控制逻辑预期所在的位置。
+
+进入 Electrical Idle 的发送器可能表示希望进入任何低功耗链路状态(L0s、L1 或 L2),因此需要一种区分它们的方法。对于 L2,这通过让链路伙伴事先同意将通过使用握手序列来进入 L2 来处理,以确保它们都已准备好。有关此工作原理的更多详细信息,请参阅第 733 页的"Link Power Management 简介"部分。第 611 页的 Figure 14-43 显示了 L2 进入和退出状态机,将在以下文本中描述。
+
+**610** 
+
+**Chapter 14: Link Initialization & Training** 
+
+_Figure 14-43: L2 状态机_ 
+
+**==> picture [349 x 227] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Entry<br>from L0<br>Directed, and<br>EIOS both sent<br>and received Upstream Tx<br>sends Beacon<br>Upstream Port directed to send Beacon,<br>L2.Idle or Downstream Port detects Beacon<br>(Electrical Idle, L2.TransmitWake<br>No DC CMV)<br>Rx termination enabled,<br>Rx looking for  Upstream Rx detects<br>Electrical Idle Exit Electrical Idle Exit<br>Root Port detects Beacon,<br>or Upstream Port sees<br>Electrical Idle Exit Exit to<br>Detect<br>**----- End of picture text -----**<br>
+
+
+## **L2.Idle** 
+
+要进入此子状态,链路两端的所有必要握手过程必须已经发生,并且端口已发送和接收到所需的 EIOS。
+
+所有已配置的发送器必须保持处于 Electrical Idle 状态至少 TTX-IDLE-MIN 超时(20ns)。但是,由于主电源现在将被关闭,因此它们不需要将 DC 共模电压保持在规范范围内。接收器在 20ns 超时到期之前不会开始寻找 Electrical 退出条件。所有接收器终端必须保持处于低阻抗条件下的使能状态。
+
+## _退出到"L2.TransmitWake"_
+
+如果上游端口被指示发送 Beacon(Beacon 始终且仅指向上游到根复合体),则下一个状态将是 L2.TransmitWake。
+
+**611** 
+
+**PCI Ex ress Technolo p gy** 
+
+如果交换机的下游端口检测到 Beacon,则它必须指示交换机的上游端口退出到 L2.TransmitWake 并开始发送 Beacon。
+
+## _退出到"Detect 状态"_
+
+一旦主电源恢复,下一个状态将是 Detect。
+
+如果此端口具有主电源,但它在任何"预定的"Lane 上检测到退出 Electrical Idle,这意味着那些可以协商为 Lane 0 的 Lane(多 Lane 链路必须具有至少两个预定的 Lane),则下一个状态将是 detect。当这种情况发生在交换机上游端口时,交换机还必须将其下游端口转换为 Detect。
+
+## **L2.TransmitWake**
 
 </td>
 </tr></tbody></table>
@@ -853,7 +1760,155 @@ If this Port has main power, but it detects an exit from Electrical Idle on any 
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+在此子状态期间,发送器将在至少 Lane 0 上发送 Beacon。请注意,此状态仅适用于上游端口,因为只有它们才能发送 Beacon。
+
+## _退出到"Detect 状态"_
+
+如果在任何上游端口的接收器上检测到退出 Electrical Idle,则下一个状态将是 Detect。当然,必须已经恢复了设备的电源,以便邻居退出 Electrical Idle。
+
+## **Hot Reset 状态** 
+
+由于以下任一原因,端口将进入 Hot Reset 状态:它是一个桥接器并且软件对其配置空间进行了编程以向下游传播 Hot Reset,如第 837 页的"Hot Reset(带内复位)"中所述;或者由于端口接收到两个连续的 Hot Reset 位为 1 的 TS1。
+
+## _在 Hot Reset 期间_
+
+端口持续传输 Hot Reset 位设置的 TS1,但不更改已配置的 Link 和 Lane 编号。
+
+如果交换机的上游端口进入 Hot Reset 状态,则所有已配置的下游端口必须尽快转换为 Hot Reset。
+
+## _退出到"Detect 状态"_
+
+在发起 Hot Reset 的桥接器中,一旦软件清除启动 Hot Reset 的配置空间位,桥接端口将进入 Detect。但是,该端口必须保持在 Hot Reset 状态至少 2ms。
+
+**612** 
+
+**Chapter 14: Link Initialization & Training** 
+
+对于由于接收到两个连续的 Hot Reset 位为 1 的 TS1 而进入 Hot Reset 的端口,只要它继续接收此类 TS1,它就会保持此状态。一旦端口停止接收 Hot Reset 位为 1 的 TS1,它将转换到 Detect 状态。但是,该端口必须保持在 Hot Reset 状态至少 2ms。
+
+## **Disable 状态** 
+
+禁用的链路处于 Electrical Idle 状态,不必保持 DC 共模电压。软件通过设置设备的 Link Control 寄存器中的 Link Disable 位(参见第 644 页的 Figure 14-71)来启动此操作,然后设备发送 Disable Link 位为 1 的 TS1。
+
+## _在 Disable 期间_
+
+所有 Lane 发送 16 到 32 个 Disable Link 位为 1 的 TS1,发送一个 EIOS(对于 5.0 GT/s 情况为两个连续的 EIOS),然后转换到 Electrical Idle。DC 共模电压不需要在规范范围内。
+
+如果已发送 EIOS(对于 5.0 GT/s 情况为两个连续的 EIOS)并且在任何已配置的 Lane 上也接收到 EIOS,则 LinkUp = 0b(False),并且 Lane 被认为是禁用的。
+
+## _退出到"Detect 状态"_
+
+对于上游端口,当在接收器处检测到 Electrical Idle,或在 2ms 超时内未接收到 EIOS 时,下一个状态将是 Detect。
+
+对于下游端口,下一个状态也将是 Detect,但要等到软件将 Link Disable 位清零至 0b 之后。
+
+## **Loopback 状态** 
+
+Loopback 状态是在正常操作期间不使用的测试和调试功能。作为 Loopback 主站的设备可以通过发送 Loopback 位为 1 的 TS1 将链路伙伴置于 Loopback 从站模式。这可以在线完成,从而允许使用 Loopback 状态对链路执行 BIST(Built In Self Test)的可能性。
+
+一旦处于此状态,Loopback 主站将有效符号发送给 Loopback 从站,然后 Loopback 从站回显它们。Loopback 从站继续执行
+
+**613** 
+
+## **PCI Ex ress Technolo p gy** 
+
+时钟容差补偿,因此主站必须继续以正确的间隔插入 SOS。要执行时钟容差补偿,Loopback 从站可能必须向回显给 Loopback 主站的 SOS 添加或删除 SKP 符号。
+
+当 Loopback 主站发送 EIOS 并且接收器检测到 Electrical Idle 时,Loopback 状态退出。Loopback 状态机如图 14-44(第 614 页)所示,并在以下文本中描述。
+
+_Figure 14-44: Loopback 状态机_ 
+
+**==> picture [368 x 171] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Entry<br>from Configuration<br>Or Recovery<br>Slave: Enter Electrical<br>Master sends valid Idle for 2ms<br>Master sends Master receives Symbols - Master: Tx EIOSs<br>Identical TS1’s; Slave required to and enter Electrical<br>TS1s w/ Loopback Slave has retransmit exactly Slave: Directed or  Idle for 2 ms<br>bit set entered 4 EIOS seen<br>Loopback Master: Directed<br>Loopback.Entry Loopback.Active Loopback.Exit<br>Timeout less than<br>100 ms Exit to<br>Detect<br>**----- End of picture text -----**<br>
+
+
+## **Loopback.Entry** 
+
+此子状态的典型行为是 Loopback Master 发送 Loopback 位置 1 的 TS1,直到它开始看到那些返回的 TS1。一旦 Loopback Master 看到返回的 Loopback 位为 1 的 TS1,它就知道其链路伙伴现在正在作为 Loopback Slave 运行,只是简单地重复它接收到的所有内容。
+
+在此子状态中,链路不被视为处于活动状态(LinkUp = 0b)。此外,TS1 和 TS2 中使用的 Link 和 Lane 编号被接收器忽略。规范对 128b/130b 编码的 Lane 编号的使用进行了有趣的观察。事实证明,每个 Lane 对其加扰器使用不同的种子值(参见第 430 页的"加扰")。因此,如果 Lane 编号在进入 Loopback 模式之前尚未协商,则链路伙伴可能具有不同的 Lane 分配,因此将无法识别传入的符号。这可以通过在指
+
+**614** 
+
+**Chapter 14: Link Initialization & Training** 
+
+定 Master 进入 Loopback 状态之前等待 Lane 编号协商完成,或者通过指示 Master 在 Loopback.Entry 期间设置 Compliance Receive 位,或通过其他方法来避免。
+
+## **Loopback Master:** 
+
+在此子状态中,Loopback Master 将持续发送 Loopback 位置 1 的 TS1。Master 还可以在 TS1 中置位 Compliance Receive 位以帮助测试,当一个或两个端口在速率更改后难以获取位锁、符号锁或块对齐时。如果设置了该位,则在此状态期间不得清除它。
+
+如果此子状态是从 Configuration.Linkwidth.Start 进入的,请检查正在使用的速度是否为两个链路伙伴共同支持的最高速率。如果不是:
+
+- 更改为最高共同速度。发送 16 个 Loopback 位置 1 的 TS1,后跟一个 EIOS(如果当前速度为 5.0 GT/s,则为两个 EIOS),然后进入 Electrical Idle 1ms。在空闲期间,将速度更改为最高共同支持的速率。
+
+- 如果最高共同速率为 5.0 GT/s,则从站的 Tx 去加重由 Master 通过将其 TS1 中的 Selectable De-emphasis 位设置为所需值来控制(1b = -3.5 dB,0b = -6 dB)。
+
+- 对于 5.0 GT/s 及更高的数据速率,Master 的发送器可以选择其想要的任何去加重设置,无论它发送给从站的设置如何。
+
+- 潜在问题:如果在链路已经训练到 L0 并且 LinkUp = 1b 之后进入 Loopback,则一个端口可能从 Recovery 进入 Loopback,而伙伴从 Configuration 进入。如果发生这种情况,后一个端口可能尝试更改速度,而从 Recovery 进入的端口则不会,从而导致结果未定义的情况。规范指出,测试设置必须避免此类冲突情况。
+
+## _退出到"Loopback.Active"_
+
+下一个状态将在 2ms 后是 Loopback.Active,前提是 TS1 中的 Compliance Receive 位已设置,或者在设计特定数量的 Lane 上接收到两个连续的 Loopback 位为 1 的 TS1 并且 TS1 中的 Compliance Receive 位未设置。
+
+请注意,如果速度已更改,Master 必须确保已发送足够的 TS1,以便从站能够在进入 Loopback.Active 状态之前获取符号锁或块对齐。
+
+**615** 
+
+## **PCI Ex ress Technolo p gy** 
+
+## _退出到"Loopback.Exit"_
+
+如果不满足进入 Loopback.Active 的任一条件,则下一个状态将在小于 100ms 的设计特定超时后是 Loopback.Exit。
+
+## **Loopback Slave:** 
+
+此子状态通过接收两个连续的 Loopback 位为 1 的 TS1 来进入。
+
+如果此子状态是从 Configuration.Linkwidth.Start 进入的,请检查正在使用的速度是否为两个链路伙伴共同支持的最高速度。如果不是:
+
+- 更改为最高共同速度。发送一个 EIOS(如果当前速度为 5.0 GT/s,则为两个 EIOS),然后进入 Electrical Idle 2ms。在空闲期间,将速度更改为最高共同支持的速率。
+
+- 如果最高共同速率为 5.0 GT/s,则根据接收到的 TS1 中的 Selectable De-emphasis 位设置发送器的去加重(1b = -3.5 dB,0b = -6 dB)。
+
+- 如果最高共同速率为 8.0 GT/s,并且:
+
+   - a) EQ TS1 指示从站进入此状态,则使用它们指定的 Tx Preset 设置。
+
+   - b) 普通 TS1 指示从站进入此状态,则允许从站使用其默认发送器设置。
+
+## _退出到"Loopback.Active"_
+
+如果将指示从站进入此状态的传入 TS1 中的 Compliance Receive 位置 1,则下一个状态将是 Loopback.Active。从站不需要等待特定边界来发送环回数据,并且允许截断任何正在进行的有序集。
+
+否则,从站发送 Link 和 Lane 编号设置为 PAD 的 TS1,并且下一个状态将是 Loopback.Active,前提是:
+
+- 速率为 2.5 或 5.0 GT/s,并且所有 Lane 上获取了符号锁。
+
+- 速率为 8.0 GT/s,并且在所有活动 Lane 上看到两个连续的 TS1。通过评估和应用 TS1 中给定的值来处理均衡,只要它们受支持并且 EC 值适合端口方向(下游端口为 10b,
+
+**616** 
+
+**Chapter 14: Link Initialization & Training** 
+
+上游端口为 11b)。可选地,端口可以接受此情况下的任一 EC 值。如果应用了设置,则它们必须在接收后 500ns 内生效,并且不得导致发送器在任何电气规范上违规超过 1ns。与 Recovery.Equalization 中的过程相比的一个显着差异是,从站正在发送的 TS1 中不回显新设置。– 对于 8b/10b,从站必须仅在符号边界上转换为环回数据,但允许截断任何正在进行的有序集。对于 128b/130b,未指定何时可以发送环回数据的边界,并且仍然允许截断任何正在进行的有序集。
+
+## **Loopback.Active** 
+
+在此子状态期间,Loopback Master 发送有效的编码数据,并且在准备退出 Loopback 之前不应发送 EIOS。Loopback Slave 在不修改的情况下回显接收到的信息(即使编码被确定为无效),可能的例外是反转极性,正如在 Polling 状态中确定的那样。从站还继续执行时钟容差补偿。这意味着必须根据需要添加或删除 SKP,但不要求所有 Lane 发送相同数量。
+
+## _退出到"Loopback.Exit"_
+
+对于 Loopback master,如果被指示,下一个状态将是 Loopback.Exit。
+
+对于 Loopback slave,如果以下两个条件之一为真,则下一个状态将是 Loopback.Exit:
+
+- 从站被指示退出,或在任何 Lane 上看到四个连续的 EIOS。
+
+- 可选地,如果当前速度为 2.5 GT/s,并且接收到 EIOS 或在任何 Lane 上检测到或推断出 Electrical Idle。如果任何已配置的 Lane 在 128µs 内未检测到退出 Electrical Idle,则可以推断 Electrical Idle。
 
 </td>
 </tr></tbody></table>
@@ -1023,7 +2078,141 @@ The next state will be Loopback.Exit for the loopback slave if either of two con
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+从站必须能够在接收到 EIOS 后 1ms 内检测到任何 Lane 上的 Electrical Idle。在接收到 EIOS 和实际检测到 Electrical Idle 之间,Loopback Slave 可能接收的位流未被编码方案定义,并且可以将其环回给发送器。
+
+**617** 
+
+## **PCI Ex ress Technolo p gy** 
+
+## **Loopback.Exit** 
+
+在此子状态期间,Loopback Master 发送一个 EIOS(对于仅支持 2.5 GT/s 的端口)或八个连续的 EIOS(对于支持高于 2.5 GT/s 速率的端口;对于仅支持 2.5 GT/s 的端口,也可选地发送 8 个),然后在所有 Lane 上进入 Electrical Idle 2ms。
+
+- Loopback Master 必须在发送最后一个 EIOS 后,在 TTX-IDLE-SET-TO-IDLE[内转换到 Electrical Idle。请注意,EIOS 标记主站的]发送和比较操作的结束。Master 在接收到任何 EIOS 后接收到的任何数据都是未定义的,应予以忽略。
+
+Loopback slave 必须在所有 Lane 上进入 Electrical Idle 2ms,但必须回显在检测到 Electrical Idle 之前接收到的所有符号,以确保 Master 将 EIOS 的到达视为逻辑发送和比较操作的结束。
+
+## _退出到"Detect 状态"_
+
+一旦已交换所需的 EIOS 并且 Lane 已在 Electrical Idle 中保持 2ms,下一个状态将是 Detect。
+
+## **Dynamic Bandwidth Changes** 
+
+更高的数据速率和更宽的 PCIe 链路提供比前几代更高的性能,但也使用更多功率。因此,2.0 规范的作者选择包括另一对电源管理机制,允许硬件动态调整链路速度和宽度。这些允许链路在需要性能时使用最高速度和最宽的链路,或者降低到较低速度或较窄的链路宽度或两者兼而有之以降低功率。与更改链路或设备电源状态相比,此方法有两个明显的优势。
+
+首先,无论是否更改,链路始终能够通信,服务中断相对较短以进行更改。其次,节能可以更大。例如,与处于 L0s 状态下的 x16 链路相比,x16 链路作为活动 x1 链路运行几乎肯定会使用更少的功率。
+
+其次,除了节能之外,带宽缩减还可用于解决可靠性问题。例如,可能是高速链路产生不可接受的可靠性,在这种情况下,允许任一链路组件从其通告的支持速率列表中删除有问题的速度。组件如何进行可靠性确定未指定。
+
+**618** 
+
+**Chapter 14: Link Initialization & Training** 
+
+有趣的是,也允许组件进入 Recovery 状态并通告一组不同的支持速度,而不在此过程中请求速度更改。
+
+更改链路速度或链路宽度需要重新训练链路。当链路处于 L0 状态并且需要更改速度时,需要更改速度的端口的 LTSSM 开始向其邻居发送 TS1。这样做会导致两个相关端口的 LTSSM 经过 Recovery 状态,在那里更改链路速度,然后返回 L0。
+
+类似地,需要更改链路宽度的端口开始向其邻居发送 TS1。这样做会导致两个相关端口的 LTSSM 经过 Recovery 状态,然后经过 Configuration 状态,在那里更改链路宽度。LTSSM 最终返回到 L0,并建立新的链路宽度。
+
+由于 LTSSM 参与动态链路带宽管理,讨论链路带宽管理的两个方面(动态链路速度更改和动态链路宽度更改)是有意义的。让我分别考虑这两个选项,从链路速度更改开始。
+
+## **Dynamic Link Speed Changes** 
+
+回顾一下,LTSSM 状态如图 14-45(第 620 页)所示,以便于回忆状态流。虽然根据 Gen1 规范,速度更改指示在 Polling 状态中执行,但随后的 Gen2 规范将此功能移至 Recovery 状态。
+
+**619** 
+
+## **PCI Ex ress Technolo p gy** 
+
+_Figure 14-45: LTSSM 概述_ 
+
+**==> picture [196 x 255] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Detect<br>Polling<br>Configuration<br>L2 Recovery<br>L1 L0 L0s<br>**----- End of picture text -----**<br>
+
+
+在 Polling 状态期间,链路邻居之间交换 TS1,这些信息包含几种类型的信息,如图 14-46(第 621 页)所示。对我们来说,最有趣的部分是字节号 4,即 Rate Identifier。位 1、2 和 3 指示哪些数据速率可用,规范指出必须始终支持 2.5 GT/s,而如果支持 8.0 GT/s,则还必须支持 5.0 GT/s。
+
+位 6 的含义取决于端口是面向上游还是下游,以及也取决于端口所处的 LTSSM 状态。但是,对于速度更改情况,选项会减少,因为仅来自上游端口的位才有意义,仅指示速度更改是否是自主事件。"自主"意味着端口出于其自身的硬件特定原因请求此更改,而不是由于可靠性问题。位 7 由上游端口用于请求速度更改。这些值在 TS2 中非常相似,尽管位 6 现在具有另一种含义,与我们稍后将讨论的自主链路宽度更改相关。
+
+**620** 
+
+**Chapter 14: Link Initialization & Training** 
+
+_Figure 14-46: TS1 内容_ 
+
+**==> picture [315 x 176] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+0 COM<br>1 Link #<br>Rate Identifier<br>2 Lane # Bit 0 Reserved, = 0<br>3 # FTS Bit 1 Indicates 2.5 GT/s support<br>4 Rate ID Bit 2 Indicates 5.0 GT/s support<br>5 Train Ctl Bit 3 Indicates 8.0 GT/s support<br>6 Bit 4:5 Reserved, = 0<br>TS ID Bit 6 Autonomous Change / Selectable De-<br>13 emphasis<br>14 TS ID Bit 7 Speed Change<br>15 TS ID<br>**----- End of picture text -----**<br>
+
+
+_Figure 14-47: TS2 内容_ 
+
+**==> picture [316 x 177] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+0 COM<br>1 Link # Rate Identifier<br>Bit 0 Reserved, = 0<br>2 Lane #<br>Bit 1 Indicates 2.5 GT/s support<br>3 # FTS<br>Bit 2 Indicates 5.0 GT/s support<br>4 Rate ID<br>Bit 3 Indicates 8.0 GT/s support<br>5 Train Ctl<br>Bit 4:5 Reserved, = 0<br>6<br>Bit 6 Autonomous Change / Link Up-<br>TS ID configure Capability / Selectable De-<br>13 emphasis<br>14 TS ID Bit 7 Speed Change<br>15 TS ID<br>**----- End of picture text -----**<br>
+
+
+**621** 
+
+## **PCI Ex ress Technolo p gy** 
+
+## **上游端口发起速度更改** 
+
+速度更改必须由上游端口(面向上游的端口)发起,并通过转换到 Recovery 状态来完成。Recovery 状态的子状态如图 14-48(第 622 页)所示,本次讨论中感兴趣的部分由椭圆突出显示。此处后面的讨论是整个速度更改过程的相对较高级别的概述,不会深入到 LTSSM 操作的详细信息。要了解更多信息,请参阅第 571 页的"Recovery State"讨论。
+
+_Figure 14-48: Recovery 子状态_ 
+
+**==> picture [342 x 187] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Exit to<br>Recovery.Speed<br>Entry from Loopback Exit to<br>L1, L0, L0s Configuration<br>Recovery.Equalization<br>Recovery.RcvrLock Recovery.Idle Exit to<br>(bit/symbol re-lock) Recovery.RcvrCfg (Send idle data) Disabled<br>Exit to Hot<br>Exit to Exit to Reset<br>Configuration Detect<br>Exit to L0<br>**----- End of picture text -----**<br>
+
+
+## **速度更改示例** 
+
+为了说明该过程,请考虑图 14-49(第 623 页)中所示的速度更改示例。请注意,在此示例中已删除 Equalization 子状态以使图表更简单且更易于理解。该示例显示了从 2.5 GT/s 到 5.0 GT/s 的更改,因此无论如何不使用 Equalization 子状态。更改为 8.0 GT/s 将经历相同的过程,但只需在该过程结束时添加通过 Equalization 子状态的一次行程。要
+
+**622** 
+
+**Chapter 14: Link Initialization & Training** 
+
+要了解有关均衡过程的更多信息,请参阅第 587 页的"Recovery.Equalization"。
+
+此示例中的端点 (Endpoint) (只能具有上游端口)显示连接到根复合体 (Root Complex),后者只能具有下游端口。只有上游端口可以启动速度更改过程,它这样做是因为其 _Directed Speed Change_ 标志之前已根据某些硬件特定条件设置。要启动序列,它将其 LTSSM 更改为 Recovery 状态,进入 Recovery.RcvrLock 子状态,并发送 Speed Change 位为 1 且列出其将支持的速率的 TS1,如图 14-49(第 623 页)所示。当下游端口看到传入的 TS1 时,它也更改为 Recovery 状态并开始发回 TS1。由于 Speed Change 位已在传入的 TS1 中设置,这将在 Root Port 中设置 _Directed Speed Change_ 标志,并且传出的 TS1 也将设置该位。链路将尝试使用的速度将是最高共同支持的速度,因此,如果设备希望使用较低速度,它只需在此时不将较高速度列为受支持。
+
+_Figure 14-49: 速度更改 - 已发起_ 
+
+**==> picture [336 x 196] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Directed Speed Change = 0 Directed Speed Change = 1<br>Entry Entry<br>Speed Speed<br>RcvrLock RcvrCfg RcvrLock RcvrCfg<br>Speed_Change = 1<br>TS1 TS1 TS1 TS1<br>Root PCIe<br>Link Speed = 2.5 GT/s<br>Complex Endpoint<br>TS1 TS1 TS1 TS1<br>Speed_Change = 1<br>**----- End of picture text -----**<br>
+
+
+当上游端口检测到返回的 TS1 时,其状态机更改为 Recovery.RcvrCfg 子状态,并开始发送仍设置了 Speed Change 位的 TS2,如图 14-50(第 624 页)所示。这些
+
+**623** 
+
+## **PCI Ex ress Technolo p gy** 
+
+如果此更改不是由链路上的可靠性问题引起的,则 TS2 现在还将设置 Autonomous Change 位。当下游端口看到传入的 TS2 时,它也更改为 Recovery.RcvrCfg 子状态,并返回设置了 Speed Change 位的 TS2。但是,在 Recovery 期间,下游端口的 TS2 中的 Autonomous Change 位是保留的。
+
+_Figure 14-50: 速度更改 - 第 2 部分_ 
+
+**==> picture [371 x 230] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Directed Speed Change = 1 Directed Speed Change = 1<br>Entry Entry<br>Speed Speed<br>RcvrLock RcvrCfg RcvrLock RcvrCfg<br>Speed_Change = 1<br>TS2 TS2 TS2 TS2<br>Root  PCIe<br>Link Speed = 2.5 GT/s<br>Complex Endpoint<br>TS2 TS2 TS2 TS2<br>Speed_Change = 1<br>Autonomous Change = 1<br>**----- End of picture text -----**<br>
+
+
+一旦每个端口看到 8 个连续的 Speed Change 位设置的 TS2,它们就知道下一步将是进入 Recovery.Speed 子状态,如图 14-51(第 625 页)所示。此时,下游端口需要记录传入 TS2 中的 Autonomous Change 位的设置。为支持此操作,已将一些额外字段添加到 PCIe Capability 寄存器中。
+
+链路带宽更改的状态位在 Link Status 寄存器中找到,如图 14-52(第 625 页)所示。如果设备能够并已启用,状态更改还可用于生成中断以将这些事件通知软件。该功能由 Link Bandwidth Notification Capable 位报告,如图 14-53(第 626 页)所示,并通过 Link Control 寄存器中的 Interrupt Enable 位启用,如图 14-54 所示,
+
+**624**
 
 </td>
 </tr></tbody></table>
@@ -1179,7 +2368,146 @@ The status bits for Link bandwidth changes are found in the Link Status regis‐
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+**Chapter 14: Link Initialization & Training** 
+
+第 626 页。请注意,有两种情况:自主和带宽管理。自主意味着更改不是由可靠性问题引起的,而带宽管理意味着是。
+
+_Figure 14-51: 速度更改 - 第 3 部分_ 
+
+**==> picture [336 x 243] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Directed Speed Change = 0 Directed Speed Change = 0<br>Entry Entry<br>Speed Speed<br>RcvrLock RcvrCfg RcvrLock RcvrCfg<br>TS2 TS2 TS2 EIOSTS2<br>SSS<br>Root PCIe<br>Link Speed = 2.5 GT/s<br>Complex Endpoint<br>EIOSTS2 TS2 TS2 TS2<br>Autonomous Change = 1<br>Root Complex Config Space<br>Link Autonomous Bandwidth Status bit = 1<br>i<br>Figure 14‐52: Bandwidth Change Status Bits<br>**----- End of picture text -----**<br>
+
+
+**625** 
+
+## **PCI Ex ress Technolo p gy** 
+
+_Figure 14-53: Bandwidth Notification Capability_ 
+
+_Figure 14-54: Bandwidth Change Notification Bits_ 
+
+**626** 
+
+**Chapter 14: Link Initialization & Training** 
+
+一旦到达 Recovery.Speed 子状态,链路将在两个方向上置于 Electrical Idle 条件,并且内部更改速度。所选速度将是 TS1 和 TS2 的 Rate ID 字段中报告的最高共同支持的速度。在此示例中,结果为 5.0 GT/s,因此将更改为该速度。经过一段时间后,链路邻居都转换回 Recovery.RcvrLock 并通过再次发送 TS1 退出 Electrical Idle,如图 14-55(第 627 页)所示。当上游端口看到它们返回时,它转换为 Recovery.RcvrCfg 并开始发送 TS2,类似于之前。但是,这次未设置 Speed Change 位。最终,从未设置 Speed Change 位的下游端口也看到了 TS2 返回,此时状态机转换到 Recovery.Idle,然后返回 L0。
+
+如果速度更改由于某种原因失败,则不允许组件在返回 L0 后至少 200ms 或直到链路伙伴通告支持更高速度之前(以先到者为准)再尝试该速度或更高的速度。
+
+_Figure 14-55: 速度更改完成_ 
+
+**==> picture [364 x 193] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Directed Speed Change = 0 Directed Speed Change = 0<br>Entry Entry<br>Speed Speed<br>Exit to L0 Exit to L0<br>RcvrLock RcvrCfg RcvrLock RcvrCfg<br>Speed_Change = 0<br>TS21 TS21 TS21 TS21<br>Root PCIe<br>Link Speed = 5.0 GT/s<br>Complex Endpoint<br>TS21 TS21 TS21 TS21<br>Speed_Change = 0<br>**----- End of picture text -----**<br>
+
+
+## **速度更改的软件控制** 
+
+软件无法控制硬件何时做出更改速度的决定,但可以限制或禁用此功能。限制它是通过设置 Link Control 2 Register(如图 14-56(第 628 页)所示)中的 Target Link Speed 值来实现的。这充当上游端口可用速度的上限,它将尝试维持该值或两个链路邻居都支持的最高速度,以较低者为准。软件还可以通过在上游组件中设置 Target Link Speed 然后设置 Link Control 寄存器(如图 14-57(第 629 页)所示)中的 Retrain Link 位来强制使用特定速度。如前所述,任何基于硬件的链路速度或宽度更改都会通过 Link Bandwidth Notification Mechanism 通知软件。最后,可以通过设置 Hardware Autonomous Speed Disable 位来禁用速度更改机制。
+
+_Figure 14-56: Link Control 2 寄存器_ 
+
+**628** 
+
+**Chapter 14: Link Initialization & Training** 
+
+_Figure 14-57: Link Control 寄存器_ 
+
+## **Dynamic Link Width Changes** 
+
+用于更改链路速度的相同基本操作也可用于更改链路宽度,尽管由于涉及更多 LTSSM 步骤,该序列稍微更复杂。在启用链路宽度更改之前,软件需要注意的一件重要事情是链路邻居是否支持从窄链路恢复到宽链路(称为 Upconfiguring the Link)。设备在训练期间发送的 TS2 的 Rate ID 字段的位 6 中报告此能力,如图 14-58(第 630 页)所示。如果组件不支持此功能,则意味着更改到较窄的链路宽度将是单向事件,并且仅适用于链路上存在可靠性问题的情况。
+
+**629** 
+
+## **PCI Ex ress Technolo p gy** 
+
+_Figure 14-58: TS2 内容_ 
+
+**==> picture [368 x 225] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+0 COM<br>1 Link # Rate Identifier<br>Bit 0 Reserved, = 0<br>2 Lane #<br>Bit 1 Indicates 2.5 GT/s support<br>3 # FTS<br>Bit 2 Indicates 5.0 GT/s support<br>4 Rate ID<br>Bit 3 Indicates 8.0 GT/s support<br>5 Train Ctl<br>Bit 3:5 Reserved, = 0<br>6 Bit 6 Autonomous Change / Link Up-<br>configure Capability / Selectable De-<br>TS ID<br>emphasis<br>13 Bit 7 Speed Change<br>14 TS ID<br>15 TS ID<br>**----- End of picture text -----**<br>
+
+
+## **链路宽度更改示例** 
+
+考虑图 14-59(第 631 页)中连接到端点 (千兆以太网设备) 的 Root Port 的示例。只有上游端口将发起此更改,并且它像之前一样通过进入 Recovery 状态来开始。但是,这次未设置 Speed Change 位。为了确定新的链路宽度是什么,上游端口将需要告诉下游端口从 Recovery 状态转换为 Configuration 状态,然后再返回 L0,如图 14-60(第 631 页)所示。Configuration 状态中有几个子状态,其简化版本如图 14-61(第 632 页)所示。我们将介绍该序列,以清楚地了解步骤的工作原理。
+
+**630** 
+
+**Chapter 14: Link Initialization & Training** 
+
+_Figure 14-59: 链路宽度更改示例_ 
+
+**==> picture [199 x 190] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Gigabit<br>Root  Ethernet<br>Complex Device<br>Lane Lane<br>0 0<br>1 1<br>2 Lan2<br>e<br>3 3<br>**----- End of picture text -----**<br>
+
+
+_Figure 14-60: 链路宽度更改 LTSSM 序列_ 
+
+**==> picture [183 x 230] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Detect<br>Polling<br>Configuration<br>L2 Recovery<br>L1 L0 L0s<br>**----- End of picture text -----**<br>
+
+
+**631** 
+
+## **PCI Ex ress Technolo p gy** 
+
+_Figure 14-61: 简化的 Configuration 子状态_ 
+
+**==> picture [136 x 351] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Entry from<br>Polling or Recovery<br>Config.Linkwidth.Start<br>Config.Linkwidth.Accept<br>Config.Lanenum.Wait<br>Config.Lanenum.Accept<br>Config.Complete<br>Config.Idle<br>Exit to<br>L0<br>**----- End of picture text -----**<br>
+
+
+与之前一样,上游端口通过进入 Recovery 并发送 TS1 来启动此过程。这些未设置 Speed Change 位,如第 631 页的 Figure 14-59 中突出显示的示例所示,其中以太网设备在其上游端口上启动此过程。作为响应,下游端口发回 TS1,也清除了 Speed Change 位。Link 和 Lane 编号仍显示为与上次训练链路时未更改。参考第 622 页的 Figure 14-48,下一个状态是 Recovery.RcvrCfg,在该状态中链路伙伴交换 TS2。
+
+**632** 
+
+**Chapter 14: Link Initialization & Training** 
+
+_Figure 14-62: 链路宽度更改 - 开始_ 
+
+**==> picture [296 x 299] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Gigabit<br>Root<br>Ethernet<br>Complex<br>Device<br>Lane Lane<br>ink:PAD, Lane:PAD) TS1 (Link:0, Lane:0) TS1 (Link:0, Lane:0)<br>0 0<br>TS1 (Link:0, Lane:0) TS1 (Link:0,  Lane:0) TS1 (Link:PAD, Lan<br>Speed Change = 0 Speed Change = 0<br>ink:PAD, Lane:PAD) TS1 (Link:0, Lane:1) TS1 (Link:0, Lane:1)<br>1 1<br>TS1 (Link:0, Lane:1) TS1 (Link:0,  Lane:1) TS1 (Link:PAD, Lan<br>Speed Change = 0 Speed Change = 0<br>ink:PAD, Lane:PAD) TS1 (Link:0, Lane:2) TS1 (Link:0, Lane:2)<br>Lan<br>2 2<br>e<br>TS1 (Link:0, Lane:2) TS1 (Link:0,  Lane:2) TS1 (Link:PAD, Lan<br>Speed Change = 0 Speed Change = 0<br>ink:PAD, Lane:PAD) TS1 (Link:0, Lane:3) TS1 (Link:0, Lane:3)<br>3 3<br>TS1 (Link:0, Lane:3) TS1 (Link:0,  Lane:3) TS1 (Link:PAD, Lan<br>Speed Change = 0 Speed Change = 0<br>**----- End of picture text -----**<br>
+
+
+由于未请求速度更改,因此下一个状态是 Recovery.Idle。在该状态下,端口通常发送逻辑空闲符号(全零),下游端口会这样做,如图 14-63(第 634 页)所示。但是,上游端口被指示更改链路宽度,因此它不会发送预期的 Idle 符号。相反,它发送 Link 和 Lane 编号均为 PAD 的 TS1。下游端口识别出先前配置的 Lane 现在的 Lane 编号为 PAD,这会导致其转换为第一个 Configuration 子状态:Config.Linkwidth.Start。
+
+**633** 
+
+## **PCI Ex ress Technolo p gy** 
+
+## _Figure 14-63: 链路宽度更改 - Recovery.Idle_ 
+
+**==> picture [311 x 285] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Gigabit<br>Root<br>Ethernet<br>Complex<br>Device<br> (Link:PAD, L ane:PAD)Lane Idle Data Idle Data Lane<br>0 0<br>TS1 (Link:PAD, Lane:PAD) TS1 (Link:PAD, Lane:PAD) TS1 (Link:PAD, Lane:P<br>Speed Change = 0 Speed Change = 0<br> (Link:PAD, L ane:PAD) Idle Data Idle Data<br>1 1<br>TS1 (Link:PAD, Lane:PAD) TS1 (Link:PAD, Lane:PAD) TS1 (Link:PAD, Lane:P<br>Speed Change = 0 Speed Change = 0<br> (Link:PAD, L ane:PAD) Idle Data Idle Data<br>Lan<br>2 2<br>e<br>TS1 (Link:PAD, Lane:PAD) TS1 (Link:PAD, Lane:PAD) TS1 (Link:PAD, Lane:P<br>Speed Change = 0 Speed Change = 0<br> (Link:PAD, L ane:PAD) Idle Data Idle Data<br>3 3<br>TS1 (Link:PAD, Lane:PAD) TS1 (Link:PAD, Lane:PAD) TS1 (Link:PAD, Lane:P<br>Speed Change = 0 Speed Change = 0<br>**----- End of picture text -----**<br>
+
+
+下游端口现在通过发送具有原始协商的 Link 编号但所有 Lane 编号为 PAD 的 TS1 来启动下一步,如图 14-64(第 635 页)所示。上游端口在其希望"活动"的 Lane 上以匹配的 TS1 进行响应,但在其希望处于非活动状态的 Lane 上以 Link 和 Lane 编号均为 PAD 进行响应。当下游端口看到此响应时,它将转换为 Config.Linkwidth.Accept 子状态。请注意,这些 TS1 设置了 Autonomous Change 位。
+
+**634** 
+
+**Chapter 14: Link Initialization & Training** 
+
+_Figure 14-64: 标记活动 Lane_ 
+
+**==> picture [335 x 293] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Gigabit<br>Root<br>Ethernet<br>Complex Desired<br>Device<br>Lane State<br>Lane Lane<br>k:PAD, Lane:PAD) TS1 (Link:0, Lane: PAD) TS1 (Link:0, Lane: PAD)<br>0 0 Active<br>TS1 (Link:0, Lane:PAD) TS1 (Link:0, Lane:PAD) TS1 (Link:PAD, Lane:PAD)<br>Autonomous Change = 1 Autonomous Change = 1<br>k:PAD, Lane:PAD) TS1 (Link:0, Lane: PAD) TS1 (Link:0, Lane: PAD)<br>1 1 Inactive<br>TS1 (L ink:PAD, Lane:PAD) TS1 (Link:PAD, Lane:PAD) TS1 (Link:PAD, Lane:PAD)<br>Autonomous Change = 1 Autonomous Change = 1<br>k:PAD, Lane:PAD) TS1 (Link:0, Lane: PAD) TS1 (Link:0, Lane: PAD)<br>Lan<br>2 2 Inactive<br>e<br>TS1 (L ink:PAD, Lane:PAD) TS1 (Link:PAD, Lane:PAD) TS1 (Link:PAD, Lane:PAD)<br>Autonomous Change = 1 Autonomous Change = 1<br>k:PAD, Lane:PAD) TS1 (Link:0, Lane: PAD) TS1 (Link:0, Lane: PAD)<br>3 3 Inactive<br>TS1 (L ink:PAD, Lane:PAD) TS1 (Link:PAD, Lane:PAD) TS1 (Link:PAD, Lane:PAD)<br>Autonomous Change = 1 Autonomous Change = 1<br>**----- End of picture text -----**<br>
 
 </td>
 </tr></tbody></table>
@@ -1346,7 +2674,239 @@ Gigabit<br>Root<br>Ethernet<br>Complex Desired<br>Device<br>Lane State<br>Lane L
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+Root Port 通过将其 TS1 更改为显示适合活动 Lane 的 Lane 编号,但对于看到非活动的所有 Lane 的 Link 和 Lane 编号使用 PAD 来响应。上游端口以相同的 TS1 进行响应,如图 14-65(第 636 页)所示,并且状态更改为 Config.Lanenum.Accept。此时,Root Port 更新状态位以显示检测到自主更改,并更改为 Config.Complete 子状态。
+
+**635** 
+
+## **PCI Ex ress Technolo p gy** 
+
+## _Figure 14-65: 对 Lane 编号更改的响应_ 
+
+**==> picture [344 x 280] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+g<br>Root<br>Ethernet<br>Complex Desired<br>Device<br>State<br>Lane Lane<br>Link:PAD, Lane:PAD) TS1 (Link:0, Lane: 0) TS1 (Link:0, Lane: 0)<br>0 0 Active<br>TS1 (Link:0, Lane:0) TS1 (Link:0,  Lane:0) TS1 (Link:PAD, Lane:PAD)<br>Autonomous Change = 1 Autonomous Change = 1<br>Link:PAD, Lane:PAD) TS1 (Li nk:PAD, Lane:PAD) TS1 (Link:PAD, Lane:PAD)<br>1 1 Inactive<br>TS1 (Link:PAD , Lane:PAD) TS1 (Link:PAD , Lane:PAD) TS1 (Link:PAD, Lane:PAD)<br>Autonomous Change = 1 Autonomous Change = 1<br>Link:PAD, Lane:PAD) TS1 (Li nk:PAD, Lane:PAD) TS1 (Link:PAD, Lane:PAD)<br>Lan<br>2 2 Inactive<br>e<br>TS1 (Link:PAD , Lane:PAD) TS1 (Link:PAD , Lane:PAD) TS1 (Link:PAD, Lane:PAD)<br>Autonomous Change = 1 Autonomous Change = 1<br>Link:PAD, Lane:PAD) TS1 (Li nk:PAD, Lane:PAD) TS1 (Link:PAD, Lane:PAD)<br>3 3 Inactive<br>TS1 (Link:PAD , Lane:PAD) TS1 (Link:PAD , Lane:PAD) TS1 (Link:PAD, Lane:PAD)<br>Autonomous Change = 1 Autonomous Change = 1<br>**----- End of picture text -----**<br>
+
+
+在下一步中,Root Port 开始在活动 Lane 上发送 TS2,并将非活动 Lane 置于 Electrical Idle。请记住,TS2 报告组件是否"支持 upconfigure",在此示例中,两个链路伙伴都支持此能力。端点发回相同的内容:活动 Lane 上的 TS2 和非活动 Lane 上的 Electrical Idle。看到这一点,Root Port 的状态机更改为 Config.Idle,并开始在活动 Lane 上发送 Logical Idle。端点以相同的内容进行响应,链路状态变回 L0。链路现在已准备好进行正常操作,尽管带宽已降低以节省功率。
+
+**636** 
+
+**Chapter 14: Link Initialization & Training** 
+
+_Figure 14-66: 链路宽度更改 - 完成_ 
+
+**==> picture [344 x 280] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Gigabit<br>Root<br>Ethernet<br>Complex Desired<br>Device<br>Upconfigure Capability = 1 Upconfigure Capability = 1 State<br>Lane Lane<br>Link:PAD, Lane:PAD) TS2 (Link:0, Lane: 0) TS2 (Link:0, Lane: 0)<br>0 0 Active<br>TS2 (Link:0, Lane:0) TS2 (Link:0,  Lane:0) TS1 (Link:PAD, Lane:PAD)<br>Upconfigure Capability = 1 Upconfigure Capability = 1<br>Electrical Idle<br>1 1 Inactive<br>Electrical Idle<br>Lan<br>2 2 Inactive<br>e<br>Electrical Idle<br>3 3 Inactive<br>**----- End of picture text -----**<br>
+
+
+与动态速度更改的情况一样,软件无法发起链路宽度更改,但它可以通过设置 Link Control 寄存器(如图 14-67(第 638 页)所示)中的相应位来禁用此机制。与速度更改情况不同,未定义允许设置特定链路宽度的软件机制。
+
+**637** 
+
+## **PCI Ex ress Technolo p gy** 
+
+_Figure 14-67: Link Control 寄存器_ 
+
+## **相关配置寄存器** 
+
+许多与链路初始化和训练相关的配置寄存器已在其内容描述时显示过,但在这里汇总它们似乎很好。
+
+## **Link Capabilities 寄存器** 
+
+Link Capabilities 寄存器如图 14-68(第 639 页)所示,每个位字段在以下小节中描述。
+
+**638** 
+
+**Chapter 14: Link Initialization & Training** 
+
+## _Figure 14-68: Link Capabilities 寄存器_ 
+
+**==> picture [332 x 245] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+31 24 23 22 21 20 19 18 17 15 14 12 1110 9 4 3 0<br>Port Number<br>RsvdP<br>ASPM Optionality Compliance<br>Link Bandwidth<br>Notification Capability<br>Data Link Layer Link Active<br>Reporting Capable<br>Surprise Down Error<br>Reporting Capable<br>Clock Power Management<br>L1 Exit Latency<br>L0s Exit Latency<br>Active State<br>Link PM Support<br>Maximum Link Width<br>Max Link Speed<br>**----- End of picture text -----**<br>
+
+
+## **Max Link Speed [3:0]** 
+
+这指示此端口的最大链路速度,并作为指向 Link Capabilities 2 寄存器 Supported Link Speeds Vector 中对应于最大链路速度的位位置的指针给出。已定义的编码为:
+
+- 0001b - Supported Link Speeds Vector 字段位 0 
+
+- 0010b - Supported Link Speeds Vector 字段位 1 
+
+- 0011b - Supported Link Speeds Vector 字段位 2 
+
+- 0100b - Supported Link Speeds Vector 字段位 3 
+
+- 0101b - Supported Link Speeds Vector 字段位 4 
+
+- 0110b - Supported Link Speeds Vector 字段位 5 
+
+- 0111b - Supported Link Speeds Vector 字段位 6 
+
+所有其他编码均保留。共享上游端口的多功能设备必须在所有 Function 中的此字段中报告相同的值。此寄存器为只读。
+
+**639** 
+
+## **PCI Ex ress Technolo p gy** 
+
+## **Maximum Link Width[9:4]** 
+
+此字段指示 PCI Express 链路的最大宽度。定义的值有:
+
+- 00 0000b: 保留 
+
+- 00 0001b: x1 
+
+- 00 0010b: x2 
+
+- 00 0100b: x4 
+
+- 00 1000b: x8 
+
+- 00 1100b: x12 
+
+- 01 0000b: x16 
+
+- 10 0000b: x32 
+
+所有其他编码均保留。共享上游端口的多功能设备必须在所有 Function 中的此字段中报告相同的值。此寄存器为只读。
+
+## **Link Capabilities 2 寄存器** 
+
+Link Capabilities 寄存器如图 14-68(第 639 页)所示,并显示 Link Capabilities 寄存器中的 Max Link Speed 字段所指向的 Supported Link Speeds Vector。此字段的值为:
+
+- 位 0 = 2.5 GT/s 
+
+- 位 1 = 5.0 GT/s 
+
+- 位 2 = 8.0 GT/s 
+
+- 位 6:3 RsvdP(保留并保留)。
+
+_Figure 14-69: Link Capabilities 2 寄存器_ 
+
+**==> picture [329 x 113] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+31 9    8   7 1 0<br>RsvdP<br>Crosslink Supported<br>Supported Link<br>Speeds Vector<br>RsvdP<br>**----- End of picture text -----**<br>
+
+
+**640** 
+
+**Chapter 14: Link Initialization & Training** 
+
+## **Link Status 寄存器** 
+
+Link Status 寄存器如图 14-39(第 597 页)所示。
+
+## **Current Link Speed[3:0]:** 
+
+此只读字段指示当前链路速度。当链路首次训练到 L0 时,速度始终为 2.5 GT/s。之后,如果可获得更高的共同支持的速度,LTSSM 将进入 Recovery 并尝试更改为该速度。此字段中的值与 Link Capabilities 寄存器中显示的 Max Link Speed 编码相同:
+
+- 0001b - Supported Link Speeds Vector 字段位 0 
+
+- 0010b - Supported Link Speeds Vector 字段位 1 
+
+- 0011b - Supported Link Speeds Vector 字段位 2 
+
+- 0100b - Supported Link Speeds Vector 字段位 3 
+
+- 0101b - Supported Link Speeds Vector 字段位 4 
+
+- 0110b - Supported Link Speeds Vector 字段位 5 
+
+- 0111b - Supported Link Speeds Vector 字段位 6 
+
+所有其他编码均保留。
+
+请注意,当链路未启动时(LinkUp = 0b),此字段的值是未定义的。
+
+## **Negotiated Link Width[9:4]** 
+
+此字段指示链路宽度协商的结果。有七种可能的宽度,所有其他编码均保留。已定义的编码为:
+
+- 00 0001b: 对于 x1。 
+
+- 00 0010b: 对于 x2。 
+
+- 00 0100b: 对于 x4。 
+
+- 00 1000b: 对于 x8。 
+
+- 00 1100b: 对于 x12。 
+
+- 01 0000b: 对于 x16。 
+
+- 10 0000b: 对于 x32。 
+
+所有其他编码均保留。请注意,当链路未启动时(LinkUp = 0b),此字段的值是未定义的。
+
+**641** 
+
+## **PCI Ex ress Technolo p gy** 
+
+## **Undefined[10]** 
+
+当前未定义,此位在早期规范版本中由硬件在发生链路训练错误时设置。它在 LTSSM 成功进入 L0 时被清除。规范指出,软件可以向此位写入任何值,但必须忽略从中读取的任何值。
+
+## **Link Training[11]** 
+
+此只读位指示 LTSSM 正在训练过程中。从技术上讲,它意味着 LTSSM 处于 Configuration 或 Recovery 状态,或者 Retrain Link 位已写入 1b 但链路训练尚未开始。当 LTSSM 退出 Configuration 或 Recovery 状态时,此位由硬件清除。由于这必须在链路训练进行时对软件可见,因此它仅对面向下游的端口有意义。因此,对于端点、桥接器上游端口和交换机上游端口,此位不适用并保留。对于它们,此位必须硬连线为 0b。
+
+_Figure 14-70: Link Status 寄存器_ 
+
+**==> picture [381 x 173] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+15 14 13 12 11 10 9 4 3 0<br>Link Autonomous<br>Bandwidth Status<br>Link Bandwidth<br>Management Status<br>Data Link Layer<br>Link Active<br>Slot Clock<br>Configuration<br>Link Training<br>Undefined<br>Negotiated<br>Link Width<br>Current Link Speed<br>**----- End of picture text -----**<br>
+
+
+## **Link Control 寄存器** 
+
+Link Control 寄存器如图 14-71(第 644 页)所示,其中有三个字段对我们来说是有意义的。
+
+**642** 
+
+**Chapter 14: Link Initialization & Training** 
+
+## **Link Disable** 
+
+当设置为 1 时,链路被禁用。直观地说,此位不适用,对于端点、桥接器上游端口和交换机上游端口是保留的,因为即使链路被禁用,它也必须可由软件访问。写入此位后,任何读取立即反映写入的值,与链路状态无关。清除此位后,软件必须小心遵守有关 Conventional Reset 后首次 Configuration 读取的时序要求(参见第 846 页的"Reset Exit")。
+
+## **Retrain Link** 
+
+只要认为有必要,例如用于错误恢复,此位允许软件发起链路重新训练。该位不适用于端点设备以及桥接器和交换机的上游端口,并为其保留。当设置为 1b 时,这将在 Configuration 写入请求完成返回之前将 LTSSM 定向到 Recovery 状态。
+
+## **Extended Synch** 
+
+就其对训练的影响而言,此位用于大幅延长两种情况下的时间,以帮助较慢的外部测试或分析硬件在链路恢复正常通信之前与之同步。其中一种是在退出 L0s 时,设置此位强制在进入 L0 之前传输 4096 个 FTS。另一种情况是在进入 Recovery.RcvrCfg 之前的 Recovery 状态中,它强制传输 1024 个 TS1。
+
+**643** 
+
+## **PCI Ex ress Technolo p gy** 
+
+## _Figure 14-71: Link Control 寄存器_ 
+
+**==> picture [313 x 282] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+15 12 11 10 9 8 7 6 5 4 3 2 1 0<br>RsvdP<br>Link Autonomous Bandwidth<br>Interrupt Enable<br>Link Bandwidth Management<br>Interrupt Enable<br>Hardware Autonomous<br>Width Disable<br>Enable Clock<br>Power Management<br>Extended Synch<br>Common Clock<br>Configuration<br>Retrain Link<br>Link Disable<br>Read Completion<br>Boundary Control<br>RsvdP<br>Active State<br>PM Control<br>**----- End of picture text -----**<br>
+
+
+**644** 
+
+## Part Five: 
+
+# Additional System Topics 
+
+## _**15 Error Detection and Handling**_ 
+
+## **The Previous Chapter**
 
 </td>
 </tr></tbody></table>
@@ -1600,7 +3160,121 @@ As it affects training, this bit is used to greatly extend the time spent in two
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+本章描述了物理层 (Physical Layer) 的链路训练和状态状态机 (LTSSM) 的操作。链路的初始化过程从电源开启或复位开始描述,直到链路达到完全可操作的 L0 状态,在该状态下发生正常的分组流量。此外,还讨论了链路电源管理状态 L0s、L1、L2 和 L3 以及状态转换。描述了在其中重新建立位锁、符号锁或块锁的 Recovery 状态。还讨论了用于链路带宽管理的链路速度和宽度更改。
+
+## **本章** 
+
+虽然始终注意最小化错误,但无法消除它们,因此检测和报告它们是一个重要的考虑因素。本章讨论了发生在 PCIe 端口或链路中的错误类型,如何检测、报告以及处理选项。由于 PCIe 被设计为与 PCI 错误报告向后兼容,因此包括对 PCI 错误处理方法的审查作为背景信息。然后我们专注于 PCIe 错误处理的可纠正、非致命和致命错误。
+
+## **下一章** 
+
+下一章为系统电源管理的讨论提供整体上下文,并详细描述 PCIe 电源管理,它与 _PCI Bus PM Interface Spec_ 和 _Advanced Configuration and Power Interface_ (ACPI) 兼容。PCIe 定义了对 PCI-PM 规范的扩展,主要侧重于链路电源和事件管理。
+
+**647** 
+
+## **PCI Ex ress Technolo p gy** 
+
+## **背景** 
+
+与 PCI 的软件向后兼容性是 PCIe 的一个重要特性,这是通过保留已就位的 PCI 配置寄存器来实现的。PCI 在总线的每个传输阶段验证正确的奇偶校验以检查错误。检测到的错误记录在状态寄存器中,并且可以选择使用两个边带信号中的任一个进行报告:PERR#(奇偶校验错误)用于数据传输期间潜在可恢复的奇偶校验错误,SERR#(系统错误)用于通常不可恢复的更严重的问题。这两种类型可分类如下:
+
+- 普通数据奇偶校验错误 — 通过 PERR# 报告 
+
+- 多任务事务(特殊周期)期间的数据奇偶校验错误 — 通过 SERR# 报告 
+
+- 地址和命令奇偶校验错误 — 通过 SERR# 报告 
+
+- • 其他类型的错误(设备特定) — 通过 SERR# 报告 
+
+应如何处理错误不在 PCI 规范的范围内,可能包括硬件支持或设备特定软件。例如,对内存的读取期间的数据奇偶校验错误可以通过检测条件并简单地重复请求在硬件中恢复。如果失败的操作未更改内存内容,则这将是安全的步骤。
+
+如图 15-1(第 649 页)所示,两个错误引脚通常连接到芯片组,并用于在消费 PC 中向 CPU 发出信号。这些机器对成本非常敏感,因此它们通常没有足够的错误处理预算。因此,所选择的最终错误报告信号是从芯片组到处理器的 NMI(Non-Maskable Interrupt)信号,指示需要立即关注的重大系统问题。大多数消费 PC 不包括这种情况的错误处理程序,因此系统将简单地停止以避免损坏,并且 BSOD(蓝屏死机)将通知操作员。SERR# 条件的示例是事务命令阶段期间看到的地址奇偶校验不匹配。这是潜在破坏性的情况,因为错误的目标可能会响应。如果发生这种情况并且 SERR# 报告它,恢复将很困难,并且可能需要大量软件开销。(要了解有关 PCI 错误处理的更多信息,请参阅 MindShare 的书 _PCI System Architecture_ 。)
+
+PCI-X 使用相同的两个错误报告信号,但定义具体的错误处理要求,具体取决于是否存在设备特定的错误处理软件。如果不存在此类处理程序,则所有奇偶校验错误都将使用 SERR# 报告。
+
+**648** 
+
+**Chapter 15: Error Detection and Handling** 
+
+## _Figure 15-1: PCI 错误处理_ 
+
+**==> picture [370 x 221] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+NMI<br>Processor<br>FSB<br>Graphics<br>NorthNorthBridgBridge<br>(Intel 440(Intel 440 ) S DRAM<br>Address Port Data Port<br>PCI 33 MHz<br>Slots<br>CD HDD IDE PERR#<br>Error<br>South Bridge Logic<br>USB SERR#<br>ISA<br>Ethernet SCSI<br>Boot Modem Audio Super<br>ROM Chip Chip I/O<br>COM1<br>COM2<br>**----- End of picture text -----**<br>
+
+
+PCI-X 2.0 使用源同步时钟来实现更快的数据速率(高达 4GB/s)。该总线面向高端企业系统,因为它通常对于消费类机器来说过于昂贵。由于这些高性能系统还需要高可用性,规范作者选择通过添加纠错码 (ECC) 支持来改进错误处理。ECC 允许更强大的错误检测,并能够即时纠正单位错误。ECC 在最小化传输错误的影响方面非常有用。(要了解有关 PCI-X 错误处理的更多信息,请参阅 MindShare 的书 _PCI-X System Architecture_ 。)
+
+PCIe 通过使用旧版配置寄存器中的错误状态位来记录与 PCI 相似的 PCIe 错误事件,从而保持与这些旧版机制的向后兼容性。这使旧版软件能够以其理解的术语查看 PCIe 错误事件,并允许它与 PCIe 硬件一起使用。有关这些寄存器的详细信息,请参阅第 674 页的"PCI-Compatible Error Reporting Mechanisms"。
+
+**649** 
+
+## **PCI Ex ress Technolo p gy** 
+
+## **PCIe 错误定义** 
+
+规范使用四个关于错误的一般术语,在此处定义:
+
+1. **错误检测 (Error Detection)** - 确定存在错误的过程。错误由代理作为本地问题的结果发现,例如接收到坏分组,或者因为它从另一个设备接收到指示错误的分组(例如中毒分组)。
+
+2. **错误记录 (Error Logging)** - 根据检测到的错误在架构寄存器中设置适当的位,以帮助错误处理软件。
+
+3. **错误报告 (Error Reporting)** - 通知系统存在错误条件。这可以采用将错误消息传递到根复合体的形式,假设设备已启用发送错误消息。根复合体在接收到错误消息时可以向系统发送中断。
+
+4. **错误信号 (Error Signaling)** - 一个代理通过发送错误消息,或发送具有 UR(Unsupported Request)或 CA(Completer Abort)状态的完成,或对 TLP 进行 Poisoning(也称为错误转发),通知另一个代理的错误条件的过程。
+
+## **PCIe 错误报告** 
+
+为 PCIe 定义了两个错误报告级别。第一个是所有设备所需的基线功能。这包括对旧版错误报告的支持以及对 PCIe 错误报告的基本支持。第二个是可选的高级错误报告功能,它添加了一组新的配置寄存器,并跟踪更多有关已发生错误、严重程度以及在某些情况下甚至可以记录导致错误的分组的详细信息。
+
+## **基线错误报告** 
+
+在所有设备中需要两组配置寄存器来支持基线错误报告。这些在第 674 页的"基线错误检测和处理"中详细描述,此处汇总如下:
+
+- PCI 兼容寄存器 — 这些是与 PCI 使用的相同寄存器,并为现有的 PCI 兼容软件提供向后兼容性。为了使其工作,PCIe 错误映射到 PCI 兼容错误,使它们对旧版软件可见。
+
+**650** 
+
+**Chapter 15: Error Detection and Handling** 
+
+- PCI Express 功能寄存器 — 这些寄存器仅对了解 PCIe 的较新软件有用,但它们提供专门针对 PCIe 软件的更多错误信息。
+
+## **高级错误报告 (AER)** 
+
+此可选的错误报告机制包括一组新的专用配置寄存器,可为错误处理软件提供更多信息以用于诊断和恢复问题。AER 寄存器映射到扩展配置空间中,并提供有关任何错误性质的更多信息。有关这些寄存器的详细说明,请参阅第 685 页的"Advanced Error Reporting (AER)"。
+
+## **错误类别** 
+
+根据硬件是否能够修复问题,错误分为两大类:可纠正 (Correctable) 和不可纠正 (Uncorrectable)。不可纠正类别进一步细分为软件是否可以修复问题:非致命 (Non-fatal) 和致命 (Fatal)。
+
+- 可纠正错误 — 由硬件自动处理 
+
+- 不可纠正错误 
+
+- 非致命 — 由设备特定软件处理;链路仍可操作,可以在不丢失数据的情况下恢复 
+
+- 致命 — 由系统软件处理;链路或设备无法正常工作,并且在不丢失数据的情况下不太可能恢复 
+
+基于这些类别,错误处理软件可以分区为单独的处理程序以执行所需的操作。此类操作的范围可能从简单地监视可纠正错误的频率到在致命错误事件中重置整个系统。无论错误类型如何,软件都可以安排通知系统所有错误,以允许跟踪和记录它们。
+
+## **可纠正错误** 
+
+根据定义,可纠正错误在硬件中自动纠正。它们可能会通过增加延迟和消耗带宽来影响性能,但如果一切顺利,恢复是自动且快速的,因为它不依赖于软件干预,并且在此过程中不会丢失信息。这些错误不需要报告给软件,但这样做可以允许软件跟踪可能表明某些设备显示出即将发生故障迹象的错误趋势。
+
+**651** 
+
+## **PCI Ex ress Technolo p gy** 
+
+## **不可纠正错误** 
+
+无法在硬件中自动纠正的错误称为不可纠正错误,这些错误的严重性为非致命或致命。
+
+## **非致命的不可纠正错误** 
+
+非致命错误表明信息已丢失,但原因可能不是链路或设备的完整性。一个分组在某处失败,但链路继续正常运行,其他分组不受影响。由于链路仍在工作,因此可能可以恢复丢失的信息,但这将依赖于特定于实现的软件来处理。此类错误的示例是完成超时,其中已发送请求但在允许的时间内未返回完成。某处存在问题,但这可能只是交换机中的随机位错误,导致完成被错误路由。对于这种情况的恢复尝试可以像重新发出请求一样简单。
+
+## **致命的不可纠正错误**
 
 </td>
 </tr></tbody></table>
@@ -1738,7 +3412,305 @@ Non‐fatal errors indicate that information has been lost but the cause was lik
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+致命错误表明链路或设备已发生操作故障,导致不太可能恢复的数据丢失。对于这些情况,至少重置失败的链路或设备可能是任何恢复过程中的第一步,因为它显然由于某种原因无法运行。规范还邀请特定于实现的方法,其中软件可以尝试限制故障的影响,但它没有定义应采取的任何特定操作。此类错误的示例是接收器缓冲区溢出,在这种情况下,由于流控制跟踪计数器彼此不同步而丢失了信息。由于没有机制可以解决此问题,因此通常需要重置此链路。
+
+## **PCIe 错误检查机制** 
+
+PCIe 错误检查的范围集中在与链路和分组传送相关的错误上,如图 15-2(第 653 页)所示。与链路传输无关的错误不通过 PCIe 错误处理机制报告,需要专有方法来报告它们,例如设备特定
+
+**652** 
+
+**Chapter 15: Error Detection and Handling** 
+
+中断。接口的每一层都包括错误检查功能,这些将在以下部分中汇总。
+
+_Figure 15-2: PCI Express 错误检查和报告的范围_ 
+
+**==> picture [291 x 277] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIe Core  PCIe Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>Transaction Layer Transaction Layer<br>Data Link Layer Data Link Layer<br>Physical Layer Physical Layer<br>(RX) (TX) Link (RX) (TX)<br>Scope of PCIe Error Reporting<br>**----- End of picture text -----**<br>
+
+
+## **CRC** 
+
+在深入研究与层相关的错误处理之前,首先讨论 CRC(循环冗余校验)的概念会有所帮助,因为它是 PCIe 错误检查的组成部分。CRC 代码由发送器根据分组内容计算,并将其添加到分组中以进行传输。CRC 名称源自以下事实:此 _check_ 代码(从分组计算以检查错误)是 _redundant_(不向分组添加信息),并且源自 _cyclic_ 代码。虽然 CRC 不提供足够的信息来执行像 ECC(纠错码)那样的自动纠错,但它确实提供了强大的错误检测功能。CRC 也常用于串行传输中,因为它们擅长检测一串不正确的位。
+
+**653** 
+
+## **PCI Ex ress Technolo p gy** 
+
+CRC 在 PCIe 中有两种不同的使用情况。第一种是强制的 LCRC(Link CRC),在数据链路层 (Data Link Layer) 中为跨链路的每个 TLP 生成和检查。它旨在检测链路上的传输错误。
+
+第二个是可选的 ECRC(端到端 CRC),它在发送方的事务层 (Transaction Layer) 中生成,并在分组的最终目标的事务层中进行检查。这旨在检测可能以其他方式保持静默的错误,例如当 TLP 通过像交换机这样的中间代理时,如图 15-3(第 654 页)所示。在此图示中,分组已安全到达交换机的下游端口,但当它在交换机内被存储或处理时发生位错误。LCRC 仅在链路上保护 TLP。一旦入口端口的数据链路层检查 LCRC,它就会将其从分组中删除,因为将在出口端口重新计算新的 LCRC(将包括新的序列号)。这意味着分组在交换机内未受保护。这就是拥有 ECRC 的目的。它在原始设备处计算,并且不被中间设备删除或重新计算。因此,如果目标设备正在检查 ECRC 并看到不匹配,则沿途中必定发生错误,即使没有看到 LCRC 错误。请注意,使用 ECRC 需要存在可选的高级错误报告寄存器,因为它们包含启用此功能的位。
+
+_Figure 15-3: ECRC 使用示例_ 
+
+**==> picture [267 x 192] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Root Complex<br>Internal<br>Bit Error Switch<br>No external  (LCRC)<br>transmission errors<br>PCIe<br>Endpoint<br>**----- End of picture text -----**<br>
+
+
+**654** 
+
+**Chapter 15: Error Detection and Handling** 
+
+## **按层的错误检查** 
+
+传入分组的不同方面在接收器的不同层进行检查。某些错误检查被列为可选的。对于这些情况,如果错误发生但设计者选择不实现该形式的检查,则不会检测到它。
+
+## **物理层错误** 
+
+到达接收器的分组首先到达物理层。在此级别必须检查一些事情,而其他一些可以可选地检查。链路训练也发生在该层,并且在该过程中可能出现各种问题,但这些问题以及物理层的其他详细信息在第 505 页的第 14 章"链路初始化和训练"中介绍。总之,物理层错误(也称为接收器错误或链路错误)包括以下情况:
+
+- 使用 8b/10b 时,检查解码违规(检查必需) 
+
+- 帧违规(对于 8b/10b 为可选,对于 128b/130b 为必需) 
+
+- 弹性缓冲区错误(检查可选) 
+
+- 丢失符号锁或 Lane 去偏移(检查可选) 
+
+如果在检测到接收器错误时 TLP 正在进行中,则会丢弃它。为了解决错误,如果尚未挂起,则向数据链路层发出信号以发送 NAK。
+
+## **数据链路层错误** 
+
+在物理层之后,传入分组接下来进入数据链路层,在那里检查几个可能的问题。这些条件的详细信息可以在第 317 页的第 10 章"Ack/Nak 协议"中找到。总之,错误是:
+
+- TLP 的 LCRC 失败 
+
+- TLP 的序列号违规 
+
+- DLLP 的 16 位 CRC 失败 
+
+- 链路层协议错误 
+
+与物理层一样,如果在看到错误时 TLP 正在进行中,则会丢弃该 TLP,如果尚未挂起,则会安排 NAK。
+
+发送器处也有一些数据链路层错误需要注意,包括 REPLAY_TIMER 过期和 REPLAY_NUM 计数器翻转。通过重放重放缓冲区的内容来处理超时,
+
+**655** 
+
+## **PCI Ex ress Technolo p gy** 
+
+并增加 REPLAY_NUM 计数器。每当发送器接收到指示已取得前进的 ACK 或 NAK时(意味着它导致从重放缓冲区中清除一个或多个 TLP),定时器和计数器就会被重置。但是,如果未足够快地接收到 Ack 或 Nak,则将看到超时条件,这将导致重放。
+
+## **事务层错误** 
+
+最后,如果传入的 TLP 通过物理层和数据链路层中的所有检查,则它们最终将到达事务层,在那里检查:
+
+- ECRC 失败(检查可选) 
+
+- 格式错误的 TLP(分组格式中的错误) 
+
+- 流控制协议违规 
+
+- 不受支持的请求 
+
+- 数据损坏(中毒分组) 
+
+- 完成者中止(检查可选) 
+
+- 接收器溢出(检查可选) 
+
+与数据链路层一样,发送器事务层也有一些错误检查,例如:
+
+- 完成超时 
+
+- 意外完成(完成与挂起的请求不匹配) 
+
+## **错误污染** 
+
+如果设备对同一事务看到多个问题,则可能会出现问题。这可能导致报告多个错误(称为"错误污染")。为避免这种情况,报告的错误仅限于最显著的一个。例如,如果 TLP 在物理层具有接收器错误,则肯定会在数据链路层和事务层中发现错误,但报告所有错误只会增加混乱。最相关的是报告看到的第一错误。因此,如果在物理层中看到错误,则没有理由将分组转发到更高层。类似地,如果在数据链路层中看到错误,则不会将分组转发到事务层。一个级别的违规分组不会转发到下一个级别,而是被丢弃。
+
+尽管如此,对于同一分组在事务层可能会看到多个错误。应仅按规范定义的优先级顺序报告最显著的一个。事务层错误优先级从最高到最低为:
+
+**656** 
+
+**Chapter 15: Error Detection and Handling** 
+
+- 不可纠正的内部错误 
+
+- 接收器缓冲区溢出 
+
+- 流控制协议错误 
+
+- ECRC 检查失败 
+
+- 格式错误的 TLP 
+
+- AtomicOp Egress Blocked 
+
+- TLP Prefix Blocked 
+
+- ACS(访问控制服务)违规 
+
+- MC(多播)阻止的 TLP 
+
+- UR(不受支持的请求)、CA(完成者中止)或意外完成 
+
+- 接收到中毒的 TLP 
+
+例如,TLP 可能由于标头损坏而遇到 ECRC 故障。由于分组内的某些内容已损坏,因此它也可能被视为格式错误或可能是不受支持的请求。ECRC 故障是最高优先级,因为它意味着标头内容可能已损坏,因此,报告依赖于这些内容的错误毫无意义。
+
+## **PCI Express 错误的来源** 
+
+而不是单独考虑所有错误条件,有助于将它们分组到公共区域。
+
+## **ECRC 生成和检查** 
+
+如前所述,ECRC 生成和检查需要存在可选的高级错误报告配置寄存器结构,如图 15-4(第 658 页)所示。配置软件检查此功能寄存器以确定 Function 中是否支持 ECRC。如果是,则对错误功能和控制寄存器的写入可用于启用它。
+
+**657** 
+
+## **PCI Ex ress Technolo p gy** 
+
+_Figure 15-4: 错误相关配置寄存器的位置_ 
+
+**==> picture [287 x 253] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Byte 0d<br>Status Command<br>Header<br>63d CapPtr<br>PCI<br>Required Compatible<br>PCIe Capability Block<br> Space<br>255d<br>Advanced Error Reporting<br>Optional<br> Capability Structure<br>Other PCIe Extended<br>Capability Structures Capability<br> Space<br>4095d<br>**----- End of picture text -----**<br>
+
+
+启用了生成 ECRC 的设备会发起 TLP(请求或完成),根据分组的标头和数据部分计算 32 位 ECRC,并将其添加到分组的末尾。ECRC 被称为"端到端",因为其意图是它将在 TLP 的源处生成,并且永远不会被路径上的任何中间设备剥离或重新生成。路径中原始设备和接收设备之间的交换机允许检查和报告 ECRC 错误,但不是必需的。无论是否存在错误,交换机仍必须原样转发分组,以便最终目标设备可以评估 ECRC 并采取适当的步骤。如果交换机充当 TLP 的发起者或接收者,则它可以像普通设备一样参与 ECRC 生成和检查。有关交换机如何允许报告此类错误的更多信息,请参阅第 670 页的"Advisory Non-Fatal Errors"。
+
+**658** 
+
+**Chapter 15: Error Detection and Handling** 
+
+## **TLP Digest** 
+
+如果启用了可选的 ECRC 功能,则在标头中设置一个称为 TD(TLP Digest)的特殊位,以指示它存在于分组的末尾(ECCRC 也称为 Digest)。分组标头中的 TD 位如图 15-5(第 659 页)所示。规范强调,在转发 TLP 时必须特别小心地处理此位,因为如果缺少它但存在 ECRC,反之亦然,则分组将被视为格式错误。
+
+_Figure 15-5: 完成标头中的 TLP Digest 位_ 
+
+**==> picture [373 x 149] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
++0 +1 +2 +3<br>7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>At T T E<br>Byte 0 Fmt Type R TC R R Attr AT Length<br>tr H D P<br>Byte 4 Bytes 4-7 Vary with  Type  Field<br>Byte 8 Bytes 8-11 Vary with  Type  Field<br>Byte 12 Bytes 12-15 Vary with  Type  Field<br>**----- End of picture text -----**<br>
+
+
+## **不包含在 ECRC 机制中的可变位** 
+
+ECRC 是根据标头和数据的内容计算的。由于这些内容预计不会更改,因此在接收器处执行检查时,结果应相同。然而,事实证明,在分组传输过程中,两个标头位可以合法地更改:Type 字段的位 0 和 EP 位。Type 字段的位 0 可以在配置请求中更改,原因很简单,即在到达目标总线之前,请求将是 Type 1,然后将变为 Type 0。这涉及更改 Type 字段的位 0。如果中间设备检测到数据错误,EP 位也可以被合法地更改。例如,如果交换机转发 TLP,但它遭受某种内部错误导致数据损坏,则在通过出口端口传出时设置 EP 位是报告错误的一种方式(称为错误转发或数据中毒)。
+
+由于这两个位可以在分组传输过程中更改,因此它们被称为"可变位",不能用于 ECRC 的生成或检查。相反,它们的值在 ECRC 生成和检查中始终假定为 1b,而不是使用实际值。这样,ECRC 不依赖于它们,并且将被正确地评估。
+
+**659** 
+
+## **PCI Ex ress Technolo p gy** 
+
+检测到 ECRC 错误时所采取的操作超出规范的范围,但可能的选项将取决于错误是在请求中还是在完成中找到。
+
+- **请求中的 ECRC** — 检测到 ECRC 错误的完成者必须设置 ECRC 错误状态位。它们也可以选择不为该请求返回完成,导致请求者的完成超时,请求者的软件可能选择重新调度该请求。
+
+- **完成中的 ECRC** — 检测到 ECRC 错误的请求者必须设置 ECRC 错误状态位。除了标准错误报告机制之外,它们还可以选择使用特定于功能的中断将错误报告给它们的设备驱动程序。与之前一样,软件可能决定重新安排失败的请求。
+
+在任何一种情况下,可能会将不可纠正的非致命错误消息发送到系统。如果是这样,则可能会访问设备驱动程序以检查 _Uncorrectable Error Status Register_ 中的状态位并了解错误的性质。如果可能,可以重新调度失败的请求,但可能需要其他步骤。
+
+## **数据中毒** 
+
+数据中毒,也称为错误转发,提供了一种可选方式让设备指示与 TLP 关联的数据已损坏。在这些情况下,分组标头中的 EP(Error Poisoned)位被设置以指示错误。EP 位如图 15-6(第 660 页)所示。
+
+_Figure 15-6: 完成标头中的错误/中毒位_ 
+
+**==> picture [373 x 147] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
++0 +1 +2 +3<br>7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>At T T E<br>Byte 0 Fmt Type R TC R R Attr AT Length<br>tr H D P<br>Byte 4 Bytes 4-7 Vary with  Type  Field<br>Byte 8 Bytes 8-11 Vary with  Type  Field<br>Byte 12 Bytes 12-15 Vary with  Type  Field<br>**----- End of picture text -----**<br>
+
+
+**660** 
+
+**Chapter 15: Error Detection and Handling** 
+
+每当传输数据时,例如在写请求或带数据的完成中,这些数据的损坏可能会发生,这需要报告给目标设备。在每种情况下,分组都可以转发给接收者,但通过标头中的 EP 位标记为具有坏数据。细心的读者可能想知道为什么人们可能想要发送已知为坏的数据。碰巧的是,有些情况下这是有用的:
+
+1. 如果请求导致返回带数据的完成,但该数据在从目标收集时遇到错误(例如内存中的奇偶校验或 ECC 失败),那么报告它的最佳方式是什么?一种方法是不发送完成,但是如果错误不以其他方式报告,则系统仅在请求者处看到完成超时。该响应没有多大帮助,因为任何数量的问题都可能导致该结果。
+
+   - 另一方面,如果以设置中毒位的方式传送完成,则至少请求者可以看到到完成者的往返路径必须正确工作。因此,问题一定发生在完成者内部,或者在路径中的交换机中。将采取什么步骤将是特定于实现的,但比简单地完成超时更清楚地知道出了什么问题。
+
+2. 它可用于报告中间问题。如果数据有效负载在通过交换机时被损坏,则仍可以转发分组并设置 EP 位以指示问题。
+
+3. 目标设备可能可以接受有错误的数据。例如,音频输出设备需要接收及时的数据流才能正常工作。如果传入数据有错误,则后果很小(音频输出中的毛刺),并且恢复时间将足够长以引起明显的延迟,因此可以按原样接受数据,而不是尝试恢复数据。
+
+4. 目标设备可能具有纠正数据的手段。数据可能可以直接恢复,或者目标可能具有重新创建其部分的方法,或者具有解决该问题的某种其他方法。
+
+规范规定,数据中毒仅适用于与分组关联的数据有效负载(例如内存、配置或 I/O 写入和完成),而从不适用于 TLP 标头的内容。因此,如果接收器看到没有有效负载的中毒分组(EP=1)(例如中毒的内存读取),则其行为未定义。只能在设备的事务层执行中毒;数据链路层不检查或影响 TLP 标头的内容。
+
+错误转发支持被声明为发送器可选的,并且对于接收器缺少这样的声明暗示它不是可选的。
+
+**661** 
+
+## **PCI Ex ress Technolo p gy** 
+
+如果发送器支持它,则使用旧版 Command 寄存器中的 Parity Error Response 位启用它。这是因为中毒分组大致类似于 PCI 中的奇偶校验错误,因为 PCI 以这种方式报告坏数据。如果启用,接收到中毒分组可以通过错误消息报告给系统,并且如果存在可选的高级错误报告寄存器,也将设置 Poisoned TLP 状态位。
+
+可以预期,不允许对控制位置的中毒写入修改目标中的内容。规范中给出的示例是配置写入、对控制寄存器的 IO 或内存写入以及 AtomicOp。接收到中毒分组的交换机必须将它们不变地转发到目标端口,尽管如果它们已启用,则必须将此分组报告为错误,以帮助软件确定错误发生的位置。接收到中毒的非发布请求的完成者预期将返回具有 UR(Unsupported Request)状态的完成。
+
+## **拆分事务错误** 
+
+在与非发布请求相关联的拆分事务期间可能发生各种故障。PCIe 在完成标头中定义了一个状态字段,允许完成者将某些错误报告回请求者。图 15-7(第 662 页)说明了该字段在完成标头中的位置,表 15-1(第 663 页)给出了可能的值。如表所示,仅定义了四种编码,其中两种表示错误情况。
+
+_Figure 15-7: 完成标头内的完成状态字段_ 
+
+**==> picture [378 x 129] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
++0 +1 +2 +3<br>7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>Byte 0 Fmt Type R TC R At R T T E Attr AT Length<br>0 x 0 0 1 0 1 0 tr H D P 0 0<br>Compl. B<br>Byte 4 Completer ID Status MC Byte Count<br>Byte 8 Requester ID Tag R Lower Address<br>**----- End of picture text -----**<br>
+
+
+**662** 
+
+**Chapter 15: Error Detection and Handling** 
+
+_Table 15-1: 完成代码和描述_ 
+
+|**状态代码**|**完成状态定义**|
+|---|---|
+|000b|成功完成 (SC)|
+|001b|不受支持的请求 (UR) - 错误|
+|010b|配置请求重试状态 (CRS)|
+|011b|完成者中止 (CA) - 错误|
+|100b - 111b|保留|
+
+
+
+## **不受支持的请求 (UR) 状态** 
+
+如果接收器不支持请求,则返回具有 UR 状态的完成。规范定义了许多可能导致 UR 状态的条件。一些示例是:
+
+- 不支持请求类型(示例:对原生端点的 IO 请求或对原生端点的 MRdLk) 
+
+- 带有不受支持或未定义消息代码的消息 
+
+- 请求未引用映射到设备的地址空间 
+
+- 请求地址未映射到交换机端口的地址范围内 
+
+- 中毒写请求(EP=1)以完成者中的 I/O 或内存映射控制空间为目标。此类请求不得被允许修改该位置,而是由完成者丢弃并以具有 UR 状态的完成进行报告。
+
+- 下游根或交换机端口接收到针对其辅助总线上不存在的设备的配置请求(例如,具有非零设备号的设备,除非启用 ARI)。该端口必须终止请求并返回具有 UR 状态的完成,因为下游设备号需要为零(除非启用 ARI,替代路由 ID 解释)。
+
+- 在端点处接收到 Type 1 配置请求。 
+
+- 使用保留的完成状态字段编码的完成必须解释为 UR。 
+
+- 处于 D1、D2 或 D3hot 电源管理状态下的 Function 接收到除配置请求或消息之外的请求。 
+
+- 标头中未设置 No Snoop 位的 TLP 被路由到其 VC Resource Capability 寄存器中设置了 Reject Snoop Transactions 位的端口。 
+
+**663** 
+
+## **PCI Ex ress Technolo p gy** 
+
+## **完成者中止 (CA) 状态** 
+
+可能发生多种情况,导致完成者将 CA 状态返回给请求者。一些示例是:
+
+- 完成者收到无法在不违反其编程规则的情况下完成的请求。例如,某些 Function 可能被设计为仅允许以完整和对齐的方式访问某些寄存器(例如,4 字节寄存器可能需要 4 字节对齐访问)。以部分或未对齐方式访问其中一个寄存器的任何尝试(例如,仅读取 4 字节寄存器的两个字节)将失败。此类限制不是违反规范,而是与该 Function 的编程接口相关的合法约束。访问此类 Function 基于设备驱动程序了解如何访问其 Function 的期望。
 
 </td>
 </tr></tbody></table>
@@ -1928,7 +3900,305 @@ A device enabled to generate ECRCs originates a TLP (Request or Completion), com
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+致命错误表明链路或设备已发生操作故障,导致不太可能恢复的数据丢失。对于这些情况,至少重置失败的链路或设备可能是任何恢复过程中的第一步,因为它显然由于某种原因无法运行。规范还邀请特定于实现的方法,其中软件可以尝试限制故障的影响,但它没有定义应采取的任何特定操作。此类错误的示例是接收器缓冲区溢出,在这种情况下,由于流控制跟踪计数器彼此不同步而丢失了信息。由于没有机制可以解决此问题,因此通常需要重置此链路。
+
+## **PCIe 错误检查机制** 
+
+PCIe 错误检查的范围集中在与链路和分组传送相关的错误上,如图 15-2(第 653 页)所示。与链路传输无关的错误不通过 PCIe 错误处理机制报告,需要专有方法来报告它们,例如设备特定
+
+**652** 
+
+**Chapter 15: Error Detection and Handling** 
+
+中断。接口的每一层都包括错误检查功能,这些将在以下部分中汇总。
+
+_Figure 15-2: PCI Express 错误检查和报告的范围_ 
+
+**==> picture [291 x 277] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIe Core  PCIe Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>Transaction Layer Transaction Layer<br>Data Link Layer Data Link Layer<br>Physical Layer Physical Layer<br>(RX) (TX) Link (RX) (TX)<br>Scope of PCIe Error Reporting<br>**----- End of picture text -----**<br>
+
+
+## **CRC** 
+
+在深入研究与层相关的错误处理之前,首先讨论 CRC(循环冗余校验)的概念会有所帮助,因为它是 PCIe 错误检查的组成部分。CRC 代码由发送器根据分组内容计算,并将其添加到分组中以进行传输。CRC 名称源自以下事实:此 _check_ 代码(从分组计算以检查错误)是 _redundant_(不向分组添加信息),并且源自 _cyclic_ 代码。虽然 CRC 不提供足够的信息来执行像 ECC(纠错码)那样的自动纠错,但它确实提供了强大的错误检测功能。CRC 也常用于串行传输中,因为它们擅长检测一串不正确的位。
+
+**653** 
+
+## **PCI Ex ress Technolo p gy** 
+
+CRC 在 PCIe 中有两种不同的使用情况。第一种是强制的 LCRC(Link CRC),在数据链路层为跨链路的每个 TLP 生成和检查。它旨在检测链路上的传输错误。
+
+第二个是可选的 ECRC(端到端 CRC),它在发送方的事务层生成,并在分组的最终目标的事务层中进行检查。这旨在检测可能以其他方式保持静默的错误,例如当 TLP 通过像交换机这样的中间代理时,如图 15-3(第 654 页)所示。在此图示中,分组已安全到达交换机的下游端口,但当它在交换机内被存储或处理时发生位错误。LCRC 仅在链路上保护 TLP。一旦入口端口的数据链路层检查 LCRC,它就会将其从分组中删除,因为将在出口端口重新计算新的 LCRC(将包括新的序列号)。这意味着分组在交换机内未受保护。这就是拥有 ECRC 的目的。它在原始设备处计算,并且不被中间设备删除或重新计算。因此,如果目标设备正在检查 ECRC 并看到不匹配,则沿途中必定发生错误,即使没有看到 LCRC 错误。请注意,使用 ECRC 需要存在可选的高级错误报告寄存器,因为它们包含启用此功能的位。
+
+_Figure 15-3: ECRC 使用示例_ 
+
+**==> picture [267 x 192] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Root Complex<br>Internal<br>Bit Error Switch<br>No external  (LCRC)<br>transmission errors<br>PCIe<br>Endpoint<br>**----- End of picture text -----**<br>
+
+
+**654** 
+
+**Chapter 15: Error Detection and Handling** 
+
+## **按层的错误检查** 
+
+传入分组的不同方面在接收器的不同层进行检查。某些错误检查被列为可选的。对于这些情况,如果错误发生但设计者选择不实现该形式的检查,则不会检测到它。
+
+## **物理层错误** 
+
+到达接收器的分组首先到达物理层。在此级别必须检查一些事情,而其他一些可以可选地检查。链路训练也发生在该层,并且在该过程中可能出现各种问题,但这些问题以及物理层的其他详细信息在第 505 页的第 14 章"链路初始化和训练"中介绍。总之,物理层错误(也称为接收器错误或链路错误)包括以下情况:
+
+- 使用 8b/10b 时,检查解码违规(检查必需) 
+
+- 帧违规(对于 8b/10b 为可选,对于 128b/130b 为必需) 
+
+- 弹性缓冲区错误(检查可选) 
+
+- 丢失符号锁或 Lane 去偏移(检查可选) 
+
+如果在检测到接收器错误时 TLP 正在进行中,则会丢弃它。为了解决错误,如果尚未挂起,则向数据链路层发出信号以发送 NAK。
+
+## **数据链路层错误** 
+
+在物理层之后,传入分组接下来进入数据链路层,在那里检查几个可能的问题。这些条件的详细信息可以在第 317 页的第 10 章"Ack/Nak 协议"中找到。总之,错误是:
+
+- TLP 的 LCRC 失败 
+
+- TLP 的序列号违规 
+
+- DLLP 的 16 位 CRC 失败 
+
+- 链路层协议错误 
+
+与物理层一样,如果在看到错误时 TLP 正在进行中,则会丢弃该 TLP,如果尚未挂起,则会安排 NAK。
+
+发送器处也有一些数据链路层错误需要注意,包括 REPLAY_TIMER 过期和 REPLAY_NUM 计数器翻转。通过重放重放缓冲区的内容来处理超时,
+
+**655** 
+
+## **PCI Ex ress Technolo p gy** 
+
+并增加 REPLAY_NUM 计数器。每当发送器接收到指示已取得前进的 ACK 或 NAK 时(意味着它导致从重放缓冲区中清除一个或多个 TLP),定时器和计数器就会被重置。但是,如果未足够快地接收到 Ack 或 Nak,则将看到超时条件,这将导致重放。
+
+## **事务层错误** 
+
+最后,如果传入的 TLP 通过物理层和数据链路层中的所有检查,则它们最终将到达事务层,在那里检查:
+
+- ECRC 失败(检查可选) 
+
+- 格式错误的 TLP(分组格式中的错误) 
+
+- 流控制协议违规 
+
+- 不受支持的请求 
+
+- 数据损坏(中毒分组) 
+
+- 完成者中止(检查可选) 
+
+- 接收器溢出(检查可选) 
+
+与数据链路层一样,发送器事务层也有一些错误检查,例如:
+
+- 完成超时 
+
+- 意外完成(完成与挂起的请求不匹配) 
+
+## **错误污染** 
+
+如果设备对同一事务看到多个问题,则可能会出现问题。这可能导致报告多个错误(称为"错误污染")。为避免这种情况,报告的错误仅限于最显著的一个。例如,如果 TLP 在物理层具有接收器错误,则肯定会在数据链路层和事务层中发现错误,但报告所有错误只会增加混乱。最相关的是报告看到的第一错误。因此,如果在物理层中看到错误,则没有理由将分组转发到更高层。类似地,如果在数据链路层中看到错误,则不会将分组转发到事务层。一个级别的违规分组不会转发到下一个级别,而是被丢弃。
+
+尽管如此,对于同一分组在事务层可能会看到多个错误。应仅按规范定义的优先级顺序报告最显著的一个。事务层错误优先级从最高到最低为:
+
+**656** 
+
+**Chapter 15: Error Detection and Handling** 
+
+- 不可纠正的内部错误 
+
+- 接收器缓冲区溢出 
+
+- 流控制协议错误 
+
+- ECRC 检查失败 
+
+- 格式错误的 TLP 
+
+- AtomicOp Egress Blocked 
+
+- TLP Prefix Blocked 
+
+- ACS(访问控制服务)违规 
+
+- MC(多播)阻止的 TLP 
+
+- UR(不受支持的请求)、CA(完成者中止)或意外完成 
+
+- 接收到中毒的 TLP 
+
+例如,TLP 可能由于标头损坏而遇到 ECRC 故障。由于分组内的某些内容已损坏,因此它也可能被视为格式错误或可能是不受支持的请求。ECRC 故障是最高优先级,因为它意味着标头内容可能已损坏,因此,报告依赖于这些内容的错误毫无意义。
+
+## **PCI Express 错误的来源** 
+
+而不是单独考虑所有错误条件,有助于将它们分组到公共区域。
+
+## **ECRC 生成和检查** 
+
+如前所述,ECRC 生成和检查需要存在可选的高级错误报告配置寄存器结构,如图 15-4(第 658 页)所示。配置软件检查此功能寄存器以确定 Function 中是否支持 ECRC。如果是,则对错误功能和控制寄存器的写入可用于启用它。
+
+**657** 
+
+## **PCI Ex ress Technolo p gy** 
+
+_Figure 15-4: 错误相关配置寄存器的位置_ 
+
+**==> picture [287 x 253] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Byte 0d<br>Status Command<br>Header<br>63d CapPtr<br>PCI<br>Required Compatible<br>PCIe Capability Block<br> Space<br>255d<br>Advanced Error Reporting<br>Optional<br> Capability Structure<br>Other PCIe Extended<br>Capability Structures Capability<br> Space<br>4095d<br>**----- End of picture text -----**<br>
+
+
+启用了生成 ECRC 的设备会发起 TLP(请求或完成),根据分组的标头和数据部分计算 32 位 ECRC,并将其添加到分组的末尾。ECRC 被称为"端到端",因为其意图是它将在 TLP 的源处生成,并且永远不会被路径上的任何中间设备剥离或重新生成。路径中原始设备和接收设备之间的交换机允许检查和报告 ECRC 错误,但不是必需的。无论是否存在错误,交换机仍必须原样转发分组,以便最终目标设备可以评估 ECRC 并采取适当的步骤。如果交换机充当 TLP 的发起者或接收者,则它可以像普通设备一样参与 ECRC 生成和检查。有关交换机如何允许报告此类错误的更多信息,请参阅第 670 页的"Advisory Non-Fatal Errors"。
+
+**658** 
+
+**Chapter 15: Error Detection and Handling** 
+
+## **TLP Digest** 
+
+如果启用了可选的 ECRC 功能,则在标头中设置一个称为 TD(TLP Digest)的特殊位,以指示它存在于分组的末尾(ECRC 也称为 Digest)。分组标头中的 TD 位如图 15-5(第 659 页)所示。规范强调,在转发 TLP 时必须特别小心地处理此位,因为如果缺少它但存在 ECRC,反之亦然,则分组将被视为格式错误。
+
+_Figure 15-5: 完成标头中的 TLP Digest 位_ 
+
+**==> picture [373 x 149] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
++0 +1 +2 +3<br>7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>At T T E<br>Byte 0 Fmt Type R TC R R Attr AT Length<br>tr H D P<br>Byte 4 Bytes 4-7 Vary with  Type  Field<br>Byte 8 Bytes 8-11 Vary with  Type  Field<br>Byte 12 Bytes 12-15 Vary with  Type  Field<br>**----- End of picture text -----**<br>
+
+
+## **不包含在 ECRC 机制中的可变位** 
+
+ECRC 是根据标头和数据的内容计算的。由于这些内容预计不会更改,因此在接收器处执行检查时,结果应相同。然而,事实证明,在分组传输过程中,两个标头位可以合法地更改:Type 字段的位 0 和 EP 位。Type 字段的位 0 可以在配置请求中更改,原因很简单,即在到达目标总线之前,请求将是 Type 1,然后将变为 Type 0。这涉及更改 Type 字段的位 0。如果中间设备检测到数据错误,EP 位也可以被合法地更改。例如,如果交换机转发 TLP,但它遭受某种内部错误导致数据损坏,则在通过出口端口传出时设置 EP 位是报告错误的一种方式(称为错误转发或数据中毒)。
+
+由于这两个位可以在分组传输过程中更改,因此它们被称为"可变位",不能用于 ECRC 的生成或检查。相反,它们的值在 ECRC 生成和检查中始终假定为 1b,而不是使用实际值。这样,ECRC 不依赖于它们,并且将被正确地评估。
+
+**659** 
+
+## **PCI Ex ress Technolo p gy** 
+
+检测到 ECRC 错误时所采取的操作超出规范的范围,但可能的选项将取决于错误是在请求中还是在完成中找到。
+
+- **请求中的 ECRC** — 检测到 ECRC 错误的完成者必须设置 ECRC 错误状态位。它们也可以选择不为该请求返回完成,导致请求者的完成超时,请求者的软件可能选择重新调度该请求。
+
+- **完成中的 ECRC** — 检测到 ECRC 错误的请求者必须设置 ECRC 错误状态位。除了标准错误报告机制之外,它们还可以选择使用特定于功能的中断将错误报告给它们的设备驱动程序。与之前一样,软件可能决定重新安排失败的请求。
+
+在任何一种情况下,可能会将不可纠正的非致命错误消息发送到系统。如果是这样,则可能会访问设备驱动程序以检查 _Uncorrectable Error Status Register_ 中的状态位并了解错误的性质。如果可能,可以重新调度失败的请求,但可能需要其他步骤。
+
+## **数据中毒** 
+
+数据中毒,也称为错误转发,提供了一种可选方式让设备指示与 TLP 关联的数据已损坏。在这些情况下,分组标头中的 EP(Error Poisoned)位被设置以指示错误。EP 位如图 15-6(第 660 页)所示。
+
+_Figure 15-6: 完成标头中的错误/中毒位_ 
+
+**==> picture [373 x 147] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
++0 +1 +2 +3<br>7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>At T T E<br>Byte 0 Fmt Type R TC R R Attr AT Length<br>tr H D P<br>Byte 4 Bytes 4-7 Vary with  Type  Field<br>Byte 8 Bytes 8-11 Vary with  Type  Field<br>Byte 12 Bytes 12-15 Vary with  Type  Field<br>**----- End of picture text -----**<br>
+
+
+**660** 
+
+**Chapter 15: Error Detection and Handling** 
+
+每当传输数据时,例如在写请求或带数据的完成中,这些数据的损坏可能会发生,这需要报告给目标设备。在每种情况下,分组都可以转发给接收者,但通过标头中的 EP 位标记为具有坏数据。细心的读者可能想知道为什么人们可能想要发送已知为坏的数据。碰巧的是,有些情况下这是有用的:
+
+1. 如果请求导致返回带数据的完成,但该数据在从目标收集时遇到错误(例如内存中的奇偶校验或 ECC 失败),那么报告它的最佳方式是什么?一种方法是不发送完成,但是如果错误不以其他方式报告,则系统仅在请求者处看到完成超时。该响应没有多大帮助,因为任何数量的问题都可能导致该结果。
+
+   - 另一方面,如果以设置中毒位的方式传送完成,则至少请求者可以看到到完成者的往返路径必须正确工作。因此,问题一定发生在完成者内部,或者在路径中的交换机中。将采取什么步骤将是特定于实现的,但比简单地完成超时更清楚地知道出了什么问题。
+
+2. 它可用于报告中间问题。如果数据有效负载在通过交换机时被损坏,则仍可以转发分组并设置 EP 位以指示问题。
+
+3. 目标设备可能可以接受有错误的数据。例如,音频输出设备需要接收及时的数据流才能正常工作。如果传入数据有错误,则后果很小(音频输出中的毛刺),并且恢复时间将足够长以引起明显的延迟,因此可以按原样接受数据,而不是尝试恢复数据。
+
+4. 目标设备可能具有纠正数据的手段。数据可能可以直接恢复,或者目标可能具有重新创建其部分的方法,或者具有解决该问题的某种其他方法。
+
+规范规定,数据中毒仅适用于与分组关联的数据有效负载(例如内存、配置或 I/O 写入和完成),而从不适用于 TLP 标头的内容。因此,如果接收器看到没有有效负载的中毒分组(EP=1)(例如中毒的内存读取),则其行为未定义。只能在设备的事务层执行中毒;数据链路层不检查或影响 TLP 标头的内容。
+
+错误转发支持被声明为发送器可选的,并且对于接收器缺少这样的声明暗示它不是可选的。
+
+**661** 
+
+## **PCI Ex ress Technolo p gy** 
+
+如果发送器支持它,则使用旧版 Command 寄存器中的 Parity Error Response 位启用它。这是因为中毒分组大致类似于 PCI 中的奇偶校验错误,因为 PCI 以这种方式报告坏数据。如果启用,接收到中毒分组可以通过错误消息报告给系统,并且如果存在可选的高级错误报告寄存器,也将设置 Poisoned TLP 状态位。
+
+可以预期,不允许对控制位置的中毒写入修改目标中的内容。规范中给出的示例是配置写入、对控制寄存器的 IO 或内存写入以及 AtomicOp。接收到中毒分组的交换机必须将它们不变地转发到目标端口,尽管如果它们已启用,则必须将此分组报告为错误,以帮助软件确定错误发生的位置。接收到中毒的非发布请求的完成者预期将返回具有 UR(Unsupported Request)状态的完成。
+
+## **拆分事务错误** 
+
+在与非发布请求相关联的拆分事务期间可能发生各种故障。PCIe 在完成标头中定义了一个状态字段,允许完成者将某些错误报告回请求者。图 15-7(第 662 页)说明了该字段在完成标头中的位置,表 15-1(第 663 页)给出了可能的值。如表所示,仅定义了四种编码,其中两种表示错误情况。
+
+_Figure 15-7: 完成标头内的完成状态字段_ 
+
+**==> picture [378 x 129] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
++0 +1 +2 +3<br>7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>Byte 0 Fmt Type R TC R At R T T E Attr AT Length<br>0 x 0 0 1 0 1 0 tr H D P 0 0<br>Compl. B<br>Byte 4 Completer ID Status MC Byte Count<br>Byte 8 Requester ID Tag R Lower Address<br>**----- End of picture text -----**<br>
+
+
+**662** 
+
+**Chapter 15: Error Detection and Handling** 
+
+_Table 15-1: 完成代码和描述_ 
+
+|**状态代码**|**完成状态定义**|
+|---|---|
+|000b|成功完成 (SC)|
+|001b|不受支持的请求 (UR) - 错误|
+|010b|配置请求重试状态 (CRS)|
+|011b|完成者中止 (CA) - 错误|
+|100b - 111b|保留|
+
+
+
+## **不受支持的请求 (UR) 状态** 
+
+如果接收器不支持请求,则返回具有 UR 状态的完成。规范定义了许多可能导致 UR 状态的条件。一些示例是:
+
+- 不支持请求类型(示例:对原生端点的 IO 请求或对原生端点的 MRdLk) 
+
+- 带有不受支持或未定义消息代码的消息 
+
+- 请求未引用映射到设备的地址空间 
+
+- 请求地址未映射到交换机端口的地址范围内 
+
+- 中毒写请求(EP=1)以完成者中的 I/O 或内存映射控制空间为目标。此类请求不得被允许修改该位置,而是由完成者丢弃并以具有 UR 状态的完成进行报告。
+
+- 下游根或交换机端口接收到针对其辅助总线上不存在的设备的配置请求(例如,具有非零设备号的设备,除非启用 ARI)。该端口必须终止请求并返回具有 UR 状态的完成,因为下游设备号需要为零(除非启用 ARI,替代路由 ID 解释)。
+
+- 在端点处接收到 Type 1 配置请求。 
+
+- 使用保留的完成状态字段编码的完成必须解释为 UR。 
+
+- 处于 D1、D2 或 D3hot 电源管理状态下的 Function 接收到除配置请求或消息之外的请求。 
+
+- 标头中未设置 No Snoop 位的 TLP 被路由到其 VC Resource Capability 寄存器中设置了 Reject Snoop Transactions 位的端口。 
+
+**663** 
+
+## **PCI Ex ress Technolo p gy** 
+
+## **完成者中止 (CA) 状态** 
+
+可能发生多种情况,导致完成者将 CA 状态返回给请求者。一些示例是:
+
+- 完成者收到无法在不违反其编程规则的情况下完成的请求。例如,某些 Function 可能被设计为仅允许以完整和对齐的方式访问某些寄存器(例如,4 字节寄存器可能需要 4 字节对齐访问)。以部分或未对齐方式访问其中一个寄存器的任何尝试(例如,仅读取 4 字节寄存器的两个字节)将失败。此类限制不是违反规范,而是与该 Function 的编程接口相关的合法约束。访问此类 Function 基于设备驱动程序了解如何访问其 Function 的期望。
 
 </td>
 </tr></tbody></table>
@@ -2078,7 +4348,15 @@ Several circumstances can occur that could result in a Completer returning this 
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+**663** 
+
+## **PCI Ex ress Technolo p gy** 
+
+## **完成者中止 (CA) 状态** 
+
+可能发生多种情况,导致完成者将 CA 状态返回给请求者。一些示例是:
+
+- 完成者收到无法在不违反其编程规则的情况下完成的请求。例如,某些 Function 可能被设计为仅允许以完整和对齐的方式访问某些寄存器(例如,4 字节寄存器可能需要 4 字节对齐访问)。以部分或未对齐方式访问其中一个寄存器的任何尝试(例如,仅读取 4 字节寄存器的两个字节)将失败。此类限制不是违反规范,而是与该 Function 的编程接口相关的合法约束。访问此类 Function 基于设备驱动程序了解如何访问其 Function 的期望。
 
 </td>
 </tr></tbody></table>
@@ -2278,7 +4556,185 @@ Message<br>Name Description<br>Code<br>30h ERR_COR Device detected a correctable
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+- Completer 收到一个由于设备中某些永久性错误状态而无法处理的请求 (Request)。例如，一张无线 LAN 卡因天线未获批而无法通过其无线电进行发送或接收，因此不接受新数据包。
+
+- Completer 收到检测到 ACS (Access Control Services) 错误的请求。这种情况的一个例子是实现 ACS 寄存器的根端口 (Root Port) 启用了 ACS Translation Blocking。如果在该端口上看到 AT 字段不是默认值的内存请求，就会发生 ACS 违规。
+
+- PCIe-to-PCI 桥 (Bridge) 可能收到一个目标为 PCI 总线的请求。PCI 允许目标设备在因某种永久性状态或函数 (Function) 编程规则被违反而无法完成请求时发出目标中止 (target abort)。作为响应，桥将返回一个 CA 状态的完成 (Completion)。
+
+中止请求的 Completer 可以通过 Non-fatal Error Message 向根 (Root) 报告该错误，并且如果该请求需要完成，则状态将为 CA。
+
+## **意外完成 (Unexpected Completion)**
+
+当 Requester 收到完成时，它使用事务描述符 (Requester ID 和 Tag) 将其与先前的请求进行匹配。在极少数情况下，事务描述符可能不匹配任何先前的请求。这可能是因为完成在返回到指定 Requester 的途中被错误路由。收到意外完成的设备可以发送一个 Advisory Non-fatal Error Message，但预计正确的 Requester 最终会超时并采取适当的措施，因此该错误消息优先级较低。
+
+**664**
+
+**第 15 章：错误检测与处理**
+
+## **完成超时 (Completion Timeout)**
+
+对于永不收到其所期望的完成的待处理请求，规范定义了一种完成超时机制。规范明确地将其用于检测完成没有合理机会返回的情况；它应当长于任何正常预期的延迟。
+
+完成超时计时器必须由所有发起期望完成的请求的设备实现，但只发起配置事务的设备除外。另请注意，每个等待完成的请求都是独立计时的，因此必须有一种方法为每个未完成的事务单独计时。规范的 1.x 和 2.0 版本定义了超时值的允许范围，如下所示：
+
+- 强烈建议设备在发出请求后不少于 10ms 才超时；但是，如果设备需要更精细的粒度，超时可以早至 50µs。
+
+- 设备必须不迟于 50ms 超时。
+
+从 2.1 规范版本开始，在 PCI Express Capability Block 中增加了 Device Control Register 2，以便软件可见和控制超时值，如图 15-8 在第 665 页所示。
+
+_图 15-8：Device Control Register 2_
+
+**==> 图片 [152 x 122] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+3 oO 0000b = 50µs - 50ms<br>0001b = 50µs - 100µs<br>A<br>0010b = 1ms - 10ms<br>EK of<br>0101b = 16ms - 55ms<br>B<br>0110b = 65ms - 210ms<br>1001b = 260ms - 900ms<br>C<br>1010b = 1s - 3.5s<br>1100b = 4s - 13s<br>D<br>[ 1110b = 17s - 64s<br>高位<br>选择范围<br>**----- End of picture text -----**<br>
+
+
+如果请求需要多个完成才能返回所请求的数据，单个完成不会停止计时器。相反，计时器会持续运行，直到所有数据都已返回，无论需要多少个完成。如果在超时时仅返回了部分数据，Requester 可以丢弃或保留这些数据。
+
+**665**
+
+**PCI Ex ress Technolo p gy**
+
+## **链路流控相关错误 (Link Flow Control Related Errors)**
+
+在将数据包转发到数据链路层进行传输之前，事务层 (Transaction Layer) 必须检查流控 (Flow Control, FC) 信用，以确保链路邻居的接收缓冲区有足够的空间容纳它。可能发生流控违规，这些违规被认为是不可纠正的。与流控相关的协议违规可由接收流控信息的端口检测到并与之关联。以下给出了一些示例：
+
+- 链路伙伴在任意虚通道 (Virtual Channel) 的 FC 初始化期间未公布规范所定义的至少最小数量的 FC 信用。
+
+- 链路伙伴公布的 FC 信用超过允许的最大数量（数据负载最多 2047 个未使用信用，标头最多 127 个未使用信用）。
+
+- 收到的 FC 更新在初始被通告为无限的信用字段中包含非零值。
+
+- 接收缓冲区溢出，导致数据丢失。此检查是可选的，但检测到的违规被认为是致命 (Fatal) 错误。
+
+## **格式错误的 TLP (Malformed TLP)**
+
+到达事务层的 TLP 会检查其是否违反数据包格式规则。数据包格式的违规被认为是致命错误，因为这意味着发送方在协议上犯了严重错误（例如未能正确维护其计数器），其结果是它不再按预期执行。以下是一些被视为格式错误（malformed）的数据包示例：
+
+- 数据负载超过最大有效负载大小 (Max payload size)。
+
+- 数据长度与标头中指定的长度不匹配。
+
+- 内存起始地址和长度组合导致事务跨越自然对齐的 4KB 边界。
+
+- TLP Digest（TD 字段）指示与数据包大小不对应（ECRC 意外缺失或存在）。
+
+- 字节使能 (Byte Enable) 违规。
+
+- 未定义的 Type 字段值。
+
+- 违反读完成边界 (Read Completion Boundary, RCB) 值的完成。
+
+- 对非配置请求的响应中包含 Configuration Request Retry Status 状态的完成。
+
+- Traffic Class 字段包含未分配给已启用虚通道的值（也称为 TC 过滤）。
+
+**666**
+
+**第 15 章：错误检测与处理**
+
+- I/O 和 Configuration 请求违规（检查可选）— 示例：TC 字段、Attr[1:0] 和 AT 字段必须全部为零，而 Length 字段必须具有值 1。
+
+- 下游发送的中断仿真消息（检查可选）。
+
+- 收到的 TLP 带有 TLP Prefix 错误：
+
+   - 
+
+   - TLP Prefix 但无 TLP Header
+
+- End-to-End TLP Prefix 位于 Local Prefix 之前
+
+- 不支持的 Local TLP Prefix 类型
+
+- 
+
+      - 超过 4 个 End-to-End TLP Prefix
+
+   - End-to-End TLP Prefix 多于所支持的数量
+
+- 需要使用 TC0 的事务类型具有不同的 TC 值：
+
+   - 
+
+   - I/O Read 或 Write 请求以及相应的完成
+
+- Configuration Read 或 Write 请求以及相应的完成
+
+- — Error Messages
+
+- INTx messages
+
+- Power Management messages
+
+- Unlock messages
+
+- Slot Power messages
+
+- LTR messages
+
+- 
+
+   - OBFF messages
+
+- AtomicOp 操作数与架构化值不匹配。
+
+- AtomicOp 地址未与操作数大小自然对齐。
+
+- 事务类型的路由不正确（例如，需要路由到根复合体的事务被发现远离根复合体）。
+
+## **内部错误 (Internal Errors)**
+
+## **问题 (The Problem)**
+
+PCIe 规范的早期版本不包括报告设备内与接口本身事务无关的错误机制。对于端点 (Endpoint) 而言这并不是真正的问题，因为它们具有关联的供应商特定的设备驱动程序，可以检测和报告内部错误。然而，交换机 (Switch) 被视为由操作系统管理的系统资源，通常没有软件来帮助进行内部错误检测。在高端系统中，遏制错误的能力很重要，因此交换机供应商创建了专有的内部错误处理方法。不幸的是，由于不同供应商的解决方案互不兼容，最终结果是它们很少被使用。
+
+**667**
+
+**PCI Ex ress Technolo p gy**
+
+## **解决方案 (The Solution)**
+
+为了缓解这种情况，2.1 规范版本中增加了标准化的内部错误报告选项。什么构成内部错误的定义超出了规范的范围，但它们可以报告为已纠正 (Corrected) 或未纠正 (Uncorrectable) 的内部错误。
+
+Corrected Internal Error 意味着硬件已屏蔽或绕过错误，没有信息丢失或行为不当。例如内部存储位置上的 ECC 错误被自动纠正。另一方面，Uncorrectable Internal Error 意味着操作不当已导致潜在的数据丢失，例如内部存储位置上的奇偶校验错误。报告内部错误是可选的，如果使用它，则必须存在 AER (Advanced Error Reporting) 寄存器以支持它。
+
+## **如何报告错误 (How Errors are Reported)**
+
+## **介绍 (Introduction)**
+
+PCI Express 包含三种报告错误的方法，如下所示。前两种（完成和被毒化的数据包）已在前文介绍，所以我们的下一个主题将是错误消息 (Error Messages)。
+
+- Completions — 完成状态 (Completion Status) 向 Requester 报告错误
+
+- Poisoned Packet — 向接收方报告 TLP 中的坏数据
+
+- Error Message — 向主机（软件）报告错误
+
+## **错误消息 (Error Messages)**
+
+PCIe 取消了 PCI 的边带信号，并用 Error Messages 替代。这些消息提供了 PERR# 和 SERR# 信号无法传达的信息，例如识别检测的函数并指示错误的严重程度。图 15-9 说明了错误消息格式。请注意，它们被路由到根复合体 (Root Complex) 进行处理。Message Code 定义了正在发信号的消息类型。毫不奇怪，规范定义了三种类型的错误消息，如表 15-2 所示。
+
+**668**
+
+**第 15 章：错误检测与处理**
+
+_表 15-2：错误消息代码与描述_
+
+**==> 图片 [389 x 479] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+Message<br>Name Description<br>Code<br>30h ERR_COR 设备检测到可纠正错误。这是由硬件自动<br>纠正的，不需要软件干预。但是，无论如<br>何报告它们都可能会有所帮助，这样软件<br>可以观察趋势，例如越来越多的可纠正错误。<br>31h ERR_NONFATAL 指示不可纠正的 Non-Fatal 错误。没有可<br>用的硬件纠正机制，但链路仍然可靠地工作。<br>将需要软件关注以解决该问题。<br>33h ERR_FATAL 指示不可纠正的 Fatal 错误。没有可用的硬<br>件纠正机制，且链路操作在某些重要方面已<br>失败。将需要软件关注，并且可能需要至少<br>重置一个设备才能解决此问题。<br>图 15-9：错误消息格式<br>+0 +1 +2 +3<br>7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>Byte 0 Fmt Type R TC R At R T T E Attr AT Length<br>0 0 1 1 0  0 0 0 tr H D P<br>Message Code<br>Byte 4 Requester ID Tag<br>(30h, 31h or 33h)<br>Byte 8 错误消息保留<br>Byte 12 错误消息保留<br>路由到根复合体 30h = ERR_COR<br>31h = ERR_NONFATAL<br>33h = ERR_FATAL<br>**----- End of picture text -----**<br>
+
+
+**669**
+
+**PCI Ex ress Technolo p gy**
+
+## **建议性非致命错误 (Advisory Non-Fatal Errors)**
 
 </td>
 </tr></tbody></table>
@@ -2406,7 +4862,275 @@ _Figure 15‐13: Command Register in Configuration Header_
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+由于我们刚刚看到两种类型的不可纠正错误都需要软件关注，所以说在某些情况下最好让设备不报告其检测到的 Non-Fatal 错误听起来有违直觉，但确实存在这种情况。这些情况主要基于检测代理的角色（Requester、Completer 或中间设备）以及错误类型。问题在于多个设备可能报告由同一事件引起的错误，并且在某些平台上，发送其中一个 Non-Fatal Error Message (ERR_NONFATAL) 可能会妨碍软件正确处理错误。例如，如果端点 (Endpoint) 报告错误，将调用其设备驱动程序来对情况进行处理。但是，如果交换机 (Switch) 首先为同一事务报告错误，则可能调用系统软件进行调查，并且该软件可能不理解驱动程序要完成什么或什么才是最佳响应。
+
+该示例说明某些检测代理并不是确定错误的最终处置的最佳代理，不应发送不可纠正的消息。相反，这样的代理可以通过 ERR_COR 向软件发出建议性通知。这避免了对不可纠正错误来源的混淆，但仍向软件提供有关所发生情况的一些信息。最终，适当的检测代理将在看到错误时发送 ERR_NONFATAL 消息。从 1.1 规范版本开始，在 PCI Express Device Capabilities 寄存器中添加了一个新字段以指示对此功能的支持，如图 15-10 在第 670 页所示。对于符合 1.1 或更高规范的每个代理，必须设置此位。
+
+_图 15-10：Device Capabilities Register_
+
+**==> 图片 [264 x 186] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+Device Capabilities Register<br>31 28 27 26 25 18 17 16 15 14 12 11 9 8 6 5 4 3 2 0<br>RsvdP RsvdP<br>Function-Level Reset Capability<br>Captured Slot Power Limit Scale<br>Captured Slot Power Limit Value<br>Role-Based Error Reporting<br>Undefined<br>Endpoint L1 Acceptable Latency<br>Endpoint L0s Acceptable Latency<br>Extended Tag Field Supported<br>Phantom Functions Supported<br>Max Payload Size Supported<br>**----- End of picture text -----**<br>
+
+
+**670**
+
+**第 15 章：错误检测与处理**
+
+尽管有上述原因，软件可能希望一旦中间设备检测到某些建议性错误就立即停止操作。由于较新的设备将始终执行基于角色的错误报告，因此需要一种覆盖机制。为了处理这种情况，软件可以在 AER (Advanced Error Reporting) 寄存器中将建议性错误的严重性从 Non-Fatal 升级为 Fatal。由于没有"建议性致命"的情况，如果启用，无论设备的角色如何，错误现在都将报告为致命错误 (ERR_FATAL)。
+
+## **建议性非致命情况 (Advisory Non-Fatal Cases)**
+
+规范列出了五种情况，其中建议性消息 (ERR_COR) 优于 ERR_NONFATAL 消息。在每种情况下，检测代理将把错误作为 Advisory Non-Fatal Error 处理。这意味着假设代理具有 AER 寄存器并已启用 ERR_COR，将通过发送 ERR_COR 来处理 Non-Fatal 条件。如果没有 AER 寄存器或未启用 ERR_COR，则不发送 Error Message。这五种情况如下：
+
+1. Completer 发送了 UR 或 CA 状态的完成。在这种情况下，预期是 Requester 在看到违规的完成时将具有处理错误的机制，并且将是发送所需的任何 Error Message 的最佳代理。来自 Completer 的 ERR_NONFATAL 消息只会引起混淆，因此必须将其作为 Advisory Non-Fatal (ERR_COR) 处理。
+
+   - 奇怪的是，没有 PCIe 机制供 Requester 报告它收到了具有此状态的完成。相反，将需要一种特定于设计的方法（如中断）来获得设备驱动程序的关注。当根复合体收到对 Configuration Read Request 的具有 UR 或 CA 状态的完成响应时，会发生这种情况的重要示例。在某些平台上，对此情况的响应是向软件返回全 1，以支持与 PCI 枚举（配置探测）软件的向后兼容性。
+
+2. 中间设备检测到错误。这种情况出现在使用交换机的系统中，因为检测代理可能不是 TLP 的最终目的地。作为一个例子，考虑图 15-11 在第 672 页，显示通过中间交换机传递的被毒化数据包。TLP 被交换机视为 Non-Fatal 错误，但它只能发出 ERR_COR 消息代替（只要它已启用）。为了进一步探讨这个概念，为什么我们不希望交换机报告 ERR_NONFATAL？其中一个原因可以通过查看 AER 寄存器中的错误跟踪看出。图 15-12 在第 672 页显示了跟踪进入根端口 (Root Port) 的 Error Message 的源 ID（发送设备的 BDF）的 AER 寄存器，我们可以看到，对于
+
+**671**
+
+## **PCI Ex ress Technolo p gy**
+
+不可纠正错误只有一个可用空间。如果看到多个不可纠正的错误，则将注意到这一事实，但仅保存第一个源 ID，因为它被认为是后续错误的可能原因。因此，重要的是不可纠正的错误来自最合适的报告设备。值得注意的是，中间设备报告 ERR_COR 仍然是有帮助的，因为它允许软件确定错误最初是在哪里检测到的。
+
+_图 15-11：基于角色的错误报告示例_
+
+**==> 图片 [230 x 219] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+CPU<br>Root Complex<br>Poisoned<br>Packet<br>ERR_COR<br>PCIe<br>PCIe Switch Endpoint<br>Endpoint<br>PCIe Legacy<br>Endpoint Endpoint<br>**----- End of picture text -----**<br>
+
+
+_图 15-12：Advanced Source ID Register_
+
+**==> 图片 [333 x 77] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+Error Source Identification Register<br>of the AER Capability Structure<br>31 0<br>ERR_FATAL/NONFATAL Source ID ERR_COR Source ID<br>(ROS) (ROS)<br>ROS: Read-Only and Sticky<br>**----- End of picture text -----**<br>
+
+
+**672**
+
+**第 15 章：错误检测与处理**
+
+作为另一个示例，清除了 UR Reporting Enable 位但没有基于角色的错误报告功能的 1.0a 设备在检测到 UR 错误（对于 posted 或 non-posted 请求）时无法报告任何错误消息。相比之下，符合 1.1 或更高版本的 Completer 如果设置了 SERR# Enable 位，则会针对错误的 posted 请求发送 ERR_NONFATAL 或 ERR_FATAL 消息，即使清除了 Unsupported Request Reporting Enable 位也是如此，以避免静默数据损坏。但它不会为收到的 non-posted 请求发送错误消息，以支持通过配置读取进行探测的 PCI 兼容配置方法。建议软件对那些不具备基于角色的错误报告功能的设备保持清空 UR Error Reporting Enable 位，但对具备该功能的设备则设置该位。这样，UR 错误会在错误的 posted 请求上报告，但不会在像配置探测事务这样的错误的 non-posted 请求上报告，并且保持了与旧软件的向后兼容性。
+
+规范还提到，发送到根 (Root) 的被毒化的 TLP 在根充当中间代理时将以相同方式处理，但有一个例外：如果根不支持 Error Forwarding，它将无法通过 TLP 传达被毒化的错误，而必须将其报告为 Non-Fatal 错误。
+
+3. 目标设备收到被毒化的 TLP。通常，端点会在这种情况下报告 Non-Fatal 错误，但此规则有一个例外：如果最终目标设备能够以允许继续操作的方式处理被毒化数据，则它必须将这种情况视为 Advisory Non-Fatal Error。
+
+   - 这种行为的一个例子可能是收到已被毒化的流数据的音频设备。在这种情况下，即使已知数据已损坏，数据也可能会被接受，因为暂停音频流足够长的时间以引起软件注意并采取补救措施将是比允许声音输出中出现故障更糟糕的替代方案。
+
+4. Requester 经历了 Completion Timeout。这与前一种情况类似；如果 Requester 有尽管出现问题仍能继续操作的方法，则它必须将其视为 Advisory Non-Fatal Error。在这种情况下，Requester 的简单解决方法将只是重新发送请求并希望这次有更好的结果。显然，只有在先前的请求没有引起任何副作用时这才有意义，但允许 Requester 根据需要执行此操作（尽管规范规定重试次数必须是有限的）。
+
+5. 收到意外完成。这必须作为 Advisory Non-Fatal Error 处理。原因可能是由错误路由的完成引起的，并且原始 Requester 最终将报告完成超时。为了允许该其他 Requester 尝试重试失败
+
+**673**
+
+**PCI Ex ress Technolo p gy**
+
+请求，看到意外完成的那一个不发送 Non-Fatal 消息是很重要的。
+
+## **基线错误检测与处理 (Baseline Error Detection and Handling)**
+
+本节定义了检测和报告 PCI Express 错误所需的支持。兼容设备必须包括：
+
+- PCI 兼容支持 — 必须遵守 PCI 兼容错误控制和状态字段，以便不感知 PCI Express 的旧软件使用。
+
+- PCI Express 错误报告 — 使用标准 PCIe 结构进行错误控制和状态，可供了解 PCI Express 的较新软件使用。
+
+## **PCI 兼容错误报告机制 (PCI-Compatible Error Reporting Mechanisms)**
+
+## **概述 (General)**
+
+为了向后兼容，PCI Express 错误被映射到原始的 PCI 配置寄存器位，允许 PCI 兼容软件访问错误状态和控制。要从 PCI 兼容的角度了解可用的功能，请考虑配置头中 Command 和 Status 寄存器的错误相关位。一些字段定义已被修改，以反映相关的 PCIe 错误条件和报告机制。由 PCI 兼容寄存器跟踪的 PCI Express 错误包括：
+
+- Transaction Poisoning/Error Forwarding（与 PCI 中的数据奇偶校验错误同义）
+
+- 由 Completer 检测到的 Completer Abort (CA)（与 PCI 中的 Target Abort 同义）
+
+- 由 Completer 检测到的 Unsupported Request (UR)（与 PCI 中的 Master Abort 同义）
+
+如前所述，PCI 的错误报告机制是 PERR#（数据奇偶校验错误）和 SERR#（不可恢复错误）的断言。PCI Express 报告这些事件的机制是完成中的 Completion Status 值和到根的 Error Message。
+
+**674**
+
+**第 15 章：错误检测与处理**
+
+## **传统 Command 和 Status 寄存器 (Legacy Command and Status Registers)**
+
+图 15-13 在第 675 页说明了 Command 寄存器以及错误相关字段的位置。设置这些位是为了在 PCI 兼容软件的控制下启用基线错误报告。表 15-3 定义了每个位的具体作用。
+
+_图 15-13：配置头中的 Command 寄存器_
+
+**==> 图片 [390 x 396] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+15 11 10 9 8 7 6 5 4 3 2 1 0<br>Reserved 0 0 0 0 0<br>Interrupt Disable<br>Fast Back-to-back Enable *<br>SERR# Enable<br>Stepping Control *<br>Parity Error Response<br>VGA Palette Snoop Enable *<br>Mem Write & Invalidate Enable *<br>Special Cycles *<br>Bus Master Enable<br>Memory Space Enable<br>IO Space Enable<br>* PCIe 中未使用，这些位必须设置为零<br>表 15-3：Command 寄存器中与错误相关的字段<br>Name Description<br>SERR# Enable 设置此位可启用向根复合体发送 ERR_FATAL 和 ERR_NONFATAL<br>错误消息。这些大致类似于在 PCI 中断言系统错误 (SERR#) 信号。<br>对于 Type 1 标头（桥），此位控制从辅助接口到主要接口的<br>ERR_FATAL 和 ERR_NONFATAL 错误消息的转发。<br>此字段不影响 ERR_COR 消息。<br>**----- End of picture text -----**<br>
+
+
+**675**
+
+**PCI Ex ress Technolo p gy**
+
+_表 15-3：Command 寄存器中与错误相关的字段（续）_
+
+|**Name**|**Description**|
+|---|---|
+|Parity Error<br>Response|设置此位可启用在 Status 寄存器的 Master Data<br>Parity Error 位中记录被毒化的 TLP。<br>被毒化的数据包表示坏数据，大致类似于 PCI<br>奇偶校验错误。|
+
+
+
+图 15-14 在第 676 页说明了 Configuration Status 寄存器以及错误相关位字段的位置。表 15-4 在第 677 页定义了设置每个位的情况以及启用错误报告时设备采取的操作。
+
+_图 15-14：配置头中的 Status 寄存器_
+
+**==> 图片 [304 x 220] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+15 14 13 12 11 10 9 8 7 6 5 4 3 2 0<br>0  0 0 R 0 1 Reserved<br>Interrupt Status<br>Capabilities List**<br>66 MHz Capable*<br>Reserved<br>Fast Back-to-back Capable*<br>Master Data Parity Error<br>DEVSEL Timing*<br>Signalled Target Abort<br>Received Target Abort<br>Received Master Abort<br>Signalled System Error<br>Detected Parity Error<br>* PCIe 中未使用，这些位必须设置为零<br>** 必须设置为 1，因为需要某些能力寄存器<br>**----- End of picture text -----**<br>
+
+
+**676**
+
+**第 15 章：错误检测与处理**
+
+_表 15-4：Status 寄存器中与错误相关的字段_
+
+|**Error-Related Bit**|**Description**|
+|---|---|
+|Detected Parity Error|由接收到被毒化 TLP 的端口设置。无论 Parity Error Response<br>位的状态如何，都会更新此状态位。|
+|Signalled System Error|由已使用 ERR_FATAL 或 ERR_NONFATAL 报告了 Uncorrectable<br>Error 并且 Command 寄存器中的 SERR# Enable 位已设置的端口设置。|
+|Received Master Abort|由收到具有 UR (Unsupported Request) 状态的完成的 Requester 设置。<br>这被认为类似于 PCI master abort，因为目标未"声明事务"。|
+|Received Target Abort|由收到具有 CA (Completer Abort) 状态的完成的 Requester 设置。<br>这类似于 PCI target abort，因为目标有编程违规或内部错误状态。|
+|Signaled Target Abort|由将请求（posted 或 non-posted）作为 Completer Abort 处理的 Completer 设置。<br>如果是非发布请求，则会发送具有 CA 完成状态的完成。|
+|Master Data Parity Error|对于 Type 0 标头（例如 Endpoints），如果设置了 Command 寄存器中的 Parity Error Response 位<br>并且它发起了被毒化的请求或收到了被毒化的完成，则设置此位。<br>对于 Type 1 标头（例如 Switches 和 Root Ports），如果设置了 Command 寄存器中的 Parity Error Response 位<br>并且它发起了向上游移动的被毒化请求或收到了向下游移动的被毒化完成，则设置此位。|
+
+
+
+## **基线错误处理 (Baseline Error Handling)**
+
+基线功能需要使用 PCI Express Capability 结构。这些寄存器包括错误检测和处理字段，相对于仅使用 PCI 兼容错误处理所能实现的，它们提供了关于错误性质以及是否报告它的更细粒度。
+
+**677**
+
+**PCI Ex ress Technolo p gy**
+
+图 15-15 在第 678 页说明了 PCI Express Capability 结构。这些寄存器中的一些提供以下支持：
+
+- 启用/禁用错误报告（错误消息生成）
+
+- 提供错误状态
+
+- 提供链路训练状态和发起链路重新训练
+
+_图 15-15：PCI Express Capability 结构_
+
+**==> 图片 [336 x 315] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+31 15 7 0<br>PCI Express Capabilities Register Next Cap Pointer PCI ExpressCap ID DW0<br>Device Capabilities Register DW1<br>Device Status Device Control DW2<br>{<br>Link Capabilities DW3<br>Link Status Link Control DW4<br>{<br>Slot Capabilities DW5<br>Slot Status Slot Control DW6<br>{<br>Root Capability Root Control DW7<br>Root Status DW8<br>{<br>{<br>Device Capabilities 2 DW9<br>Device Status 2 Device Control 2 DW10<br>{<br>Link Capabilities 2 DW11<br>Link Status 2 Link Control 2 DW12<br>{<br>Slot Capabilities 2 DW13<br>Slot Status 2 Slot Control 2 DW14<br>{<br>仅 Gen2 及更高版本的设备<br>ks Pstro<br>niL ll<br>h A<br>Solst tiswe<br>h<br>ti civ<br>w e<br>str str D<br>o o r<br>P P x o<br>t tc<br>Roo elpmo Cello<br>C t<br>t n<br>o e<br>o v<br>R E<br>ks Pstro<br>niL llA<br>h<br>Solst tiswe<br>h<br>ti civ<br>w e<br>str D<br>o<br>P<br>**----- End of picture text -----**<br>
+
+
+## **启用/禁用错误报告 (Enabling/Disabling Error Reporting)**
+
+Device Control 寄存器允许软件启用四种错误事件的三种不同 Error Message 的生成，Device Status 寄存器允许软件查看检测到的错误。四种错误情况是：
+
+**678**
+
+**第 15 章：错误检测与处理**
+
+- Correctable Errors
+
+- Non-Fatal Errors
+
+- Fatal Errors
+
+- Unsupported Request Errors
+
+请注意，此处识别的唯一特定错误是 Unsupported Request。虽然 Unsupported Request 在技术上是 Non-Fatal 错误的子集，并且在报告时甚至通过 ERR_NONFATAL 消息发出信号，但它有自己的启用和状态位。这是因为在系统枚举期间将发生 Unsupported Request（每当尝试从系统中实际不存在的函数读取配置空间时），但它们不得报告为错误。枚举软件可能具有非常有限的错误处理能力，如果需要停止并处理错误，它可能会失败。因此，软件不希望在 UR 情况下生成错误消息，但希望了解可能检测到的任何其他 Non-Fatal 错误。（有关枚举期间 Unsupported Request 的更多详细信息，请参见第 105 页的"发现 Function 的存在或不存在"部分。）
+
+表 15-5 在第 679 页列出了每种错误类型及其关联的错误分类。
+
+_表 15-5：错误的默认分类_
+
+|**Classification & Severity**|**Name of Error**|**Layer Detected**|
+|---|---|---|
+|Correctable|Receiver Error|Physical|
+|Correctable|Bad TLP|Link|
+|Correctable|Bad DLLP|Link|
+|Correctable|Replay Number Rollover|Link|
+|Correctable|Replay Timer Timeout|Link|
+|Correctable|Advisory Non-Fatal Error|Transaction|
+|Correctable|Corrected Internal Error||
+|Correctable|Header Log Overflow|Transaction|
+|Uncorrectable - Non Fatal|Poisoned TLP Received|Transaction|
+|Uncorrectable - Non Fatal|ECRC Check Failed|Transaction|
+
+
+
+**679**
+
+**PCI Ex ress Technolo p gy**
+
+_表 15-5：错误的默认分类（续）_
+
+|**Classification & Severity**|**Name of Error**|**Layer Detected**|
+|---|---|---|
+|Uncorrectable - Non Fatal|Unsupported Request|Transaction|
+|Uncorrectable - Non Fatal|Completion Timeout|Transaction|
+|Uncorrectable - Non Fatal|Completer Abort|Transaction|
+|Uncorrectable - Non Fatal|Unexpected Completion|Transaction|
+|Uncorrectable - Non Fatal|ACS Violation|Transaction|
+|Uncorrectable - Non Fatal|MC Blocked TLP|Transaction|
+|Uncorrectable - Non Fatal|AtomicOps Egress Blocked|Transaction|
+|Uncorrectable - Non Fatal|TLP Prefix Blocked|Transaction|
+|Uncorrectable - Fatal|Uncorrectable Internal Error<br>(optional)||
+|Uncorrectable - Fatal|Surprise Down (optional)|Link|
+|Uncorrectable - Fatal|Receiver Overflow (optional)|Transaction|
+|Uncorrectable - Fatal|DLL Protocol Error|Link|
+|Uncorrectable - Fatal|Receiver Overflow|Transaction|
+|Uncorrectable - Fatal|Flow Control Protocol Error|Transaction|
+|Uncorrectable - Fatal|Malformed TLP|Transaction|
+
+
+
+**Device Control Register.** 在 Device Control 寄存器（如图 15-16 在第 681 页所示）中设置位可启用发送相应的 Error Message 以报告错误。Unsupported Request 错误被指定为 Non-Fatal 错误，并通过 Non-Fatal Error Message 报告，但仅当设置了 _UR Reporting Enable_ 位时。
+
+为了使函数实际发送错误消息，需要在 Device Control 寄存器中设置相应的启用位，或对于 Fatal 和 Non-Fatal 错误，应设置 SERR# Enable。对于 Uncorrectable Errors，如果 Command Register 中的 SERR# Enable 位已设置或 Device Control 寄存器中相应的启用位已设置，则将发送适当的错误消息（ERR_FATAL 或 ERR_NONFATAL）。
+
+**680**
+
+**第 15 章：错误检测与处理**
+
+对于 Correctable Errors，函数仅当 Device Control 寄存器中的 _Correctable Error Reporting Enable_ 位已设置时才会发送 ERR_COR 消息。无法通过 PCI 兼容机制控制启用 ERR_COR 消息，这很合理，因为在 PCI 中，没有可纠正错误的概念。
+
+_图 15-16：与错误处理相关的 Device Control 寄存器字段_
+
+**==> 图片 [357 x 231] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+15 14 12 11 10 9 8 7 5 4 3 2 1 0<br>Bridge Config. Retry Enable/<br>Initiate Function-Level Reset<br>Max Read Request Size<br>Enable No Snoop<br>Aux Power PM Enable<br>Phantom Functions Enable<br>Extended Tag Field Enable<br>Max Payload Size<br>Enable Relaxed Ordering<br>Unsupported Request<br>Reporting Enable<br>Fatal Error Reporting Enable<br>Non-Fatal Error<br>Reporting Enable<br>Correctable Error<br>Reporting Enable<br>**----- End of picture text -----**<br>
+
+
+**Device Status Register.** 每当检测到与其分类关联的错误时，Device Status 寄存器（如图 15-17 在第 682 页所示）中的错误状态位即被设置，无论 Device Control 寄存器中错误报告启用位的设置如何。由于 Unsupported Request 错误被视为 Non-Fatal 错误，因此当这些错误发生时，_Non-Fatal Error Detected_ 状态位和 _Unsupported Request Detected_ 状态位都将被设置。与其他几个状态位一样，这些是"粘性的"（Sticky）（其值不会通过重置事件清除，因此即使需要重置才能使链路正常工作以读取状态，它们也可用于诊断问题）。
+
+**681**
+
+**PCI Ex ress Technolo p gy**
+
+_图 15-17：与错误处理相关的 Device Status 寄存器位字段_
+
+**==> 图片 [337 x 160] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+15 6 5 4 3 2 1 0<br>RsvdZ<br>Transactions Pending<br>Aux Power Detected<br>Unsupported Request Detected<br>Fatal Error Detected<br>Non-Fatal Error Detected<br>Correctable Error Detected<br>**----- End of picture text -----**<br>
+
+
+## **根对错误消息的响应 (Root's Response to Error Message)**
 
 </td>
 </tr></tbody></table>
@@ -2589,7 +5313,161 @@ _Figure 15‐17: Device Status Register Bit Fields Related to Error Handling_
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+当根收到 Error Message 时，它采取的操作部分由 Root Control 寄存器中的设置决定。图 15-18 描述了此寄存器并突出显示了指定是否应将收到的 Error Message 报告为 System Error 的三个字段。在一些基于 x86 的系统中，如果错误被启用以触发 System Error，则可能会发出 NMI (Non-Maskable Interrupt)。
+
+通过标准寄存器无法配置报告 Error Message 的其他选项。最可能的情况是向处理器发出将调用错误处理程序 (Error Handler) 的中断，它可能会记录错误并尝试清除问题。
+
+**682**
+
+**第 15 章：错误检测与处理**
+
+_图 15-18：Root Control 寄存器_
+
+**==> 图片 [313 x 142] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+15 5 4 3 2 1 0<br>RsvdP<br>CRS Software Visibility Enable<br>PME Interrupt Enable<br>System Error on Fatal Error Enable<br>System Error on Non-Fatal Error Enable<br>System Error on Correctable Error Enable<br>**----- End of picture text -----**<br>
+
+
+## **链路错误 (Link Errors)**
+
+链路故障通常在物理层检测到，并传送到数据链路层。对于下游设备，如果链路遇到 Fatal 错误且无法正常运行，则无法向主机报告错误。在这些情况下，错误必须由上游设备报告。如果软件可以将错误隔离到给定链路，则处理不可纠正错误（或防止将来发生不可纠正错误）的一个步骤是重新训练链路。Link Control 寄存器包括一个允许软件强制链路重新训练的位，如图 15-19 在第 684 页所示。如果这解决了问题，则操作会在很少停机的情况下恢复。
+
+**683**
+
+**PCI Ex ress Technolo p gy**
+
+_图 15-19：Link Control 寄存器 — 强制链路重新训练_
+
+**==> 图片 [297 x 260] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+15 12 11 10 9 8 7 6 5 4 3 2 1 0<br>RsvdP<br>Link Autonomous Bandwidth<br>Interrupt Enable<br>Link Bandwidth Management<br>Interrupt Enable<br>Hardware Autonomous<br>Width Disable<br>Enable Clock<br>Power Management<br>Extended Synch<br>Common Clock<br>Configuration<br>Retrain Link<br>Link Disable<br>Read Completion<br>Boundary Control<br>RsvdP<br>Active State<br>PM Control<br>**----- End of picture text -----**<br>
+
+
+一旦请求重新训练后，软件可以轮询 Link Status 寄存器中的 _Link Training_ 位以查看训练何时完成。图 15-20 突出显示此状态位。当此位为 1b 时，链路仍处于重新训练过程中（或尚未开始重新训练）。一旦物理层报告链路处于活动状态（意味着训练过程已成功完成），硬件将清除此位。
+
+**684**
+
+**第 15 章：错误检测与处理**
+
+_图 15-20：Link Status 寄存器中的链路训练状态_
+
+**==> 图片 [360 x 167] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+15 14 13 12 11 10 9 4 3 0<br>Link Autonomous<br>Bandwidth Status<br>Link Bandwidth<br>Management Status<br>Data Link Layer<br>Link Active<br>Slot Clock<br>Configuration<br>Link Training<br>Undefined<br>Negotiated<br>Link Width<br>Current Link Speed<br>**----- End of picture text -----**<br>
+
+
+## **高级错误报告 (AER, Advanced Error Reporting)**
+
+图 15-21 在第 686 页所示的高级错误报告结构允许更复杂的错误处理。这些寄存器提供以下一些附加功能：
+
+- 更好地粒度地记录实际发生的错误类型
+
+- 控制指定每种不可纠正错误类型的严重性
+
+- 支持记录有错误的数据包的标头
+
+- 标准化根的控制以中断形式报告收到的 Error Message
+
+- 识别 PCIe 拓扑中错误的来源
+
+- 能够屏蔽报告个别类型的错误
+
+**685**
+
+## **PCI Ex ress Technolo p gy**
+
+_图 15-21：Advanced Error Capability 结构_
+
+|Root Ports &<br>Root Complex<br>Event Collectors<br>Functions<br>that support<br>TLP Prefixes|Root Error Command<br>Root Error Status<br>Uncorr.  Error Source ID<br>Corr.  Error Source ID<br>TLP Prefix Log Register<br>00h<br>04h<br>08h<br>0Ch<br>10h<br>14h<br>18h<br>1Ch<br>2Ch<br>30h<br>34h<br>38h<br>PCIe Extended CapabilityRegister<br>Uncorrectable Error Status Register<br>Uncorrectable Error Mask Register<br>Uncorrectable Error SeverityRegister<br>Correctable Error Status Register<br>Correctable Error Mask Register<br>Advanced Error Capability and Control Register<br>Header Log Register|
+|---|---|
+
+
+
+## **Advanced Error Capability and Control**
+
+让我们从查看 Advanced Error Capability and Control 寄存器开始对 AER 的讨论。端到端 CRC (ECRC) 生成和检查需要 AER，并且此寄存器（如图 15-22 在第 687 页所示）报告
+
+**686**
+
+**第 15 章：错误检测与处理**
+
+此设备是否支持 ECRC。如果支持，配置软件可以通过设置适当的位来启用（并强制）使用它。
+
+此寄存器的低 5 位包含 First Error Pointer，由硬件在更新 Uncorrectable Error 状态位时设置。共有 32 个状态位，First Error Pointer 指示哪个未屏蔽的 Uncorrectable Error 是首先被检测到的，即当所有其他状态位仍为 0 时设置了哪个状态位。第一个错误是最有趣的，因为其他错误可能是由第一个错误引起的。
+
+_图 15-22：Advanced Error Capability and Control 寄存器_
+
+|_图 15-22：Advanced Error Capability and Control 寄存器_|_图 15-22：Advanced Error Capability and Control 寄存器_|_图 15-22：Advanced Error Capability and Control 寄存器_|_图 15-22：Advanced Error Capability and Control 寄存器_|_图 15-22：Advanced Error Capability and Control 寄存器_|_图 15-22：Advanced Error Capability and Control 寄存器_|_图 15-22：Advanced Error Capability and Control 寄存器_|_图 15-22：Advanced Error Capability and Control 寄存器_|_图 15-22：Advanced Error Capability and Control 寄存器_|_图 15-22：Advanced Error Capability and Control 寄存器_|_图 15-22：Advanced Error Capability and Control 寄存器_|_图 15-22：Advanced Error Capability and Control 寄存器_|_图 15-22：Advanced Error Capability and Control 寄存器_|_图 15-22：Advanced Error Capability and Control 寄存器_|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|||||||||||||||
+|RsvdP<br>ECRC Check Enable(RWS)<br>ECRC Check Capable(RO)<br>ECRC Generation Enable(RWS)<br>ECRC Generation Capable(RO)<br>Multiple Header Recording Capable(RO)<br>Multiple Header Recording Enable(RWS<br>TLP Prefix Log Present(ROS)<br>31|||||First Error<br>Pointer (ROS)<br><br>)<br>0<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12|||||||||
+||RsvdP||||||||||||First Error<br>Pointer (ROS)|
+|||||||||||||||
+|||||||||||||||
+|||||||||||||||
+|||||||||||||||
+|||||||||||||||
+|||||||||||||||
+
+
+
+从 2.1 规范版本开始，此功能得到增强，允许跟踪多个错误。因此，如果多个错误状态位已被设置和清除，那么其含义实际上更像"最旧错误指针"（Oldest Error Pointer）。当相应的状态位被软件清除时，指针由硬件更新，此时它指向下一个检测到的错误（有关不可纠正错误的列表，请参见第 691 页的图 15-25）。有趣的是，如果该错误已被多次检测，则下一个错误可能再次是相同的错误，其结果是更新的指针仍指示相同的值。
+
+由于可以在 Uncorrectable Status 寄存器中记录多个错误，因此存储多个标头也将非常有帮助。硬件必须被设计为能够记录至少一个标头，但允许支持更多。如果支持，则 Multiple Header Recording Capable 位将被设置，并且 Multiple Header Recording Enable 位可用于启用存储多个标头。每当 First Error Pointer 指示未设置或未实现的状态位位置时，这意味着没有更多不可纠正错误需要处理。
+
+**687**
+
+**PCI Ex ress Technolo p gy**
+
+此寄存器中的最后一位 TLP Prefix Log Present 指示 TLP Prefix Log 寄存器是否包含 First Error Pointer 指示的不可纠正错误的有效信息。
+
+此寄存器中的字段以及其他 AER 寄存器具有各种特征，缩写如下：
+
+- RO — Read Only，由硬件设置
+
+- ROS — Read Only and Sticky（见下一节关于 sticky 位）
+
+- RsvdP — Reserved and Preserved。这些位不得用于任何目的，但软件必须小心维护它们包含的任何值。
+
+- RsvdZ — Reserved and Zero。不得用于任何目的，并且必须始终写入零的位。
+
+- RWS — Readable, Writeable and Sticky
+
+- • RW1CS — Readable, Write 1 to Clear, and Sticky
+
+## **处理粘性位 (Handling Sticky Bits)**
+
+几个 AER 寄存器字段采用 sticky 位，这意味着重置不会清除其内容。所有其他寄存器字段在重置时都强制为默认值，但这些不会。这是一个好主意，因为链路可能遇到无法在不复位的情况下清除的故障。如果问题出在失败链路的下游设备中，则在链路再次工作之前其寄存器内容不可用，重置将实现这一点。但是如果寄存器被重置清除，则信息将丢失。为了解决这个问题，sticky 位通过重置保持错误状态信息可用。具体来说，sticky 位将在 FLR (Function Level Reset)、热复位 (Hot Reset) 和热重启 (Warm Reset) 中存活下来，因为有电源使其保持活动状态。如果有像 Vaux 这样的辅助电源在主电源关闭时使其保持活动状态，则它们甚至可以在冷复位 (Cold Reset) 中存活。
+
+## **高级可纠正错误处理 (Advanced Correctable Error Handling)**
+
+高级错误报告提供了记录已检测到哪些特定可纠正错误的能力。这些错误可用于向主机系统发起 Correctable Error Message。尽管系统操作继续正常进行，但报告可纠正错误可能很有用，因为它允许系统软件查看哪些组件出现问题并预测它们将来是否可能完全失败。
+
+**688**
+
+**第 15 章：错误检测与处理**
+
+## **高级可纠正错误状态 (Advanced Correctable Error Status)**
+
+可纠正错误将自动在 Advanced Correctable Error Status 寄存器（如图 15-23 在第 689 页所示）中设置相应的位，无论该错误是否通过 Error Message 报告。这些位通过软件向位位置写入"1"来清除，因此被指定为 RW1CS。
+
+_图 15-23：Advanced Correctable Error Status 寄存器_
+
+|31|31||16|15|14|13|12|11|9|8|8|7|7|6|6|5||1|0|0||
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|||RsvdZ||||||RsvdZ|||||||||RsvdZ|||||
+|||Header Log Overflow Status||||||||||||||||||||
+|||Corrected Internal Error Status||||||||||||||||||||
+|||Advisory Non-Fatal Error Status||||||||||||||||||||
+|||Replay Timer Timeout Status||||||||||||||||||||
+|||REPLAY_NUM Rollover Status||||||||||||||||||||
+|||Bad DLLP Status||||||||||||||||||||
+|||Bad TLP Status||||||||||||||||||||
+|||Receiver Error Status||||||||||||||||||||
+||||注意：所有位被指定为 RW1CS||||||||||||||||||||
 
 </td>
 </tr></tbody></table>
@@ -2765,7 +5643,141 @@ _Figure 15‐23: Advanced Correctable Error Status Register_
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+- Receiver Error (optional) — 物理层检测到传入数据包中的错误。该数据包在物理层被丢弃，分配给它的任何缓冲区空间被释放，并通知链路层发生了接收错误。
+
+- Bad TLP — 数据链路层检测到具有错误 LCRC、序列号乱序或错误置空的数据包。在每种情况下，链路层丢弃该数据包并向发送方报告 Nak DLLP，从而触发 TLP 重传。
+
+- Bad DLLP — 数据链路层注意到传入的 DLLP 具有 16 位 CRC 错误，因此该数据包被丢弃。预期随后将出现相同类型的 DLLP 以补偿其包含的信息。
+
+- REPLAY_NUM Rollover — 在数据链路层，一组 TLP 已连续四次发送未成功（没有 Ack），并且此计数器已回滚至零。硬件将自动重新训练链路以尝试清除故障状态，然后通过重放 Replay Buffer 的内容重新开始序列。
+
+**689**
+
+## **PCI Ex ress Technolo p gy**
+
+- Replay Timer Timeout — 在数据链路层，已发送的 TLP 在超时期限内未收到确认（Ack 或 Nak）。硬件自动重放所有未确认的 TLP，这意味着 Replay Buffer 中的所有数据包。
+
+- Advisory Non-Fatal Error — 在对应的 Uncorrectable Error Status 寄存器中记录这些情况的检测（见第 670 页的"Advisory Non-Fatal Errors"）并在此作为可纠正错误。如果启用，它也可能生成 Correctable Error Message。
+
+- Corrected Internal Error (optional) — 检测到设备内部的错误，但它已被纠正或绕过而不会导致不当行为。
+
+- Header Log Overflow (optional) — 已达到可在标头日志中存储的最大标头数。如果未在 Advanced Error Capability and Control 寄存器中设置 Multiple Header Recording Enable 位，则该数字仅为 1。
+
+## **高级可纠正错误屏蔽 (Advanced Correctable Error Masking)**
+
+可纠正错误报告由 Device Control 寄存器中的 Correctable Error Enable 位集中控制，但也由 Correctable Mask 寄存器（如图 15-24 所示）单独控制。屏蔽位的默认状态是清零的，这意味着当检测到任何可纠正错误时，如果已启用（意味着已设置 Correctable Error Enable 位），则可以传递 ERR_COR 消息。但是，软件可以选择设置此屏蔽寄存器中的位以防止在检测到那些特定错误时发送消息。
+
+_图 15-24：Advanced Correctable Error Mask 寄存器_
+
+**==> 图片 [353 x 173] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+31 16 15 14 13 12 11 9 8 7 6 5 1 0<br>RsvdP RsvdP RsvdP<br>Header Log Overflow Mask<br>Corrected Internal Error Mask<br>Advisory Non-Fatal Error Mask<br>Replay Timer Timeout Mask<br>REPLAY_NUM Rollover Mask<br>Bad DLLP Mask<br>Bad TLP Mask<br>Receiver Error Mask<br>注意：所有位被指定为 RWS<br>**----- End of picture text -----**<br>
+
+
+**690**
+
+**第 15 章：错误检测与处理**
+
+## **高级不可纠正错误处理 (Advanced Uncorrectable Error Handling)**
+
+对于不可纠正错误，AER 提供了跟踪已发生的特定错误的能力，控制是否应将其视为 Fatal 或 Non-Fatal，并选择它是否将导致向根发送 Uncorrectable Error Message。
+
+## **高级不可纠正错误状态 (Advanced Uncorrectable Error Status)**
+
+当发生不可纠正错误时，该寄存器中的相应位由硬件自动设置（请参见第 691 页的图 15-25），无论该错误是否将报告给根。如果发生多个错误，硬件将为每个错误设置相应的位，并将首先在 Advanced Error Capability and Control 寄存器的 First Error Pointer 字段中记录哪一个。也有可能在对第一个错误进行服务之前检测到同一错误的多个实例。符合 2.1 规范版本或更高版本的硬件将能够跟踪设计特定数量的此类情况。
+
+_图 15-25：Advanced Uncorrectable Error Status 寄存器_
+
+**==> 图片 [366 x 184] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+31 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 6 5 4 3 1 0<br>RsvdZ RsvdZ RsvdZ<br>TLP Prefix Blocked Error Status<br>Atomic Op Egress Blocked Status Undefined<br>MC Blocked TLP Status<br> Uncorrectable Internal Error Status<br>ACS Violation Status<br>Data Link<br>Unsupported Request Error Status Protocol<br>ECRC Error Status Error Status<br>Malformed TLP Status<br>Surprise Down<br>Receiver Overflow Status Error Status<br>Unexpected Completion Status<br>Completer Abort Status<br>Completion Timeout Status<br>Flow Control Protocol Error Status<br>Poisoned TLP Status<br>注意：所有位被指定为 RW1CS<br>**----- End of picture text -----**<br>
+
+
+以下列表从右到左描述了每个寄存器位：
+
+- Undefined — 以前，该第一位表示物理层的链路训练失败，但该含义已在规范的 1.1 版本中删除
+
+**691**
+
+## **PCI Ex ress Technolo p gy**
+
+的规范。现在软件必须忽略此位中的任何值，但可以向其写入任何值。不再需要此信息，因为位 5（Surprise Down Error）现在在更广泛的含义中包含相同的信息：链路未在物理层通信。
+
+- Data Link Protocol Errors — 由数据链路层协议错误引起，包括 Ack/Nak 重试机制。例如，发送方收到的 Ack 或 Nak 的序列号不对应于未确认的 TLP 或 ACKD_SEQ 编号。
+
+- Surprise Down — 如果物理层报告 LinkUp = 0b（链路不再通信）意外地发生，则这将被视为错误，除非它是允许的异常。例如，如果已设置 Link Disable 位，则 LinkUp 将被清除是预期的，并且这种情况不会是错误。此位仅对 Downstream Ports 有效，因为如果链路不起作用，将无法从 Upstream Port 读取状态。
+
+- Poisoned TLP — 看到的 TLP 设置了 EP 位。
+
+- Flow Control Protocol Error (optional) — 与流控机制失败相关的错误。示例：接收方报告超过 2047 个数据信用。
+
+- Completion Timeout — 在发送 non-posted 请求后，在所需的时间内未收到完成。
+
+- Completer Abort (optional) — Completer 由于请求问题或 Completer 失败而无法完成请求。
+
+- Unexpected Completion — Requester 收到与任何正在等待完成的请求都不匹配的完成。
+
+- Receiver Overflow (optional) — 到达的 TLP 多于 Receive Buffer 容纳的空间，导致溢出错误。
+
+- Malformed TLP — 由与收到的 TLP 标头相关的错误引起（请参见第 666 页的"Malformed TLP"）。
+
+- ECRC Error (optional) — 由接收方的 ECRC 检查失败引起。
+
+- • Unsupported Request Error — Completer 不支持该请求。请求格式正确且没有其他错误，但无法由 Completer 完成，可能是因为它对该设备是无效命令。
+
+- ACS Violation — 在收到的 posted 或 non-posted 请求中看到访问控制错误。
+
+- Uncorrectable Internal Error — 设备内部检测到的错误无法由硬件自身纠正或绕过。
+
+- MC Blocked TLP — 指定用于多播路由的 TLP 被阻止。例如，Egress Port 可被编程为阻止任何到达的具有未翻译地址的 MC 命中（请参见第 896 页的"Routing Multicast TLPs"）。
+
+- AtomicOp Egress Blocked — 路由元素的 Egress Port 可被编
+
+**692**
+
+**第 15 章：错误检测与处理**
+
+   - 程为阻止 AtomicOps 被转发到不应看到它们的代理（请参见第 897 页的"AtomicOps"）。
+
+- TLP Prefix Blocked Error — 路由元素的 Egress Port 可被编程为不转发包含 End-to-End TLP Prefix 的 TLP。如果他们然后看到其中一个，他们将丢弃 TLP 并报告此错误。有关详细信息，请参见第 899 页的"TPH (TLP Processing Hints)"。
+
+回想一下，Capability and Control Register 中的 First Error Pointer 指示自指针上次更新以来哪个未屏蔽的不可纠正错误是第一个到达的。错误处理软件可以读取指针以找出首先要调查的错误。例如，如果指针值为 18d，则表示 Uncorrectable Status 寄存器中的位 18 位置是首先的，这是一个 Malformed TLP。一旦该错误已被处理，软件会向状态寄存器中的位 18 写入 1 以清除该事件，从而将 First Error Pointer 更新为下一个最近的错误
+
+## **选择不可纠正错误的严重性 (Selecting Uncorrectable Error Severity)**
+
+软件可以在此寄存器中选择是否应将不可纠正错误视为 Fatal，从而允许针对不同应用以不同方式处理错误。例如，Poisoned TLP 默认情况下将是 Non-Fatal 条件，并在某些情况下被视为 Advisory Non-Fatal 错误，如前所述。但是软件可以通过将其严重性位设置为 1 来将其升级为 Fatal，然后它将不再是建议性情况。默认严重性值在图 15-26 在第 694 页的各个位字段中说明（1 = Fatal，0 = Non-Fatal）。如果已启用且未屏蔽，那些被选为 Non-Fatal 的错误将导致向根复合体发送 ERR_NONFATAL 消息，那些被选为 Fatal 的错误将导致 ERR_FATAL 消息。
+
+**693**
+
+**PCI Ex ress Technolo p gy**
+
+_图 15-26：Advanced Uncorrectable Error Severity 寄存器_
+
+**==> 图片 [376 x 183] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+31 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 6 5 4 3 1 0<br>RsvdP 0 0 0 1 0 0 0 1 1 0 0 0 1 0 RsvdP 1 1 RsvdP x<br>TLP Prefix Blocked Error Severity<br>Atomic Op Egress Blocked Severity Undefined<br>MC Blocked TLP Severity<br> Uncorrectable Internal Error Severity Data Link<br>ACS Violation Severity Protocol Error<br>Unsupported Request Error Severity<br>Severity<br>ECRC Error Severity<br>Malformed TLP Severity Surprise Down<br>Receiver Overflow Severity Error Severity<br>Unexpected Completion Severity<br>Completer Abort Severity<br>Completion Timeout Severity<br>Flow Control Protocol Error Severity<br>Poisoned TLP Severity<br>注意：所有位被指定为 RWS<br>**----- End of picture text -----**<br>
+
+
+## **不可纠正错误屏蔽 (Uncorrectable Error Masking)**
+
+软件可以使用 Advanced Uncorrectable Error Mask 寄存器（如图 15-27 在第 694 页所示）屏蔽单个错误，因此它们不会导致错误消息被发送。默认情况是允许每种类型的错误消息（所有屏蔽位都被清除）。
+
+_图 15-27：Advanced Uncorrectable Error Mask 寄存器_
+
+**==> 图片 [369 x 187] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+31 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 6 5 4 3 1 0<br>RsvdP RsvdP RsvdP<br>TLP Prefix Blocked Error Mask<br>Atomic Op Egress Blocked Mask Undefined<br>MC Blocked TLP Mask<br> Uncorrectable Internal Error Mask<br>ACS Violation Mask<br>Data Link<br>Unsupported Request Error Mask Protocol<br>ECRC Error Mask Error Mask<br>Malformed TLP Mask<br>Surprise Down<br>Receiver Overflow Mask Error Mask<br>Unexpected Completion Mask<br>Completer Abort Mask<br>Completion Timeout Mask<br>Flow Control Protocol Error Mask<br>Poisoned TLP Mask<br>注意：所有位被指定为 RWS<br>**----- End of picture text -----**<br>
+
+
+**694**
+
+**第 15 章：错误检测与处理**
+
+## **标头记录 (Header Logging)**
 
 </td>
 </tr></tbody></table>
@@ -2921,7 +5933,137 @@ _Figure 15‐27: Advanced Uncorrectable Error Mask Register_
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+Advanced Error Reporting 结构的 4DW 部分用于存储发生未屏蔽、不可纠正错误的收到 TLP 的标头。由于当物理层或数据链路层未看到 TLP 出现问题时，标头记录才有用，因此可能性数量有限，如表 15-6 在第 695 页所示。如前所述，当实现可选的 AER 功能时，硬件必须能够记录至少一个标头，尽管它可能支持记录更多。
+
+当 First Error Pointer 有效时，标头日志包含相应错误的标头（如果它是由传入的 TLP 引起的）。更新 Uncorrectable Error Status 寄存器将导致 Header Log 寄存器也按顺序更新为下一个值，这意味着下一个被检测到的不可纠正错误。由于硬件只能跟踪有限数量的标头，因此软件必须足够快地处理不可纠正的错误以避免耗尽标头空间。如果达到标头日志容量，则这本身就是一个可纠正的错误（Header Log Overflow）。如果超出支持的日志寄存器数量，或者如果未设置 Multiple Header Log Enable 位且在检测到新的不可纠正错误时 First Error Pointer 已有效，则可能会发生这种情况。
+
+_表 15-6：可以使用 Header Log 寄存器的错误_
+
+|**错误名称**|**默认分类**|
+|---|---|
+|Poisoned TLP Received|Uncorrectable - NonFatal|
+|ECRC Check Failed|Uncorrectable - NonFatal|
+|Unsupported Request|Uncorrectable - NonFatal|
+|Completer Abort|Uncorrectable - NonFatal|
+|Unexpected Completion|Uncorrectable - NonFatal|
+|ACS Violation|Uncorrectable - NonFatal|
+|Malformed TLP|Uncorrectable - Fatal|
+
+
+
+**695**
+
+**PCI Ex ress Technolo p gy**
+
+## **根复合体错误跟踪和报告 (Root Complex Error Tracking and Reporting)**
+
+根复合体是 PCIe 拓扑中设备的所有错误消息的目标。根收到的错误会更新状态寄存器，并在启用时可能报告给主机系统。
+
+## **根复合体错误状态寄存器 (Root Complex Error Status Registers)**
+
+当根收到错误消息时，它会在 Root Error Status 寄存器（如图 15-28 在第 697 页所示）中设置状态位。该寄存器指示收到的错误类型以及是否已收到相同类型的多个错误。请注意，在 Root Port 本身检测到的错误也会设置这些状态位，就好像该端口已向自身发送了错误消息一样。状态位为：
+
+- ERR_COR Received
+
+- Multiple ERR_COR Received — 收到 ERR_COR 消息，或在 ERR_COR Received 位已设置时检测到未屏蔽的根端口可纠正错误。
+
+- ERR_FATAL/NONFATAL Received
+
+- Multiple ERR_FATAL/NONFATAL Received — 收到 ERR_FATAL 或 ERR_NONFATAL 消息，或在 ERR_FATAL/NONFATAL Received 位已设置时检测到未屏蔽的根端口不可纠正错误。
+
+系统可能为 Correctable、Non-Fatal 和 Fatal 错误实现单独的软件错误处理程序，因此该寄存器包括用于区分不可纠正错误是 Fatal 还是 Non-Fatal 的位：
+
+- 如果收到的第一个 Uncorrectable Error Message 是 Fatal，则"First Uncorrectable Fatal"位也会与"Fatal Error Message Received"位一起设置。
+
+- 如果收到的第一个 Uncorrectable Error Message 是 Non-Fatal，则设置"Non-fatal Error Message Received"位。（如果随后的 Uncorrectable Error 是 Fatal，则将设置"Fatal Error Message Received"位，但由于"First Uncorrectable Fatal"保持清零，软件知道第一个 Uncorrectable Error 是 Non-Fatal）。
+
+**696**
+
+**第 15 章：错误检测与处理**
+
+_图 15-28：Root Error Status 寄存器_
+
+**==> 图片 [327 x 143] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+31 27 26 7 6 5 4 3 2 1 0<br>RsvdZ<br>Advanced Error Interrupt Message Number (RO)<br>Fatal Error Messages Received<br>Non-Fatal Error Messages Received<br>RW1CS First Uncorrectable Fatal<br>Multiple ERR_FATAL/NONFATAL Received<br>ERR_FATAL/NONFATAL Received<br>Multiple ERR_COR Received<br>ERR_COR Received<br>**----- End of picture text -----**<br>
+
+
+最后，可能已（在 Root Error Command 寄存器中）启用中断以作为检测到这些事件之一的结果发送到主机系统。为了支持这一点，此寄存器中的 5 位 Interrupt Message Number 提供了要使用的 MSI 或 MSI-X 向量号，共有 32 种可能。对于 MSI，该号是距基本数据模式的偏移。对于 MSI-X，它表示要使用的表条目，并且必须是前 32 个中的一个，即使代理支持超过 32 个。此只读值由硬件设置，并且必须在分配给设备的 MSI 消息数更改时自动更新。
+
+## **Advanced Source ID 寄存器 (Advanced Source ID Register)**
+
+软件错误处理程序可能需要读取和清除检测和报告错误的设备中的状态寄存器。为此，错误消息包含报告该错误类型的第一个设备的 ID（Bus:Dev:Func）。如果尚未设置 ERR_FATAL/NONFATAL 位（意味着这是第一个），则 Source ID 寄存器从消息中为传入的 ERR_FATAL/NONFATAL 消息捕获该 ID。类似地，第一个收到的 ERR_COR 消息的 Source ID 也被捕获，如图 15-29 在第 698 页所示。
+
+**697**
+
+**PCI Ex ress Technolo p gy**
+
+_图 15-29：Advanced Source ID 寄存器_
+
+**==> 图片 [327 x 47] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+31 0<br>ERR_FATAL/NONFATAL Source ID ERR_COR Source ID<br>(ROS) (ROS)<br>ROS: Read-Only and Sticky<br>**----- End of picture text -----**<br>
+
+
+## **根错误命令寄存器 (Root Error Command Register)**
+
+根复合体对三种错误类别中的每一种都有单独的启用位，以控制该错误类型是否将生成中断以调用错误处理程序，如图 15-30 在第 698 页所示。生成的中断将是 MSI 或 MSI-X，如"根复合体错误状态寄存器"中第 696 页所述。一旦收到中断，被调用的错误处理程序可能首先读取根复合体状态寄存器以确定错误的性质，然后转到错误的源 BDF 读取标准状态寄存器以及可能的设备特定寄存器以确定发生了什么以及应如何处理。
+
+_图 15-30：Advanced Root Error Command 寄存器_
+
+**==> 图片 [332 x 93] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+31 3 2 1 0<br>RsvdP<br>Fatal Error Reporting Enable<br>Non-Fatal Error Reporting Enable<br>Correctable Error Reporting Enable<br>注意：所有位被指定为 RW<br>**----- End of picture text -----**<br>
+
+
+## **错误记录和报告摘要 (Summary of Error Logging and Reporting)**
+
+规范包括第 699 页的图 15-31 中的流程图，显示了函数在检测到错误时采取的操作。虚线内的部分突出显示了存在可选 AER 功能结构时添加的项目。
+
+**698**
+
+**第 15 章：错误检测与处理**
+
+_图 15-31：函数内错误处理流程图_
+
+**==> 图片 [327 x 391] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+Error Detected<br>Uncorrectable Error Type? Correctable<br>Determine severity using<br> Uncorrectable Error Severity Register<br>Advisory Yes AER Yes<br>Non-Fatal Error? Implemented?<br>No No<br>Set Fatal/NonFatal Error Detected bit Set Correctable Error Detected bit<br>in Device Status Reg Done in Device Status Reg<br>If UR, set Unsupported Request If UR, set Unsupported Request<br> Detected bit in Device Status Reg  Detected bit in Device Status Reg<br>Advanced Set corresponding bit in<br>Uncorrectable Error Status RegSet corresponding bit in Error Correctable Error Status Reg<br>Reporting<br>Only Is error masked in Yes<br>Correctable Error Mask<br>Masked in Yes  Register?<br>Uncorrectable Error Mask<br> Register? No Done<br>No Done 1) Set Uncorrectable Error status bit, andIf Advisory Non-Fatal Error:<br>header, and update prefix and header As appropriate, record prefix and reporting fields and registers 2) If not masked by Uncorrectable mask,header, and update prefix and header as appropriate, record prefix and reporting fields and registers<br>both SERR and UR ReportingUR Error anddisabled? Yes UR Reporting disabled?UR error and Yes<br>No Done No Done<br>Fatal Non-Fatal<br>Severity?<br>SERR enabled or No SERR enabled or No Correctable Reporting  No<br>Fatal Error Reporting Non-Fatal Error Reporting Enabled?<br>Enabled? Enabled?<br>Yes Done Yes Done Yes Done<br>Send ERR_FATAL Send ERR_NONFATAL Send ERR_COR<br>Done Done Done<br>**----- End of picture text -----**<br>
+
+
+## **软件错误调查的示例流程 (Example Flow of Software Error Investigation)**
+
+现在我们已经了解了 PCIe 中定义的用于检测、记录和报告错误的所有机制，值得看看软件将如何找到并使用此信息来确定如何处理报告的错误。
+
+**699**
+
+## **PCI Ex ress Technolo p gy**
+
+本示例将假设发起函数及其上游根端口都支持 AER。如果没有 AER 支持，则用于错误记录的标准寄存器非常有限。
+
+本示例中使用的系统如图 15-32 在第 701 页所示。根端口的 BDF 为 0:28:0，并已启用以在收到 ERR_FATAL 或 ERR_NONFATAL 消息时生成中断。我们将按照错误处理软件将采取的步骤来确定已发生什么错误、在哪里发生以及在哪些数据包中检测到它们。
+
+由于来自根端口 0:28:0 的中断，已调用错误处理软件。下面的步骤只是一个示例，但说明了错误处理软件收集错误信息的过程。
+
+1. 软件根据使用的中断向量知道调用错误处理程序的是根端口 0:28:0。由于使用 MSI 或 MSI-X 中断来报告错误，因此每个根端口将具有自己唯一的一组中断向量。
+
+2. 错误处理程序读取 0:28:0 上 AER 结构的 Root Error Status 寄存器，以确定根端口已收到哪些类型的错误消息。该寄存器中的值为 0800_007Ch，表示此根端口未收到任何 ERR_COR 消息，但已收到 ERR_FATAL 和 ERR_NONFATAL 消息，并且它收到的第一个不可纠正的错误消息是 ERR_FATAL。
+
+3. 下一步是确定此根端口下的哪个 BDF 发送了第一个不可纠正错误。然后，软件读取根端口的 Source ID 寄存器，并找到值 0500_0000h，这表示第一个不可纠正错误的源 BDF 为 5:0:0。
+
+4. 现在软件知道根端口 0:28:0 收到的第一个不可纠正错误是从 BDF 5:0:0 发起的 Fatal 错误。有了此信息，软件然后去读取 BDF 5:0:0 上的 Uncorrectable Error Status 寄存器，以查看在该 BDF 上已发生哪些特定的不可纠正错误。从该读取返回的值是 0004_1000h，这意味着此 BDF 已检测到至少一个 Malformed TLP 和至少一个 Poisoned TLP。但错误处理程序真正关心的是哪个先发生，因为那就是要首先处理的。
+
+5. 为了确定多个不可纠正错误中哪个先发生，软件然后读取 5:0:0 的 Advanced Error Capability and Control 寄存器，并找到值 0000_0012h，其 First Error Pointer 值为 12h，表示第一个不可纠正错误是 Malformed TLP（位 18d），而不是 Poisoned TLP（位 12d）。
+
+**700**
+
+**第 15 章：错误检测与处理**
+
+_图 15-32：错误调查示例系统_
 
 </td>
 </tr></tbody></table>
@@ -3073,7 +6215,100 @@ _Figure 15‐32: Error Investigation Example System_
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+**==> 图片 [379 x 417] 已省略 <==**
+
+**----- Start of picture text -----**<br>
+AER Capability Structure<br>Extended Capability Header<br>00 01 00 01<br>Uncorrectable Error Status<br>00 00 00 00<br>Uncorrectable Error Mask<br>00 06 20 11<br>Uncorrectable Error Severity<br>Correctable Error Status00 00 20 00 CPU<br>00 00 20 00<br>Correctable Error Mask<br>00 00 00 06<br>Advanced Error Capability and Control00 00 00 00 Root Complex MemorySystem<br>Header Log - 1st DW00 00 00 00 P2P (DRAM)<br>Header Log - 2nd DW 0:28:0<br>00 00 00 00<br>Header Log - 3rd DW<br>00 00 00 00<br>Header Log - 4th DW<br>00 00 00 00<br>Root Error Command 2:0:0<br>00 00 00 06 Switch<br>Root Error Status P2P AER Capability Structure<br>08 00 00 7C<br>Error Source ID Extended Capability Header<br>05 00 00 00 14 01 00 01<br>3:0:0 3:5:0 Uncorrectable Error Status<br>00 04 10 00<br>Uncorrectable Error Mask<br>AER Capability Structure 00 00 00 00<br>Uncorrectable Error Severity<br>Extended Capability Header 00 06 20 11<br>14 01 00 01 Correctable Error Status<br>Uncorrectable Error Status 00 00 00 01<br>00 10 80 00 Correctable Error Mask<br>Uncorrectable Error Mask 4:0:0 5:0:0 00 00 20 00<br>00 00 00 00 Advanced Error Capability and Control<br>Uncorrectable Error Severity 00 00 00 12<br>00 16 20 11 PCIe PCIe Header Log - 1st DW<br>Correctable Error Status 60 00 80 80<br>00 00 00 40 Endpoint Endpoint Header Log - 2nd DW<br>Correctable Error Mask 00 00 04 FF<br>00 00 20 00 Header Log - 3rd DW<br>Advanced Error Capability and Control FB 80 10 00<br>00 00 00 0F Header Log - 4th DW<br>Header Log - 1st DW 00 00 00 01<br>00 00 00 80<br>Header Log - 2nd DW<br>0A 00 0C FF<br>Header Log - 3rd DW<br>FB 80 10 00<br>Header Log - 4th DW<br>00 00 00 00<br>P2P P2P<br>**----- End of picture text -----**<br>
+
+
+**701**
+
+**PCI Ex ress Technolo p gy**
+
+6. 现在错误处理程序知道 5:0:0 处的第一个不可纠正错误是 Malformed TLP，它可以检查 Header Log 寄存器以查看格式错误的数据包的标头，因为这是记录标头的错误之一。在读取 Header Log 寄存器时，它找到以下四个双字：
+
+   - 6000_8080h — 1st DW
+
+   - 0000_04FFh — 2nd DW
+
+   - FB80_1000h — 3rd DW
+
+   - 0000_0001h — 4th DW
+
+7. 对这 4 个 DW 的评估将格式错误的数据包标识为：Memory Write，4DW 标头，TC=0，TD=1，EP=0，Attr=0，AT=0，Length=80h（128 DW 或 512 字节），Requester ID=0:0:0，Tag=4，Byte Enables=FFh，Address=1_FB80_1000h。数据包的标头看起来都是正确的，并且每个字段都使用有效的编码，因此软件必须深入挖掘以发现为什么它被视为 Malformed TLP。在本例中，假设在进一步检查 5:0:0 上的配置空间后，软件发现为此函数启用的 Max Payload Size 为 256 字节，但此数据包包含 512 字节。这是目标设备（在本例中为 5:0:0）将视为 Malformed TLP 的情况。
+
+如果您想验证您对此错误调查过程的了解，请继续评估在 4:0:0 上检测到的第一个不可纠正错误是什么。
+
+如果您喜欢冒险并希望在真实系统（例如您的台式机或笔记本电脑）上检查此类信息，您可以通过下载 MindShare Arbor 软件（www.mindshare.com/arbor）来执行此操作。您可以在基于 x86 的计算机上运行它，它将扫描您的系统并显示每个可见的 PCI 兼容设备，并解码其配置空间以方便解释。
+
+**702**
+
+## _**16 电源管理 (Power Management)**_
+
+## **上一章 (The Previous Chapter)**
+
+上一章讨论了 PCIe 端口或链路上发生的错误类型、如何检测、报告以及处理它们的选项。由于 PCIe 旨在与 PCI 错误报告向后兼容，因此 PCI 错误处理方法作为背景信息也包含在内。然后我们重点介绍了 PCIe 对可纠正、非致命和致命错误的错误处理。
+
+## **本章 (This Chapter)**
+
+本章提供了系统电源管理讨论的整体背景以及 PCIe 电源管理的详细描述，该管理兼容 _PCI Bus PM Interface Spec_ 和 _Advanced Configuration and Power Interface_ (ACPI)。PCIe 定义了对 PCI-PM 规范的扩展，主要侧重于链路电源和事件管理。还提供了 OnNow 计划、ACPI 和 Windows 操作系统参与的概述。
+
+## **下一章 (The Next Chapter)**
+
+下一章详细介绍了 PCIe 函数生成中断的不同方式。旧的 PCI 模型使用引脚执行此操作，但在串行模型中边带信号是不希望的，因此支持带内 MSI (Message-Signaled Interrupts) 机制是强制性的。PCI INTx# 引脚操作仍可被仿真以支持使用 PCIe INTx 消息的传统系统。PCI 旧版 INTx# 方法和较新版本的 MSI/MSI-X 都被描述。
+
+**703**
+
+**PCI Ex ress Technolo p gy**
+
+## **介绍 (Introduction)**
+
+PCI Express 电源管理 (PM) 定义了四个主要支持领域：
+
+- **PCI 兼容 PM** . PCIe 电源管理与 PCI-PM 和 ACPI 规范在硬件和软件上兼容。此支持要求所有函数都包含 PCI Power Management Capability 寄存器，允许软件通过使用 Configuration 请求在软件控制下在 PM 状态之间转换函数。这在 2.1 规范版本中通过添加 Dynamic Power Allocation (DPA) 进行了修改，这是另一组寄存器，为 D0 电源状态添加了几个子状态，为软件提供了更细粒度的 PM 机制。
+
+- **Native PCIe Extensions** . 这些定义了链路的自主、基于硬件的活动状态电源管理 (ASPM)，以及唤醒系统的机制、报告电源管理事件 (PME) 的消息事务，以及计算和报告低功耗到活动状态延迟的方法。
+
+- **Bandwidth Management.** 2.1 规范版本增加了硬件自动改变链路宽度或链路数据速率或两者兼而有之的能力以改善功耗。这允许在需要时实现高性能，并在性能较低可接受时保持低功耗使用。即使带宽管理被视为电源管理主题，我们也会在"链路初始化与训练"章节的第 618 页的"动态带宽变化"部分中描述此功能，因为它涉及 LTSSM。
+
+- **Event Timing Optimization.** 外围设备发起总线主事件或中断而不考虑系统电源状态会导致其他系统组件保持高功率状态以为它们提供服务，从而导致功耗高于必要的水平。这种缺陷在 2.1 规范中通过添加两种新机制得到了纠正：Optimized Buffer Flush and Fill (OBFF)，它允许系统通知外围设备当前的系统电源状态；以及 Latency Tolerance Reporting (LTR)，它允许设备报告它们此时可以容忍的服务延迟。
+
+本章分为几个主要部分：
+
+1. 第一部分是关于电源管理的入门知识，并涵盖了系统软件在控制电源管理功能方面的作用。本讨论仅考虑 Windows 操作系统的观点，因为它是 PC 最常见的观点，不描述其他操作系统。
+
+**704**
+
+**第 16 章：电源管理**
+
+2. 第二部分"函数电源管理"在第 713 页讨论了使用 PCI-PM 能力寄存器将函数置于其低功耗设备状态的方法。请注意，某些寄存器定义被 PCIe 函数修改或未使用。
+
+3. "活动状态电源管理 (ASPM)"在第 735 页描述了基于硬件的自主链路电源管理。软件确定要为环境启用哪个 ASPM 级别，可能通过读取将为该函数产生的恢复延迟值，但之后电源转换的时序由硬件控制。软件不控制转换，并且无法看到链路处于哪个电源状态。
+
+4. "软件发起的链路电源管理"在第 760 页讨论了当软件更改设备的电源状态时强制执行的链路电源管理。
+
+5. "链路唤醒协议和 PME 生成"在第 768 页描述了设备如何请求软件将它们返回到活动状态以便它们可以对事件进行服务。当设备的电源被移除时，如果要监视事件并向系统发出唤醒信号以恢复电源并重新激活链路，则必须存在辅助电源。
+
+6. 最后，描述事件计时功能，包括 OBFF 和 LTR。
+
+## **电源管理入门 (Power Management Primer)**
+
+_PCI Bus PM Interface spec_ 描述了 PCIe 所需的电源管理寄存器。这些寄存器允许 OS 直接管理函数的电源环境。与其深入详细描述，不如让我们首先描述此功能在系统整体背景中的适用位置。
+
+## **PCI PM 基础 (Basics of PCI PM)**
+
+本节概述了 Windows OS 如何与其他主要软件和硬件元素交互以管理各个设备以及整个系统的功耗。表 16-1 在第 706 页介绍了此过程中涉及的主要元素，并提供了它们如何相互关联的非常基本的描述。值得注意的是，PCI 电源管理规范和 ACPI 规范都未规定操作系统使用的 PM 策略。但是，它们确实定义了用于控制函数功耗的寄存器（以及一些数据结构）。
+
+**705**
+
+## **PCI Ex ress Technolo p gy**
+
+_表 16-1：PC PM 中涉及的主要软件/硬件元素_
+
+|**元素**|**职责**|
+|---|---|
+|OS|通过向 ACPI 驱动程序、设备驱动程序和 PCI Express 总线驱动程序发送请求来**指导整体系统电源管理**。具有节能意识的应用与 OS 交互以完成设备电源管理。|
+|ACPI Driver|管理不遵守行业标准规范的嵌入式系统设备的配置、电源管理和热控制。这方面的示例包括芯片组特定寄存器、系统板特定寄存器以控制电源平面等。PCIe 函数（嵌入式或其他）中的 PM 寄存器由 PCI PM 规范定义，因此不由 ACPI 驱动程序管理，而是由 PCI Express Bus Driver 管理（请参见此表中的条目）。|
 
 </td>
 </tr></tbody></table>
