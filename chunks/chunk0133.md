@@ -1,0 +1,9 @@
+## **PCI-X 2.0 Source-Synchronous Model** 
+
+PCI‐X 2.0 further increased the bandwidth of PCI‐X. As before, the devices and connectors remained hardware and software backward compatible with PCI devices and connectors. To achieve the higher speeds, the bus uses a source‐ synchronous delivery model to support either Dual Data Rate (DDR) or Quad Data Rate (QDR). 
+
+The term “source synchronous” means that the device transmitting the data also provides another signal that travels the same basic path as the data. As illustrated in Figure 1‐19 on page 38, that signal in PCI‐X 2.0 is called a “strobe” and is used by the receiver for latching the incoming data bits. The transmitter assigns the timing relationship between the data and strobe and as long as their paths are similar in length and other characteristics that can affect transmission latency, that relationship will be about the same when they arrive at the receiver and the receiver can simply use the Strobe as the signal to latch the data in with. This allows higher speeds because clock skew with respect to the common clock is removed as a separate budget item and because the issue of flight time goes away. It no longer matters how long it takes for the data to travel from point A to point B because the strobe that latches it in takes about the same time and so their relationship will be unaffected. 
+
+It’s important to note again that the very high‐speed signal timing eliminates the possibility of using a shared‐bus model and forces a point‐to‐point design instead. As a result, increasing the number of devices means more bridges will be needed to create more buses. A device could be designed to support this with three interfaces and an internal bridge structure to allow them all to com‐ municate with each other. Such a device would have a very high pin count, though, and a higher cost, relegating PCI‐X 2.0 to the very high‐end market. 
+
+**37** 

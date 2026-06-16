@@ -1,0 +1,3 @@
+## **This Chapter** 
+
+This chapter reviews the PCI (Peripheral Component Interface) bus models that preceded PCI Express (PCIe) as a way of building a foundation for understand‐ ing PCI Express architecture. PCI and PCI‐X (PCI‐eXtended) are introduced and their basic features and characteristics are described, followed by a discussion of the motivation for migrating from those earlier parallel bus models to the serial bus model used by PCIe. 

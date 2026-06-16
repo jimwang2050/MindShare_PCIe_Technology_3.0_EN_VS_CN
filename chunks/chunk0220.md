@@ -1,0 +1,5 @@
+## **PCI Ex ress Technolo p gy** 
+
+To solve this new problem, the spec writers decided to take a different approach. Rather than try to conserve address space, they would create a single‐ step, uninterruptable process by mapping all of configuration space into mem‐ ory addresses. That allows a single command sequence, since one memory request in the specified address range will generate one Configuration Request on the bus. The trade‐off now is address size. Mapping 4KB per Function for all the possible implementations requires allocating 256MB of memory address space. The difference in that regard today is that modern architectures typically support anywhere between 36 and 48 bits of physical memory address space. With these memory address space sizes, 256MB is insignificant. 
+
+To handle this mapping, each Function’s 4KB configuration space starts at a 4KB‐aligned address within the 256MB memory address space set aside for con‐ figuration access, and the address bits now carry the identifying information about which Function is targeted (refer to Table 3‐1 on page 98). 

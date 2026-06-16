@@ -1,0 +1,5 @@
+## **Legacy PCI Mechanism** 
+
+The PCI spec defined an IO‐indirect method for instructing the system (the Root Complex or its equivalent) to perform PCI configuration accesses. As it hap‐ pened, the dominant PC processors (Intel x86) were only designed to address 64KB of IO address space. By the time PCI was defined, this limited IO space had become badly cluttered and only a few address ranges remained available: 0800h ‐ 08FFh and 0C00h ‐ 0CFFh. Consequently, it wasn’t feasible to map the configuration registers for all the possible Functions directly into IO space. At the same time, memory address space was also limited in size and mapping all of configuration space into memory address space was not seen as a good solu‐ tion either. So the spec writers chose a commonly‐used solution to this problem, use indirect address mapping instead. To do this, one register holds the target 
+
+**91** 

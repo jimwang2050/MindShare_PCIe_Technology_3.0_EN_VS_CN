@@ -1,0 +1,11 @@
+# Translation Configuration
+input_file=/Users/jianmingwang/Downloads/00_study/02_work/01_book/pcie_cxl/MindShare_PCI Express Technology 3.0.pdf
+input_lang=en
+output_lang=zh
+conversion_method=mineru_local
+
+# Book Metadata
+original_title=MindShare PCI Express Technology 3.0
+creator=Mike Jackson, Ravi Budruk
+publisher=MindShare, Inc.
+source_language=en

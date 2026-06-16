@@ -1,0 +1,3 @@
+## **This Chapter** 
+
+This chapter provides an introduction to configuration in the PCIe environ‐ ment. This includes the space in which a Function’s configuration registers are implemented, how a Function is discovered, how configuration transactions are generated and routed, the difference between PCI‐compatible configuration space and PCIe extended configuration space, and how software differentiates between an Endpoint and a Bridge. 

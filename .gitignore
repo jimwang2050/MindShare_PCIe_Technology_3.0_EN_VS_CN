@@ -1,0 +1,21 @@
+# Intermediate processing artifacts (regenerable)
+input.md
+manifest.json
+chunk_plan.json
+extraction_summary.json
+qa_chunk_report.json
+
+# Generated HTML preview
+preview/
+
+# Generated prompts (regenerable)
+prompts/
+
+# OS junk
+.DS_Store
+*.bak
+
+# Python
+__pycache__/
+*.pyc
+*.tmp

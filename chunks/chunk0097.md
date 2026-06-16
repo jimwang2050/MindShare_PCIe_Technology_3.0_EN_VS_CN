@@ -1,0 +1,5 @@
+## **Basics of a PCI-Based System** 
+
+Figure 1‐1 on page 12 shows an older system based on a PCI bus. The system includes a North Bridge (called “north” because if the diagram is viewed as a map, it appears geographically north of the central PCI bus) that interfaces between the processor and the PCI bus. Associated with the North Bridge is the processor bus, system memory bus, AGP graphics bus, and PCI. Several devices share the PCI bus and are either connected directly to the bus or plugged into an add‐in card connector. A South Bridge connects PCI to system peripherals, such as the ISA bus where legacy peripherals were carried forward for a few years. The South Bridge was typically also the central resource for PCI that pro‐ vided system signals like reset, reference clock, and error reporting. 
+
+**11** 

@@ -1,0 +1,5 @@
+## **PCI Ex ress Technolo p gy** 
+
+**Message Writes.** Interestingly, unlike the other requests we’ve looked at so far, there are several possible routing methods for messages, and a field within the message indicates which type to use. For example, some messages are posted write requests that target a specific Completer, others are broadcast from the Root to all Endpoints, while still others sent from an Endpoint are automati‐ cally routed to the Root. To learn more about the different types of routing refer to Chapter 4, entitled ʺAddress Space & Transaction Routing,ʺ on page 121. 
+
+Messages are useful in PCIe to help achieve a design goal of lowering the pin count. They eliminate the need for the side‐band signals that PCI used to report things like interrupts, power management events, and errors because they can report that information in a packet over the normal data path. 

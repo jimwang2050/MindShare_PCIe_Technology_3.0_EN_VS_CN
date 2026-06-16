@@ -1,0 +1,3 @@
+## **Cautionary Note** 
+
+Please keep in mind that MindShare’s books often describe rapidly changing technologies, and that’s true for PCI Express as well. This book is a “snapshot” of the state of the technology at the time the book was completed. We make every effort to produce the books on a timely basis, but the next revision of the spec doesn’t always arrive in time to be included in a book. This PCI Express book comprehends revision 3.0 of the _PCI Express™ Base Specification_ released and trademarked by the PCISIG (PCI Special Interest Group). 

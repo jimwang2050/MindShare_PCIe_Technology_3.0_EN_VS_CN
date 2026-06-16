@@ -1,0 +1,3 @@
+## **The Next Chapter** 
+
+The next chapter provides an introduction to configuration in the PCI Express environment. This includes the space in which a Function’s configuration regis‐ ters are implemented, how a Function is discovered, how configuration transac‐ tions are generated and routed, the difference between PCI‐compatible space and PCIe extended space, and how software differentiates between an Endpoint and a Bridge. 

@@ -1,0 +1,7 @@
+## **PCI Ex ress Technolo p gy** 
+
+address, while a second holds the data going to or coming from the target. A write to the address register, followed by a read or write to the data register, causes a single read or write transaction to the correct internal address for the target function. This solves the problem of limited address space nicely, but it means that two IO accesses are needed to create one configuration access. 
+
+The PCI‐Compatible mechanism uses two 32‐bit IO ports in the Host bridge of the Root Complex. They are the **Configuration Address Port** , at IO addresses 0CF8h ‐ 0CFBh, and the **Configuration Data Port** , at IO addresses 0CFCh ‐ CFFh. 
+
+Accessing a Functionʹs PCI‐compatible configuration registers is accomplished by first writing the target Bus, Device, Function and dword numbers into the Configuration Address Port, setting its Enable bit in the process. Secondly, a one‐, two‐, or four‐byte IO read or write is sent to the Configuration Data Port. The host bridge in the Root Complex compares the specified target bus to the range of buses that exist downstream of the bridge. If the target bus is within that range, the bridge initiates a configuration read or write request (depending on whether the IO access to the Configuration Data Port was a read or a write). 

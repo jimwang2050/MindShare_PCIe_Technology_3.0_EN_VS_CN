@@ -1,0 +1,3 @@
+## **Root Complex** 
+
+The interface between the CPU and the PCIe buses may contain several compo‐ nents (processor interface, DRAM interface, etc.) and possibly even several chips. Collectively, this group is referred to as the Root Complex (RC or Root). The RC resides at the “root” of the PCI inverted tree topology and acts on behalf of the CPU to communicate with the rest of the system. The spec does not care‐ fully define it, though, giving instead a list of required and optional funtional‐ ity. In broad terms, the Root Complex can be understood as the interface between the system CPU and the PCIe topology, with PCIe Ports labeled as “Root Ports” in configuration space. 

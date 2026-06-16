@@ -1,0 +1,5 @@
+## **Topology Characteristics** 
+
+At the top of the diagram is a CPU. The point to make here is that the CPU is considered the top of the PCIe hierarchy. Just like PCI, only simple tree struc‐ tures are permitted for PCIe, meaning no loops or other complex topologies are allowed. That’s done to maintain backward compatibility with PCI software, which used a simple configuration scheme to track the topology and did not support complex environments. 
+
+To maintain that compatibility, software must be able to generate configuration cycles in the same way as before and the bus topology must appear the same as it did before. Consequently, all the configurations registers software expects to find are still there and behave in the same way they always have. We’ll come back to this discussion a little later, after we’ve had a chance to define some more terms. 

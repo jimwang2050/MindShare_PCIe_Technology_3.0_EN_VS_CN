@@ -1,0 +1,5 @@
+## **Only the Root Sends Configuration Requests** 
+
+The specification states that only the Root Complex is permitted to originate Configuration Requests. It acts as the system processor’s liaison to inject Requests into the fabric and pass Completions back. The ability to originate configuration transactions is restricted to the processor through the Root Com‐ plex to avoid the anarchy that could result if any device had the ability to change the configuration of other devices. 
+
+Since only the Root can initiate these requests, they also can only move down‐ stream, which means that peer‐to‐peer Configuration Requests are not allowed. The Requests are routed based on the target device’s ID, meaning its BDF (Bus number in the topology, Device number on that bus, and Function number within that Device). 

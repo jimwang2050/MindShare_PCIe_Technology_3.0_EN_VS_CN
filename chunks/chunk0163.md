@@ -1,0 +1,3 @@
+## **Device Core / Software Layer** 
+
+This is the core functionality of the device, such as a network interface or hard drive controller. This isn’t defined as a layer in the PCIe spec, but can be thought of in that way since it resides above the Transaction Layer and will be either the source or destination of all Requests. It provides the transmit side of the Trans‐ action Layer with requests that include information like the transaction type, the address, amount of data to transfer, and so on. It’s also the destination for information forwarded up from the Transaction Layer when incoming packets have been received. 

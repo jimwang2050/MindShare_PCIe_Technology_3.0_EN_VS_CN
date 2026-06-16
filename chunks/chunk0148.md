@@ -1,0 +1,5 @@
+## **Packet-based Protocol** 
+
+Moving from a parallel to a serial transport greatly reduces the pins needed to carry data. PCIe, like most other serial‐based protocols, also reduces pin count by eliminating most side‐band control signals typically found in parallel buses. However, if there are no control signals indicating the type of information being received, how can the receiver interpret the incoming bits? All transactions in PCIe are sent in defined structures called packets. The receiver finds the packet boundaries and, knowing the pattern to expect, decodes the packet structure to determine what it should do. 
+
+The details of the packet‐based protocol are covered in the chapter called “TLP Elements” on page 169, but an overview of the various packet types and their uses can be found in this chapter; see “Data Link Layer” on page 72. 

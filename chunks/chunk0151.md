@@ -1,0 +1,3 @@
+## **Flexible Topology Options** 
+
+A Link must be a point‐to‐point connection, rather than a shared bus like PCI, because of the very high speeds it uses. Since a Link can therefore only connect two interfaces, a means for fanning out the connections is needed for building a non‐trivial system. This is accomplished in PCIe with the use of Switches and Bridges, which allow flexibility in constructing the system topology ‐ the set of connections between the elements in the system. Definitions of the elements in a system and some topology examples are given in the following section. 

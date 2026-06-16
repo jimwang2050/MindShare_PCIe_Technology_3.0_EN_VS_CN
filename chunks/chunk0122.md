@@ -1,0 +1,5 @@
+## **Signal Timing Problems with the Parallel PCI Bus Model beyond 66 MHz** 
+
+PCI bus clock frequency cannot be increased beyond 66MHz given the realistic loads that exist on a PCI bus and signal flight times. With a 66 MHz clock, the clock period is 15 ns. Setup time allocated at the receiver is 3 ns. With the PCI “non‐registered input” signal bus model, reducing signal setup time below this 3 ns value is not realistic. The rest of the 12 ns timing budget is allocated towards output delays at the transmitter and signal flight time. Clocking PCI bus any faster than 66 MHz implies reducing clock period. A transmitted signal will not be received in time enough to be sampled at the receiver. 
+
+The PCI‐X bus introduced in the next section takes the approach of registering all input signals with a Flip‐Flop before using them. Doing so reduced signal setup time to below 1 ns. The setup time savings of PCI setup time allows PCI‐X bus to be run at higher frequencies of 100 MHz or even 133 Mhz. In the next sec‐ tion, we describe PCI‐X bus architecture briefly. 

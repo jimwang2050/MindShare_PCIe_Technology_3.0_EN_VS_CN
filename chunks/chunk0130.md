@@ -1,0 +1,11 @@
+## **Transaction Attributes** 
+
+Finally, PCI‐X also added another phase to the beginning of each transaction called the Attribute Phase (see Figure 1‐16 on page 33). In this time slot the requester delivers information that can be used to help improve the efficiency of transactions on the bus, such as the byte count for this request and who the requester is (Bus:Device:Function number). In addition to those items, two new bits were added to help characterize this transaction: the ʺNo Snoopʺ bit and the ʺRelaxed Orderingʺ bit. 
+
+**No Snoop (NS):** Normally, when a transaction moves data into or out of memory, the CPU’s internal caches need to be checked to see if that memory location has been copied into one or more CPU caches. If so, the cache contents may need to be written back to memory or invalidated before the requested transaction is allowed to access memory. Naturally, this snoop process takes time and adds latency to a request. Sometimes the software is aware that a requested location will never be found in the CPU caches (perhaps because the location was defined by the system as uncacheable), so snooping is unnecessary and that step could be skipped. The No Snoop bit was added with precisely that case in mind. 
+
+**Relaxed Ordering (RO):** Normally, transactions are required to remain in the same order that they were issued on the bus while they go through buffers in bridges. This is referred to as the Strongly Ordered model, and PCI and PCI‐ X generally follow that rule with a few exceptions. That’s because it helps resolve dependencies among transactions that are related to each other, such as writing and then reading the same location. However, not all transactions actu‐ ally have dependencies. If they don’t, then forcing them to stay in order can result in loss of performance, and that’s what this bit was designed to alleviate. If the requester knows that a particular transaction is unrelated to the other transactions that have gone before, it can set this bit to tell bridges that this transaction is allowed to jump ahead in the queue to give better performance. 
+
+**35** 
+
+**PCI Ex ress Technolo p gy** 

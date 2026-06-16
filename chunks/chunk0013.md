@@ -1,0 +1,3 @@
+## Decoding Standard and Custom Structures from a Live System 
+
+MindShare Arbor can perform a scan of the system it is running on to record the config space from all PCI-visible functions and show it in a clean and intuitive decoded format. In addition to scanning PCI config space, MindShare Arbor can also be directed to read any memory address space and IO address space and display the collected data in the same decoded fashion. 
