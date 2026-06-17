@@ -627,7 +627,7 @@ Finally, the Link Layer participates in power management, as well, because DLLPs
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+## **物理层 (Physical Layer)**
 
 </td>
 </tr></tbody></table>
@@ -1187,7 +1187,7 @@ In the meantime, the Requester Transaction Layer receives the CplD TLP in the ap
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+## _**3**_
 
 </td>
 </tr></tbody></table>
@@ -1209,7 +1209,7 @@ In the meantime, the Requester Transaction Layer receives the CplD TLP in the ap
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+## _**配置概述 (Configuration Overview)**_
 
 </td>
 </tr></tbody></table>
@@ -1616,7 +1616,7 @@ PCIe 扩展空间必须在此寄存器<br>
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+## **Host-to-PCI 桥配置寄存器 (Host-to-PCI Bridge Configuration Registers)**
 
 </td>
 </tr></tbody></table>
@@ -2069,7 +2069,7 @@ If there are multiple Root Complexes (refer to Figure 3‐6 on page 97), the Con
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+## **增强型配置访问机制 (Enhanced Configuration Access Mechanism)**
 
 </td>
 </tr></tbody></table>

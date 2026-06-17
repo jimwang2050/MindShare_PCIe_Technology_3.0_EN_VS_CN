@@ -1,1 +1,1 @@
-## _MINDSHARE 公司_ 
+## _MINDSHARE, INC._

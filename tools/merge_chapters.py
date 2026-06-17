@@ -63,7 +63,7 @@ def render_chapter(ch_info: dict) -> str:
             continue
         en_text = src_path.read_text(encoding='utf-8').strip()
         zh_text = ""
-        if out_path.exists() and out_path.stat().st_size > 50:
+        if out_path.exists() and out_path.stat().st_size > 0:
             zh_text = out_path.read_text(encoding='utf-8').strip()
         if not zh_text:
             zh_text = "⚠️ TODO: 翻译未完成 / Translation pending"

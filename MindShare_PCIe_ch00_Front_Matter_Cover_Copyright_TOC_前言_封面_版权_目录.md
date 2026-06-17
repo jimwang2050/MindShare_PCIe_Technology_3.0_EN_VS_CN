@@ -102,7 +102,7 @@ PCI Express Technology Comprehensive Guide to Generations 1.x, 2.x and 3.0
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+## _MINDSHARE, INC._
 
 </td>
 </tr></tbody></table>
@@ -562,7 +562,7 @@ After a system scan has been performed, MindShare Arbor allows saving of that sy
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+## _MINDSHARE, INC._
 
 </td>
 </tr></tbody></table>
@@ -798,7 +798,7 @@ Jay Trodden —— 为第 4 章 "地址空间与事务路由 (Address Space and 
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+## **第一部分：整体概览**
 
 </td>
 </tr></tbody></table>
@@ -1031,7 +1031,7 @@ Unused Base and Limit Registers.................................................
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+## **第二部分：事务层**
 
 </td>
 </tr></tbody></table>
@@ -1289,7 +1289,7 @@ Software Support ...............................................................
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+## **第三部分:数据链路层**
 
 </td>
 </tr></tbody></table>
@@ -1383,7 +1383,7 @@ Transmitter’s Response to an Ack DLLP ........................................
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+## **第四部分：物理层**
 
 </td>
 </tr></tbody></table>
@@ -1677,7 +1677,7 @@ Link Training[11] ..............................................................
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+## **第五部分：附加系统主题**
 
 </td>
 </tr></tbody></table>
@@ -2052,7 +2052,7 @@ Control 寄存器 ..............................................................
 </td>
 <td style="background-color:#e8e8e8">
 
-⚠️ TODO: 翻译未完成 / Translation pending
+## **附录**
 
 </td>
 </tr></tbody></table>

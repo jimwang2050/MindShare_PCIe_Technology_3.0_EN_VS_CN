@@ -1,1 +1,1 @@
-## **PCI 的低效之处**
+## **PCI 的不足之处 (PCI Inefficiencies)**

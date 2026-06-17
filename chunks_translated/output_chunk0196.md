@@ -1,1 +1,1 @@
-## _**配置概述**_
+## _**配置概述 (Configuration Overview)**_
