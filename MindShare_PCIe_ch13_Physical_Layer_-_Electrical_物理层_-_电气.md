@@ -506,8 +506,7 @@ The first is when rates higher than 2.5 GT/s are supported by both partners and 
 ---
 
 
-
-<img src="figures/embedded/page0554_img1_tight.png" alt="Figure from page 554" width="700">
+<img src="figures/embedded/page0547_img1_tight.png" alt="Figure from page 547" width="700">
 
 <a id="sec-13-2"></a>
 ## 13.2 Physical Layer - Electrical | 物理层 - 电气
@@ -850,6 +849,9 @@ Lane 号，下一个子状态为 Configuration.Complete。或者如果接收到�
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
+
+
+<img src="figures/embedded/page0547_img2_tight.png" alt="Figure from page 547" width="700">
 
 <a id="sec-13-3"></a>
 ## 13.3 Physical Layer - Electrical | 物理层 - 电气
@@ -1374,6 +1376,9 @@ _退出到 "Detect 状态"_
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
+
+
+<img src="figures/embedded/page0554_img1_tight.png" alt="Figure from page 554" width="700">
 
 <a id="sec-13-4"></a>
 ## 13.4 Physical Layer - Electrical | 物理层 - 电气

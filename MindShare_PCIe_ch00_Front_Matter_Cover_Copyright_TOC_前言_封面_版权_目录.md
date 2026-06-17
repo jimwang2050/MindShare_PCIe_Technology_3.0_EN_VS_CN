@@ -37,6 +37,9 @@ For training, visit **mindshare.com**
 
 ---
 
+
+<img src="figures/embedded/page0001_img2_tight.png" alt="Figure from page 1" width="700">
+
 <a id="sec-0-2"></a>
 ## 0.2 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -67,6 +70,9 @@ PCI Express Technology Comprehensive Guide to Generations 1.x, 2.x and 3.0
 
 ---
 
+
+<img src="figures/embedded/page0001_img1.png" alt="Figure from page 1" width="700">
+
 <a id="sec-0-3"></a>
 ## 0.3 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -89,6 +95,9 @@ PCI Express Technology Comprehensive Guide to Generations 1.x, 2.x and 3.0
 
 ---
 
+
+<img src="figures/embedded/page0004_img1_tight.png" alt="Figure from page 4" width="700">
+
 <a id="sec-0-4"></a>
 ## 0.4 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -110,6 +119,9 @@ PCI Express Technology Comprehensive Guide to Generations 1.x, 2.x and 3.0
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
+
+
+<img src="figures/embedded/page0004_img2_tight.png" alt="Figure from page 4" width="700">
 
 <a id="sec-0-5"></a>
 ## 0.5 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
@@ -136,6 +148,9 @@ _Technical Edit by Joe Winkles and Don Anderson_
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
+
+
+<img src="figures/embedded/page0004_img3_tight.png" alt="Figure from page 4" width="700">
 
 <a id="sec-0-6"></a>
 ## 0.6 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
@@ -199,6 +214,9 @@ MindShare 还以自学培训（eLearning）形式提供大量课程。我们将 
 
 ---
 
+
+<img src="figures/embedded/page0004_img4_tight.png" alt="Figure from page 4" width="700">
+
 <a id="sec-0-7"></a>
 ## 0.7 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -231,6 +249,9 @@ BY<br>**----- End of picture text -----**<br>
 
 ---
 
+
+<img src="figures/embedded/page0004_img5_tight.png" alt="Figure from page 4" width="700">
+
 <a id="sec-0-8"></a>
 ## 0.8 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -262,6 +283,9 @@ Decode Data from<br>| SaaS, Live Systems<br>a<br> cs ene eee {<br>= er<br>™ P|
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
+
+
+<img src="figures/embedded/page0004_img6_tight.png" alt="Figure from page 4" width="700">
 
 <a id="sec-0-9"></a>
 ## 0.9 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
@@ -335,6 +359,9 @@ Everything Driven from<br>Open Format XML<br>**----- End of picture text -----**
 
 ---
 
+
+<img src="figures/embedded/page0004_img7_tight.png" alt="Figure from page 4" width="700">
+
 <a id="sec-0-10"></a>
 ## 0.10 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -364,7 +391,6 @@ x86 结构的解码视图（MSRs、ACPI、Paging、Virtualization 等）
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-11"></a>
 ## 0.11 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -394,7 +420,6 @@ MindShare Arbor 是一款计算机系统调试、验证、分析与学习工具,
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-12"></a>
 ## 0.12 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -420,7 +445,6 @@ MindShare Arbor 是一个优秀的参考工具,可以快速查看标准 PCI、PC
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-13"></a>
 ## 0.13 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -446,7 +470,6 @@ MindShare Arbor 可以对其运行所在的系统执行扫描,以记录所有 PC
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-14"></a>
 ## 0.14 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -474,7 +497,6 @@ In addition to capturing and displaying headers and capability structures from P
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-15"></a>
 ## 0.15 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -500,7 +522,6 @@ MindShare Arbor 提供了一个非常简单的接口，可直接编辑 PCI Confi
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-16"></a>
 ## 0.16 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -526,7 +547,6 @@ After a system scan has been performed, MindShare Arbor allows saving of that sy
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-17"></a>
 ## 0.17 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -548,7 +568,6 @@ After a system scan has been performed, MindShare Arbor allows saving of that sy
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-18"></a>
 ## 0.18 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -570,7 +589,6 @@ After a system scan has been performed, MindShare Arbor allows saving of that sy
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-19"></a>
 ## 0.19 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -604,7 +622,6 @@ _技术编辑：Joe Winkles 和 Don Anderson_
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-20"></a>
 ## 0.20 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -662,7 +679,6 @@ I. Jackson, Mike    II. MindShare, Inc.   III. 标题
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-21"></a>
 ## 0.21 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -724,7 +740,6 @@ Jay Trodden —— 为第 4 章 "地址空间与事务路由 (Address Space and 
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-22"></a>
 ## 0.22 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -758,7 +773,6 @@ Jay Trodden —— 为第 4 章 "地址空间与事务路由 (Address Space and 
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-23"></a>
 ## 0.23 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -784,7 +798,6 @@ Jay Trodden —— 为第 4 章 "地址空间与事务路由 (Address Space and 
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-24"></a>
 ## 0.24 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -806,7 +819,6 @@ Jay Trodden —— 为第 4 章 "地址空间与事务路由 (Address Space and 
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-25"></a>
 ## 0.25 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -836,7 +848,6 @@ Jay Trodden —— 为第 4 章 "地址空间与事务路由 (Address Space and 
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-26"></a>
 ## 0.26 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -877,7 +888,6 @@ PCI-X 2.0 源同步模型 ......................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-27"></a>
 ## 0.27 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -915,7 +925,6 @@ TLP 包组装...................................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-28"></a>
 ## 0.28 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -945,7 +954,6 @@ TLP 包组装...................................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-29"></a>
 ## 0.29 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -971,7 +979,6 @@ Single Host System .............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-30"></a>
 ## 0.30 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1017,7 +1024,6 @@ Unused Base and Limit Registers.................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-31"></a>
 ## 0.31 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1039,7 +1045,6 @@ Unused Base and Limit Registers.................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-32"></a>
 ## 0.32 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1077,7 +1082,6 @@ Completions.....................................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-33"></a>
 ## 0.33 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1126,7 +1130,6 @@ Completions.....................................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-34"></a>
 ## 0.34 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1163,7 +1166,6 @@ FC_Update DLLP 格式与内容..................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-35"></a>
 ## 0.35 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1241,7 +1243,6 @@ Software Support ...............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-36"></a>
 ## 0.36 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1275,7 +1276,6 @@ Software Support ...............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-37"></a>
 ## 0.37 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1297,7 +1297,6 @@ Software Support ...............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-38"></a>
 ## 0.38 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1343,7 +1342,6 @@ Transmitter’s Response to an Ack DLLP ........................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-39"></a>
 ## 0.39 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1369,7 +1367,6 @@ Transmitter’s Response to an Ack DLLP ........................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-40"></a>
 ## 0.40 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1391,7 +1388,6 @@ Transmitter’s Response to an Ack DLLP ........................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-41"></a>
 ## 0.41 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1433,7 +1429,6 @@ TS1 和 TS2 有序集(TS1OS/TS2OS) .............................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-42"></a>
 ## 0.42 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1459,7 +1454,6 @@ Byte Un-Striping................................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-43"></a>
 ## 0.43 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1497,7 +1491,6 @@ Rx 时钟恢复 ................................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-44"></a>
 ## 0.44 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1527,7 +1520,6 @@ Rx 时钟恢复 ................................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-45"></a>
 ## 0.45 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1565,7 +1557,6 @@ Receiver (Rx) Equalization .....................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-46"></a>
 ## 0.46 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1595,7 +1586,6 @@ Receiver (Rx) Equalization .....................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-47"></a>
 ## 0.47 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1637,7 +1627,6 @@ Phase 2 Upstream ...............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-48"></a>
 ## 0.48 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1663,7 +1652,6 @@ Link Training[11] ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-49"></a>
 ## 0.49 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1685,7 +1673,6 @@ Link Training[11] ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-50"></a>
 ## 0.50 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1723,7 +1710,6 @@ Link Training[11] ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-51"></a>
 ## 0.51 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1753,7 +1739,6 @@ Link Training[11] ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-52"></a>
 ## 0.52 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1795,7 +1780,6 @@ Inferring Electrical Idle ......................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-53"></a>
 ## 0.53 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1849,7 +1833,6 @@ LTR 示例 .....................................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-54"></a>
 ## 0.54 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1891,7 +1874,6 @@ INTx# 信令 ...................................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-55"></a>
 ## 0.55 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1929,7 +1911,6 @@ FLR 期间的行为 ............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-56"></a>
 ## 0.56 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1967,7 +1948,6 @@ Slot Control ...................................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-57"></a>
 ## 0.57 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -1997,7 +1977,6 @@ Slot Control ...................................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-58"></a>
 ## 0.58 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -2038,7 +2017,6 @@ Control 寄存器 ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-59"></a>
 ## 0.59 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -2060,7 +2038,6 @@ Control 寄存器 ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-60"></a>
 ## 0.60 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -2098,7 +2075,6 @@ Control 寄存器 ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-61"></a>
 ## 0.61 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -2124,7 +2100,6 @@ Control 寄存器 ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-62"></a>
 ## 0.62 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -2150,7 +2125,6 @@ Control 寄存器 ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-63"></a>
 ## 0.63 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -2180,7 +2154,6 @@ Control 寄存器 ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-64"></a>
 ## 0.64 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -2206,7 +2179,6 @@ Control 寄存器 ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-65"></a>
 ## 0.65 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -2328,7 +2300,6 @@ Control 寄存器 ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-66"></a>
 ## 0.66 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -2538,7 +2509,6 @@ Control 寄存器 ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-67"></a>
 ## 0.67 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -2748,7 +2718,6 @@ Control 寄存器 ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-68"></a>
 ## 0.68 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -2958,7 +2927,6 @@ Control 寄存器 ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-69"></a>
 ## 0.69 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -3168,7 +3136,6 @@ Control 寄存器 ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-70"></a>
 ## 0.70 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -3378,7 +3345,6 @@ Control 寄存器 ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-71"></a>
 ## 0.71 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -3632,7 +3598,6 @@ Control 寄存器 ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-72"></a>
 ## 0.72 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -3824,7 +3789,6 @@ Control 寄存器 ..............................................................
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-73"></a>
 ## 0.73 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -3928,15 +3892,6 @@ _表 1：PC 架构丛书（续）_
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
-
-
-
-<img src="figures/embedded/page0001_img2_tight.png" alt="Figure from page 1" width="700">
-
-
-<img src="figures/embedded/page0001_img1.png" alt="Figure from page 1" width="700">
-
 <a id="sec-0-74"></a>
 ## 0.74 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -3962,7 +3917,6 @@ Please keep in mind that MindShare’s books often describe rapidly changing tec
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-75"></a>
 ## 0.75 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -3988,7 +3942,6 @@ The intended audience for this book is hardware and software design, verifica‐
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-76"></a>
 ## 0.76 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -4022,7 +3975,6 @@ To get the full benefit of this material, it’s recommended that the reader hav
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-77"></a>
 ## 0.77 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -4068,7 +4020,6 @@ Topics covered in this book and chapter flow are as follows:
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-78"></a>
 ## 0.78 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -4110,7 +4061,6 @@ Topics covered in this book and chapter flow are as follows:
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-79"></a>
 ## 0.79 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -4136,7 +4086,6 @@ This section defines the typographical convention used throughout this book.
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-80"></a>
 ## 0.80 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -4170,35 +4119,6 @@ PCI Express™ 是 PCI-SIG 的商标,通常缩写为 "PCIe"。
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
-
-
-
-
-
-
-
-
-<img src="figures/embedded/page0004_img1_tight.png" alt="Figure from page 4" width="700">
-
-
-<img src="figures/embedded/page0004_img2_tight.png" alt="Figure from page 4" width="700">
-
-
-<img src="figures/embedded/page0004_img3_tight.png" alt="Figure from page 4" width="700">
-
-
-<img src="figures/embedded/page0004_img4_tight.png" alt="Figure from page 4" width="700">
-
-
-<img src="figures/embedded/page0004_img5_tight.png" alt="Figure from page 4" width="700">
-
-
-<img src="figures/embedded/page0004_img6_tight.png" alt="Figure from page 4" width="700">
-
-
-<img src="figures/embedded/page0004_img7_tight.png" alt="Figure from page 4" width="700">
-
 <a id="sec-0-81"></a>
 ## 0.81 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -4228,7 +4148,6 @@ All hex numbers are followed by a lower case “h.” For example:
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-82"></a>
 ## 0.82 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -4258,7 +4177,6 @@ All binary numbers are followed by a lower case “b.” For example:
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-83"></a>
 ## 0.83 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -4288,7 +4206,6 @@ Number without any suffix are decimal. When required for clarity, decimal number
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-84"></a>
 ## 0.84 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -4326,7 +4243,6 @@ Megatransfers/second = MT/s
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-85"></a>
 ## 0.85 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -4364,7 +4280,6 @@ Groups bits are represented with the high‐order bits first followed by the low
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-86"></a>
 ## 0.86 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -4390,7 +4305,6 @@ Signals that are active low are followed by #, as in PERST# and WAKE#. Active hi
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-87"></a>
 ## 0.87 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -4448,7 +4362,6 @@ Our books can be ordered in hard copy or eBook versions.
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-88"></a>
 ## 0.88 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -4474,7 +4387,6 @@ MindShare 重视您的意见和建议。联系我们：
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-89"></a>
 ## 0.89 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -4504,7 +4416,6 @@ MindShare 重视您的意见和建议。联系我们：
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
 <a id="sec-0-90"></a>
 ## 0.90 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 

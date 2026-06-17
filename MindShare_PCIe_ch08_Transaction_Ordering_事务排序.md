@@ -418,6 +418,9 @@ Memory, I/O, Configuration R/W Requests or Message Requests or Completions<br>(S
 
 ---
 
+
+<img src="figures/embedded/page0361_img2_tight.png" alt="Figure from page 361" width="700">
+
 <a id="sec-8-2"></a>
 ## 8.2 Transaction Ordering | 事务排序
 
@@ -639,6 +642,9 @@ Transaction Layer (TX) Block TLPs; Report<br>DLL protocol error<br>Yes<br>No<br>
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
+
+
+<img src="figures/embedded/page0361_img1.png" alt="Figure from page 361" width="700">
 
 <a id="sec-8-3"></a>
 ## 8.3 Transaction Ordering | 事务排序

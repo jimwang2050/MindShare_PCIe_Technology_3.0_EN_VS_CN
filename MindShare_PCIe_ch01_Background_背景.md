@@ -41,6 +41,9 @@ _**1 背景**_
 
 ---
 
+
+<img src="figures/page/page0080.png" alt="Figure from page 80" width="700">
+
 <a id="sec-1-2"></a>
 ## 1.2 Background | 背景
 
@@ -66,6 +69,9 @@ This chapter reviews the PCI (Peripheral Component Interface) bus models that pr
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
+
+
+<img src="figures/page/page0082.png" alt="Figure from page 82" width="700">
 
 <a id="sec-1-3"></a>
 ## 1.3 Background | 背景

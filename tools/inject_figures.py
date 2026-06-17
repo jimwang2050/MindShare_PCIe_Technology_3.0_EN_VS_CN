@@ -52,11 +52,12 @@ def chunk_first_page(chunk_n: int) -> int | None:
 
 
 def figures_on_page(page: int) -> list[str]:
-    """Return embedded image filenames for a page, preferring tight crops.
+    """Return figure filenames for a page, preferring tight crops.
 
     For each image on the page, prefer `pageNNNN_imgM_tight.png` if it
     exists; otherwise fall back to the original embedded bitmap
-    `pageNNNN_imgM.png`.
+    `pageNNNN_imgM.png`. If no embedded images, fall back to the
+    full-page render `figures/page/pageNNNN.png`.
     """
     if not EMB.exists():
         return []
@@ -72,6 +73,11 @@ def figures_on_page(page: int) -> list[str]:
         tight_name = orig.replace(".png", "_tight.png")
         if tight_name not in tight:
             out.append(orig)
+    # If no embedded images found, fall back to full-page render
+    if not out:
+        page_render = ROOT / "figures" / "page" / f"page{page:04d}.png"
+        if page_render.exists():
+            out.append(f"../page/page{page:04d}.png")  # relative path
     return out
 
 
@@ -85,65 +91,96 @@ def figures_in_range(start_page: int, end_page: int) -> dict[int, list[str]]:
     return result
 
 
+def all_figures_in_chapter(ch_min: int, ch_max: int) -> list[tuple[int, str]]:
+    """Return all figures for a chapter's page range, sorted by page.
+
+    Each entry is (page_number, figure_filename). Searches both
+    embedded/ (tight + original) and page/ (full-page render) dirs.
+    """
+    out = []
+    for p in range(ch_min, ch_max + 1):
+        # Tight crops first (preferred)
+        for tight in sorted((EMB).glob(f"page{p:04d}_img*_tight.png")):
+            out.append((p, tight.name))
+        # Originals (only if no tight)
+        tight_names = {t.name for t in (EMB).glob(f"page{p:04d}_img*_tight.png")}
+        for orig in sorted((EMB).glob(f"page{p:04d}_img*.png")):
+            if orig.name.endswith("_tight.png"):
+                continue
+            tight_name = orig.name.replace(".png", "_tight.png")
+            if tight_name not in tight_names:
+                out.append((p, orig.name))
+        # Full-page render fallback
+        page_render = ROOT / "figures" / "page" / f"page{p:04d}.png"
+        if page_render.exists():
+            # Only add if no embedded images on this page
+            has_embedded = any(1 for _ in (EMB).glob(f"page{p:04d}_img*.png"))
+            if not has_embedded:
+                out.append((p, f"page/page{p:04d}.png"))  # page/ subpath with pageNNNN.png name
+    return out
+
+
 def inject_into_chapter(md_path: Path, ch_num: int, ch_start: int,
-                        ch_end: int, chapter_pages: dict[int, list[int]]) -> int:
-    """Inject figure references into a chapter MD. Returns number injected."""
+                        ch_end: int, ch_pages: tuple[int, int]) -> int:
+    """Inject figure references into a chapter MD. Returns number injected.
+
+    Strategy: collect ALL figures for the chapter's page range, then
+    distribute them evenly across sections (one figure per section, in
+    order). This handles the case where chunk→page mapping via the
+    **NNN** marker is unreliable.
+    """
     text = md_path.read_text(encoding='utf-8')
-    # Track which embedded images we've already inserted (avoid duplicates)
     used: set[str] = set()
 
-    # Split into sections by <a id="sec-N-M">
-    # Each section ends at next <a id="..."> or end-of-file
     section_pat = re.compile(r'(<a id="sec-(\d+)-(\d+)"></a>\s*\n##\s+[^\n]+)', re.MULTILINE)
     matches = list(section_pat.finditer(text))
     if not matches:
+        return 0
+
+    # Collect all figures for the chapter, dedup by filename
+    seen_figs: set[str] = set()
+    figures: list[tuple[int, str]] = []
+    for page, fname in all_figures_in_chapter(*ch_pages):
+        if fname in seen_figs:
+            continue
+        seen_figs.add(fname)
+        figures.append((page, fname))
+
+    if not figures:
         return 0
 
     injected = 0
     new_parts = []
     last_end = 0
 
+    # Distribute figures: assign one figure per section (round-robin
+    # over the section list, in figure order)
+    fig_iter = iter(figures)
+    fig_pool = list(figures)
+
     for i, m in enumerate(matches):
         new_parts.append(text[last_end:m.start()])
-        sec_start, sec_end = m.span()
-        # Find this section's end (next section start or EOF)
+        sec_start = m.start()
         if i + 1 < len(matches):
             this_section_end = matches[i + 1].start()
         else:
             this_section_end = len(text)
         section_text = text[sec_start:this_section_end]
-        # Find chunk number for this section
-        section_n = i + 1
-        chunk_n = find_chunk_for_section(ch_num, section_n, ch_start)
-        # Find page
-        page = chunk_first_page(chunk_n)
-        figs_for_section = []
-        if page:
-            # Try exact page first
-            figs_for_section = figures_on_page(page)
-            # Fallback: search ±5 pages
-            if not figs_for_section and chapter_pages:
-                for delta in range(1, 6):
-                    for offset in (page - delta, page + delta):
-                        if offset in chapter_pages:
-                            figs_for_section = figures_on_page(offset)
-                            if figs_for_section:
-                                page = offset
-                                break
-                    if figs_for_section:
-                        break
 
-        # Build <img> block
+        # Pick the next figure for this section
         img_lines = []
-        for fname in figs_for_section:
-            if fname in used:
-                continue
-            used.add(fname)
+        if i < len(fig_pool):
+            page, fname = fig_pool[i]
+            # If it's a page render, prefix with figures/
+            if fname.startswith("page/"):
+                img_path = f"figures/{fname}"
+            else:
+                img_path = f"figures/embedded/{fname}"
             img_lines.append("")
-            img_lines.append(f'<img src="figures/embedded/{fname}" alt="Figure from page {page}" width="700">')
+            img_lines.append(f'<img src="{img_path}" alt="Figure from page {page}" width="700">')
             img_lines.append("")
+            injected += 1
 
-        # Insert after the bilingual table — find the next </table> and insert after
         insertion = ""
         if img_lines:
             insertion = "\n" + "\n".join(img_lines) + "\n"
@@ -151,7 +188,6 @@ def inject_into_chapter(md_path: Path, ch_num: int, ch_start: int,
         new_section = section_text + insertion
         new_parts.append(new_section)
         last_end = this_section_end
-        injected += len(img_lines) // 3  # 3 lines per figure (blank + img + blank)
 
     new_parts.append(text[last_end:])
     md_path.write_text("".join(new_parts), encoding='utf-8')
@@ -193,17 +229,12 @@ def main() -> int:
         if not candidates:
             continue
         md = candidates[0]
-        # Compute chapter pages
-        if ch_num in ch_ranges:
-            p_min, p_max = ch_ranges[ch_num]
-        else:
-            p_min, p_max = 0, 0
-        chapter_pages = {}
-        for p in range(p_min, p_max + 1):
-            figs = figures_on_page(p)
-            if figs:
-                chapter_pages[p] = figs
-        n = inject_into_chapter(md, ch_num, ch_start, ch_end, chapter_pages)
+        # Chapter page range from figures/chapter_pages.json
+        ch_pages = ch_ranges.get(ch_num, (0, 0))
+        if ch_pages == (0, 0):
+            # Fallback: use a wide range so pages 0-end includes everything
+            ch_pages = (1, 1057)
+        n = inject_into_chapter(md, ch_num, ch_start, ch_end, ch_pages)
         total_injected += n
         print(f"  Ch {ch_num:>3d} ({c['en'][:35]:<35s}): injected {n} figure(s)")
 

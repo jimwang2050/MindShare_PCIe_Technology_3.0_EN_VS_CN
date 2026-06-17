@@ -268,6 +268,9 @@ _表 16-4：默认设备类 PM 状态_
 
 ---
 
+
+<img src="figures/embedded/page0724_img1_tight.png" alt="Figure from page 724" width="700">
+
 <a id="sec-15-2"></a>
 ## 15.2 Error Detection and Handling | 错误检测与处理
 
@@ -561,6 +564,9 @@ _表 16-6：D1 电源管理策略_
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
+
+
+<img src="figures/embedded/page0761_img1_tight.png" alt="Figure from page 761" width="700">
 
 <a id="sec-15-3"></a>
 ## 15.3 Error Detection and Handling | 错误检测与处理
@@ -1510,11 +1516,6 @@ Encoding<br>COM K28.5<br>IDL K28.3<br>IDL K28.3<br>IDL K28.3<br>**----- End of p
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
-
-
-
-<img src="figures/embedded/page0724_img1_tight.png" alt="Figure from page 724" width="700">
-
 <a id="sec-15-6"></a>
 ## 15.6 Error Detection and Handling | 错误检测与处理
 
