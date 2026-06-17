@@ -1262,7 +1262,7 @@ PCI Express 定义以下事务,它们共同充当虚拟连线并替代 LOCK# 信
 
 
 
-<img src="figures/embedded/page0960_img1.png" alt="Figure from page 960" width="700">
+<img src="figures/embedded/page0960_img1_tight.png" alt="Figure from page 960" width="700">
 
 <a id="sec-99-6"></a>
 ## 99.6 Appendices | 附录
@@ -1604,7 +1604,7 @@ PCI Express/PCI 桥的要求类似于对交换机的要求,只是因为这些桥
 
 
 
-<img src="figures/embedded/page0963_img1.png" alt="Figure from page 963" width="700">
+<img src="figures/embedded/page0963_img1_tight.png" alt="Figure from page 963" width="700">
 
 <a id="sec-99-7"></a>
 ## 99.7 Appendices | 附录
@@ -2086,7 +2086,7 @@ AtomicOp 150 AtomicOps 897, 974 Attention Button 854, 862 Attention Indicator 85
 
 
 
-<img src="figures/embedded/page0979_img1.png" alt="Figure from page 979" width="700">
+<img src="figures/embedded/page0979_img1_tight.png" alt="Figure from page 979" width="700">
 
 <a id="sec-99-9"></a>
 ## 99.9 Appendices | 附录

@@ -52,11 +52,27 @@ def chunk_first_page(chunk_n: int) -> int | None:
 
 
 def figures_on_page(page: int) -> list[str]:
-    """Return embedded image filenames for a page (sorted)."""
+    """Return embedded image filenames for a page, preferring tight crops.
+
+    For each image on the page, prefer `pageNNNN_imgM_tight.png` if it
+    exists; otherwise fall back to the original embedded bitmap
+    `pageNNNN_imgM.png`.
+    """
     if not EMB.exists():
         return []
-    prefix = f"page{page:04d}_img"
-    return sorted(p.name for p in EMB.glob(f"{prefix}*.png"))
+    tight = set(p.name for p in EMB.glob(f"page{page:04d}_img*_tight.png"))
+    out = []
+    # First add all tight crops
+    for t in sorted(tight):
+        out.append(t)
+    # Then add originals only if no tight version exists
+    for orig in sorted(p.name for p in EMB.glob(f"page{page:04d}_img*.png")):
+        if orig.endswith("_tight.png"):
+            continue
+        tight_name = orig.replace(".png", "_tight.png")
+        if tight_name not in tight:
+            out.append(orig)
+    return out
 
 
 def figures_in_range(start_page: int, end_page: int) -> dict[int, list[str]]:

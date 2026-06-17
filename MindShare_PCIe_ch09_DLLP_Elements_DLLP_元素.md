@@ -616,6 +616,8 @@ _图 11-19：示例 8b/10b 传输_
 ---
 
 
+<img src="figures/embedded/page0361_img2_tight.png" alt="Figure from page 361" width="700">
+
 
 <img src="figures/embedded/page0361_img1.png" alt="Figure from page 361" width="700">
 
