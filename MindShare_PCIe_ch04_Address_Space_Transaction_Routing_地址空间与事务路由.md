@@ -1196,6 +1196,19 @@ In the meantime, the Requester Transaction Layer receives the CplD TLP in the ap
 
 ---
 
+
+
+<img src="figures/embedded/page0004_img1.png" alt="Figure from page 4" width="700">
+
+
+<img src="figures/embedded/page0004_img2.png" alt="Figure from page 4" width="700">
+
+
+<img src="figures/embedded/page0004_img3.png" alt="Figure from page 4" width="700">
+
+
+<img src="figures/embedded/page0004_img4.png" alt="Figure from page 4" width="700">
+
 <a id="sec-4-27"></a>
 ## 4.27 Address Space & Transaction Routing | 地址空间与事务路由
 

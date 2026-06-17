@@ -505,6 +505,10 @@ The first is when rates higher than 2.5 GT/s are supported by both partners and 
 
 ---
 
+
+
+<img src="figures/embedded/page0554_img1.png" alt="Figure from page 554" width="700">
+
 <a id="sec-13-2"></a>
 ## 13.2 Physical Layer - Electrical | 物理层 - 电气
 

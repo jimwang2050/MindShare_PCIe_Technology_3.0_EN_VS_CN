@@ -3929,6 +3929,13 @@ _表 1：PC 架构丛书（续）_
 
 ---
 
+
+
+<img src="figures/embedded/page0001_img1.png" alt="Figure from page 1" width="700">
+
+
+<img src="figures/embedded/page0001_img2.png" alt="Figure from page 1" width="700">
+
 <a id="sec-0-74"></a>
 ## 0.74 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）
 
@@ -4162,6 +4169,19 @@ PCI Express™ 是 PCI-SIG 的商标,通常缩写为 "PCIe"。
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
+
+
+
+<img src="figures/embedded/page0004_img1.png" alt="Figure from page 4" width="700">
+
+
+<img src="figures/embedded/page0004_img2.png" alt="Figure from page 4" width="700">
+
+
+<img src="figures/embedded/page0004_img3.png" alt="Figure from page 4" width="700">
+
+
+<img src="figures/embedded/page0004_img4.png" alt="Figure from page 4" width="700">
 
 <a id="sec-0-81"></a>
 ## 0.81 Front Matter (Cover, Copyright, TOC) | 前言（封面、版权、目录）

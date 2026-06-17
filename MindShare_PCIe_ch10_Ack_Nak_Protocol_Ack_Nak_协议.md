@@ -1546,6 +1546,13 @@ _图 12-19：Gen3 CDR 逻辑_
 
 ---
 
+
+
+<img src="figures/embedded/page0001_img1.png" alt="Figure from page 1" width="700">
+
+
+<img src="figures/embedded/page0001_img2.png" alt="Figure from page 1" width="700">
+
 <a id="sec-10-5"></a>
 ## 10.5 Ack/Nak Protocol | Ack/Nak 协议
 

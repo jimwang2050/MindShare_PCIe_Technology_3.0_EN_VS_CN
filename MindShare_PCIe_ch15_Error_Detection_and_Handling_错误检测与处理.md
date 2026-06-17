@@ -1511,6 +1511,10 @@ Encoding<br>COM K28.5<br>IDL K28.3<br>IDL K28.3<br>IDL K28.3<br>**----- End of p
 
 ---
 
+
+
+<img src="figures/embedded/page0724_img1.png" alt="Figure from page 724" width="700">
+
 <a id="sec-15-6"></a>
 ## 15.6 Error Detection and Handling | 错误检测与处理
 

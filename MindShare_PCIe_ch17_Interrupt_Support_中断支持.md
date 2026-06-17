@@ -450,6 +450,10 @@ _Figure 17-13: MSI Capability Structure Variations_
 
 ---
 
+
+
+<img src="figures/embedded/page0806_img1.png" alt="Figure from page 806" width="700">
+
 <a id="sec-17-2"></a>
 ## 17.2 Interrupt Support | 中断支持
 
@@ -825,6 +829,10 @@ _Figure 17-16: Format of Memory Write Transaction for Native-Device MSI Delivery
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
+
+
+
+<img src="figures/embedded/page0816_img1.png" alt="Figure from page 816" width="700">
 
 <a id="sec-17-3"></a>
 ## 17.3 Interrupt Support | 中断支持
@@ -1235,6 +1243,10 @@ _Figure 17-22: MSI Delivery_
 
 ---
 
+
+
+<img src="figures/embedded/page0823_img1.png" alt="Figure from page 823" width="700">
+
 <a id="sec-17-4"></a>
 ## 17.4 Interrupt Support | 中断支持
 
@@ -1630,6 +1642,10 @@ Ethernet<br>
 
 ---
 
+
+
+<img src="figures/embedded/page0826_img1.png" alt="Figure from page 826" width="700">
+
 <a id="sec-17-5"></a>
 ## 17.5 Interrupt Support | 中断支持
 
@@ -2019,6 +2035,13 @@ _Figure 18-8: Function-Level Reset Capability_
 
 ---
 
+
+
+<img src="figures/embedded/page0001_img1.png" alt="Figure from page 1" width="700">
+
+
+<img src="figures/embedded/page0001_img2.png" alt="Figure from page 1" width="700">
+
 <a id="sec-17-6"></a>
 ## 17.6 Interrupt Support | 中断支持
 
@@ -2274,6 +2297,13 @@ PCI Express 热插拔（如 PCI）被设计为"无意外"的热插拔方法。�
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
+
+
+
+<img src="figures/embedded/page0844_img1.png" alt="Figure from page 844" width="700">
+
+
+<img src="figures/embedded/page0844_img2.png" alt="Figure from page 844" width="700">
 
 <a id="sec-17-7"></a>
 ## 17.7 Interrupt Support | 中断支持
@@ -2676,6 +2706,10 @@ _表 19-2：主要热插拔硬件元素（续）_
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
 ---
+
+
+
+<img src="figures/embedded/page0849_img1.png" alt="Figure from page 849" width="700">
 
 <a id="sec-17-8"></a>
 ## 17.8 Interrupt Support | 中断支持
