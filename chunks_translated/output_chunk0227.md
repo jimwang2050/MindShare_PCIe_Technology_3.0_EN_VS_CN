@@ -1,177 +1,117 @@
-在 PCIe 中我们有同样的问题，但过程略有不同。首先，PCIe 功能在其暂时无法响应配置访问时，必须始终给出具有特定状态的完成，即配置请求重试状态 (Configuration Request Retry Status, CRS)。此状态仅在响应配置请求时合法，如果在响应其他请求时看到，则可以（可选地）将其视为畸形数据包 (Malformed Packet) 错误。此响应在复位后的一秒钟内才有效，因为该功能应在此时响应，如果不会则可视为故障。
+```
+mov dx,0CF8h;set dx = config address port address
+mov eax,80040000h;enable=1, bus 4, dev 0, func 0, DW 0
+out dx,eax;IO write to set up address port
+mov dx,0CFCh; set dx = config data port address
+in ax,dx;2-byte read from config data port
+```
 
-根复合体处理响应配置读请求的 CRS 完成的方式是实现特定的，除了系统复位后的时间段。在该时间段内，根据其根控制寄存器 (Root Control Register) 中 CRS 软件可见性 (CRS Software Visibility) 位的设置，根复合体下一步有两个选择（参见第 108 页图 3-11）：
+1. `out` 指令从处理器生成对根复合体 (Root Complex) 主机桥中配置地址端口 (Configuration Address Port) (0CF8h) 的 IO 写，如第 92 页图 3-4 所示。
 
-- 如果该位被置位且请求是对 Vendor ID 寄存器的两个字节的配置读（如枚举访问将执行的操作以发现功能是否存在），则根必须为此寄存器向主机提供 0001h 的人工值，并且对于此请求中的任何其他字节返回全 1。此 Vendor ID 不用于任何实际设备，将被软件解释为访问此设备可能存在较长延迟的指示。这可能很有用，因为软件可以选择转到另一个任务，并更好地利用原本用于等待设备响应的时间，稍后再返回查询此设备。为此，软件必须确保在复位条件后对某功能的首次访问是对 Vendor ID 两个字节的配置读。
+2. 主机桥将配置地址端口中指定的目标总线号 (4) 与其下游的总线范围 (0 至 10) 进行比较。目标总线落在该范围内，因此桥已被预置为下一个配置请求的目标。
 
-- 对于配置写或任何其他配置读，根必须自动作为新请求重新发出配置请求。
+3. `in` 指令生成从处理器对根复合体 (Root Complex) 主机桥中配置数据端口 (Configuration Data Port) 的 IO 读事务。这是从配置数据端口前两个位置进行的 2 字节读取。
 
-**107**
+4. 由于目标总线不是总线 0，主机/PCI 桥在总线 0 上发起 Type 1 配置读。
 
-**PCI Express 技术**
+5. 总线 0 上的所有设备锁存该事务请求，并看到这是一个 Type 1 配置请求 (Type 1 Configuration Request)。因此，根复合体中的两个虚拟 PCI-to-PCI 桥都将 Type 1 请求中的目标总线号与各自下游的总线范围进行比较。
 
-_图 3-11：PCIe 能力块中的根控制寄存器_
+6. 目标总线 (4) 位于左侧桥的下游总线范围内，因此它将该数据包传递到其二级总线 (secondary bus)，但仍作为 Type 1 请求，因为目标总线不匹配二级总线号 (Secondary Bus Number)。
 
-**==> picture [360 x 163] intentionally omitted <==**
+7. 左侧交换机的上游端口 (upstream port) 接收该数据包并将其传送到上游 PCI-to-PCI 桥。
 
-**----- Start of picture text -----**<br>
-15 5 4 3 2 1 0<br>RsvdP<br>CRS 软件可见性使能<br>PME 中断使能<br>系统致命错误使能<br>系统不可纠正错误使能<br>系统可纠正错误使能<br>**----- End of picture text -----**<br>
+8. 该桥确定目标总线位于其下方，但目标不是其二级总线，因此将数据包作为 Type 1 请求传递到总线 2。
 
+9. 总线 2 上的两个桥都接收 Type 1 请求数据包。右侧桥确定目标总线匹配其二级总线号 (Secondary Bus Number)。
 
-## **确定功能是端点还是桥**
-
-枚举过程的关键部分是能够确定功能是桥还是端点。如第 108 页图 3-12 所示，Header Type 寄存器（配置空间头中的偏移 0Eh）的低 7 位标识该功能的基本类别，定义了三个值：
-
-- 0 = 不是桥（在 PCIe 中为端点 (Endpoint)）
-
-- 1 = PCI-to-PCI 桥 (P2P)，连接两条总线
-
-- 2 = CardBus 桥（传统接口，今天不常使用）
-
-在第 87 页图 3-1 中，每个虚拟 P2P 中的 Header Type 字段（DW3，byte 2）将返回值 1，PCI Express-to-PCI 桥（总线 8，设备 0）也是，而端点将返回零的 Header Type。
-
-_图 3-12：Header Type 寄存器_
-
-**==> picture [189 x 84] intentionally omitted <==**
-
-**----- Start of picture text -----**<br>
-7   6                                0<br>Header Type<br>配置头格式<br>0 = 单功能设备<br>1 = 多功能设备<br>**----- End of picture text -----**<br>
-
-
-**108**
+**102**
 
 **第 3 章：配置概述**
 
-## **单根枚举示例**
+10. 该桥将配置读请求传递到总线 4，但将其转换为 Type 0 配置读 (Type 0 Configuration Read) 请求，因为该数据包已到达目标总线（目标总线号匹配二级总线号）。
 
-现在我们已经讨论了枚举过程中涉及的基本元素，让我们通过一个示例过程走一遍。第 113 页图 3-13 说明了对总线和设备进行枚举之后的示例系统。下面的讨论假设配置软件使用本章中定义的两种配置访问机制中的任何一种来实现此结果。在启动时，处理器上执行的配置软件按如下所述执行枚举。
+11. 总线 4 上的设备 0 接收该数据包，并解码目标设备、功能和寄存器号字段以在其配置空间中选择目标双字 (dword)（见第 90 页图 3-3）。
 
-1. 软件将 Host/PCI 桥的二级总线号 (Secondary Bus Number) 更新为零，将下属总线号 (Subordinate Bus Number) 更新为 255。将其设置为最大值意味着在识别出所有下游总线号之前不必再次更改它。此时，总线 0 到 255 被标识为下游。
+12. 第一个双字字节使能 (First Dword Byte Enable) 字段中的位 0 和位 1 被置位，因此该功能在完成包 (Completion packet) 中返回其前两个字节（本例中为 Vendor ID）。完成包使用从 Type 0 请求包中获取的请求者 ID (Requester ID) 字段路由到主机桥。
 
-2. 从设备 0（桥 A）开始，枚举软件尝试从总线 0 上 32 个可能设备的每个功能 0 读取 Vendor ID。如果从总线 0、设备 0、功能 0 返回有效的 Vendor ID，则该设备存在并至少包含一个功能。如果没有，请继续探测总线 0、设备 1、功能 0。
+13. 读取数据的两个字节被传送到处理器，从而完成 `in` 指令的执行。Vendor ID 被放入处理器的 AX 寄存器中。
 
-3. 在本例中（图 3-12，第 108 页），Header Type 字段包含值一（01h），表示这是 PCI-to-PCI 桥。Header Type 寄存器中的多功能位（bit 7）为 0，表示功能 0 是该桥中唯一的功能。_规范并不排除在此设备内实现多个功能，并且这些功能中的每一个又可以代表其他虚拟 PCI-to-PCI 桥，甚至是非桥功能。_
+## **增强配置访问示例**
 
-4. 现在软件已找到一个桥，执行一系列配置写入以设置桥的总线号寄存器，如下所示：
+请参考第 104 页图 3-9。以下 x86 代码示例使根复合体 (Root Complex) 执行对总线 4、设备 0、功能 0、寄存器 0 (Vendor ID) 的读。在该操作能够工作之前，必须为主机桥分配一个基地址值。本例假设 256MB 对齐的增强配置内存映射范围的基地址为 E0000000h：
 
-   - Primary Bus Number 寄存器 = 0
+```
+mov ax,[E0400000h];memory-mapped Config read
+```
 
-   - Secondary Bus Number 寄存器 = 1
+- 地址位 63:28 表示整个增强配置地址范围 256MB 对齐基地址的高 36 位（本例中为 00000000 E0000000h）。
 
-   - Subordinate Bus Number 寄存器 = 255
+- 地址位 27:20 选择目标总线（本例中为 4）。
 
-   - 该桥现在知道直接连接在下游的总线号为 1（Secondary Bus Number = 1），其下游的最大总线号为 255（Subordinate Bus Number = 255）。
+- 地址位 19:15 选择总线上目标设备（本例中为 0）。
 
-5. 枚举软件必须执行深度优先搜索。在继续发现总线 0 上的其他设备/功能之前，它必须继续搜索总线 1。
+- 地址位 14:12 选择设备内的目标功能 (Function)（本例中为 0）。
 
-6. 软件读取总线 1、设备 0、功能 0 的 Vendor ID，这在本例中针对桥 C。返回有效的 Vendor ID，表明总线 1 上存在设备 0、功能 0。
+- 地址位 11:2 选择所选功能配置空间内的目标双字 (dword)（本例中为 0）。
 
-7. Header 寄存器中的 Header Type 字段包含值一（0000001b），表示另一个 PCI-to-PCI 桥。和之前一样，bit 7 为 0，
+- 地址位 1:0 定义所选双字内的起始字节位置（本例中为 0）。
 
-**109**
+处理器启动从内存位置 E0400000h 开始的 2 字节内存读，该请求被根复合体 (Root Complex) 中的主机桥锁存。主机桥识别出该地址与配置指定的区域匹配，并为双字 0、功能 0、设备 0、总线 4 的前两个字节生成配置读请求 (Configuration Read Request)。其余操作与上一节中描述的相同。
 
-**PCI Express Technology**
+**103**
 
-表示桥 C 是单功能设备。
+## **PCI Express 技术**
 
-8. 软件现在执行一系列配置写入以设置桥 C 的总线号寄存器，如下所示：
+_图 3-9：配置读访问示例_
 
-   - Primary Bus Number 寄存器 = 1
+**==> picture [266 x 367] intentionally omitted <==**
 
-   - Secondary Bus Number 寄存器 = 2
+**----- Start of picture text -----**<br>
+Processor<br>Root Complex<br>Host/PCI<br>Bus = 0 Bridge<br>Sub = 10<br>Bus 0<br>Pri = 0 Pri = 0<br>P2P Sec = 1Sub = 4 Device 0 Device 1 Sec = 5Sub = 10 P2P<br>Bus 1 Bus 5<br>Pri = 1 Pri = 5<br>Sec = 2 P2P P2P Sec = 6<br>Sub = 4 Sub = 10<br>Bus 2 P2P Bus 6 P2P<br>Pri = 2 P2P Pri = 2 Pri = 6 P2P Pri = 6 Pri = 6<br>Sec = 3 Sec = 4 Sec = 7 Sec = 8 Sec = 10<br>Sub = 3 P2P Sub = 4 Sub = 7 Sub = 8 Sub = 10<br>Bus 3 Bus 4 Bus 7 Bus 8 Bus 10<br>Function 0 Function 0 Function 0 Function 0<br>Pri = 8 Express<br>Sec = 9 PCI<br>Sub = 9 Bridge<br>PCI Bus Bus 9<br>PCI PCI PCI<br>Device Device Device<br>**----- End of picture text -----**<br>
 
-   - Subordinate Bus Number 寄存器 = 255
 
-9. 继续进行深度优先搜索，从总线 2、设备 0、功能 0 的 Vendor ID 寄存器执行读取。本例假设桥 D 是总线 2 上的设备 0、功能 0。
+## **枚举 - 发现拓扑**
 
-10. 返回有效的 Vendor ID，表明总线 2、设备 0、功能 0 存在。
+系统复位或上电后，配置软件必须扫描 PCIe 结构以发现机器拓扑并了解结构的填充情况。在那发生之前，如第 105 页图 3-10 所示，软件唯一可以确定的事情是将会存在一个主机/PCI 桥，并且
 
-11. Header 寄存器中的 Header Type 字段包含值一（0000001b），表示这是 PCI-to-PCI 桥，bit 7 为 0，表示桥 D 是单功能设备。
-
-12. 软件现在执行一系列配置写入以设置桥 D 的总线号寄存器，如下所示：
-
-   - Primary Bus Number 寄存器 = 2
-
-   - Secondary Bus Number 寄存器 = 3
-
-   - Subordinate Bus Number 寄存器 = 255
-
-13. 继续进行深度优先搜索，从总线 3、设备 0、功能 0 的 Vendor ID 寄存器执行读取。
-
-14. 返回有效的 Vendor ID，表明总线 3、设备 0、功能 0 存在。
-
-15. Header 寄存器中的 Header Type 字段包含值零（0000000b），表示这是一个端点功能。由于这是端点而不是桥，它具有 Type 0 头，并且其下面没有 PCI 兼容的总线。这次，bit 7 为 1，表示这是多功能设备。
-
-16. 枚举软件对总线 3、设备 0 上所有 8 个可能功能进行 Vendor ID 访问，并确定除了功能 0 之外只有功能 1 存在。功能 1 也是端点（Type 0 头），因此此设备下没有其他总线。
-
-17. 枚举软件继续在总线 3 上扫描以查找设备 1 - 31 上的有效功能，但没有找到其他功能。
-
-18. 在找到桥 D 下游的每个功能后，枚举软件将桥 D 更新为真实的 Subordinate Bus Number 3。然后它向上一级（回到总线 2），并继续在该总线上扫描以查找有效功能。本例假设桥 E 是总线 2 上的设备 1、功能 0。
-
-19. 返回有效的 Vendor ID，表明此功能存在。
-
-20. 桥 E 的 Header 寄存器中的 Header Type 字段包含值一（0000001b），表示这是 PCI-to-PCI 桥，bit 7 为 0，表示单功能设备。
-
-**110**
+**104**
 
 **第 3 章：配置概述**
 
-21. 软件现在执行一系列配置写入以设置桥 E 的总线号寄存器，如下所示：
+该桥的二级侧上将存在总线号 0。请注意，桥的上游侧称其为主总线 (primary bus)，而下游侧称为二级总线 (secondary bus)。扫描 PCI Express 结构以发现其拓扑的过程称为 _枚举过程_。
 
-   - Primary Bus Number 寄存器 = 2
+_图 3-10：启动时的拓扑视图_
 
-   - Secondary Bus Number 寄存器 = 4
+**==> picture [238 x 164] intentionally omitted <==**
 
-   - Subordinate Bus Number 寄存器 = 255
+**----- Start of picture text -----**<br>
+Root Complex has bus<br>number zero assigned.<br>Processor The remaining topology<br>have yet to be discovered<br>and numbered.<br>Host/PCI<br>Bridge<br>Bus 0<br>? ? ? ? ? ? ? ?<br>**----- End of picture text -----**<br>
 
-22. 继续进行深度优先搜索，从总线 4、设备 0、功能 0 的 Vendor ID 寄存器执行读取。
 
-23. 返回有效的 Vendor ID，表明此功能存在。
+## **发现功能的存在或缺失**
 
-24. Header 寄存器中的 Header Type 字段包含值零（0000000b），表示这是端点设备，bit 7 为 0，表示这是单功能设备。
+处理器上执行的配置软件通常通过读取其 Vendor ID 寄存器来发现功能 (Function) 的存在。PCI-SIG 为每个供应商分配一个唯一的 16 位值，该值被硬连线到该供应商设计的每个功能的 Vendor ID 寄存器中。通过在系统中所有可能的总线、设备和功能号组合中读取该寄存器，枚举软件可以搜索整个拓扑以了解哪些设备存在。此过程相当简单，但可能出现两个问题：目标设备可能不存在，或者目标设备存在但未准备好响应。这两种情况的处理如下所述。
 
-25. 枚举软件扫描总线 4 以查找设备 1 - 31 上的有效功能，但没有找到其他功能。
+## **设备不存在**
 
-26. 在到达该树分支的底部后，枚举软件将本例中该总线上方的桥 E 更新为真实的 Subordinate Bus Number 4。然后它向上一级（回到总线 2），并继续读取下一个设备（设备 2）的 Vendor ID。本例假设总线 2 上未实现设备 2 - 31，因此没有在总线 2 上发现其他设备。
+在发现过程中，目标设备实际上不存在于系统中的情况可能发生多次，正确理解这一点非常重要。在 PCI 中，配置读请求 (Configuration Read Request) 将在总线上超时并产生主中止 (Master Abort) 错误条件。由于没有设备驱动总线且所有信号都被上拉，总线上的数据位将被视为全 1，并成为所看到的数据值。得到的 Vendor ID 为 FFFFh 是保留值。如果枚举软件看到读取的该结果，则表明设备不存在。由于这不是真正的错误条件，因此在枚举过程中主中止 (Master Abort) 不会被报告为错误。
 
-27. 枚举软件将总线 2 上方的桥（本例中为 C）更新为真实的 Subordinate Bus Number 4，并返回到上一级总线（总线 1），并尝试读取下一个设备（设备 1）的 Vendor ID。本例假设总线 1 上未实现设备 1 - 31，因此没有在总线 1 上发现其他设备。
+**105**
 
-28. 枚举软件将总线 1 上方的桥（本例中为 A）更新为真实的 Subordinate Bus Number 4，并返回到上一级总线（总线 0），并继续读取下一个设备（设备 1）的 Vendor ID。本例假设桥 B 是总线 0 上的设备 1、功能 0。
+## **PCI Express 技术**
 
-29. 以与之前描述的相同方式，枚举软件发现桥 B 并执行一系列配置写入以设置桥 B 的总线号寄存器，如下所示：
+对于 PCIe，对不存在的设备的配置读请求 (Configuration Read Request) 将导致目标设备上方的桥返回具有 UR (Unsupported Request) 状态的无数据完成包 (Completion)。为了与传统枚举模型向后兼容，当在枚举期间看到此完成包时，根复合体 (Root Complex) 向处理器返回全 1 (FFFFh) 作为数据。请注意，枚举软件依赖于在探测系统中功能 (Function) 的存在时，对返回 Unsupported Request 的配置读请求接收全 1 的值。
 
-   - Primary Bus Number 寄存器 = 0
+重要的是要避免在这种情况下意外地报告错误。尽管此超时或 UR 结果在运行时将被视为错误，但它是预期结果，在枚举期间不视为错误。为帮助避免这种混淆，设备通常要到稍后才会被启用以发出错误信号。对于 PCIe，记录此事件仍然可能很有用，这就是为什么 PCIe 能力寄存器块 (Capability register block) 中提供了第四个"错误"状态位，称为不支持请求状态 (Unsupported Request Status) 位（有关更多详细信息，请参阅第 678 页的"启用/禁用错误报告"）。这允许记录此条件但不将其标记为错误，这很重要，因为检测到的错误可能会停止枚举过程以调用系统错误处理程序。错误处理软件在此期间可能只具有有限的能力，因此可能难以解决问题。枚举软件在这种情况下可能会失败，因为它通常编写为在操作系统或其他错误处理软件可用之前执行。为避免此风险，在枚举期间通常不应报告错误。
 
-   - Secondary Bus Number 寄存器 = 5
+## **设备未就绪**
 
-   - Subordinate Bus Number 寄存器 = 255
+可能出现的另一个问题是目标设备存在但尚未准备好响应配置访问。由于设备准备访问所需的时间，配置存在一个时序考虑因素。如果数据速率为 5.0 GT/s 或更低，则软件必须在复位后等待 100ms 才能发起配置请求 (Configuration Request)。如果速率高于 5.0 GT/s (Gen3 速度)，则软件必须等待链路训练完成 (Link training) 后 100ms 才能尝试此操作。较高速度需要更长延迟的原因是 Gen3 均衡过程 (Equalization Process) 在链路训练 (Link training) 期间可能需要很长时间（约 50ms 的数量级；有关此主题的更多信息，请参阅第 577 页的"链路均衡概述"）。
 
-30. 然后发现桥 F 并执行一系列配置写入以设置其总线号寄存器，如下所示：
+如 PCI 2.3 规范所定义，初始化时间 (Initialization Time, Trhfa - 复位高电平到首次访问的时间) 从 RST# 解除置位时开始，并在 2[25] 个 PCI 时钟后完成。
 
-   - Primary Bus Number 寄存器 = 5
+**106**
 
-   - Secondary Bus Number 寄存器 = 6
+**第 3 章：配置概述**
 
-   - Subordinate Bus Number 寄存器 = 255
-
-31. 然后发现桥 G 并执行一系列配置写入以设置其总线号寄存器，如下所示：
-
-**111**
-
-**PCI Express Technology**
-
-   - Primary Bus Number 寄存器 = 6
-
-   - Secondary Bus Number 寄存器 = 7
-
-   - Subordinate Bus Number 寄存器 = 255
-
-32. 在总线 7、设备 0、功能 0 处发现单功能端点设备，因此桥 G 的 Subordinate Bus Number 被更新为 7。
-
-33. 然后发现桥 H 并执行一系列配置写入以设置其总线号寄存器，如下所示：
-
-   - Primary Bus Number 寄存器 = 6
-
-   - Secondary Bus Number 寄存器 = 8
-
-   - Subordinate Bus Number 寄存器 = 255
+这相当于整整一秒钟，在该时间内该功能 (Function) 正在为其首次配置访问做准备，并且该值已作为 1.0s (+50%/‐0%) 沿用至 PCIe。功能可以使用该时间通过从外部串行 EEPROM 加载内容来填充其配置寄存器，例如，这可能需要一段时间才能加载，并且该功能在完成之前将无法成功访问。在 PCI 中，如果在功能准备就绪之前看到配置访问，它有三种选择：忽略请求、重试请求或接受请求但推迟其响应直到完全准备好。最后一种响应可能会给热插拔 (Hot-plug) 系统带来麻烦，因为共享总线可能会停滞一秒钟，直到请求解析完成。

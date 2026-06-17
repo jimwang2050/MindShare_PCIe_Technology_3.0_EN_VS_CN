@@ -2078,141 +2078,167 @@ The next state will be Loopback.Exit for the loopback slave if either of two con
 </td>
 <td style="background-color:#e8e8e8">
 
-从站必须能够在接收到 EIOS 后 1ms 内检测到任何 Lane 上的 Electrical Idle。在接收到 EIOS 和实际检测到 Electrical Idle 之间,Loopback Slave 可能接收的位流未被编码方案定义,并且可以将其环回给发送器。
-
-**617** 
-
-## **PCI Ex ress Technolo p gy** 
-
-## **Loopback.Exit** 
-
-在此子状态期间,Loopback Master 发送一个 EIOS(对于仅支持 2.5 GT/s 的端口)或八个连续的 EIOS(对于支持高于 2.5 GT/s 速率的端口;对于仅支持 2.5 GT/s 的端口,也可选地发送 8 个),然后在所有 Lane 上进入 Electrical Idle 2ms。
-
-- Loopback Master 必须在发送最后一个 EIOS 后,在 TTX-IDLE-SET-TO-IDLE[内转换到 Electrical Idle。请注意,EIOS 标记主站的]发送和比较操作的结束。Master 在接收到任何 EIOS 后接收到的任何数据都是未定义的,应予以忽略。
-
-Loopback slave 必须在所有 Lane 上进入 Electrical Idle 2ms,但必须回显在检测到 Electrical Idle 之前接收到的所有符号,以确保 Master 将 EIOS 的到达视为逻辑发送和比较操作的结束。
+在此子状态期间，发送器将在至少 Lane 0 上发送 Beacon。请注意，此状态仅适用于上游端口，因为只有它们才能发送 Beacon。
 
 ## _退出到"Detect 状态"_
 
-一旦已交换所需的 EIOS 并且 Lane 已在 Electrical Idle 中保持 2ms,下一个状态将是 Detect。
+如果在某个上游端口的接收器上检测到电气空闲退出，则下一个状态将是 Detect。当然，必须已经恢复了设备的供电，相邻设备才能从电气空闲中退出。
 
-## **Dynamic Bandwidth Changes** 
+## **热复位状态**
 
-更高的数据速率和更宽的 PCIe 链路提供比前几代更高的性能,但也使用更多功率。因此,2.0 规范的作者选择包括另一对电源管理机制,允许硬件动态调整链路速度和宽度。这些允许链路在需要性能时使用最高速度和最宽的链路,或者降低到较低速度或较窄的链路宽度或两者兼而有之以降低功率。与更改链路或设备电源状态相比,此方法有两个明显的优势。
+端口进入热复位状态，要么是因为它是一个桥，并且软件对其配置空间进行编程以向下游传播热复位（如第 837 页的"热复位（带内复位）"中所述），要么是因为端口接收到了两个连续的、Hot Reset 位被置位的 TS1。
 
-首先,无论是否更改,链路始终能够通信,服务中断相对较短以进行更改。其次,节能可以更大。例如,与处于 L0s 状态下的 x16 链路相比,x16 链路作为活动 x1 链路运行几乎肯定会使用更少的功率。
+## _热复位期间_
 
-其次,除了节能之外,带宽缩减还可用于解决可靠性问题。例如,可能是高速链路产生不可接受的可靠性,在这种情况下,允许任一链路组件从其通告的支持速率列表中删除有问题的速度。组件如何进行可靠性确定未指定。
+端口以 Hot Reset 位置位连续发送 TS1，但不更改已配置的链路和 Lane 编号。
 
-**618** 
+如果交换机的上游端口进入热复位状态，则所有已配置的下游端口必须尽快转换为热复位。
 
-**Chapter 14: Link Initialization & Training** 
+## _退出到"Detect 状态"_
 
-有趣的是,也允许组件进入 Recovery 状态并通告一组不同的支持速度,而不在此过程中请求速度更改。
+在发起热复位的桥中，一旦软件清除了发起热复位的配置空间位，桥端口就进入 Detect。但是，端口必须在热复位状态中保持至少 2ms。
 
-更改链路速度或链路宽度需要重新训练链路。当链路处于 L0 状态并且需要更改速度时,需要更改速度的端口的 LTSSM 开始向其邻居发送 TS1。这样做会导致两个相关端口的 LTSSM 经过 Recovery 状态,在那里更改链路速度,然后返回 L0。
+**612**
 
-类似地,需要更改链路宽度的端口开始向其邻居发送 TS1。这样做会导致两个相关端口的 LTSSM 经过 Recovery 状态,然后经过 Configuration 状态,在那里更改链路宽度。LTSSM 最终返回到 L0,并建立新的链路宽度。
+**第 14 章：链路初始化与训练**
 
-由于 LTSSM 参与动态链路带宽管理,讨论链路带宽管理的两个方面(动态链路速度更改和动态链路宽度更改)是有意义的。让我分别考虑这两个选项,从链路速度更改开始。
+对于由于接收到两个连续的、Hot Reset 位置位的 TS1 而进入热复位的端口，只要它继续接收此类 TS1，它就保持在该状态。一旦端口停止接收 Hot Reset 位置位的 TS1，它将转换到 Detect 状态。但是，端口必须在热复位状态中保持至少 2ms。
 
-## **Dynamic Link Speed Changes** 
+## **禁用状态**
 
-回顾一下,LTSSM 状态如图 14-45(第 620 页)所示,以便于回忆状态流。虽然根据 Gen1 规范,速度更改指示在 Polling 状态中执行,但随后的 Gen2 规范将此功能移至 Recovery 状态。
+禁用的链路处于电气空闲状态，无需维持 DC 共模电压。软件通过在设备的 Link Control 寄存器中设置 Link Disable 位（请参见第 644 页的图 14‐71）来启动此操作，然后设备发送 Link Disable 位置位的 TS1。
 
-**619** 
+## _禁用期间_
 
-## **PCI Ex ress Technolo p gy** 
+所有 Lane 发送 16 到 32 个 Link Disable 位置位的 TS1，发送一个 EIOS（对于 5.0 GT/s 情况为两个连续的 EIOS），然后转换到电气空闲。DC 共模电压不需要在规范范围内。
 
-_Figure 14-45: LTSSM 概述_ 
+如果发送了 EIOS（对于 5.0 GT/s 情况为两个连续的 EIOS），并且在任何已配置的 Lane 上也接收到了 EIOS，则 LinkUp = 0b（假），并且 Lane 被认为是禁用的。
 
-**==> picture [196 x 255] intentionally omitted <==**
+## _退出到"Detect 状态"_
 
-**----- Start of picture text -----**<br>
-Detect<br>Polling<br>Configuration<br>L2 Recovery<br>L1 L0 L0s<br>**----- End of picture text -----**<br>
+对于上游端口，当在接收器处检测到电气空闲或者在 2ms 超时内未接收到 EIOS 时，下一个状态将是 Detect。
 
+对于下游端口，下一个状态也将是 Detect，但只有在软件将 Link Disable 位清零至 0b 后才会发生。
 
-在 Polling 状态期间,链路邻居之间交换 TS1,这些信息包含几种类型的信息,如图 14-46(第 621 页)所示。对我们来说,最有趣的部分是字节号 4,即 Rate Identifier。位 1、2 和 3 指示哪些数据速率可用,规范指出必须始终支持 2.5 GT/s,而如果支持 8.0 GT/s,则还必须支持 5.0 GT/s。
+## **回环状态**
 
-位 6 的含义取决于端口是面向上游还是下游,以及也取决于端口所处的 LTSSM 状态。但是,对于速度更改情况,选项会减少,因为仅来自上游端口的位才有意义,仅指示速度更改是否是自主事件。"自主"意味着端口出于其自身的硬件特定原因请求此更改,而不是由于可靠性问题。位 7 由上游端口用于请求速度更改。这些值在 TS2 中非常相似,尽管位 6 现在具有另一种含义,与我们稍后将讨论的自主链路宽度更改相关。
+回环状态是一个测试和调试功能，在正常运行期间不使用。充当回环主设备的设备可以通过发送 Loopback 位置位的 TS1 将链路伙伴置于回环从设备模式。这可以在电路中完成，从而可以使用回环状态对链路执行 BIST（Built In Self Test，内建自测试）。
 
-**620** 
+一旦进入此状态，回环主设备将有效的 Symbol 发送给回环从设备，然后回环从设备将其回显。回环从设备继续执行
 
-**Chapter 14: Link Initialization & Training** 
+**613**
 
-_Figure 14-46: TS1 内容_ 
+## **PCI Express 技术**
 
-**==> picture [315 x 176] intentionally omitted <==**
+时钟容差补偿，因此主设备必须继续以正确的间隔插入 SOS。为了执行时钟容差补偿，回环从设备可能必须向其回传给回环主设备的 SOS 添加或删除 SKP Symbol。
 
-**----- Start of picture text -----**<br>
-0 COM<br>1 Link #<br>Rate Identifier<br>2 Lane # Bit 0 Reserved, = 0<br>3 # FTS Bit 1 Indicates 2.5 GT/s support<br>4 Rate ID Bit 2 Indicates 5.0 GT/s support<br>5 Train Ctl Bit 3 Indicates 8.0 GT/s support<br>6 Bit 4:5 Reserved, = 0<br>TS ID Bit 6 Autonomous Change / Selectable De-<br>13 emphasis<br>14 TS ID Bit 7 Speed Change<br>15 TS ID<br>**----- End of picture text -----**<br>
+回环状态在回环主设备发送 EIOS 并且接收器检测到电气空闲时退出。回环状态机如图 14‐44（第 614 页）所示，并在以下文本中描述。
 
+_图 14‐44：回环状态机_
 
-_Figure 14-47: TS2 内容_ 
-
-**==> picture [316 x 177] intentionally omitted <==**
+**==> picture [368 x 171] intentionally omitted <==**
 
 **----- Start of picture text -----**<br>
-0 COM<br>1 Link # Rate Identifier<br>Bit 0 Reserved, = 0<br>2 Lane #<br>Bit 1 Indicates 2.5 GT/s support<br>3 # FTS<br>Bit 2 Indicates 5.0 GT/s support<br>4 Rate ID<br>Bit 3 Indicates 8.0 GT/s support<br>5 Train Ctl<br>Bit 4:5 Reserved, = 0<br>6<br>Bit 6 Autonomous Change / Link Up-<br>TS ID configure Capability / Selectable De-<br>13 emphasis<br>14 TS ID Bit 7 Speed Change<br>15 TS ID<br>**----- End of picture text -----**<br>
+Entry<br>
+from Configuration<br>
+Or Recovery<br>
+Slave: Enter Electrical<br>
+Master sends valid Idle for 2ms<br>
+Master sends Master receives Symbols - Master: Tx EIOSs<br>
+Identical TS1's; Slave required to and enter Electrical<br>
+TS1s w/ Loopback Slave has retransmit exactly Slave: Directed or  Idle for 2 ms<br>
+bit set entered 4 EIOS seen<br>
+Loopback Master: Directed<br>
+Loopback.Entry Loopback.Active Loopback.Exit<br>
+Timeout less than<br>
+100 ms Exit to<br>
+Detect<br>
+**----- End of picture text -----**<br>
 
 
-**621** 
+## **Loopback.Entry**
 
-## **PCI Ex ress Technolo p gy** 
+此子状态的典型行为是回环主设备发送 Loopback 位置位的 TS1，直到它开始看到这些 TS1 被返回。一旦回环主设备看到 Loopback 位被置位的 TS1 被返回，它就知道其链路伙伴现在正在充当回环从设备，并简单地重复其接收到的所有内容。
 
-## **上游端口发起速度更改** 
+在此子状态期间，链路不被认为是活动的（LinkUp = 0b）。此外，TS1 和 TS2 中使用的链路和 Lane 编号将被接收器忽略。规范对 128b/130b 编码的 Lane 编号的使用做了一个有趣的观察。事实证明，每个 Lane 使用不同的种子值用于其加扰器（参见第 430 页的"加扰"）。因此，如果在进入回环模式之前尚未协商 Lane 编号，则链路伙伴可能具有不同的 Lane 分配，因此将无法识别传入的 Symbol。这可以通过在指导主设备进入回环状态之前等待 Lane 编号协商完成，或者通过指导主设备在 Loopback.Entry 期间设置 Compliance Receive 位，或通过其他方法来避免。
 
-速度更改必须由上游端口(面向上游的端口)发起,并通过转换到 Recovery 状态来完成。Recovery 状态的子状态如图 14-48(第 622 页)所示,本次讨论中感兴趣的部分由椭圆突出显示。此处后面的讨论是整个速度更改过程的相对较高级别的概述,不会深入到 LTSSM 操作的详细信息。要了解更多信息,请参阅第 571 页的"Recovery State"讨论。
+**614**
 
-_Figure 14-48: Recovery 子状态_ 
+**第 14 章：链路初始化与训练**
 
-**==> picture [342 x 187] intentionally omitted <==**
+## **Loopback Master:**
 
-**----- Start of picture text -----**<br>
-Exit to<br>Recovery.Speed<br>Entry from Loopback Exit to<br>L1, L0, L0s Configuration<br>Recovery.Equalization<br>Recovery.RcvrLock Recovery.Idle Exit to<br>(bit/symbol re-lock) Recovery.RcvrCfg (Send idle data) Disabled<br>Exit to Hot<br>Exit to Exit to Reset<br>Configuration Detect<br>Exit to L0<br>**----- End of picture text -----**<br>
+在此子状态中，回环主设备将连续发送 Loopback 位置位的 TS1。主设备还可以在 TS1 中置位 Compliance Receive 位，以帮助当一个或两个端口在速率变化后难以获得位锁定、Symbol 锁定或块对齐时进行测试。如果该位被置位，则在此状态期间不得清除。
 
+如果此子状态是从 Configuration.Linkwidth.Start 进入的，请检查当前使用的速率是否是两个链路伙伴共同支持的最高速率。如果不是：
 
-## **速度更改示例** 
+- 更改为最高公共速率。发送 16 个 Loopback 位置位的 TS1，后跟一个 EIOS（如果当前速率为 5.0 GT/s，则为两个 EIOS），然后进入电气空闲状态 1ms。在空闲期间，将速率更改为共同支持的最高速率。
 
-为了说明该过程,请考虑图 14-49(第 623 页)中所示的速度更改示例。请注意,在此示例中已删除 Equalization 子状态以使图表更简单且更易于理解。该示例显示了从 2.5 GT/s 到 5.0 GT/s 的更改,因此无论如何不使用 Equalization 子状态。更改为 8.0 GT/s 将经历相同的过程,但只需在该过程结束时添加通过 Equalization 子状态的一次行程。要
+- 如果最高公共速率为 5.0 GT/s，则从设备的 Tx 去加重由主设备在 TS1 中将其 Selectable De‐emphasis 位设置为所需的值（1b = ‐3.5 dB，0b = ‐6 dB）来控制。
 
-**622** 
+- 对于 5.0 GT/s 及更高的数据速率，主设备的发送器可以选择任何其想要的去加重设置，无论它发送给从设备的设置如何。
 
-**Chapter 14: Link Initialization & Training** 
+- 潜在问题：如果在链路已经训练到 L0 且 LinkUp = 1b 之后进入回环，则一个端口可能从 Recovery 进入回环，而其伙伴从 Configuration 进入。如果发生这种情况，后一个端口可能尝试更改速率，而从 Recovery 进入的端口不会更改，从而导致结果未定义的情况。规范指出测试设置必须避免此类冲突情况。
 
-要了解有关均衡过程的更多信息,请参阅第 587 页的"Recovery.Equalization"。
+## _退出到"Loopback.Active"_
 
-此示例中的端点 (Endpoint) (只能具有上游端口)显示连接到根复合体 (Root Complex),后者只能具有下游端口。只有上游端口可以启动速度更改过程,它这样做是因为其 _Directed Speed Change_ 标志之前已根据某些硬件特定条件设置。要启动序列,它将其 LTSSM 更改为 Recovery 状态,进入 Recovery.RcvrLock 子状态,并发送 Speed Change 位为 1 且列出其将支持的速率的 TS1,如图 14-49(第 623 页)所示。当下游端口看到传入的 TS1 时,它也更改为 Recovery 状态并开始发回 TS1。由于 Speed Change 位已在传入的 TS1 中设置,这将在 Root Port 中设置 _Directed Speed Change_ 标志,并且传出的 TS1 也将设置该位。链路将尝试使用的速度将是最高共同支持的速度,因此,如果设备希望使用较低速度,它只需在此时不将较高速度列为受支持。
+在 2ms 之后，如果 Compliance Receive 位在发出的 TS1 中被置位，或者在设计特定数量的 Lane 上接收到两个连续的、Loopback 位置位且 Compliance Receive 位未在发出的 TS1 中置位的 TS1，则下一个状态将是 Loopback.Active。
 
-_Figure 14-49: 速度更改 - 已发起_ 
+请注意，如果更改了速率，则主设备必须确保已发送了足够的 TS1，以便从设备能够在进入 Loopback.Active 状态之前获得 Symbol 锁定或块对齐。
 
-**==> picture [336 x 196] intentionally omitted <==**
+**615**
 
-**----- Start of picture text -----**<br>
-Directed Speed Change = 0 Directed Speed Change = 1<br>Entry Entry<br>Speed Speed<br>RcvrLock RcvrCfg RcvrLock RcvrCfg<br>Speed_Change = 1<br>TS1 TS1 TS1 TS1<br>Root PCIe<br>Link Speed = 2.5 GT/s<br>Complex Endpoint<br>TS1 TS1 TS1 TS1<br>Speed_Change = 1<br>**----- End of picture text -----**<br>
+**PCI Express 技术**
 
+## _退出到"Loopback.Exit"_
 
-当上游端口检测到返回的 TS1 时,其状态机更改为 Recovery.RcvrCfg 子状态,并开始发送仍设置了 Speed Change 位的 TS2,如图 14-50(第 624 页)所示。这些
+如果进入 Loopback.Active 的两个条件均未满足，则在小于 100ms 的设计特定超时之后，下一个状态将是 Loopback.Exit。
 
-**623** 
+## **Loopback Slave:**
 
-## **PCI Ex ress Technolo p gy** 
+此子状态通过接收 Loopback 位置位的两个连续的 TS1 进入。
 
-如果此更改不是由链路上的可靠性问题引起的,则 TS2 现在还将设置 Autonomous Change 位。当下游端口看到传入的 TS2 时,它也更改为 Recovery.RcvrCfg 子状态,并返回设置了 Speed Change 位的 TS2。但是,在 Recovery 期间,下游端口的 TS2 中的 Autonomous Change 位是保留的。
+如果此子状态是从 Configuration.Linkwidth.Start 进入的，请检查当前使用的速率是否是两个链路伙伴共同支持的最高速率。如果不是：
 
-_Figure 14-50: 速度更改 - 第 2 部分_ 
+- 更改为最高公共速率。发送一个 EIOS（如果当前速率为 5.0 GT/s，则为两个 EIOS），然后进入电气空闲状态 2ms。在空闲期间，将速率更改为共同支持的最高速率。
 
-**==> picture [371 x 230] intentionally omitted <==**
+- 如果最高公共速率为 5.0 GT/s，则根据接收到的 TS1 中的 Selectable De‐emphasis 位设置发送器的去加重（1b = ‐3.5 dB，0b = ‐6 dB）。
 
-**----- Start of picture text -----**<br>
-Directed Speed Change = 1 Directed Speed Change = 1<br>Entry Entry<br>Speed Speed<br>RcvrLock RcvrCfg RcvrLock RcvrCfg<br>Speed_Change = 1<br>TS2 TS2 TS2 TS2<br>Root  PCIe<br>Link Speed = 2.5 GT/s<br>Complex Endpoint<br>TS2 TS2 TS2 TS2<br>Speed_Change = 1<br>Autonomous Change = 1<br>**----- End of picture text -----**<br>
+- 如果最高公共速率为 8.0 GT/s 并且：
 
+   - a) EQ TS1 指导从设备进入此状态，则使用它们指定的 Tx 预设设置。
 
-一旦每个端口看到 8 个连续的 Speed Change 位设置的 TS2,它们就知道下一步将是进入 Recovery.Speed 子状态,如图 14-51(第 625 页)所示。此时,下游端口需要记录传入 TS2 中的 Autonomous Change 位的设置。为支持此操作,已将一些额外字段添加到 PCIe Capability 寄存器中。
+   - b) 常规 TS1 指导从设备进入此状态，则允许从设备使用其默认发送器设置。
 
-链路带宽更改的状态位在 Link Status 寄存器中找到,如图 14-52(第 625 页)所示。如果设备能够并已启用,状态更改还可用于生成中断以将这些事件通知软件。该功能由 Link Bandwidth Notification Capable 位报告,如图 14-53(第 626 页)所示,并通过 Link Control 寄存器中的 Interrupt Enable 位启用,如图 14-54 所示,
+## _退出到"Loopback.Active"_
 
-**624**
+如果在指导从设备进入此状态的传入 TS1 中设置了 Compliance Receive 位，则下一个状态将是 Loopback.Active。从设备无需等待特定边界即可发送回送数据，并允许截断任何进行中的有序集。
+
+否则，从设备发送链路和 Lane 编号设置为 PAD 的 TS1，并且如果满足以下条件，则下一个状态将是 Loopback.Active：
+
+- 速率为 2.5 或 5.0 GT/s，并且在所有 Lane 上获得了 Symbol 锁定。
+
+- 速率为 8.0 GT/s，并且在所有活动 Lane 上看到两个连续的 TS1。通过评估和应用 TS1 中给定的值来处理均衡，只要它们受支持并且 EC 值对于端口的方向是适当的（下行端口为 10b，
+
+**616**
+
+**第 14 章：链路初始化与训练**
+
+上行端口为 11b）。可选地，端口可以接受这两个 EC 值中的任何一个以应对此情况。如果应用了设置，则必须在接收后 500ns 内生效，并且不得导致发送器在任何电气规范上违规超过 1ns。与 Recovery.Equalization 中的过程相比，一个重要的区别是从设备正在发送的 TS1 中不会回显新设置。— 对于 8b/10b，从设备必须仅在 Symbol 边界上转换为回送数据，但允许截断任何进行中的有序集。对于 128b/130b，没有指定何时可以发送回送数据的边界，但仍允许截断任何进行中的有序集。
+
+## **Loopback.Active**
+
+在此子状态期间，回环主设备发送有效的编码数据，并且在其准备退出回环之前不应发送 EIOS。回环从设备不加修改地回显接收到的信息（即使编码被确定为无效），但根据 Polling 状态确定的极性反转可能除外。从设备还继续执行时钟容差补偿。这意味着必须根据需要添加或删除 SKP，但不要求所有 Lane 都发送相同数量。
+
+## _退出到"Loopback.Exit"_
+
+对于回环主设备，如果被指导，则下一个状态将是 Loopback.Exit。
+
+对于回环从设备，如果以下两个条件中的任何一个为真，则下一个状态将是 Loopback.Exit：
+
+- 从设备被指示退出，或者在任何 Lane 上看到四个连续的 EIOS。
+
+- 可选地，如果当前速率为 2.5 GT/s，并且接收到 EIOS 或在任何 Lane 上检测到或推断出电气空闲。如果任何已配置的 Lane 在 128 μs 内未检测到电气空闲退出，则可以推断为电气空闲。
 
 </td>
 </tr></tbody></table>
@@ -4348,15 +4374,158 @@ Several circumstances can occur that could result in a Completer returning this 
 </td>
 <td style="background-color:#e8e8e8">
 
-**663** 
+如果启用了可选的 ECRC 功能，则头标中称为 TD（TLP Digest，TLP 摘要）的一个特殊位被置位，以指示它在包的末尾存在（ECRC 也称为 Digest）。包头中的 TD 位在第 659 页的图 15‐5 中显示。规范强调在转发 TLP 时必须特别小心地处理此位，因为如果缺失但 ECRC 存在，反之亦然，那么该包将被视为格式错误（Malformed）。
 
-## **PCI Ex ress Technolo p gy** 
+_图 15‐5：完成头中的 TLP Digest 位_
 
-## **完成者中止 (CA) 状态** 
+**==> picture [373 x 149] intentionally omitted <==**
 
-可能发生多种情况,导致完成者将 CA 状态返回给请求者。一些示例是:
+**----- Start of picture text -----**<br>
++0 +1 +2 +3<br>
+7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>
+At T T E<br>
+Byte 0 Fmt Type R TC R R Attr AT Length<br>
+tr H D P<br>
+Byte 4 Bytes 4-7 Vary with  Type  Field<br>
+Byte 8 Bytes 8-11 Vary with  Type  Field<br>
+Byte 12 Bytes 12-15 Vary with  Type  Field<br>
+**----- End of picture text -----**<br>
 
-- 完成者收到无法在不违反其编程规则的情况下完成的请求。例如,某些 Function 可能被设计为仅允许以完整和对齐的方式访问某些寄存器(例如,4 字节寄存器可能需要 4 字节对齐访问)。以部分或未对齐方式访问其中一个寄存器的任何尝试(例如,仅读取 4 字节寄存器的两个字节)将失败。此类限制不是违反规范,而是与该 Function 的编程接口相关的合法约束。访问此类 Function 基于设备驱动程序了解如何访问其 Function 的期望。
+
+## **未包含在 ECRC 机制中的可变位**
+
+ECRC 是基于头标和数据的内容计算的。由于这些预计不会更改，因此在接收器执行检查时结果应该是相同的。然而，事实上在包传输过程中，两个头标位可以合法地更改：Type 字段的位 0 和 EP 位。Type 字段的位 0 可以在配置请求中更改，原因很简单：请求在到达其目标总线之前将是 Type 1，然后变为 Type 0。这涉及更改 Type 字段的位 0。如果中间设备检测到数据错误，EP 位也可以被合法地更改。例如，如果交换机转发了 TLP，但它由于某种内部错误而使数据损坏，则在通过出口端口发出时设置 EP 位是报告错误的一种方法（称为错误转发或数据中毒）。
+
+由于这两个位在包传输过程中可以更改，因此它们被称为"可变位"，不能用于 ECRC 的生成和检查。相反，它们的值在 ECRC 生成和检查时始终假定为 1b，而不是使用实际值。这样 ECRC 不依赖于它们，并且将被正确评估。
+
+**659**
+
+**PCI Express 技术**
+
+检测到 ECRC 错误时所采取的操作超出了规范的范围，但可能的选择将取决于错误是在请求中还是在完成中发现的。
+
+- **请求中的 ECRC** — 检测到 ECRC 错误的完成器必须设置 ECRC 错误状态位。它们也可以选择不为该请求返回完成，从而在请求方导致完成超时，其软件可能随后选择重新调度该请求。
+
+- **完成中的 ECRC** — 检测到 ECRC 错误的请求方必须设置 ECRC 错误状态位。除了标准错误报告机制外，它们还可以选择使用特定功能的中断向其设备驱动程序报告错误。如前所述，软件可能决定重新调度失败的请求。
+
+在任何情况下，都可以将不可恢复的非致命错误消息发送到系统。如果是这样，则可能需要访问设备驱动程序以检查 _Uncorrectable Error Status Register_（不可恢复错误状态寄存器）中的状态位并了解错误的性质。如果可能，可以重新调度失败的请求，但可能需要其他步骤。
+
+## **数据中毒**
+
+数据中毒（也称为错误转发）提供了一种可选方式，让设备指示与 TLP 关联的数据已损坏。在这些情况下，包头中的 EP（Error Poisoned，错误中毒）位被设置以指示错误。EP 位在第 660 页的图 15‐6 中显示。
+
+_图 15‐6：完成头中的错误/中毒位_
+
+**==> picture [373 x 147] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
++0 +1 +2 +3<br>
+7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>
+At T T E<br>
+Byte 0 Fmt Type R TC R R Attr AT Length<br>
+tr H D P<br>
+Byte 4 Bytes 4-7 Vary with  Type  Field<br>
+Byte 8 Bytes 8-11 Vary with  Type  Field<br>
+Byte 12 Bytes 12-15 Vary with  Type  Field<br>
+**----- End of picture text -----**<br>
+
+
+**660**
+
+**第 15 章：错误检测和处理**
+
+任何时候传输数据（例如在写请求或带数据的完成中），都可能发生数据损坏，需要将其报告给目标设备。在这些情况下，包可以被转发给接收者，但通过头中的 EP 位标记为具有错误数据。细心的读者可能想知道为什么要发送已知错误的数据。事实是，有些情况下这是有用的：
+
+1. 如果请求导致返回带数据的完成，但在从目标收集数据时遇到错误（例如内存中的奇偶校验或 ECC 故障），那么最好的报告方式是什么？一种方法是根本不发送完成，但如果错误未以其他方式报告，则系统仅在请求方看到完成超时。该响应不是很有帮助，因为任何数量的问题都可能导致该结果。
+
+   - 另一方面，如果完成以中毒位被置位的方式传递，则请求方至少可以看到到完成器的往返路径必须已正常工作。因此，问题一定发生在完成器内部或路径中的交换机中。将采取哪些步骤是实现特定的，但比完成简单超时要更清楚地知道发生了什么问题。
+
+2. 它可以用于报告中间问题。如果数据有效载荷在通过交换机时被损坏，则仍然可以转发包并将 EP 位置位以指示问题。
+
+3. 目标设备可能能够接受有错误的数据。例如，音频输出设备需要接收及时的数据流才能良好工作。如果传入数据有错误，则后果很小（音频输出中的毛刺），并且恢复时间足够长以导致明显的延迟，因此最好按原样接收数据，而不是尝试恢复数据。
+
+4. 目标设备可能有办法纠正数据。数据可能可直接恢复，或者目标可能有办法重新创建其某些部分，或者有其他方法可以解决该问题。
+
+规范声明数据中毒仅适用于与包关联的数据有效负载（例如 Memory、Configuration 或 I/O 写以及完成），而从不适用于 TLP 头的内容。因此，如果接收器看到没有有效负载的中毒包（如中毒的内存读取），则其行为是未定义的。中毒只能由设备的事务层执行；数据链路层不检查或影响 TLP 头的内容。
+
+错误转发支持对于发送器是可选的，而对于接收器缺少此类声明意味着它对它们不是可选的。
+
+**661**
+
+## **PCI Express 技术**
+
+如果发送器支持它，则通过传统 Command 寄存器中的 Parity Error Response 位启用它。这是因为中毒包大致类似于 PCI 中的奇偶校验错误，因为那是 PCI 报告错误数据的方式。如果已启用，则可以将接收到中毒包的情况通过错误消息报告给系统，并且如果存在可选的高级错误报告寄存器，则还将设置中毒 TLP 状态位。
+
+可以预期的是，对控制位置的中毒写入不允许修改目标中的内容。规范中给出的示例包括配置写入、对控制寄存器的 IO 或内存写入，以及 AtomicOps。接收到中毒包的交换机必须将其原封不动地转发到目标端口，但如果它们已启用相应的错误报告功能，则必须将该包报告为错误，以帮助软件确定错误发生的位置。预期接收到中毒的非发布请求的完成器将返回状态为 UR（Unsupported Request，不支持的请求）的完成。
+
+## **分离事务错误**
+
+在与非发布请求相关联的分离事务期间可能会发生各种故障。PCIe 在完成头中定义了一个状态字段，允许完成器将某些错误报告回请求方。第 662 页的图 15‐7 说明了该字段在完成头中的位置，第 663 页的表 15‐1 给出了可能的值。如表所示，仅定义了四个编码，其中两个表示错误情况。
+
+_图 15‐7：完成头中的完成状态字段_
+
+**==> picture [378 x 129] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
++0 +1 +2 +3<br>
+7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>
+Byte 0 Fmt Type R TC R At R T T E Attr AT Length<br>
+0 x 0 0 1 0 1 0 tr H D P 0 0<br>
+Compl. B<br>
+Byte 4 Completer ID Status MC Byte Count<br>
+Byte 8 Requester ID Tag R Lower Address<br>
+**----- End of picture text -----**<br>
+
+
+**662**
+
+**第 15 章：错误检测和处理**
+
+_表 15‐1：完成代码及其描述_
+
+|**状态码**|**完成状态定义**|
+|---|---|
+|000b|成功完成 (SC)|
+|001b|不支持的请求 (UR) - 错误|
+|010b|配置请求重试状态 (CRS)|
+|011b|完成器中止 (CA) - 错误|
+|100b - 111b|保留|
+
+
+
+## **不支持的请求 (UR) 状态**
+
+如果接收器不支持某个请求，则返回带有 UR 状态的完成。规范定义了许多可能导致 UR 状态的条件。一些示例是：
+
+- 不支持请求类型（例如：对原生端点的 IO 请求或对原生端点的 MRdLk）
+
+- 带有不受支持或未定义消息代码的消息
+
+- 请求未引用映射到设备的地址空间
+
+- 请求地址未映射到交换机端口的地址范围内
+
+- 中毒的写请求（EP=1）目标是完成器中的 I/O 或内存映射的控制空间。此类请求不得允许修改该位置，而是由完成器丢弃，并报告带有 UR 状态的完成。
+
+- 下游根或交换机端口接收到针对其辅助总线上不存在设备的配置请求（例如，具有非零设备号的设备，除非启用了 ARI）。端口必须终止该请求并返回带有 UR 状态的完成，因为下游设备号必须为零（除非启用了 ARI，即 Alternative Routing‐ID Interpretation，备用路由 ID 解释）。
+
+- 在端点接收到 Type 1 配置请求。
+
+- 使用保留的完成状态字段编码的完成必须被解释为 UR。
+
+- 处于 D1、D2 或 D3hot 电源管理状态的功能接收到除配置请求或消息以外的请求。
+
+- 头中未设置 No Snoop 位的 TLP 被路由到其 VC 资源能力寄存器中设置了 Reject Snoop Transactions 位的端口。
+
+**663**
+
+## **PCI Express 技术**
+
+## **完成器中止 (CA) 状态**
+
+在某些情况下，可能导致完成器向请求方返回此 CA 状态。一些示例是：
+
+- 完成器接收到一个无法在不违反其编程规则的情况下完成的请求。例如，某些功能可能设计为仅允许以完整和对齐的方式访问某些寄存器（例如，4 字节寄存器可能需要 4 字节对齐的访问）。以部分或不对齐的方式访问这些寄存器中的任何一个（例如，仅读取 4 字节寄存器中的两个字节）都将失败。此类限制不是违反规范，而是与该功能的编程接口相关的合法约束。对此类功能的访问基于设备驱动程序了解如何访问其功能的预期。
 
 </td>
 </tr></tbody></table>

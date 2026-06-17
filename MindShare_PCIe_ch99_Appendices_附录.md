@@ -140,91 +140,123 @@ For stimulating a PCI Express endpoint in simulation, dedicated verification IP 
 </td>
 <td style="background-color:#e8e8e8">
 
-为了解决这个问题，架构师设计了非透明桥。非透明 PCI-to-PCI 桥或 PCI Express-to-PCI Express 桥是一种在两侧公开 Type 0 CSR 头并通过地址转换将事务从一侧转发到另一侧的桥，通过这些 CSR 头的 BAR 创建的孔径。因为它公开了 Type 0 CSR 头，所以该桥在发现和配置软件中显示为端点，消除了潜在的发现软件冲突。桥每一侧的每个 BAR 在另一侧的内存空间中创建一个隧道或窗口。为了促进每一侧处理域之间的通信，非透明桥通常还包括门铃寄存器，用于从桥的每一侧向另一侧发送中断，以及可从两侧访问的暂存寄存器。
+在选择插接板 (interposer) 时需要谨慎,因为不同厂商以及最大 PCIe 链路速度所施加的不同要求会导致探针电路有所差异。例如,Gen3 插槽插接板应包含允许动态链路训练过程正确通过探针的探针电路。LeCroy Gen3 插槽插接板使用线性电路来保持波形在通过探针时的形状。这允许在链路训练期间动态改变发送端的预加重,同时允许接收端量化新设置的影响(无论是正面影响还是负面影响)。
 
-非透明桥在功能上类似于透明桥，因为两者都提供两个独立的 PCI 总线（或 PCI Express 链路）之间的路径。关键区别在于，当使用非透明桥时，桥下游侧（相对于系统主机）的设备从上侧不可见。这允许下游侧的智能控制器管理其本地域中的设备，同时使它们在上游控制器中显示为单个设备。两条总线之间的路径允许下游侧的设备直接将数据传递到总线的上游侧，而无需在数据移动中直接涉及智能控制器。因此，事务在总线上无阻碍地转发，就像在 PCI-to-PCI 桥中一样，但负责的资源对主机隐藏，主机看到一个设备。
+_Figure A‐2: LeCroy PCI Express Slot Interposer x16_
 
-因为我们现在有两个内存空间，PCI Express 系统需要转换从一个内存空间到另一个内存空间的事务的地址。这是通过与 BAR 关联的转换和限制寄存器完成的。有关详细说明，请参阅第 958 页的"地址转换"；图 C-0-2（在第 949 页）提供了直接地址转换的概念渲染。地址转换可以通过直接地址转换（基本上是在掩码下替换数据）、表查找或通过向地址添加偏移量来完成。图 C-0-3（在第 950 页）显示了表查找转换，用于在本地 I/O 处理器的域中发起的数据包的多个窗口分布在系统内存空间中，以及直接地址转换用于在相反方向上创建单个窗口。
+LeCroy 还提供了一系列用于其他外形规格(如 ExpressCard、XMC、Mini Card、Express Module、AMC 等)的专用插接板。其中部分插接板如图 3 第 923 页所示。如需这些插接板的完整列表,请参阅 LeCroy 网站:www.lecroy.com,因为该列表在不断扩充。
 
-**948**
+**922**
 
-**第 : 附录 C：实现智能适配**
+**Appendix A**
 
-_图 0-2：直接地址转换_
+_Figure A‐3: LeCroy XMC, AMC, and Mini Card Interposers_
 
-**949**
+对于无法使用专用插接板进行调试的 PCIe 链路,第 923 页图 4 所示的中段总线探针 (mid-bus probe) 是次优选择。中段总线探针涉及在 PCB 上放置一个业界标准的探针几何结构。每条 PCIe 通道被路由到封装上一对焊盘,可以使用中段总线探针头对其进行探测。这些探针使用弹簧针或 C 夹在被测系统与协议分析仪之间提供免焊接的机械连接。
 
-**PCI Ex ress 3.0 Technolo p gy**
+_Figure A‐4: LeCroy PCI Express Gen3 Mid‐Bus Probe_
 
-_图 0-3：查找表转换创建多个窗口_
+**923**
 
-## **示例：在 PCI Express 基础系统中实现智能适配器**
+## **PCI Express Technology**
 
-智能适配器将在 PCI Express 系统中无处不在，并且可能成为具有"多个处理器"的系统最广泛使用的示例。
+作为最后手段,可以使用第 924 页图 5 所示的飞线探针 (flying lead probe) 将协议分析仪连接到被测系统。这涉及将一个电阻式分流电路和连接器引脚焊接到 PCIe 走线上。由于 PCIe 链路的交流耦合电容通常是唯一可以接触到走线的地方,因此该电路通常焊接到交流耦合电容上。一旦探针电路焊接到 PCB 上,分析仪探针就可以根据需要进行连接和移除。这种方法几乎可以用于任何 PCIe 链路,但连接的稳固性受限于添加探针的技术人员的技能。
 
-图 C-0-4（在第 951 页）说明了 PCI Express 系统如何实现智能适配器。系统图由系统主机、根复合体（PCI Express 版本的北桥）、三端口交换机、示例端点和智能附加卡组成。与系统架构类似，附加卡包含本地主机、根复合体、三端口交换机和示例端点。但是我们应该注意两个重大差异：智能附加卡包含一个 EEPROM，并且交换机的一个端口包含背靠背非透明桥。
+_Figure A‐5: LeCroy PCI Express Gen2 Flying Lead Probe_
 
-**950**
+## **使用 PETracer 应用程序查看流量**
 
-**第 : 附录 C：实现智能适配**
+## **CATC Trace 查看器**
 
-_图 0-4：PCI 和 PCI Express 系统中的智能适配器_
+使用 LeCroy PETracer 应用程序查看 PCI Express 流量的主要方式是 CATC Trace 视图。该视图对每个记录的分组进行解析,将其分解为不同的分组字段,以突出该分组中包含的重要值。混合使用颜色和文本,以便直观地对每个分组进行分类并解释其用途。错误以红色高亮显示,如第 925 页图 6 所示。警告以黄色高亮显示,便于识别流量或分组字段中不符合规范的部分。
 
-上电时，系统主机将开始枚举以确定拓扑。它将通过根复合体并进入第一个交换机（交换机 A）。进入最顶部的端口时，它将看到一个透明桥，因此它知道继续枚举。然后，主机将轮询最左侧的端口，并在找到 Type 0 CSR 头时将其视为端点，并且不再沿着 PCI 层次结构的该分支深入探索。然后，主机将使用端点的 CSR 头中的信息来配置桥中的基址和限制寄存器以及端点中的 BAR，以完成该系统分支的内存映射。
+**924**
 
-**951**
+**Appendix A**
 
-**PCI Ex ress 3.0 Technolo p gy**
+## _Figure A‐6: TLP Packet with ECRC Error_
 
-然后，主机将探索交换机 A 的最右侧端口，并读取与交换机 B 的顶部端口关联的 CSR 头寄存器。因为此端口是非透明桥，所以主机找到 Type 0 CSR 头。因此，主机处理器认为这是端点，并且不再沿着 PCI 层次结构的该分支深入探索。主机读取交换机 B 顶部端口的 BAR，以确定另一侧桥的内存空间窗口的内存空间要求。内存空间要求可以从 EEPROM 预加载到交换机 B 的非透明端口的 BAR 设置寄存器中，或者可以由交换机 B 本地的处理器在允许系统主机完成发现之前进行配置。
+除了对每个分组进行解码和直观分解之外,层次化显示还可以对相关分组进行逻辑分组。例如,在 "Link Level" (链路级) 模式下,TLP 分组与其对应的 ACK 分组被分组在一起。每个 TLP 被标识为隐式或显式 ACK 或 NAK。第 925 页图 7 显示了一个 ACK DLLP 的示例以及被 ACK 的 TLP。
 
-与主机处理器上电序列类似，本地主机也将开始枚举自己的系统。与系统主机处理器一样，它将为端点分配内存，并在遇到透明桥时继续枚举。当主机到达交换机 B 的最顶部端口时，它会看到具有 Type 0 CSR 头的非透明桥。因此，它读取 CSR 头的 BAR 以确定内存孔径要求，然后终止此 PCI 树分支的发现。同样，内存孔径信息可以由 EEPROM 或系统主机提供。
+_Figure A‐7: "Link Level" Groups TLP Packets with their Link Layer Response_
 
-两个处理器域之间的通信是通过邮箱系统和门铃中断实现的。门铃机制允许每个处理器向另一个处理器发送中断。邮箱机制是一组双端口寄存器，可由两个处理器读取和写入。也可以通过 BAR 使用共享内存映射机制进行处理器间通信。
+在第 926 页图 8 所示的 "Split‐Level" (拆分级) 模式下,CATC Trace 视图组合了拆分事务。例如,单个 TLP 读操作可以与一个或多个完成 TLP 分组在一起,以便在跟踪中以单行逻辑地显示大数据传输。每个拆分级事务都提供数据量、起始地址以及性能指标。这允许用户绕过大型内存事务如何被分解为多个 TLP 分组的细节,而专注于数据的内容。如果用户希望查看拆分事务的细节,层次化显示可以显示构成该拆分事务的所有分组的链路级和/或分组级细分。这种 "drill-down" (向下钻取) 的流量分析方法允许用户从总线上的高级视图入手,仅在其感兴趣的流量区域进行深入分析。
 
-## **示例：在 PCI Express 系统中实现主机故障转移**
+**925**
 
-图 C-0-5（在第 953 页）说明了大多数 PCI Express 系统将如何实现主机故障转移。在本插图中，主要主机处理器在图的左侧，备份主机在图的右侧。与我们熟悉的大多数系统一样，主机处理器连接到根复合体。反过来，根复合体将其流量路由到交换机。在此示例中，交换机除了我们刚描述的主要主机的上游端口外，还有两个端点端口。此外，该系统还有另一个处理器，通过另一个根复合体连接到交换机。
+## **PCI Express Technology**
 
-**952**
+_Figure A‐8: "Split Level" Groups Completions with Associated Non‐Posted Request_
 
-**第 : 附录 C：实现智能适配**
+CATC trace 视图还支持第 927 页图 9 所示的 "Compact‐View" (紧凑视图)。在该视图中,重复发送的分组被折叠为单个单元格。这对于折叠训练序列 (Training Sequences) 或流量控制初始化 (Flow Control Initialization) 分组非常有用。执行此折叠的软件算法也足够智能,可以折叠任何 SKIP 有序集。这创建了一个非常紧凑的链路训练过程视图,允许用户检查链路训练分组中的变化,而不必滚动浏览数百个分组。
 
-_图 0-5：PCI 和 PCI Express 系统中的主机故障转移_
+**926**
 
-两个处理器到交换机的端口都需要可配置，以表现为透明桥或非透明桥。交换机上的 EEPROM 或带 straps 引脚可用于最初引导此配置。
+**Appendix A**
 
-在正常操作下，在上电时，主主机开始枚举系统。在我们的示例中，当主主机处理器通过结构开始其发现协议时，它会通过调整其 BAR 的大小发现两个端点及其内存要求。当它到达右上方端口时，它会找到 Type 0 CSR 头。这向主主机处理器表明它不应尝试在相关交换机端口的远端进行发现。与前面的示例一样，与非透明交换机端口关联的 BAR 可能已在发现之前通过 EEPROM 加载进行了配置，或者可能由本地处理器上运行的软件进行了配置。
+_Figure A‐9: "Compact View" Collapses Related Packets for Easy Viewing of Link Training_
 
-**953**
+## **LTSSM 图形**
 
-**PCI Ex ress 3.0 Technolo p gy**
+为了进一步增强 "drill-down" 流量查看方法,PETracer 应用程序包含一个 LTSSM 图形视图,如第 928 页图 10 所示。当调用该图形时,软件会解析跟踪以查找链路训练部分,并推断链路训练和状态状态机 (LTSSM) 的状态。其结果是一个以非常高级的视图分解 LTSSM 状态转换的图形。该图形允许用户立即查看链路是否进入了恢复状态。如果进入恢复状态,用户可以轻松识别链路的哪一侧发起了恢复、进入恢复的次数,甚至是否由于恢复导致链路速度或链路宽度降低。
 
-再次，与前面的示例类似，备份处理器上电并开始枚举。在此示例中，备份处理器芯片组仅由根复合体和备份处理器组成。它发现非透明交换机端口并在其处终止发现。它由 EEPROM 加载的设备 ID 和供应商 ID 寄存器键控，以加载适当的驱动程序。
+LTSSM 图形也是回到跟踪文件的活动链接。例如,如果用户单击进入恢复状态的条目,跟踪文件将导航到跟踪文件中该位置。这将允许用户查看恢复是否是由重复的 NAK 引起的,还是由于块对齐丢失等其他原因。
 
-在正常操作过程中，主机处理器执行其所有正常职责，因为它主动管理系统。此外，它将向备份处理器发送称为心跳消息的消息。心跳消息是发起处理器持续良好运行状况的指示。心跳消息可能像门铃中断断言一样简单，但通常会包含一些数据以减少误报的可能性。检查点和日志消息是提供备份处理器起始点的替代方法，如果它需要接管的话。在日志方法中，备份获得已完成事务的列表或日志（在应用程序特定意义上，而不是在总线事务意义上）。在检查点方法中，备份定期获得完整的系统状态，以便在必要时可以重新启动。心跳的工作是提供备份处理器验证主机处理器仍在运行的手段。通常，此数据提供最新的活动和所有外围设备的状态。
+**927**
 
-如果备份处理器未能及时收到心跳消息，它将开始接管控制。它的首要任务之一是降级主端口，以防止失败的处理器与系统的其余部分交互。这是通过使用通过非透明端口中的 BAR 提供的交换机 CSR 的内存映射视图来重新编程交换机的 CSR 来实现的。要接管，备份处理器反转其端口和主处理器端口的透明/非透明模式，并关闭与主处理器的链路。在清理由于主机故障而留在队列中或处于不完整状态中的任何事务之后，备份处理器重新配置系统，使其可以作为主机运行。最后，它使用检查点或日志消息中的数据重新启动系统。
+简而言之,当用户调试与链路训练、速率变化或低功耗状态转换相关的问题时,LTSSM 会受到影响。通过检查 LTSSM 图形,用户可以轻松识别这些链路状态变化是否发生、在何处发生,并直接导航到它们以加快分析速度。
 
-**954**
+_Figure A‐10: LTSSM Graph Shows Link State Transitions Across the Trace_
 
-**第 : 附录 C：实现智能适配**
+## **流控制信用跟踪**
 
-## **示例：在 PCI Express 基础系统中实现双主机**
+在 PCI Express 中,流控制信用跟踪特别具有挑战性。流控制更新分组并不显示每个端点拥有的信用数量,而是显示已使用的信用总数。这意味着每个端点必须为每种类型保持一个运行信用计数器。在许多场景中信用可能会丢失,如果发生这种情况,链路最终将由于缺乏信用而无法传输数据。这类问题非常难以识别和调试。
 
-图 C-0-6（在第 955 页）说明了 PCI Express 系统如何实现双主机系统[1]。在此示例中，最左侧的块通常是完整的系统，最右侧的块是单独的子系统。如前所述，连接最左侧和最右侧图的是一组非透明桥。
+LeCroy PETracer 应用程序具有第 929 页图 11 所示的信用跟踪软件工具,以协助进行此调试。如果跟踪包含 FC-Init 分组,它将遍历跟踪并在每个 TLP 和 FC-Update 之后显示每个虚拟通道缓冲区类型的剩余信用量。
 
-_图 0-6：PCI 和 PCI Express 系统中的双主机_
+FC-Init 分组在链路训练之后发送一次。因此,PETracer 应用程序允许用户
 
-上电时，两个处理器都将开始枚举。像以前一样，主机将通过读取 CSR 搜索端点，然后分配内存
+**Appendix A**
 
-1. 背对背非透明 (NT) 端口不是必需的，但由于对两个主机使用相同的单板计算机而发生。通常会在两个 NT 端口之间插入透明背板结构。
+在跟踪中的某个位置设置初始信用值,软件将计算剩余分组的相对信用值。即使用户设置初始信用值不正确,能够查看相对信用通常足以发现流控制问题。
 
-**955**
+_Figure A‐11: Flow Control Credit Tracking_
 
-**PCI Ex ress 3.0 Technolo p gy**
+## **Bit Tracer**
 
-适当地。当主机在每个私有交换机中遇到非透明桥端口时，它们将假定它是端点，并使用 EEPROM 中的数据分配资源。两个系统都将使用上面描述的门铃和邮箱寄存器彼此通信。
+某些调试情况无法通过对流量的向下钻取方法来解决。例如,如果链路设置不正确,记录通常无法读取。如果设备没有正确地对流量加扰,或者 10 bit 符号以相反的顺序发送,该怎么办?对于这种情况,需要一种专注于示波器的波形视图与 CATC Trace 视图之间分析的工具。这正是第 930 页图 12 所示的 BitTracer 视图最强大的地方。
+
+BitTracer 视图允许用户查看链路上看到的原始流量。软件允许用户将流量视为 10 bit 符号、加扰字节或未加扰字节。无效符号和不正确的运行差异 (Running Disparity) 以红色高亮显示。
+
+**929**
+
+## **PCI Express Technology**
+
+为了进一步确定流量可能出现的问题,BitTracer 工具添加了一系列强大的后处理功能,可以修改流量。例如,在采集后,用户可以反转给定通道的极性。一旦应用,用户可以查看 10 bit 符号现在是否在跟踪中正确表示。如果这清理了跟踪,则表明分析仪硬件的记录设置需要更改。
+
+_Figure A‐12: BitTracer View of Gen2 Traffic_
+
+此外,还可以修改通道排序。这对于确定通道反转是否导致不良捕获非常有用。如果流量存在过大的通道间偏移 (skew),BitTracer 软件允许用户重新对齐流量。对于 Gen3 流量,该偏移可以一次 1 bit 地应用。这实质上允许用户在采集后修复 130 bit 块对齐。
+
+在对数据应用更改后,所有或仅一部分数据可以导出到标准 CATC Trace 视图中,以进行更高级别的分析。该工作流对于在早期 bring-up 期间调试低级问题非常强大。举例来说,假设用户的设备正确训练了链路,然后突然对 1 个通道应用极性反转。这明显违反规范,将导致链路重新训练。如果使用 BitTracer 工具捕获该流量,用户可以轻松将此识别为问题。此外,反转前后的流量部分可以导出到单独的跟踪文件中,并在 CATC Trace 视图中进行检查。
+
+**930**
+
+**Appendix A**
+
+## **分析概述**
+
+如您所见,不同的流量视图对于调试某些故障条件是有益的。LeCroy 支持从许多来源将 PCIe 流量导入其高度复杂的 PEtracer 软件。无论是 RTL 仿真、示波器捕获还是专用协议分析仪捕获,PETracer 都拥有一套丰富的流量视图和报告,允许用户最好地了解其 PCIe 链路的健康状况和状态。
+
+## **流量生成**
+
+## **流片前 (Pre-Silicon)**
+
+为了在仿真中激励 PCI Express 端点,可以从许多供应商处购买专用验证 IP。该 IP 将测试基本功能并执行许多 PCIe 一致性检查。ASIC 开发人员当然有兴趣在 tapeout 之前发现并修复这些问题,这正是这些工具的价值所在。如果 PCIe 设计在 FPGA 中实现,其中掩模成本不是问题,那么使用 LeCroy PETrainer 或 LeCroy PTC 卡等专用流量生成工具在硬件中执行这些一致性检查可能更具成本效益。
+
+## **流片后 (Post-Silicon)**
+
+## **Exerciser 卡**
 
 </td>
 </tr></tbody></table>
@@ -816,91 +848,89 @@ appropriately. When the hosts encounter the non‐transparent bridge port in eac
 </td>
 <td style="background-color:#e8e8e8">
 
-为了解决这个问题，架构师设计了非透明桥。非透明 PCI-to-PCI 桥或 PCI Express-to-PCI Express 桥是一种在两侧公开 Type 0 CSR 头并通过地址转换将事务从一侧转发到另一侧的桥，通过这些 CSR 头的 BAR 创建的孔径。因为它公开了 Type 0 CSR 头，所以该桥在发现和配置软件中显示为端点，消除了潜在的发现软件冲突。桥每一侧的每个 BAR 在另一侧的内存空间中创建一个隧道或窗口。为了促进每一侧处理域之间的通信，非透明桥通常还包括门铃寄存器，用于从桥的每一侧向另一侧发送中断，以及可从两侧访问的暂存寄存器。
+为了解决这个问题,架构师设计了非透明桥 (non-transparent bridge)。非透明 PCI-PCI 桥或 PCI Express-PCI Express 桥是一种在两侧都暴露 Type 0 CSR 头部的桥,并通过这些 CSR 头部的 BAR 创建的孔径将事务从一侧转发到另一侧,并进行地址转换。因为它暴露了 Type 0 CSR 头部,所以该桥在发现和配置软件看来是一个端点,从而消除了潜在的发现软件冲突。桥每一侧的每个 BAR 在桥的另一侧的内存空间中创建一个隧道或窗口。为了促进每侧处理域之间的通信,非透明桥通常还包括用于从桥的每一侧向另一侧发送中断的门铃寄存器 (doorbell register),以及可从两侧访问的暂存寄存器 (scratchpad register)。
 
-非透明桥在功能上类似于透明桥，因为两者都提供两个独立的 PCI 总线（或 PCI Express 链路）之间的路径。关键区别在于，当使用非透明桥时，桥下游侧（相对于系统主机）的设备从上侧不可见。这允许下游侧的智能控制器管理其本地域中的设备，同时使它们在上游控制器中显示为单个设备。两条总线之间的路径允许下游侧的设备直接将数据传递到总线的上游侧，而无需在数据移动中直接涉及智能控制器。因此，事务在总线上无阻碍地转发，就像在 PCI-to-PCI 桥中一样，但负责的资源对主机隐藏，主机看到一个设备。
+非透明桥在功能上类似于透明桥,因为两者都提供两个独立 PCI 总线(或 PCI Express 链路)之间的路径。关键区别在于,当使用非透明桥时,桥的下游侧设备(相对于系统主机)从上游侧不可见。这允许下游侧的智能控制器管理其本地域中的设备,同时使它们在上游控制器看来表现为单个设备。两条总线之间的路径允许下游侧的设备直接将数据传输到总线的上游侧,而不直接涉及数据移动中的智能控制器。因此,事务像在 PCI-PCI 桥中一样无阻碍地跨总线转发,但负责的资源对主机隐藏,主机只看到一个设备。
 
-因为我们现在有两个内存空间，PCI Express 系统需要转换从一个内存空间到另一个内存空间的事务的地址。这是通过与 BAR 关联的转换和限制寄存器完成的。有关详细说明，请参阅第 958 页的"地址转换"；图 C-0-2（在第 949 页）提供了直接地址转换的概念渲染。地址转换可以通过直接地址转换（基本上是在掩码下替换数据）、表查找或通过向地址添加偏移量来完成。图 C-0-3（在第 950 页）显示了表查找转换，用于在本地 I/O 处理器的域中发起的数据包的多个窗口分布在系统内存空间中，以及直接地址转换用于在相反方向上创建单个窗口。
+因为我们现在有两个内存空间,PCI Express 系统需要转换从事务的地址从一个内存空间到另一个内存空间。这是通过与 BAR 关联的转换和限制寄存器 (Translation and Limit Registers) 来完成的。有关详细说明,请参阅第 958 页的 "地址转换";第 949 页的图 C-0-2 提供了直接地址转换 (Direct Address Translation) 的概念图。地址转换可以通过直接地址转换(基本上是在掩码下替换数据)、表查找 (table lookup) 或通过向地址添加偏移量来完成。第 950 页的图 C-0-3 显示了用于在本地 I/O 处理器域中创建跨系统内存空间的多个窗口的表查找转换,以及用于在相反方向上创建单个窗口的直接地址转换。
 
 **948**
 
-**第：附录 C：实现智能适配**
+**Chapter: Appendix C: Implementing Intelligent Adapt-**
 
-_图 0-2：直接地址转换_
+_Figure 0‐2: Direct Address Translation_
 
 **949**
 
-**PCI Ex ress 3.0 Technolo p gy**
+**PCI Express 3.0 Technology**
 
-_图 0-3：查找表转换创建多个窗口_
+_Figure 0‐3: Look Up Table Translation Creates Multiple Windows_
 
-## **示例：在 PCI Express 基础系统中实现智能适配器**
+## **示例:在 PCI Express 基础系统中实现智能适配器**
 
-智能适配器将在 PCI Express 系统中无处不在，并且可能成为具有"多个处理器"的系统最广泛使用的示例。
+智能适配器将在 PCI Express 系统中无处不在,并且很可能是具有 "多个处理器" 的系统中使用最广泛的示例。
 
-图 C-0-4（在第 951 页）说明了 PCI Express 系统如何实现智能适配器。系统图由系统主机、根复合体（PCI Express 版本的北桥）、三端口交换机、示例端点和智能附加卡组成。与系统架构类似，附加卡包含本地主机、根复合体、三端口交换机和示例端点。但是我们应该注意两个重大差异：智能附加卡包含一个 EEPROM，并且交换机的一个端口包含背靠背非透明桥。
+第 951 页的图 C-0-4 说明了 PCI Express 系统将如何实现智能适配器。系统图由系统主机、根复合体 (Root Complex,PCI Express 版本的北桥)、三端口交换机、示例端点和智能附加卡组成。与系统架构类似,附加卡包含一个本地主机、一个根复合体、一个三端口交换机和
 
 **950**
 
-**第：附录 C：实现智能适配**
+**Chapter: Appendix C: Implementing Intelligent Adapt-**
 
-_图 0-4：PCI 和 PCI Express 系统中的智能适配器_
+一个示例端点。但是我们应注意两个重大差异:智能附加卡包含一个 EEPROM,并且交换机的一个端口包含一个背对背的非透明桥。
 
-上电时，系统主机将开始枚举以确定拓扑。它将通过根复合体并进入第一个交换机（交换机 A）。进入最顶部的端口时，它将看到一个透明桥，因此它知道继续枚举。然后，主机将轮询最左侧的端口，并在找到 Type 0 CSR 头时将其视为端点，并且不再沿着 PCI 层次结构的该分支深入探索。然后，主机将使用端点的 CSR 头中的信息来配置桥中的基址和限制寄存器以及端点中的 BAR，以完成该系统分支的内存映射。
+_Figure 0‐4: Intelligent Adapters in PCI and PCI Express Systems_
+
+上电时,系统主机将开始枚举以确定拓扑。它将通过根复合体并进入第一个交换机(交换机 A)。进入最顶部端口时,它将看到一个透明桥,因此它将知道继续枚举。然后,主机会轮询最左侧的端口,在找到 Type 0 CSR 头部后,会将其视为端点并且不再沿 PCI 层次结构的该分支进行更深入的探索。然后,主机将使用端点 CSR 头部中的信息来配置桥中的基址和限制寄存器以及端点中的 BAR,以完成系统该分支的内存映射。
 
 **951**
 
-**PCI Ex ress 3.0 Technolo p gy**
+## **PCI Express 3.0 Technology**
 
-然后，主机将探索交换机 A 的最右侧端口，并读取与交换机 B 的顶部端口关联的 CSR 头寄存器。因为此端口是非透明桥，所以主机找到 Type 0 CSR 头。因此，主机处理器认为这是端点，并且不再沿着 PCI 层次结构的该分支深入探索。主机读取交换机 B 顶部端口的 BAR，以确定另一侧桥的内存空间窗口的内存空间要求。内存空间要求可以从 EEPROM 预加载到交换机 B 的非透明端口的 BAR 设置寄存器中，或者可以由交换机 B 本地的处理器在允许系统主机完成发现之前进行配置。
+然后,主机将探索交换机 A 的最右侧端口,并读取与交换机 B 顶部端口相关联的 CSR 头部寄存器。因为此端口是非透明桥,所以主机找到 Type 0 CSR 头部。因此,主机处理器认为这是一个端点,并且不再沿 PCI 层次结构的该分支进行更深入的探索。主机读取交换机 B 顶部端口的 BAR,以确定桥另一侧内存空间的窗口内存需求。内存空间需求可以从 EEPROM 预加载到交换机 B 非透明端口的 BAR 设置寄存器中,或者可以在允许系统主机完成发现之前由交换机 B 本地的处理器配置。
 
-与主机处理器上电序列类似，本地主机也将开始枚举自己的系统。与系统主机处理器一样，它将为端点分配内存，并在遇到透明桥时继续枚举。当主机到达交换机 B 的最顶部端口时，它会看到具有 Type 0 CSR 头的非透明桥。因此，它读取 CSR 头的 BAR 以确定内存孔径要求，然后终止此 PCI 树分支的发现。同样，内存孔径信息可以由 EEPROM 或系统主机提供。
+类似于主机处理器的上电序列,本地主机也将开始枚举其自己的系统。与系统主机处理器一样,它将为端点分配内存,并在遇到透明桥时继续枚举。当主机到达交换机 B 的最顶部端口时,它看到一个带有 Type 0 CSR 头部的非透明桥。因此,它读取 CSR 头部的 BAR 以确定内存孔径需求,然后终止沿 PCI 树的该分支的发现。同样,内存孔径信息可以由 EEPROM 或系统主机提供。
 
-两个处理器域之间的通信是通过邮箱系统和门铃中断实现的。门铃机制允许每个处理器向另一个处理器发送中断。邮箱机制是一组双端口寄存器，可由两个处理器读取和写入。也可以通过 BAR 使用共享内存映射机制进行处理器间通信。
+两个处理器域之间的通信通过邮箱系统 (mailbox system) 和门铃中断实现。门铃机制允许每个处理器向另一个发送中断。邮箱机制是一组双口寄存器,可由两个处理器读取和写入。也可以通过 BAR 的共享内存映射机制用于处理器间通信。
 
-## **示例：在 PCI Express 系统中实现主机故障转移**
+## **示例:在 PCI Express 系统中实现主机故障切换 (failover)**
 
-图 C-0-5（在第 953 页）说明了大多数 PCI Express 系统将如何实现主机故障转移。在本插图中，主要主机处理器在图的左侧，备份主机在图的右侧。与我们熟悉的大多数系统一样，主机处理器连接到根复合体。反过来，根复合体将其流量路由到交换机。在此示例中，交换机除了我们刚描述的主要主机的上游端口外，还有两个端点端口。此外，该系统还有另一个处理器，通过另一个根复合体连接到交换机。
+第 953 页的图 C-0-5 说明了大多数 PCI Express 系统将如何实现主机故障切换 (host failover)。在该图示中,主主机处理器在图的左侧,备份主机在图的右侧。与我们熟悉的大多数系统一样,主机处理器连接到根复合体。根复合体又将其流量路由到交换机。在该示例中,交换机除了我们刚刚描述的主主机的上游端口外,还有两个连接到端点的端口。此外,该系统还有另一个处理器,通过另一个根复合体连接到交换机。
 
 **952**
 
-**第：附录 C：实现智能适配**
+**Chapter: Appendix C: Implementing Intelligent Adapt-**
 
-_图 0-5：PCI 和 PCI Express 系统中的主机故障转移_
+_Figure 0‐5: Host Failover in PCI and PCI Express Systems_
 
-两个处理器到交换机的端口都需要可配置，以表现为透明桥或非透明桥。交换机上的 EEPROM 或带 straps 引脚可用于最初引导此配置。
+交换机的两个主机端口需要可配置为表现为透明桥或非透明桥。可以使用交换机上的 EEPROM 或配置引脚 (strap pin) 来初始引导此配置。
 
-在正常操作下，在上电时，主主机开始枚举系统。在我们的示例中，当主主机处理器通过结构开始其发现协议时，它会通过调整其 BAR 的大小发现两个端点及其内存要求。当它到达右上方端口时，它会找到 Type 0 CSR 头。这向主主机处理器表明它不应尝试在相关交换机端口的远端进行发现。与前面的示例一样，与非透明交换机端口关联的 BAR 可能已在发现之前通过 EEPROM 加载进行了配置，或者可能由本地处理器上运行的软件进行了配置。
+在正常操作期间,上电时,主主机开始枚举系统。在我们的示例中,当主主机处理器通过结构 (fabric) 开始其发现协议时,它发现两个端点及其内存需求,方法是对其 BAR 进行大小调整。当到达右上方端口时,它找到 Type 0 CSR 头部。这向主主机处理器表明不应在与该交换机端口相关联的远侧尝试发现。与前面的示例一样,与非透明交换机端口相关联的 BAR 可能已通过发现之前的 EEPROM 加载进行配置,或者可能由本地处理器上运行的软件进行配置。
 
 **953**
 
-**PCI Ex ress 3.0 Technolo p gy**
+## **PCI Express 3.0 Technology**
 
-再次，与前面的示例类似，备份处理器上电并开始枚举。在此示例中，备份处理器芯片组仅由根复合体和备份处理器组成。它发现非透明交换机端口并在其处终止发现。它由 EEPROM 加载的设备 ID 和供应商 ID 寄存器键控，以加载适当的驱动程序。
+同样,类似于前面的示例,备份处理器上电并开始枚举。在此示例中,备份处理器芯片组仅由根复合体和备份处理器组成。它发现非透明交换机端口并在其处终止其发现。它由 EEPROM 加载的 Device ID 和 Vendor ID 寄存器作为键加载适当的驱动程序。
 
-在正常操作过程中，主机处理器执行其所有正常职责，因为它主动管理系统。此外，它将向备份处理器发送称为心跳消息的消息。心跳消息是发起处理器持续良好运行状况的指示。心跳消息可能像门铃中断断言一样简单，但通常会包含一些数据以减少误报的可能性。检查点和日志消息是提供备份处理器起始点的替代方法，如果它需要接管的话。在日志方法中，备份获得已完成事务的列表或日志（在应用程序特定意义上，而不是在总线事务意义上）。在检查点方法中，备份定期获得完整的系统状态，以便在必要时可以重新启动。心跳的工作是提供备份处理器验证主机处理器仍在运行的手段。通常，此数据提供最新的活动和所有外围设备的状态。
+在正常操作过程中,主机处理器执行其所有正常职责,同时主动管理系统。此外,它将向备份处理器发送称为心跳消息 (heartbeat messages) 的消息。心跳消息是源自处理器持续良好健康状态的指示。心跳消息可能像门铃中断断言一样简单,但通常会包含一些数据以减少误报的可能性。检查点 (Checkpoint) 和日志 (journal) 消息是为备份处理器提供起始点的替代方法,以防它需要接管。在日志方法中,备份将获得已完成事务的列表或日志(在应用程序特定意义上,而不是在总线事务意义上)。在检查点方法中,备份定期获得一个完整的系统状态,必要时可以从该状态重新启动。心跳的工作是提供备份处理器验证主机处理器仍可操作的机制。通常,这些数据提供最新的活动和所有外围设备的状态。
 
-如果备份处理器未能及时收到心跳消息，它将开始接管控制。它的首要任务之一是降级主端口，以防止失败的处理器与系统的其余部分交互。这是通过使用通过非透明端口中的 BAR 提供的交换机 CSR 的内存映射视图来重新编程交换机的 CSR 来实现的。要接管，备份处理器反转其端口和主处理器端口的透明/非透明模式，并关闭与主处理器的链路。在清理由于主机故障而留在队列中或处于不完整状态中的任何事务之后，备份处理器重新配置系统，使其可以作为主机运行。最后，它使用检查点或日志消息中的数据重新启动系统。
+如果备份处理器未能及时收到心跳消息,它将开始接管控制。其首要任务之一是降级主端口,以防止失败的处理器与系统的其余部分交互。这是通过使用通过非透明端口中的 BAR 提供的交换机 CSR 的内存映射视图来重新编程交换机的 CSR 来完成的。为了接管,备份处理器在其端口和主处理器端口处反转透明/非透明模式,并断开与主处理器的链路。在清理队列中留下的或由于主机失败而处于未完成状态的事务之后,备份处理器重新配置系统,以使其可以作为主机提供服务。最后,它使用检查点或日志消息中的数据来重新启动系统。
 
 **954**
 
-**第：附录 C：实现智能适配**
+**Chapter: Appendix C: Implementing Intelligent Adapt-**
 
-## **示例：在 PCI Express 基础系统中实现双主机**
+## **示例:在 PCI Express 基础系统中实现双主机 (Dual Host)**
 
-图 C-0-6（在第 955 页）说明了 PCI Express 系统如何实现双主机系统[1]。在此示例中，最左侧的块通常是完整的系统，最右侧的块是单独的子系统。如前所述，连接最左侧和最右侧图的是一组非透明桥。
+第 955 页的图 C-0-6 说明了 PCI Express 系统可能如何实现双主机 (dual host) 系统[1]。在该示例中,最左侧的模块是一个典型的完整系统,最右侧的模块是一个单独的子系统。如前所述,连接最左侧和最右侧图的是一组非透明桥。
 
-_图 0-6：PCI 和 PCI Express 系统中的双主机_
+_Figure 0‐6: Dual Host in PCI and PCI Express System_
 
-上电时，两个处理器都将开始枚举。像以前一样，主机将通过读取 CSR 搜索端点，然后分配内存
+上电时,两个处理器都将开始枚举。和以前一样,主机将通过读取 CSR 搜索端点,然后
 
-1. 背对背非透明 (NT) 端口不是必需的，但由于对两个主机使用相同的单板计算机而发生。通常会在两个 NT 端口之间插入透明背板结构。
+1. 背对背非透明 (NT) 端口是不必要的,但由于为两个主机使用相同的单板计算机而出现。通常在两个 NT 端口之间插入透明背板结构。
 
-**955**
-
-**PCI Ex ress 3.0 Technolo p gy**
-
-适当地。当主机在每个私有交换机中遇到非透明桥端口时，它们将假定它是端点，并使用 EEPROM 中的数据分配资源。两个系统都将使用上面描述的门铃和邮箱寄存器彼此通信。
+适当地分配内存。当主机在其各自的私有交换机中遇到非透明桥端口时,它们将假定它是端点,并使用 EEPROM 中的数据分配资源。两个系统都将使用上面描述的门铃和邮箱寄存器相互通信。
 
 </td>
 </tr></tbody></table>
@@ -1070,158 +1100,158 @@ This section explains the PCI Express lock protocol by example. The example incl
 </td>
 <td style="background-color:#e8e8e8">
 
-2 通过使用额外的交换机将主机和线卡双端口接入冗余结构,如图 C-0-7(第 957 页)所示,双主机系统模型可以扩展为完全冗余的双星型系统。这对于采用基于机箱的系统的厂商尤其具有吸引力,因为这类系统具有灵活性、可扩展性和可靠性。 
+## **双主机系统模型**
 
-3 系统中包含两块主机卡。主机 A 是 Fabric A 的主用主机,也是 Fabric B 的备用主机。同样,主机 B 是 Fabric B 的主用主机,也是 Fabric A 的备用主机。 
+2 通过使用额外的交换机将主机和线卡双端口接入冗余结构 (redundant fabric),可以将双主机 (dual-host) 系统模型扩展为完全冗余的双星型 (dual star) 系统,如第 957 页的图 C-0-7 所示。这对于使用基于机箱的系统的供应商特别有吸引力,因为其具有灵活性、可扩展性和可靠性。
 
-4 每台主机通过一个透明桥/交换机端口连接到其主服务的结构,通过一个非透明桥/交换机端口连接到其仅提供备份的结构。这些非透明端口用于主机间的通信,并支持跨域的对等传输(当地址映射不允许更直接的连接时)。 
+3 系统中包含两块主机卡。主机 A 是结构 A 的主用主机,也是结构 B 的备用主机。同样,主机 B 是结构 B 的主用主机,也是结构 A 的备用主机。
 
-5 **956** 
+4 每台主机通过一个透明桥/交换机端口连接到其主服务的结构,通过一个非透明桥/交换机端口连接到其仅提供备份的结构。这些非透明端口用于主机间的通信,并支持跨域的对等传输(当地址映射不允许更直接的连接时)。
 
-6 ## **Chapter : Appendix C:  Implementing Intelligent Adapt-** 
+**956**
 
-7 _Figure 0-7: Dual-Star Fabric_ 
+## **Chapter: Appendix C: Implementing Intelligent Adapt-**
 
-8 ## **Summary** 
+_Figure 0‐7: Dual‐Star Fabric_
 
-9 通过非透明桥接(Non-Transparent Bridging),PCI Express Base 为厂商提供了将智能适配器和多主机系统集成到其下一代设计中的能力。本附录演示了这些特性如何使用 PCI 环境中采用的事实标准技术进行部署,并展示了它们将如何被用于各种应用。因此,我们可以预期该方法将成为 PCI Express 领域中的业界标准。 
+## **摘要**
 
-10 **957** 
+通过非透明桥接,PCI Express Base 为供应商提供了将智能适配器和多主机系统集成到其下一代设计中的能力。本附录演示了如何使用在 PCI 环境中采用的业界事实标准技术来部署这些功能,并展示了如何将其用于各种应用。因此,我们可以预期此方法将成为 PCI Express 范例中的行业标准。
 
-11 **PCI Ex ress 3.0 Technolo p gy** 
+**957**
 
-12 ## **Address Translation** 
+**PCI Express 3.0 Technology**
 
-13 本节深入描述了使用非透明桥的系统如何通过地址转换进行通信。我们提供了关于系统如何确定所分配内存大小的机制细节,以及内存指针的使用方式。同时讨论了直接地址转换(Direct Address Translation)和基于查找表的地址转换(Lookup Table Based Address Translation)的实现方式。通过在 PCI Express 环境中沿用 PCI 范式中流行的同一标准化非透明桥接架构实现方式,互连厂商可以加速 PCI Express 在需要智能适配器、主机故障切换和多主机能力的市场中的推广。 
+## **地址转换 (Address Translation)**
 
-14 透明桥使用 I/O 空间、不可预取内存空间和可预取内存空间中的基址(Base)和限值(Limit)寄存器来映射跨桥的下行方向事务。所有下游设备都需要被映射到连续的地址区域,以便每个空间中单个窗口就足够了。上行映射通过对相同寄存器的反向解码完成。透明桥不会转换被转发事务/数据包的地址。 
+本节提供使用非透明桥的系统如何使用地址转换进行通信的深入描述。我们提供有关系统如何确定不仅分配的内存大小,还提供有关如何使用内存指针的机制的详细信息。将讨论使用直接地址转换和基于查找表的地址转换的实现。通过将 PCI 范例中流行的非透明桥接的相同标准化架构实现引入 PCI Express 环境,互连供应商可以加快 PCI Express 在需要智能适配器、主机故障切换和多主机能力的市场中的应用。
 
-15 非透明桥在其 Type 0 CSR 头部中使用标准的一组 BAR 来定义桥另一侧内存空间的窗口。BAR 共有两组:一组在主端(Primary side),另一组在次端(Secondary)。BAR 定义了资源窗口,允许将事务转发到对端(另一侧)接口。 
+透明桥在 I/O 空间、不可预取内存空间和可预取内存空间中使用基址和限制寄存器来映射下游方向跨桥的事务。所有下游设备都需要映射在连续的地址区域中,以至于每个空间中的单个孔径就足够了。上游映射是通过相对于相同寄存器的反向解码来完成的。透明桥不转换转发事务/分组的地址。
 
-16 对于每个 BAR 桥,都存在一组相关的控制和设置寄存器,通常可从桥的另一侧进行写入。每个 BAR 都有一个"设置"寄存器,用于定义其窗口的大小和类型,以及一个地址转换寄存器。某些 BAR 还具有限值寄存器,可用于限制其窗口的大小。在允许从本地子系统外部访问之前,需要对这些寄存器进行编程。这通常由本地处理器上运行的软件完成,或从 EEPROM 中加载寄存器值。 
+非透明桥在其 Type 0 CSR 头部中使用标准 BAR 集来定义到桥另一侧内存空间的孔径。BAR 有两组:一组在主侧 (Primary),另一组在次侧 (Secondary)。BAR 定义资源孔径,允许将事务转发到对侧(另一侧)接口。
 
-17 在 PCI Express 中,穿过这些窗口的数据包的 Transaction ID 字段也会被转换,以支持 Device ID 路由。这些 Device ID 用于将完成包路由到 Non-Posted 请求和 ID 路由的消息。 
+对于每个 BAR 桥,存在一组关联的控制和设置寄存器,通常可从桥的另一侧写入。每个 BAR 都有一个 "设置" (setup) 寄存器,用于定义其孔径的大小和类型,以及一个地址转换寄存器 (address translation register)。某些 BAR 还具有限制寄存器 (limit register),可用于限制其孔径的大小。这些寄存器需要在允许从本地子系统外部访问之前进行编程。这通常由本地处理器上运行的软件或从 EEPROM 加载寄存器来完成。
 
-18 透明桥根据次级和上级总线号寄存器在下游方向转发 CSR 事务,并根据需要将 Type 1 CSR 转换为 Type 0 CSR。非透明桥只接受寻址到它自己的 CSR 事务,并对所有其他事务返回不支持请求(Unsupported Request)响应。 
+在 PCI Express 中,通过这些孔径的分组的 Transaction ID 字段也被转换以支持 Device ID 路由。这些 Device ID 用于将完成路由到未发布请求和 ID 路由消息。
 
-19 **958** 
+透明桥根据次级和从属总线号寄存器在下游方向转发 CSR 事务,根据需要将 Type 1 CSR 转换为 Type 0 CSR。非透明桥仅接受寻址到它的 CSR 事务,并对所有其他事务返回不支持请求响应。
 
-20 **Chapter : Appendix C:  Implementing Intelligent Adapt-** 
+**958**
 
-21 ## **Direct Address Translation** 
+**Chapter: Appendix C: Implementing Intelligent Adapt-**
 
-22 所有上游和下游事务的地址都会被转换(BAR 访问 CSR 的情况除外)。除了以下两节中描述的情况外,从一个接口转发到另一个接口的地址会通过在 BAR 内的偏移量上加上基址(Base Address)来转换,如图 C-0-8(第 959 页)所示。BAR 基址转换寄存器(BAR Base Translation Registers)用于为各个 BAR 设置这些基址转换。 
+## **直接地址转换 (Direct Address Translation)**
 
-23 _Figure 0-8: Direct Address Translation_ 
+所有上游和下游事务的地址都被转换(访问 CSR 的 BAR 除外)。除了以下两节中的情况之外,从一个接口转发到另一接口的地址通过将基地址 (Base Address) 添加到它们落在的 BAR 内的偏移量来转换,如第 959 页的图 C-0-8 所示。BAR Base Translation Registers 用于为各个 BAR 设置这些基本转换。
 
-24 ## **Lookup Table Based Address Translation** 
+_Figure 0‐8: Direct Address Translation_
 
-25 按照 PCI 社区采用的事实标准,PCI Express 应提供多个 BAR 用于分配资源。所有 BAR 都包含内存分配;然而,根据 PCI 行业惯例,BAR 0 包含 CSR 信息,BAR 1 包含 I/O 信息,BAR 2 和 BAR 3 用于基于查找表的转换(Lookup Table Based Translation)。BAR 4 和 BAR 5 用于直接地址转换(Direct Address Translation)。 
+## **基于查找表的地址转换 (Lookup Table Based Address Translation)**
 
-26 在次端,BAR 3 对落在其窗口内的事务使用一种特殊的基于查找表的地址转换,如图 C-0-9(第 960 页)所示。该查找表在将次级总线本地地址转换到主总线地址时提供了更大的灵活性。索引字段在地址总线中的位置是可编程的,以调整窗口大小。 
+按照 PCI 社区采用的事实标准,PCI Express 应提供几个 BAR 用于分配资源。所有 BAR 都包含内存分配;但是,根据 PCI 行业惯例,BAR 0 包含 CSR 信息,而 BAR 1 包含 I/O 信息,BAR 2 和 BAR 3 用于基于查找表的地址转换 (Lookup Table Based Translation)。BAR 4 和 BAR 5 用于直接地址转换 (Direct Address Translation)。
 
-27 **959** 
+在次级侧,BAR 3 对落入其窗口内的事务使用特殊的基于查找表的地址转换,如第 960 页的图 C-0-9 所示。查找表在次级总线本地地址
 
-28 **PCI Ex ress 3.0 Technolo p gy** 
+**959**
 
-29 查找到主总线地址。索引字段在地址总线中的位置是可编程的,以调整窗口大小。 
+**PCI Express 3.0 Technology**
 
-30 _Figure 0-9: Lookup Table Based Translation_ 
+到主总线地址方面提供更大的灵活性。索引字段在地址总线中的位置是可编程的,以调整孔径大小。
 
-31 ## **Downstream BAR Limit Registers** 
+_Figure 0‐9: Lookup Table Based Translation_
 
-32 主端的两个下游 BAR(BAR2/3 和 BAR4/5)也具有限值寄存器(Limit registers),可从本地端进行编程,以进一步限制其暴露的窗口大小,如图 C-0-10(第 961 页)所示。BAR 只能以"2 的幂"粒度分配内存资源。限值寄存器提供了一种通过在"2 的幂"粒度内"封顶"(capping)BAR 大小来获得更好粒度的方法。低于限值寄存器的事务才会被转发到次级总线。高于限值的事务会被丢弃,或在读操作时返回 0xFFFFFFFF,或返回等同于主设备中止(master abort)的数据包。 
+## **下游 BAR 限制寄存器**
 
-33 **960** 
+主侧的两个下游 BAR(BAR2/3 和 BAR4/5)也具有限制寄存器 (Limit register),可从本地侧编程,以进一步限制它们暴露的窗口大小,如第 961 页的图 C-0-10 所示。BAR 只能以 "2 的幂" 粒度分配内存资源。限制寄存器提供了一种通过在 "2 的幂" 粒度内 "上限" BAR 大小来获得更好粒度的方法。只有低于限制寄存器的交易才会转发到次级总线。超过限制的交易将被丢弃,或在读取时返回 0xFFFFFFFF,或主中止 (master abort) 等效分组。
 
-34 **Chapter : Appendix C:  Implementing Intelligent Adapt-** 
+**960**
 
-35 _Figure 0-10: Use of Limit Register_ 
+**Chapter: Appendix C: Implementing Intelligent Adapt-**
 
-36 ## **Forwarding 64bit Address Memory Transactions** 
+_Figure 0‐10: Use of Limit Register_
 
-37 某些 BAR 可以配置成对工作,以提供 64 位地址事务的基址和转换。命中这些 64 位 BAR 范围内的事务会使用直接地址转换(Direct Address Translation)进行转发。与 32 位事务的情况一样,当内存事务从主总线转发到次级总线时,主总线地址可以映射到次级总线域中的另一个地址。该映射通过将原始地址的基址替换为新的基址来执行。 
+## **转发 64 位地址内存事务**
 
-38 桥系统侧的 64 位 BAR 对用于将在桥系统侧发起的数据包中的 64 位地址窗口转换到本地空间的 232 以下。 
+某些 BAR 可以配置为成对工作,以提供包含 64 位地址的事务的基地址和转换。命中这些 64 位 BAR 内的事务使用直接地址转换转发。与 32 位事务的情况一样,当内存事务从主总线转发到次级总线时,主地址可以映射到次级总线域中的另一个地址。该映射通过用新基地址替换原始地址的基地址来执行。
 
-39 **961** 
+桥系统侧的 64 位 BAR 对用于将在桥系统侧发起且包含 64 位地址的分组窗口转换到本地空间中低于 2³² 的地址。
 
-40 **PCI Ex ress 3.0 Technolo p gy** 
+**961**
 
-41 **962** 
+**PCI Express 3.0 Technology**
 
-42 ## _**Appendix D:**_ 
+**962**
 
-43 ## _**Locked Transactions**_ 
+## _**Appendix D:**_
 
-44 ## **Introduction** 
+## _**Locked Transactions**_
 
-45 原生 PCI Express 实现不支持旧的锁协议。对锁事务序列(Locked transaction sequences)的支持仅用于支持在主机处理器上执行的遗留设备软件,该软件对遗留 PCI 设备中的内存位置执行锁定的 RMW(读-修改-写)操作。本章定义了 PCI Express 规范中针对遗留设备的锁定访问序列的遗留支持协议。如果不支持锁,可能会导致死锁。 
+## **引言**
 
-46 ## **Background** 
+本机 PCI Express 实现不支持旧的锁定协议 (lock protocol)。对锁定事务序列 (Locked transaction sequences) 的支持仅用于支持在主机处理器上执行的旧版设备软件,该软件对旧版 PCI 设备中的内存位置执行锁定的 RMW(读-修改-写)操作。本章定义了 PCI Express 为旧版设备锁定访问序列的此旧版支持定义的协议。不支持锁定可能导致死锁。
 
-47 PCI Express 仅对遗留设备支持原子或不被中断的事务序列(通常被描述为原子读-修改-写序列)。原生 PCIe 设备完全不支持此功能,如果它们接收到锁定请求,会返回具有 UR(Unsupported Request)状态的完成包。 
+## **背景**
 
-48 锁定操作由基本 RMW 序列组成,即: 
+PCI Express 仅支持旧版设备的原子或非中断事务序列(通常称为原子读-修改-写序列)。本机 PCIe 设备根本不支持此操作,如果它们收到锁定请求 (locked Request),将返回具有 UR (Unsupported Request) 状态的完成。
 
-49 1. 从目标位置进行一个或多个内存读操作以获得值。 
-50 2. 在处理器寄存器中修改数据。 
+锁定操作由基本的 RMW 序列组成,即:
 
-51 3. 一个或多个写操作,将修改后的值写回目标内存位置。 
+1. 从目标位置进行一次或多次内存读取以获取值。
+2. 在处理器寄存器中修改数据。
 
-52 该事务序列必须以在锁定序列期间不允许对目标位置(或设备)进行其他访问的方式执行。这需要在操作期间阻塞其他事务。这可能导致死锁和较差的性能。 
+3. 一次或多次写入以将修改后的值写回目标内存位置。
 
-53 **963** 
+此事务序列必须以在锁定序列期间不允许对目标位置(或设备)进行其他访问的方式执行。这需要在操作期间阻塞其他事务。这可能导致死锁和性能下降。
 
-54 **PCI Express Technology** 
+**963**
 
-55 需要支持锁定序列的设备包括: 
+**PCI Express Technology**
 
-56 - 根复合体 (Root Complex)。 
+需要支持锁定序列的设备包括:
 
-57 - 路径中可能成为锁定事务系列目标的任何交换机(Switches)。 
+- 根复合体 (Root Complex)。
 
-58 - PCIe 转 PCI 桥(PCIe-to-PCI Bridge)或 PCIe 转 PCI-X 桥(PCIe-to-PCI-X Bridge)。 
+- 通往旧版设备的路径中的任何交换机,这些设备可能是锁定事务系列的目标。
 
-59 - 任何发出对驻留在遗留设备内内存的锁定事务的遗留设备(Legacy Device)。 
+- PCIe-PCI 桥或 PCIe-PCI-X 桥。
 
-60 在 PCI 环境中,锁定通过使用 LOCK# 信号实现。PCIe 中的等效功能通过使用模拟 LOCK# 信号功能的特定请求来完成。 
+- 任何驱动程序对驻留在旧版设备中的内存发出锁定事务的旧版设备。
 
-61 ## **The PCI Express Lock Protocol** 
+PCI 环境中的锁定是通过使用 LOCK# 信号实现的。PCIe 中的等效功能通过使用模拟 LOCK# 信号功能的特定请求来完成。
 
-62 PCI Express 支持的唯一锁源是通过根复合体 (Root Complex) 工作的系统处理器。锁定操作在根端口(Root Port)和遗留端点(Legacy Endpoint)之间执行。在大多数系统中,遗留设备通常是 PCI Express 转 PCI 或 PCI Express 转 PCI-X 桥。对于给定的层次路径,一次只支持一个锁定序列。 
+## **PCI Express 锁定协议**
 
-63 锁定事务被限制为仅使用流量类 0 (Traffic Class 0) 和虚拟通道 0 (Virtual Channel 0)。映射到非零 VC 的其他 TC 值的事务可以穿越结构而不受锁定操作影响,但映射到 VC0 的事务受此处描述的锁规则影响。 
+PCI Express 支持的唯一锁定源是通过根复合体 (Root Complex) 操作的系统处理器。锁定操作在根端口 (Root Port) 和旧版端点 (Legacy Endpoint) 之间执行。在大多数系统中,旧版设备通常是 PCI Express-PCI 或 PCI Express-PCI-X 桥。对于给定的层次结构路径,一次仅支持一个锁定序列。
 
-64 ## **Lock Messages — The Virtual Lock Signal** 
+锁定事务仅限于使用流量类别 0 (Traffic Class 0) 和虚拟通道 0 (Virtual Channel 0)。映射到非零 VC 的具有其他 TC 值的事务可以穿越结构而不考虑锁定操作,但映射到 VC0 的事务受此处描述的锁定规则影响。
 
-65 PCI Express 定义了以下事务,它们共同充当虚拟连线(virtual wire),取代 LOCK# 信号。 
+## **锁定消息 — 虚拟锁定信号**
 
-66 - **Memory Read Lock Request** (MRdLk) — 发起一个锁定序列。第一个 MRdLk 事务会阻塞 VC0 中到达目标设备的其他请求。在该序列期间可以发出一个或多个这样的锁定读请求。 
+PCI Express 定义以下事务,它们共同充当虚拟连线并替代 LOCK# 信号。
 
-67 - **Memory Read Lock Completion with Data** (CplDLk) — 返回数据并确认到目标的路径已被锁定。对第一个 Memory Read Lock 请求的返回数据的成功读完成会导致根复合体和目标设备之间的路径被锁定。也就是说,从其他端口穿越相同路径的事务将被阻塞,无法到达根端口或目标端口。在 VC1-VC7 缓冲中路由的事务不受锁影响。 
+- **Memory Read Lock Request** (MRdLk) — 发起锁定序列。第一个 MRdLk 事务阻止 VC0 中的其他请求到达目标设备。在此序列期间可以发出一个或多个这些锁定读请求。
 
-68 **964** 
+- **Memory Read Lock Completion with Data** (CplDLk) — 返回数据并确认到目标的路径已锁定。为第一个 Memory Read Lock 请求返回数据的成功读完成会导致根复合体和目标设备之间的路径被锁定。也就是说,来自其他端口的穿越相同路径的事务被阻止到达根端口或目标端口。在 VC1-VC7 的缓冲区中路由的事务不受锁定影响。
 
-69 **A endix D pp** 
+**964**
 
-70 - **Memory Read Lock Completion without Data** (CplLK) — 没有数据负载的完成包表示锁定序列当前无法完成,路径保持未锁定状态。 
+**Appendix D**
 
-71 - **Unlock Message** — 解锁消息由根复合体从锁定的根端口发出。该消息解锁根端口和目标端口之间的路径。 
+- **Memory Read Lock Completion without Data** (CplLK) — 没有数据有效负载的完成表明锁定序列当前无法完成,并且路径保持解锁状态。
 
-72 ## **The Lock Protocol Sequence — an Example** 
+- **Unlock Message** — 解锁消息由根复合体从锁定的根端口发出。此消息解锁根端口和目标端口之间的路径。
 
-73 本节通过示例解释 PCI Express 锁协议。示例包含以下设备: 
+## **锁定协议序列 — 示例**
 
-74 - 代表主机处理器发起锁定事务系列的根复合体 (Root Complex)。 
+本节通过示例解释 PCI Express 锁定协议。该示例包括以下设备:
 
-75 - 根端口和目标遗留端点之间路径中的一个交换机 (Switch)。 
+- 代表主机处理器发起锁定事务系列的根复合体。
 
-76 - 目标路径上的一个 PCI Express 转 PCI 桥。 
+- 根端口和目标旧版端点之间的路径中的交换机。
 
-77 - 发起锁定 RMW 的目标 PCI 设备的设备驱动程序。 
-78 
-79 - 包含一个 PCI Express 端点以描述锁定期间交换机的行为。
+- 到目标路径中的 PCI Express-PCI 桥。
+
+- 其设备驱动程序发起锁定 RMW 的目标 PCI 设备。
 
 </td>
 </tr></tbody></table>
@@ -1401,163 +1431,165 @@ Legacy Endpoints are permitted to support locked accesses, although their use is
 </td>
 <td style="background-color:#e8e8e8">
 
-1 在此示例中,锁定操作正常完成。操作期间发生的步骤将在以下两节中描述。 
+- 包括一个 PCI Express 端点来描述锁定期间的交换机行为。
 
-2 ## **The Memory Read Lock Operation** 
+在此示例中,锁定操作正常完成。操作期间发生的步骤将在接下来的两节中描述。
 
-3 图 E-1(第 967 页)说明了锁定事务系列中的第一步(即获取信号量的初始内存读): 
+## **内存读锁定操作**
 
-4 1. CPU 发起锁定序列(锁定的内存读),这是由于驱动程序执行了针对 PCI 目标的锁定 RMW 指令。 
+第 967 页的图 E-1 说明了锁定事务系列的第一步(即获取信号量的初始内存读取):
 
-5 2. 根端口(Root Port)从端口 2 发出 Memory Read Lock Request。根复合体 (Root Complex) 始终是锁定序列的发起方。 
+1. CPU 由于执行针对 PCI 目标的锁定 RMW 指令的驱动程序而发起锁定序列(锁定内存读)。
 
-6 3. 交换机在其上游端口(upstream port)接收到锁请求,并将该请求转发到目标出口端口(egress port)(3)。交换机在将该请求转发到出口端口后,必须阻塞来自除入口端口(ingress port)(1)之外的其他端口的请求从该出口端口发出。 
+2. 根端口从端口 2 发出内存读锁定请求。根复合体始终是锁定序列的源。
 
-7 4. 从所示的 PCI Express 端点到 PCI 总线的后续对等传输(从交换机端口 2 到交换机端口 3)在锁定清除之前将被阻塞。注意,锁定尚未在另一个方向上建立。来自 PCI Express 端点的事务仍然可以发送到根复合体。 
+3. 交换机在上游端口接收锁定请求,并将该请求转发到目标出口端口(3)。交换机在将请求转发到出口端口时,必须阻止除入口端口(1)之外的端口的所有请求从出口端口发出。
 
-8 **965** 
+4. 来自所示 PCI Express 端点到 PCI 总线的后续对等传输(交换机端口 2 到交换机端口 3)将被阻止,直到锁定被清除。请注意,锁定尚未在其他方向建立。来自 PCI Express 端点的事务可以发送到根复合体。
 
-9 ## **PCI Express Technology** 
+**965**
 
-10 5. Memory Read Lock Request 从交换机的出口端口发送到 PCI Express 转 PCI 桥。该桥将实现 PCI 锁语义(有关 PCI 锁的详细信息,请参阅 MindShare 出版的《PCI System Architecture, Fourth Edition》一书)。 
+## **PCI Express Technology**
 
-11 6. 桥在 PCI 总线上执行 Memory Read 事务,并断言 PCI LOCK# 信号。目标内存设备将所请求的信号量数据返回给桥。 
+5. 内存读锁定请求从交换机的出口端口发送到 PCI Express-PCI 桥。该桥将实现 PCI 锁定语义(有关 PCI 锁定的详细信息,请参阅 MindShare 名为 *PCI System Architecture, Fourth Edition* 的书籍)。
 
-12 7. 读数据返回到桥,然后通过 Memory Read Lock Completion with Data (CplDLk) 传递回交换机。 
+6. 桥在 PCI 总线上执行内存读事务,并断言 PCI LOCK# 信号。目标内存设备将请求的信号量数据返回给桥。
 
-13 8. 交换机使用 ID 路由将数据包向上游返回到主机处理器。当 CplDLk 数据包被转发到交换机的上游端口时,它会在上游方向上建立锁定,以防止来自其他端口的流量被路由到上游。PCI Express 端点通过锁定操作的路径被完全阻止向交换机端口发送任何事务。注意,交换机端口之间未参与锁定操作的传输将被允许(本例中未显示)。 
+7. 读数据返回到桥,并通过内存读锁定完成与数据 (CplDLk) 传递回交换机。
 
-14 9. 在检测到 CplDLk 数据包后,根复合体知道在它和目标设备之间的路径上已经建立了锁定,完成数据被发送到 CPU。 
+8. 交换机使用 ID 路由将分组向上游返回到主机处理器。当 CplDLk 分组被转发到交换机的上游端口时,它在上游方向建立锁定,以防止来自其他端口的流量被路由到上游。PCI Express 端点通过锁定操作的路径被完全阻止向交换机端口发送任何事务。请注意,未涉及锁定操作的交换机端口之间的传输将被允许(本例中未显示)。
 
-15 **966** 
+9. 在检测到 CplDLk 分组时,根复合体知道锁定已沿其与目标设备之间的路径建立,并且完成数据被发送到 CPU。
 
-16 **A endix D pp** 
+**966**
 
-17 _Figure D-1: Lock Sequence Begins with Memory Read Lock Request_ 
+**Appendix D**
 
-18 **==> picture [368 x 388] intentionally omitted <==** 
+_Figure D‐1: Lock Sequence Begins with Memory Read Lock Request_
 
-19 **----- Start of picture text -----**<br>
-20 CPU 执行<br>发起锁的 PCI 目标 1 CPU<br>的设备驱动<br>根复合体<br>根复合体发出 根复合体接收<br>MRdLk Request 2 9 CplDLk 并返回数据<br>到 CPU<br>交换机将完成包转发到<br>交换机接收 MRdLk 并 1 上游端口(ID 路由)<br>转发到出口端口(3)。 3 8 并锁定上游端口(1)<br>交换机阻塞来自其他<br>交换机<br>端口到出口端口的事务。<br>2 3<br>桥使用 CplDLk 事务<br>PCIe 端点发出 MenRd 4 返回数据<br>Request 目标 PCI 设备,<br>但请求被阻塞 5<br>PCIe PCIe<br>Endpoint to<br>PCI Bridge<br>桥接器接收 MRdLk。<br>桥支持基于 PCI 的<br>要求的锁<br>6<br>目标 桥断言 LOCK 并<br>设备 执行 PCI Rd 事务<br>且目标返回读数据<br>MRdLk CplDLk<br>**----- End of picture text -----**<br>
+**==> picture [368 x 388] intentionally omitted <==**
 
-21 ## **Read Data Modified and Written to Target and Lock Completes** 
+**----- Start of picture text -----**<br>
+The CPU executes<br>the PCI target's device 1 CPU<br>drive that uses lock<br>Root Complex<br>Root Complex issues Root Complex receives<br>the MRdLk Request 2 9 CplDLk and returns data<br>to CPU<br>Switch forwards the Completion<br>Switch receives MRdLk and  1 to the upstream port (ID routing)<br>forwards it to the egress port (3). 3 8 and locks upstream port (1)<br>Switch blocks transactions from<br>Switch<br>other ports to egress port.<br>2 3<br>Bridge returns data using<br>PCIe endpoint issues a MenRd 4 a CplDLk transaction<br>Request targeting a PCI device,<br>7<br>but request is blocked 5<br>PCIe PCIe<br>Endpoint to<br>PCI Bridge<br>The Bridge receives the MRdLk.<br>Bridges support lock based on the<br>PCI-based requirements<br>6<br>Target The Bridge asserts LOCK and<br>Device performs the PCI Rd transaction<br>and the target returns the read data<br>MRdLk CplDLk<br>**----- End of picture text -----**<br>
 
-22 设备驱动程序接收到信号量值,对其进行修改,然后发起内存写操作以更新遗留 PCI 设备内存中的信号量。图 E-2(第 969 页)说明了写序列,随后是 
 
-23 **967** 
+## **读取数据修改并写入目标以及锁定完成**
 
-24 **PCI Express Technology** 
+设备驱动程序接收信号量值,对其进行修改,然后启动内存写入以更新旧版 PCI 设备内存中的信号量。第 969 页的图 E-2 说明了写序列,然后是
 
-25 根复合体 (Root Complex) 发出释放锁定的 Unlock 消息: 
+**967**
 
-26 10. 根复合体 (Root Complex) 通过锁定路径向目标设备发出 Memory Write Request。 
+**PCI Express Technology**
 
-27 11. 交换机将事务转发到目标出口端口(3)。Memory Write 的内存地址必须与初始 Memory Read 请求相同。 
+根复合体传输的释放锁定的 Unlock 消息:
 
-28 12. 桥将事务转发到 PCI 总线。 
+10. 根复合体跨锁定路径向目标设备发出内存写请求。
 
-29 13. 目标设备接收内存写数据。 
+11. 交换机将事务转发到目标出口端口(3)。内存写的内存地址必须与初始内存读请求相同。
 
-30 14. 一旦 Memory Write 事务从根复合体 (Root Complex) 发出,它会发送一个 Unlock 消息,指示锁定路径中的交换机和任何 PCI/PCI-X 桥释放锁定。注意,根复合体假定操作已正常完成(因为内存写是 Posted 的,并且没有返回 Completion 来验证成功)。 
+12. 桥将事务转发到 PCI 总线。
 
-31 15. 交换机接收到 Unlock 消息,解锁其端口,并将该消息转发到已锁定的出口端口,以通知锁定路径中的任何其他交换机和/或桥必须清除锁定。 
+13. 目标设备接收内存写数据。
 
-32 16. 在检测到 Unlock 消息后,桥还必须释放 PCI 总线上的锁定。 
+14. 一旦内存写事务从根复合体发出,它就会发送 Unlock 消息,以指示锁定路径中的交换机和任何 PCI/PCI-X 桥释放锁定。请注意,根复合体假定操作已正常完成(因为内存写入已发布,并且没有返回完成以验证成功)。
 
-33 **968** 
+15. 交换机接收 Unlock 消息,解锁其端口,并将该消息转发到已被锁定的出口端口,以通知锁定路径中的任何其他交换机和/或桥必须清除锁定。
 
-34 **A endix D pp** 
+16. 在检测到 Unlock 消息时,桥也必须释放 PCI 总线上的锁定。
 
-35 _Figure D-2: Lock Completes with Memory Write Followed by Unlock Message_ 
+**968**
 
-36 **==> picture [369 x 414] intentionally omitted <==** 
+**Appendix D**
 
-37 **----- Start of picture text -----**<br>
-38 CPU 执行<br>发起锁的 PCI 目标 CPU<br>的设备驱动<br>根复合体<br>根复合体发出 根复合体发送<br>Mem Write Request 10 14 Unlock 消息<br>1<br>交换机接收 MemWt 并  交换机接收 Unlock<br>转发到出口端口(3) 11 15 消息并解锁<br>锁定路径中的交换机端口<br>2 3<br>桥由于 Unlock 消息<br>而释放锁<br>16<br>PCIe PCIe<br>12<br>Endpoint to<br>PCI Bridge<br>桥接器接收 MemWt<br>执行等效的 PCI<br>事务<br>13<br>目标 目标设备接收 PCI<br>设备 写数据,从而<br>完成操作<br>MemWt Unlock message<br>**----- End of picture text -----**<br>
+_Figure D‐2: Lock Completes with Memory Write Followed by Unlock Message_
 
-38 **969** 
+**==> picture [369 x 414] intentionally omitted <==**
 
-39 **PCI Express Technology** 
+**----- Start of picture text -----**<br>
+The CPU executes<br>the PCI target's device CPU<br>drive that uses lock<br>Root Complex<br>Root Complex issues Root Complex sends<br>the Mem Write Request 10 14 Unlock message<br>1<br>Switch receives MemWt and  Switch receives the Unlock<br>forwards it to the egress port (3) 11 15 message and unlocks the<br>Switch ports in the locked path<br>2 3<br>Bridge releases lock<br>due to Unlock message<br>16<br>PCIe PCIe<br>12<br>Endpoint to<br>PCI Bridge<br>The Bridge receives the MemWt<br>performs the equivalent PCI<br>transaction<br>13<br>Target Target device receives the<br>Device PCI write data thereby<br>completing the operation<br>MemWt Unlock message<br>**----- End of picture text -----**<br>
 
-40 ## **Notification of an Unsuccessful Lock** 
 
-41 当初始的 Memory Read Lock Request 收到一个没有数据的完成包(CplLk)时,锁定事务系列被中止。这意味着锁定序列必须终止,因为没有返回数据。这可能是由与内存读事务相关联的错误引起的,或者目标设备正忙而无法在此刻响应。 
+**969**
 
-42 ## **Summary of Locking Rules** 
+**PCI Express Technology**
 
-43 以下是适用于根复合体 (Root Complex)、交换机(Switches)和桥(Bridges)的排序规则列表。 
+## **不成功锁定的通知**
 
-44 ## **Rules Related To the Initiation and Propagation of Locked Transactions** 
+当初始内存读锁定请求接收到没有数据的完成分组 (CplLk) 时,锁定事务系列被中止。这意味着锁定序列必须终止,因为没有返回数据。这可能是由与内存读事务相关联的错误引起的,或者目标设备正忙而无法在此刻响应。
 
-45 - 以非"成功完成"(Successful Completion)状态完成的锁定请求不会建立锁定。 
+## **锁定规则摘要**
 
-46 - 无论与锁定序列相关联的任何完成状态如何,所有锁定序列和尝试的锁定序列都必须通过发送 Unlock Message 来终止。 
+以下是适用于根复合体、交换机和桥的排序规则列表。
 
-47 - MRdLk、CplDLk 和 Unlock 语义仅允许用于默认流量类(TC0)。 
+## **与锁定事务的发起和传播相关的规则**
 
-48 - 在单个层次域内的给定时刻,只允许一个锁定事务序列尝试处于进行中状态。 
+- 以成功完成以外的状态完成的锁定请求不会建立锁定。
 
-49 - 任何不参与锁定序列的设备必须忽略 Unlock Message。 
+- 无论与锁定序列关联的任何完成的状态如何,所有锁定序列和尝试的锁定序列必须通过传输 Unlock 消息来终止。
 
-50 锁定事务序列通过 PCI Express 结构的发起和传播按以下方式执行: 
+- MRdLk、CplDLk 和 Unlock 语义仅允许默认流量类别 (TC0)。
 
-51 - 锁定事务序列以 MRdLk Request 开始: 
+- 在单个层次结构域内,一次只能进行一个锁定事务序列尝试。
 
-52   - 与锁定事务序列相关联的任何后续读操作也必须使用 MRdLk Requests。 
+- 任何未参与锁定序列的设备必须忽略 Unlock 消息。
 
-53   - 任何成功的 MRdLk Request 的完成使用 CplDLK 完成类型,或对不成功请求使用 CplLk 完成类型。 
+锁定事务序列通过 PCI Express 结构的发起和传播按如下方式执行:
 
-54 **970** 
+- 锁定事务序列以 MRdLk 请求开始:
 
-55 **A endix D pp** 
+   - 与锁定事务序列关联的任何后续读取也必须使用 MRdLk 请求。
 
-56 - 如果与锁定序列相关联的任何读操作未成功完成,则请求者必须假定锁定的原子性不再得到保证,并且请求者和完成者之间的路径不再被锁定。 
+   - 任何成功的 MRdLk 请求的完成使用 CplDLk 完成类型,或不成功请求的 CplLk 完成类型。
 
-57 - 与锁定序列相关联的所有写操作必须使用 MWr Requests。 
+**970**
 
-58 - Unlock Message 用于指示锁定序列的结束。交换机通过锁定的 Egress Port 传播 Unlock Messages。 
+**Appendix D**
 
-59 - 接收到 Unlock Message 后,遗留端点 (Legacy Endpoint) 或桥必须在其处于锁定状态时解锁自身。如果它未锁定,或者接收方是不支持锁定的 PCI Express 端点或桥,则忽略并丢弃 Unlock Message。 
+- 如果与锁定序列关联的任何读取未成功完成,则请求者必须假定锁定的原子性不再得到保证,并且请求者和完成者之间的路径不再被锁定。
 
-60 ## **Rules Related to Switches** 
+- 与锁定序列关联的所有写入必须使用 MWr 请求。
 
-61 交换机必须将锁定序列相关联的事务与其他事务区分开来,以防止其他事务干扰锁定并可能导致死锁。以下规则涵盖了如何实现此操作。注意,锁定访问仅限于 TC0,TC0 始终映射到 VC0。 
+- Unlock 消息用于指示锁定序列的结束。交换机通过锁定的出口端口传播 Unlock 消息。
 
-62 - 当交换机将 MRdLk Request 从 Ingress Port 传播到 Egress Port 时,它必须阻止所有映射到默认虚拟通道 (VC0) 的请求被传播到 Egress Port。如果在此 Ingress Port 收到寻址不同 Egress Port 的后续 MRdLk Request,则交换机的行为未定义。注意,这种 split-lock 访问不被 PCI Express 支持,软件不得导致此类锁定访问。可能由此类访问导致系统死锁。 
+- 在接收到 Unlock 消息时,如果旧版端点或桥处于锁定状态,则必须解锁自身。如果它未锁定,或者接收方是不支持锁定的 PCI Express 端点或桥,则 Unlock 消息将被忽略并丢弃。
 
-63 - 当返回第一个 MRdLk Request 的 CplDLk 时,如果 Completion 指示 Successful Completion 状态,则交换机必须阻止来自所有其他端口的请求被传播到参与锁定访问的两个端口中的任一个,映射到 Egress Port 上 VC0 以外通道的请求除外。 
+## **与交换机相关的规则**
 
-64 - 参与锁定序列的两个端口必须保持阻塞,直到交换机接收到 Unlock Message(在接收到初始 MRdLk Request 的 Ingress Port) 
+交换机必须从其他事务中检测与锁定序列关联的事务,以防止其他事务干扰锁定并可能导致死锁。以下规则涵盖了如何完成此操作。请注意,锁定访问仅限于 TC0,它始终映射到 VC0。
 
-65   - Unlock Message 必须转发到锁定的 Egress Port。 
+- 当交换机将 MRdLk 请求从入口端口传播到出口端口时,它必须阻止映射到默认虚拟通道 (VC0) 的所有请求被传播到出口端口。如果在该入口端口接收到寻址不同出口端口的后续 MRdLk 请求,则交换机的行为未定义。请注意,PCI Express 不支持这种拆分锁定访问,并且软件不得导致此类锁定访问。此类访问可能导致系统死锁。
 
-66   - Unlock Message 可以广播到所有其他端口。 
+- 当第一个 MRdLk 请求的 CplDLk 返回时,如果完成指示成功完成状态,则交换机必须阻止来自所有其他端口的所有请求被传播到锁定访问涉及的任一端口,但映射到出口端口上除 VC0 之外的通道的请求除外。
 
-67   - Ingress Port 在 Unlock Message 到达后解除阻塞,而被阻塞的 Egress Port 在 Unlock Message 从 Egress Port 发送后解除阻塞。未参与锁定访问的端口不受 Unlock Message 影响 
+- 锁定序列涉及的两个端口必须保持阻塞,直到交换机接收到 Unlock 消息(在接收初始 MRdLk 请求的入口端口)
 
-68 **971** 
+   - Unlock 消息必须转发到锁定的出口端口。
 
-69 **PCI Express Technology** 
+   - Unlock 消息可以广播到所有其他端口。
 
-70 ## **Rules Related To PCI Express/PCI Bridges** 
+   - 入口端口在 Unlock 消息到达时解除阻塞,而被阻塞的出口端口在 Unlock 消息从出口端口传出后被解除阻塞。未参与锁定访问的端口不受 Unlock 消息的影响
 
-71 PCI Express/PCI 桥的要求与对交换机的要求类似,只是由于这些桥仅使用 TC0 和 VC0,因此在锁定访问期间所有其他流量都被阻塞。PCI 总线侧的要求在 MindShare 出版的《PCI System Architecture, Fourth Edition》一书中描述。 
+**971**
 
-72 ## **Rules Related To the Root Complex** 
+**PCI Express Technology**
 
-73 允许根复合体 (Root Complex) 作为请求者支持锁定事务。如果支持锁定事务,根复合体 (Root Complex) 必须遵循已描述的规则以执行锁定访问。根复合体 (Root Complex) 用来连接主机处理器 FSB(前端总线,Front-Side Bus)的机制不在规范的讨论范围之内。 
+## **与 PCI Express/PCI 桥相关的规则**
 
-74 ## **Rules Related To Legacy Endpoints** 
+PCI Express/PCI 桥的要求类似于对交换机的要求,只是因为这些桥仅使用 TC0 和 VC0,所以在锁定访问期间所有其他流量都被阻塞。PCI 总线侧的要求在 MindShare 书籍 *PCI System Architecture, Fourth Edition* 中描述。
 
-75 允许遗留端点 (Legacy Endpoints) 支持锁定访问,尽管不鼓励使用。如果支持锁定访问,遗留端点 (Legacy Endpoints) 必须按以下方式处理它们: 
+## **与根复合体相关的规则**
 
-76 - 当遗留端点为锁定事务系列访问的第一个读请求的第一个完成发送 Successful Completion 状态时,遗留端点变为锁定: 
+允许根复合体 (Root Complex) 作为请求者支持锁定事务。如果支持锁定事务,根复合体必须遵循已描述的规则来执行锁定访问。根复合体用于连接到主机处理器 FSB (Front-Side Bus) 的机制超出了规范的范围。
 
-77   - 如果完成状态不是 Successful Completion,则遗留端点不会变为锁定状态。 
+## **与旧版端点相关的规则**
 
-78   - 一旦锁定,遗留端点必须保持锁定,直到它接收到 Unlock Message。 
-79 
-80 - 处于锁定状态时,遗留端点不得使用映射到默认虚拟通道 (VC0) 的流量类发出任何 Request。注意,此要求适用于端点内所有可能的 Request 来源,在有多个可能的 Request 来源的情况下。可以使用映射到 VC0 以外的 VC 的 TC 发出 Request。
+允许旧版端点支持锁定访问,尽管不鼓励使用。如果支持锁定访问,则旧版端点必须按如下方式处理它们:
+
+- 当旧版端点以成功完成状态传输锁定事务系列访问的第一个读取请求的第一个完成时,它变为锁定状态:
+
+   - 如果完成状态不是成功完成,则旧版端点不会变为锁定状态。
+
+   - 一旦锁定,旧版端点必须保持锁定,直到它收到 Unlock 消息。
 
 </td>
 </tr></tbody></table>
@@ -1696,114 +1728,110 @@ Native PCI Express Endpoints do not support lock. A PCI Express Endpoint must tr
 </td>
 <td style="background-color:#e8e8e8">
 
-1 ## **Rules Related To PCI Express Endpoints** 
+## **PCI Express 端点相关规则**
 
-2 原生 PCI Express 端点不支持锁定。PCI Express 端点必须将 MRdLk Request 视为 Unsupported Request。 
+原生 PCI Express 端点不支持锁定。PCI Express 端点必须将 MRdLk 请求视为不支持的请求 (Unsupported Request)。
 
-3 **972** 
+**972**
 
-4 ## _**Glossary**_ 
+## _**术语表 (Glossary)**_
 
-5 |**Term**|**Definition**|
-6 |---|---|
-7 |128b/130b Encoding|这并不是与 8b/10b 相同意义上的编码。相反,发送方以块(Blocks)的形式发送信息,每个块由一排 16 个原始字节组成,前面是一个 2 位的同步(Sync)字段,指示该块应被视为数据块(Data Block)还是有序集块(Ordered Set Block)。该方案随 Gen3 引入,主要为了允许链路带宽在不提高时钟速率的情况下翻倍。它提供了更好的带宽利用率,但牺牲了 8b/10b 为接收器提供的一些优势。|
-8 |8b/10b Encoding|多年前开发的编码方案,目前用于许多串行传输中。它旨在帮助接收器从输入信号中恢复时钟和数据,但它也将接收器处的可用带宽减少了 20%。此方案用于早期版本的 PCIe:Gen1 和 Gen2。|
-9 |ACK/NAK Protocol|数据链路层 (Data Link Layer) 用于报告 TLP 在传输过程中是否发生错误的确认/否定确认(Acknowledge/Negative Acknowledge)机制。如果是,则向发送方返回 NAK 以请求重放失败的 TLP。如果不是,则返回 ACK 以指示一个或多个 TLP 已安全到达。|
-10 |ACPI|高级配置和电源接口 (Advanced Configuration and Power Interface)。指定各种系统和设备电源状态。|
-11 |ACS|访问控制服务 (Access Control Services)。|
+|**术语 (Term)**|**定义 (Definition)**|
+|---|---|
+|128b/130b Encoding|这与 8b/10b 意义上的编码不同。相反,发送端以块 (Block) 形式发送信息,每个块由一行的 16 个原始字节组成,前面有一个 2 位的同步 (Sync) 字段,用于指示该块应被视为数据块 (Data Block) 还是有序集块 (Ordered Set Block)。该方案从 Gen3 开始引入,主要是为了在不使时钟频率翻倍的情况下使链路带宽翻倍。它提供了更好的带宽利用率,但牺牲了 8b/10b 为接收器提供的一些优势。|
+|8b/10b Encoding|多年前开发的编码方案,如今仍用于许多串行传输。它旨在帮助接收器从输入信号中恢复时钟和数据,但也会使接收器可用带宽减少 20%。该方案用于早期版本的 PCIe:Gen1 和 Gen2。|
+|ACK/NAK Protocol|确认/否定确认 (Acknowledge/Negative Acknowledge) 机制,数据链路层通过该机制报告 TLP 在传输过程中是否发生任何错误。如果发生错误,则向发送方返回 NAK 以请求重传失败的 TLP。否则,返回 ACK 以表明一个或多个 TLP 已安全到达。|
+|ACPI|高级配置与电源接口 (Advanced Configuration and Power Interface)。规定各种系统和设备电源状态。|
+|ACS|访问控制服务 (Access Control Services)。|
 
-12 **973** 
+**973**
 
-13 ## **PCI Ex ress Technolo p gy** 
+## **PCI Express Technology**
 
-14 |**Term**|**Definition**|
-15 |---|---|
-16 |ARI|替代路由 ID 解释 (Alternative Routing-ID Interpretation);一种可选特性,允许端点具有超过通常允许的 8 个功能(functions)。|
-17 |ASPM|活动状态电源管理 (Active State Power Management):启用后,允许硬件将链路电源状态从 L0 更改为 L0s 或 L1,或两者都更改。|
-18 |AtomicOps|原子操作 (Atomic Operations);随 2.1 规范修订版添加的三个新请求。这些请求执行多个操作,并保证在目标设备内不中断地进行。|
-19 |Bandwidth Management|为节能或可靠性目的,硬件发起的链路速度或宽度的更改。|
-20 |BAR|基址寄存器 (Base Address Register)。功能(Function)使用它来指示其本地内存和 IO 空间的类型和大小。|
-21 |Beacon|低频带内信号,由主电源已关闭的设备使用,以发出已发生需要恢复电源的事件的信号。当链路处于 L2 状态时,可以通过链路发送该信号。|
-22 |BER|误码率或误码比 (Bit Error Rate or Ratio);基于一段时间内看到的传输位错误数量的信号完整性度量。|
-23 |Bit Lock|在接收器处获取发送器精确时钟频率的过程。这在 CDR 逻辑中完成,是链路训练 (Link Training) 中的第一步。|
-24 |Block|由 Gen3 发送器发送的 130 位单位,由 2 位同步字段后跟 16 字节数据组成。|
+|**术语 (Term)**|**定义 (Definition)**|
+|---|---|
+|ARI|替代路由 ID 解释 (Alternative Routing-ID Interpretation);可选功能,允许端点具有比通常允许的 8 个更多的功能 (Function)。|
+|ASPM|活跃状态电源管理 (Active State Power Management):启用后,允许硬件将链路电源状态从 L0 更改为 L0s 或 L1,或两者兼有。|
+|AtomicOps|原子操作 (Atomic Operations);在 2.1 规范修订版中添加的三个新请求。它们执行多个保证在目标设备内不间断进行的操作。|
+|Bandwidth Management|硬件发起的链路速度或宽度更改,目的是节约电力或提高可靠性。|
+|BAR|基地址寄存器 (Base Address Register)。由功能 (Function) 用于指示其本地内存和 IO 空间的类型和大小。|
+|Beacon|低频带内信号,由主电源已关闭的设备使用,以表明已发生需要恢复电源的事件。当链路处于 L2 状态时,该信号可通过链路发送。|
+|BER|误码率 (Bit Error Rate or Ratio);基于在一定时间内看到的传输误码数来衡量信号完整性。|
+|Bit Lock|在接收器处获取发送器的精确时钟频率的过程。这在 CDR 逻辑中完成,是链路训练 (Link Training) 的第一步。|
+|Block|由 Gen3 发送器发送的 130 位单元,由 2 位同步字段 (Sync Field) 后跟一组 16 个字节组成。|
 
-25 **974** 
+**974**
 
-26 **Glossar y** 
+## _**术语表 (Glossary)**_
 
-27 |**Term**|**Definition**|
-28 |---|---|
-29 |Block Lock|在使用 128b/130b 编码时,在接收器处查找块边界以识别传入块。该过程涉及三个阶段。首先,在输入流中搜索 EIEOS(电气空闲退出有序集,Electrical Idle Exit Ordered Set),并将内部块边界调整以匹配它。接下来,搜索 SDS(数据流开始,Start Data Stream)有序集。之后,接收器锁定到块边界。|
-30 |Bridge|充当两个总线之间接口的功能(Function)。交换机和根复合体 (Root Complex) 将在其端口上实现桥以启用数据包路由,桥也可以制作用于连接不同协议,例如 PCIe 和 PCI 之间。|
-31 |Byte Striping|将输出字节流分布在所有可用的 Lane(Lane)上。发送字节时使用所有可用的 Lane。|
-32 |CC|已消耗信用 (Credits Consumed):发射器在计算流控 (Flow Control) 时已使用的信用数。|
-33 |CDR|时钟和数据恢复 (Clock and Data Recovery) 逻辑,用于从输入比特流中恢复发射器时钟,然后对比特进行采样以识别模式。对于 8b/10b,该模式在 COM、FTS 和 EIEOS 符号中找到,允许逻辑获取 Symbol Lock。对于 128b/130b,EIEOS 序列用于通过三个锁定阶段获取 Block Lock。|
-34 |Character|用于描述要在链路邻居之间通信的 8 位值的术语。对于 Gen1 和 Gen2,这些是普通数据字节(标记为 D 字符)和特殊控制值(标记为 K 字符)的混合。对于 Gen3,没有控制字符,因为不再使用 8b/10b 编码。在这种情况下,字符都显示为数据字节。|
+|**术语 (Term)**|**定义 (Definition)**|
+|---|---|
+|Block Lock|在使用 128b/130b 编码时,在接收器处找到块 (Block) 边界以便识别传入的块。该过程涉及三个阶段。首先,在输入流中搜索 EIEOS (电气空闲退出有序集,Electrical Idle Exit Ordered Set) 并调整内部块边界以匹配它。接下来,搜索 SDS (开始数据流,Start Data Stream) 有序集。之后,接收器被锁定到块边界。|
+|Bridge|充当两个总线之间接口的 Function (功能)。交换机 (Switch) 和根复合体 (Root Complex) 将在其端口上实现桥接器以实现数据包路由,也可以创建桥接器以连接不同协议,例如 PCIe 和 PCI 之间。|
+|Byte Striping|将输出字节流分布到所有可用 Lane 上。每当发送字节时,都使用所有可用的 Lane。|
+|CC|已消耗信用 (Credits Consumed):发送方在计算流控制时已使用的信用数。|
+|CDR|时钟数据恢复 (Clock and Data Recovery) 逻辑,用于从输入比特流中恢复发送器时钟,然后对比特进行采样以识别模式。对于 8b/10b,在 COM、FTS 和 EIEOS 符号中找到的模式允许逻辑获取符号锁定 (Symbol Lock)。对于 128b/130b,EIEOS 序列用于通过三个锁定阶段来获取块锁定 (Block Lock)。|
+|Character|用于描述要在链路邻居之间通信的 8 位值的术语。对于 Gen1 和 Gen2,这些是普通数据字节 (标记为 D 字符) 和特殊控制值 (标记为 K 字符) 的混合。对于 Gen3,因为不再使用 8b/10b 编码,没有控制字符。在这种情况下,字符都显示为数据字节。|
 
-35 **975** 
+**975**
 
-36 ## **PCI Ex ress Technolo p gy** 
+## **PCI Express Technology**
 
-37 |**Term**|**Definition**|
-38 |---|---|
-39 |CL|信用限制 (Credit Limit):从发射器角度看的可用流控信用。检查以验证在发送 TLP 之前是否有足够的信用可用。|
-40 |Control Character|这些是在 8b/10b 编码中使用的特殊字符(标记为"K"字符),便于链路训练 (Link training) 和有序集 (Ordered Sets)。它们不在 Gen3 中使用,Gen3 中字符之间没有区别。|
-41 |Correctable Errors|由硬件自动纠正且不需要软件关注的错误。|
-42 |CR|所需信用 (Credits Required) — 这是 CC 和 PTLP 的总和。|
-43 |CRC|循环冗余校验 (Cyclic Redundancy Code);添加到 TLP 和 DLLP 中以允许验证无错传输。该名称意味着模式本质上是循环的并且是冗余的(它们不添加任何额外信息)。这些代码不包含足够的信息以允许自动纠错,但提供强大的错误检测。|
-44 |Cut-Through Mode|交换机允许 TLP 通过而无需先存储它即可从入口端口转发到出口端口的机制。这涉及风险,因为 TLP 可能在一部分已转发到出口端口后才被发现有错误。在这种情况下,在数据链路层 (Data Link Layer) 修改数据包的末尾以具有与应有的值相反的 LCRC 值,并在物理层 (Physical Layer) 修改为具有 End Bad (EDB) 帧符号(对于 8b/10b 编码)或 EDB 令牌(对于 128b/130b 编码)。这种组合告诉接收器该数据包已被作废,应在不发送 ACK/NAK 响应的情况下丢弃。|
-45 |Data Characters|表示普通数据的字符(标记为"D"字符),在 8b/10b 中与控制字符区分开。对于 Gen3,字符之间没有区别。|
+|**术语 (Term)**|**定义 (Definition)**|
+|---|---|
+|CL|信用限制 (Credit Limit):从发送方角度看,流控制信用被视为可用。检查以验证是否有足够信用可用于发送 TLP。|
+|Control Character|这些是在 8b/10b 编码中使用的特殊字符 (标记为 "K" 字符),有助于链路训练 (Link Training) 和有序集 (Ordered Sets)。它们不用于 Gen3,在 Gen3 中字符之间没有区别。|
+|Correctable Errors|由硬件自动更正且不需要软件关注的错误。|
+|CR|所需信用 (Credits Required) - 这是 CC 和 PTLP 的总和。|
+|CRC|循环冗余校验 (Cyclic Redundancy Code);添加到 TLP 和 DLLP 中以允许验证无错传输。名称意味着这些模式本质上是循环的且是冗余的 (它们不添加任何额外信息)。这些代码不包含足够的信息以允许自动纠错,但提供强大的错误检测。|
+|Cut-Through Mode|交换机 (Switch) 允许 TLP 通过的机制,从入口端口转发到出口端口,无需先存储以检查错误。这涉及风险,因为在部分内容已转发到出口端口后,TLP 可能被发现存在错误。在这种情况下,在数据链路层中修改数据包末尾,使其具有与应有的 LCRC 值相反的值,并在物理层中修改以在 8b/10b 编码中具有 End Bad (EDB) 帧符号,或在 128b/130b 编码中具有 EDB 令牌。该组合告诉接收器该数据包已作废 (nullified),应在不发送 ACK/NAK 响应的情况下丢弃。|
+|Data Characters|表示普通数据的字符 (标记为 "D" 字符),在 8b/10b 中与控制字符区分开。对于 Gen3,字符之间没有区别。|
 
-46 **976** 
+**976**
 
-47 **Glossar y** 
+## _**术语表 (Glossary)**_
 
-48 |**Term**|**Definition**|
-49 |---|---|
-50 |Data Stream|用于 Gen3 操作的数据块流。该流由 SDS(数据流开始有序集)进入,以 EDS(数据流结束令牌)退出。在数据流期间,只期望数据块或 SOS。当需要任何其他有序集时,必须退出数据流,并且仅在有更多数据块准备发送时重新进入。启动数据流等同于进入 L0 链路状态,因为有序集仅在其他 LTSSM 状态(如 Recovery)期间发送。|
-51 |De-emphasis|降低流中重复比特的发射器电压的过程。这具有去加重(de-emphasizing)已知会在传输介质中引起问题的信号低频分量的效果,从而改善接收器处的信号完整性。|
-52 |Digest|ECRC(端到端 CRC,End-to-End CRC)值的另一个名称,可在事务层 (Transaction Layer) 中创建 TLP 时可选地附加。|
-53 |DLCMSM|数据链路控制和管理状态机 (Data Link Control and Management State Machine);管理链路层训练过程(主要是流控 (Flow Control) 初始化)。|
-54 |DLLP|数据链路层包 (Data Link Layer Packet)。这些在数据链路层 (Data Link Layer) 中创建并转发到物理层 (Physical Layer),但事务层 (Transaction Layer) 看不到它们。|
-55 |DPA|动态功率分配 (Dynamic Power Allocation);随 2.1 规范修订版添加的一组新配置寄存器,定义 D0 设备电源状态下的 32 个功率子状态,使软件更容易控制设备电源选项。|
-56 |DSP (Downstream Port)|面向下游的端口,例如根端口 (Root Port) 或交换机下游端口 (Switch Downstream Port)。这种区别在 LTSSM 中是有意义的,因为端口在某些状态期间具有分配的角色。|
+|**术语 (Term)**|**定义 (Definition)**|
+|---|---|
+|Data Stream|Gen3 操作的数据块流。该流由 SDS (数据流开始有序集) 进入,并以 EDS (数据流结束令牌) 退出。在数据流期间,只期望数据块或 SOS。当需要任何其他有序集时,必须退出数据流,仅在有更多数据块准备好发送时重新进入。启动数据流等同于进入 L0 链路状态,因为有序集仅在其他 LTSSM 状态 (如 Recovery) 中发送。|
+|De-emphasis|降低流中重复比特的发送器电压的过程。这具有去加重信号中已知会在传输介质中引起问题的低频分量的效果,从而改善接收器处的信号完整性。|
+|Digest|ECRC (端到端 CRC,End-to-End CRC) 值的另一个名称,可在 TLP 在事务层 (Transaction Layer) 中创建时附加到 TLP。|
+|DLCMSM|数据链路控制和管理状态机 (Data Link Control and Management State Machine);管理链路层训练过程 (主要是流控制初始化)。|
+|DLLP|数据链路层数据包 (Data Link Layer Packet)。这些在数据链路层中创建并转发到物理层,但事务层不可见。|
+|DPA|动态功率分配 (Dynamic Power Allocation);2.1 规范修订版中引入的一组新配置寄存器,定义 D0 设备电源状态下的 32 个电源子状态,从而使软件更容易控制设备电源选项。|
+|DSP (Downstream Port)|面向下游的端口,如根端口 (Root Port) 或交换机下游端口 (Switch Downstream Port)。这种区别在 LTSSM 中有意义,因为端口在某些状态下具有分配的角色。|
 
-57 **977** 
+**977**
 
-58 ## **PCI Ex ress Technolo p gy** 
+## **PCI Express Technology**
 
-59 |**Term**|**Definition**|
-60 |---|---|
-61 |ECRC|端到端 CRC (End-to-End CRC) 值,在事务层 (Transaction Layer) 中创建 TLP 时可选地附加。这使接收器能够验证从源到目的地的可靠数据包传输,无论跨越了多少条链路 (Links)。|
-62 |Egress Port|具有传出流量的端口。|
-63 |Elastic Buffer|CDR 逻辑的一部分,此缓冲区使接收器能够补偿发射器和接收器时钟之间的差异。|
-64 |EMI|电磁干扰 (Electro-Magnetic Interference):系统发射的电噪声。对于 PCIe,使用 SSC 和加扰 (scrambling) 来对抗它。|
-65 |Endpoint|PCIe 功能(Function),位于 PCI 反向树 (Inverted-Tree) 结构的底部。|
-66 |Enumeration|系统发现过程,其中软件读取所有预期的配置位置以了解哪些 PCI 可配置功能(functions)在系统中可见并因此存在。|
-67 |Equalization|调整 Tx 和 Rx 值以补偿通过传输介质的实际或预期信号失真的过程。对于 Gen1 和 Gen2,这采用 Tx 去加重 (De-emphasis) 的形式。对于 Gen3,引入主动评估过程以测试信令环境并相应地调整 Tx 设置,并提到可选的 Rx 均衡 (equalization)。|
-68 |Flow Control|发射器避免由于缓冲区空间不足而导致数据包在接收器处被拒绝的风险的机制。接收器定期发送有关可用缓冲区空间的更新,发射器在尝试发送数据包之前验证是否有足够的空间。|
-69 |FLR|功能级复位 (Function-Level Reset)|
+|**术语 (Term)**|**定义 (Definition)**|
+|---|---|
+|ECRC|端到端 CRC (End-to-End CRC) 值,可在 TLP 在事务层 (Transaction Layer) 中创建时附加到 TLP。这使接收器能够验证从源到目的地的可靠数据包传输,无论穿越了多少个链路 (Link)。|
+|Egress Port|具有传出流量的端口。|
+|Elastic Buffer|CDR 逻辑的一部分,该缓冲区使接收器能够补偿发送器和接收器时钟之间的差异。|
+|EMI|电磁干扰 (Electro-Magnetic Interference):系统发射的电噪声。对于 PCIe,使用 SSC 和加扰 (scrambling) 来应对它。|
+|Endpoint|位于 PCI 倒置树 (Inverted-Tree) 结构底部的 PCIe Function。|
+|Enumeration|系统发现过程,其中软件读取所有预期的配置位置以了解哪些 PCI 可配置 Function 可见并因此存在于系统中。|
+|Equalization|调整 Tx 和 Rx 值以补偿通过传输介质的实际或预期信号失真的过程。对于 Gen1 和 Gen2,这采用 Tx 去加重 (De-emphasis) 的形式。对于 Gen3,引入主动评估过程来测试信令环境并相应地调整 Tx 设置,并提及可选的 Rx 均衡。|
+|Flow Control|发送器避免由于接收器缓冲区空间不足而导致数据包被拒绝的风险的机制。接收器定期发送有关可用缓冲区空间的更新,发送器在尝试发送数据包之前验证是否有足够空间可用。|
+|FLR|功能级复位 (Function-Level Reset)|
 
-70 **978** 
+**978**
 
-71 **Glossar y** 
+## _**术语表 (Glossary)**_
 
-72 |**Term**|**Definition**|
-73 |---|---|
-74 |Framing Symbols|在 8b/10b 编码中用于指示 TLP 或 DLLP 边界的"开始"和"结束"控制字符。|
-75 |Gen1|第一代 (Generation 1),意味着设计为符合 1.x 版本 PCIe 规范。|
-76 |Gen1, Gen2, Gen3|PCIe 规范版本的缩写。Gen1 = 1.x 版,Gen2 = 2.x 版,Gen3 = 3.0 版。|
-77 |Gen2|第二代 (Generation 2),意味着设计为符合 2.x 版本 PCIe 规范。|
-78 |Gen3|第三代 (Generation 3),意味着设计为符合 3.x 版本 PCIe 规范。|
-79 |IDO|基于 ID 的排序 (ID-based Ordering);启用后,这允许来自不同请求者的 TLP 相对于彼此乱序转发。目标是改善延迟和性能。|
-80 |Implicit Routing|TLP 的路由无需参考地址或 ID 即可理解。只有消息请求可以选择使用这种类型的路由。|
-81 |Ingress Port|具有传入流量的端口。|
-82 |ISI|符号间干扰 (Inter-Symbol Interference);由之前的比特引起的对比特时间的影响。|
-83 
-84 
-85 
-86 **979**
+|**术语 (Term)**|**定义 (Definition)**|
+|---|---|
+|Framing Symbols|在 8b/10b 编码中使用的 "开始" 和 "结束" 控制字符,指示 TLP 或 DLLP 的边界。|
+|Gen1|第 1 代 (Generation 1),指设计为符合 PCIe 规范 1.x 版本的设计。|
+|Gen1, Gen2, Gen3|PCIe 规范修订的缩写。Gen1 = 修订 1.x,Gen2 = 修订 2.x,Gen3 = 修订 3.0|
+|Gen2|第 2 代 (Generation 2),指设计为符合 PCIe 规范 2.x 版本的设计。|
+|Gen3|第 3 代 (Generation 3),指设计为符合 PCIe 规范 3.x 版本的设计。|
+|IDO|基于 ID 的排序 (ID-based Ordering);启用后,允许来自不同请求者的 TLP 彼此失序转发。目标是改善延迟和性能。|
+|Implicit Routing|TLP 的路由在不参考地址或 ID 的情况下即可理解。只有消息 (Message) 请求可以选择使用这种类型的路由。|
+|Ingress Port|具有传入流量的端口。|
+|ISI|符号间干扰 (Inter-Symbol Interference);由其前面的最近比特对比特时间造成的影响。|
 
 </td>
 </tr></tbody></table>
@@ -1939,107 +1967,107 @@ AtomicOp 150 AtomicOps 897, 974 Attention Button 854, 862 Attention Indicator 85
 </td>
 <td style="background-color:#e8e8e8">
 
-1 |Lane|允许两个端口之间一位的发送和接收路径的两对差分线。链路可以仅由一条 Lane 组成,也可以包含多达 32 条 Lane。|
-2 |Lane-to-Lane Skew|不同 Lane 上比特到达时间的差异。要求接收器检测到这种差异并在内部进行纠正。|
-3 |Legacy Endpoint|携带以下三种遗留项目之一的端点:支持 IO 事务、支持本地仅 32 位可预取内存空间,或支持锁定事务 (locked transactions)。|
+|Lane|允许两个端口之间一位的发送和接收路径的两对差分线。链路 (Link) 可以仅由一条 Lane 组成,也可以包含多达 32 条 Lane。|
+|Lane-to-Lane Skew|不同 Lane 上比特到达时间的差异。要求接收器检测到这种差异并在内部进行纠正。|
+|Legacy Endpoint|携带以下三种遗留项目之一的端点:支持 IO 事务、支持本地仅 32 位可预取内存空间,或支持锁定事务 (locked transactions)。|
 
-4 **979** 
+**979**
 
-5 ## **PCI Ex ress Technolo p gy** 
+## **PCI Express Technology**
 
-6 |**Term**|**Definition**|
-7 |---|---|
-8 |LFSR|线性反馈移位寄存器 (Linear-Feedback Shift Register);创建用于加扰的伪随机模式。|
-9 |Link|两个端口之间的接口,由一条或多条 Lane 组成。|
-10 |LTR|延迟容忍报告 (Latency-Tolerance Reporting);允许设备在发送请求时向系统报告其需要多快地获得服务的机制。较长的延迟为系统提供更多电源管理选项。|
-11 |LTSSM|链路训练和状态状态机 (Link Training and Status State Machine);管理物理层 (Physical Layer) 的训练过程。|
-12 |Non-posted Request|期望接收完成包作为响应的请求。例如,任何读请求都是非发布 (non-posted) 的。|
-13 |Non-prefetchable Memory|读取时具有副作用的内存。例如,读取时自动自清的状态寄存器。这种数据不能安全地预取,因为如果请求者从未请求该数据并且该数据被丢弃,它将对系统丢失。这对于 PCI 桥很重要,它们必须猜测读取的数据大小。如果它们知道可以推测性地预先读取内存空间,它们可以猜测一个较大的数字并实现更好的效率。这种区别对于 PCIe 来说不那么重要,因为传输的确切字节数包含在 TLP 中,但保持它允许向后兼容性。|
-14 |Nullified Packet|当发射器识别出数据包有错误并且不应被发送时,该数据包可以被"作废"(nullified),这意味着应丢弃它并且接收器应表现得好像它从未被发送过一样。在交换机上使用"直通"(cut-through)操作时可能会出现此问题。|
+|**术语 (Term)**|**定义 (Definition)**|
+|---|---|
+|LFSR|线性反馈移位寄存器 (Linear-Feedback Shift Register);创建用于加扰 (scrambling) 的伪随机模式。|
+|Link|两个端口之间的接口,由一条或多条 Lane 组成。|
+|LTR|延迟容忍报告 (Latency-Tolerance Reporting);允许设备在发送请求时向系统报告其需要多快地获得服务的机制。较长的延迟为系统提供更多电源管理选项。|
+|LTSSM|链路训练和状态状态机 (Link Training and Status State Machine);管理物理层 (Physical Layer) 的训练过程。|
+|Non-posted Request|期望接收完成包 (Completion) 作为响应的请求。例如,任何读请求都是非发布 (non-posted) 的。|
+|Non-prefetchable Memory|读取时具有副作用的内存。例如,读取时自动自清的状态寄存器。这种数据不能安全地预取 (prefetch),因为如果请求者从未请求该数据并且该数据被丢弃,它将对系统丢失。这对于 PCI 桥很重要,它们必须猜测读取的数据大小。如果它们知道可以推测性地预先读取内存空间,它们可以猜测一个较大的数字并实现更好的效率。这种区别对于 PCIe 来说不那么重要,因为传输的确切字节数包含在 TLP 中,但保持它允许向后兼容性。|
+|Nullified Packet|当发送器识别出数据包有错误并且不应被发送时,该数据包可以被 "作废" (nullified),这意味着应丢弃它并且接收器应表现得好像它从未被发送过一样。在交换机 (Switch) 上使用 "直通" (cut-through) 操作时可能会出现此问题。|
 
-15 **980** 
+**980**
 
-16 **Glossar y** 
+## _**术语表 (Glossary)**_
 
-17 |**Term**|**Definition**|
-18 |---|---|
-19 |OBFF|优化缓冲区刷新和填充 (Optimized Buffer Flush and Fill);允许系统告诉设备启动流量的最佳时间的机制。如果设备在最佳时间发送请求而不是在其他时间发送请求,系统电源管理将得到改善。|
-20 |Ordered Sets|作为物理层 (Physical Layer) 通信发送的符号组,用于 Lane 管理。对于 8b/10b 编码,这些通常仅由控制字符组成。它们在发送方的物理层 (Physical Layer) 中创建,并在接收方的物理层 (Physical Layer) 中使用,其他层完全看不到它们。|
-21 |PCI|外设组件互连 (Peripheral Component Interface)。旨在取代 PC 中早期使用的总线设计,如 ISA。|
-22 |PCI-X|PCI 扩展 (PCI eXtended)。旨在纠正 PCI 的缺点并实现更高的速度。|
-23 |PME|电源管理事件 (Power Management Event);来自设备的指示需要电源相关服务的消息。|
-24 |Poisoned TLP|数据负载在创建时已知为坏的数据包。在数据包中发送错误数据可能有助于诊断问题并确定解决方案。|
-25 |Polarity Inversion|允许接收器的信号极性反向连接,以支持简化板布局的情况。要求接收器在链路训练 (Link Training) 期间检测此情况并在内部反转信号以进行纠正。|
-26 |Port|PCIe 链路的输入/输出接口。|
-27 |Posted Request|不期望完成包的数据包请求。规范中只定义了两种这样的请求:内存写 (Memory Writes) 和消息 (Messages)。|
+|**术语 (Term)**|**定义 (Definition)**|
+|---|---|
+|OBFF|优化缓冲区刷新和填充 (Optimized Buffer Flush and Fill);允许系统告诉设备启动流量的最佳时间的机制。如果设备在最佳时间发送请求而不是在其他时间发送请求,系统电源管理将得到改善。|
+|Ordered Sets|作为物理层 (Physical Layer) 通信发送的符号组,用于 Lane 管理。对于 8b/10b 编码,这些通常仅由控制字符组成。它们在发送方的物理层中创建,并在接收方的物理层中使用,其他层完全看不到它们。|
+|PCI|外设组件互连 (Peripheral Component Interface)。旨在取代 PC 中早期使用的总线设计,如 ISA。|
+|PCI-X|PCI 扩展 (PCI eXtended)。旨在纠正 PCI 的缺点并实现更高的速度。|
+|PME|电源管理事件 (Power Management Event);来自设备的指示需要电源相关服务的消息。|
+|Poisoned TLP|数据负载在创建时已知为坏的数据包。在数据包中发送错误数据可能有助于诊断问题并确定解决方案。|
+|Polarity Inversion|允许接收器的信号极性反向连接,以支持简化板布局的情况。要求接收器在链路训练 (Link Training) 期间检测此情况并在内部反转信号以进行纠正。|
+|Port|PCIe 链路的输入/输出接口。|
+|Posted Request|不期望完成包的数据包请求。规范中只定义了两种这样的请求:内存写 (Memory Writes) 和消息 (Messages)。|
 
-28 **981** 
+**981**
 
-29 ## **PCI Ex ress Technolo p gy** 
+## **PCI Express Technology**
 
-30 |**Term**|**Definition**|
-31 |---|---|
-32 |Prefetchable Memory|读取时没有副作用的内存。该属性使其可以安全地预取,因为如果它被中间缓冲区丢弃,以后需要时始终可以再次读取。这对于 PCI 桥很重要,它们必须猜测读取的数据大小。可预取空间允许推测性地读取更多数据并提供更好效率的机会。对于 PCIe 来说,这种区别不那么重要,因为传输的确切字节数包含在 TLP 中,但保持它允许向后兼容性。|
-33 |PTLP|挂起的 TLP (Pending TLP) — 发送当前 TLP 所需的流控信用。|
-34 |QoS|服务质量 (Quality of Service);PCIe 拓扑为不同数据包分配不同优先级的能力。这可能仅意味着在仲裁点优先处理数据包,但在更复杂的系统中,它允许为数据包提供带宽和延迟保证。|
-35 |Requester ID|事务的请求者的配置地址,意思是与请求者对应的 BDF(总线、设备和功能号)。完成者将使用它作为结果完成包的返回地址。|
-36 |Root Complex|充当系统中 CPU 内核和 PCIe 拓扑之间接口的组件。这可以由一个或多个芯片组成,可以是简单的或复杂的。从 PCIe 的角度来看,它充当反向树结构的根,与 PCI 的向后兼容性要求该结构。|
-37 |Run Length|连续 1 或 0 的数量。对于 8b/10b 编码,游程长度限制为 5 位。对于 128b/130b,没有定义限制,但它使用的修改加扰方案旨在补偿这一点。|
+|**术语 (Term)**|**定义 (Definition)**|
+|---|---|
+|Prefetchable Memory|读取时没有副作用的内存。该属性使其可以安全地预取 (prefetch),因为如果它被中间缓冲区丢弃,以后需要时始终可以再次读取。这对于 PCI 桥很重要,它们必须猜测读取的数据大小。可预取 (Prefetchable) 空间允许推测性地读取更多数据并提供更好效率的机会。对于 PCIe 来说,这种区别不那么重要,因为传输的确切字节数包含在 TLP 中,但保持它允许向后兼容性。|
+|PTLP|挂起的 TLP (Pending TLP) - 发送当前 TLP 所需的流控制 (Flow Control) 信用。|
+|QoS|服务质量 (Quality of Service);PCIe 拓扑为不同数据包分配不同优先级的能力。这可能仅意味着在仲裁点优先处理数据包,但在更复杂的系统中,它允许为数据包提供带宽和延迟保证。|
+|Requester ID|事务的请求者的配置地址,意思是与请求者对应的 BDF(总线、设备和功能号)。完成者 (Completer) 将使用它作为结果完成包的返回地址。|
+|Root Complex|充当系统中 CPU 内核和 PCIe 拓扑之间接口的组件。这可以由一个或多个芯片组成,可以是简单的或复杂的。从 PCIe 的角度来看,它充当倒置树 (Inverted-Tree) 结构的根,与 PCI 的向后兼容性要求该结构。|
+|Run Length|连续 1 或 0 的数量。对于 8b/10b 编码,游程长度限制为 5 位。对于 128b/130b,没有定义限制,但它使用的修改加扰 (scrambling) 方案旨在补偿这一点。|
 
-38 **982** 
+**982**
 
-39 **Glossar y** 
+## _**术语表 (Glossary)**_
 
-40 |**Term**|**Definition**|
-41 |---|---|
-42 |Scrambling|随机化输出比特流以避免链路上重复模式从而减少 EMI 的过程。对于 Gen1 和 Gen2 可以关闭加扰以允许在链路上指定模式,但 Gen3 不能关闭,因为它在该速度下执行其他工作,并且链路预期无法在没有它的情况下可靠工作。|
-43 |SOS|跳过有序集 (Skip Ordered Set) — 用于补偿 Tx 和 Rx 之间的轻微频率差异。|
-44 |SSC|扩频时钟 (Spread-Spectrum Clocking)。这是一种通过允许时钟频率在允许范围内来回变化来减少系统中的 EMI 的方法。这将发射能量扩展到更宽的频率范围,因此避免了在一个特定频率集中太多 EMI 能量的问题。|
-45 |Sticky Bits|其值在复位后仍然保留的状态位。当错误由链路下游的功能(Function)检测到时,该特性对于维护状态信息很有用,这些功能不再正常工作。必须复位失败的链路才能访问下游功能(Function),并且其寄存器中的错误状态信息必须在该复位后保留以供软件使用。|
-46 |Switch|包含多个下游端口 (Downstream Ports) 和一个上游端口 (Upstream Port) 的设备,能够在端口之间路由流量。|
-47 |Symbol|跨链路发送的编码单位。对于 8b/10b,这些是编码产生的 10 位值,对于 128b/130b,它们是 8 位值。|
-48 |Symbol Lock|在使用 8b/10b 编码时,在接收器处查找符号边界以识别传入符号,从而识别数据包的内容。|
-49 |Symbol time|在链路上发送一个符号所花的时间 — Gen1 为 4ns,Gen2 为 2ns,Gen3 为 1ns。|
+|**术语 (Term)**|**定义 (Definition)**|
+|---|---|
+|Scrambling|随机化输出比特流以避免链路上重复模式从而减少 EMI 的过程。对于 Gen1 和 Gen2 可以关闭加扰以允许在链路上指定模式,但 Gen3 不能关闭,因为它在该速度下执行其他工作,并且链路预期无法在没有它的情况下可靠工作。|
+|SOS|跳过有序集 (Skip Ordered Set) - 用于补偿 Tx 和 Rx 之间的轻微频率差异。|
+|SSC|扩频时钟 (Spread-Spectrum Clocking)。这是一种通过允许时钟频率在允许范围内来回变化来减少系统中的 EMI 的方法。这将发射能量扩展到更宽的频率范围,因此避免了在一个特定频率集中太多 EMI 能量的问题。|
+|Sticky Bits|其值在复位后仍然保留的状态位。当错误由链路下游的 Function (功能) 检测到时,该特性对于维护状态信息很有用,这些功能不再正常工作。必须复位失败的链路才能访问下游功能,并且其寄存器中的错误状态信息必须在该复位后保留以供软件使用。|
+|Switch|包含多个下游端口 (Downstream Ports) 和一个上游端口 (Upstream Port) 的设备,能够在端口之间路由流量。|
+|Symbol|跨链路发送的编码单位。对于 8b/10b,这些是编码产生的 10 位值,对于 128b/130b,它们是 8 位值。|
+|Symbol Lock|在使用 8b/10b 编码时,在接收器处查找符号边界以识别传入符号,从而识别数据包的内容。|
+|Symbol time|在链路上发送一个符号所花的时间 - Gen1 为 4ns,Gen2 为 2ns,Gen3 为 1ns。|
 
-50 **983** 
+**983**
 
-51 ## **PCI Ex ress Technolo p gy** 
+## **PCI Express Technology**
 
-52 |**Term**|**Definition**|
-53 |---|---|
-54 |TLP|事务层包 (Transaction Layer Packet)。这些在事务层 (Transaction Layer) 中创建并通过其他层传递。|
-55 |Token|在 Gen3 速度下运行时,数据流期间传递的信息类型的标识符。|
-56 |TPH|TLP 处理提示 (TLP Processing Hints);这些帮助系统路由代理做出选择以改善延迟和流量拥塞。|
-57 |UI|单位间隔 (Unit Interval);在链路上发送一位所花的时间 — Gen1 为 0.4ns,Gen2 为 0.2ns,Gen3 为 0.125ns。|
-58 |Uncorrectable Errors|无法由硬件纠正的错误,因此通常需要软件关注才能解决。这些分为致命错误 — 使进一步链路操作不可靠的错误,以及非致命错误 — 尽管检测到问题但不影响链路操作的错误。|
-59 |USP|上游端口 (Upstream Port),即面向上游的端口,例如端点 (Endpoint) 或交换机上游端口 (Switch Upstream Port)。这种区别在 LTSSM 中是有意义的,因为端口在配置 (Configuration) 和恢复 (Recovery) 期间具有分配的角色。|
+|**术语 (Term)**|**定义 (Definition)**|
+|---|---|
+|TLP|事务层包 (Transaction Layer Packet)。这些在事务层 (Transaction Layer) 中创建并通过其他层传递。|
+|Token|在 Gen3 速度下运行时,数据流期间传递的信息类型的标识符。|
+|TPH|TLP 处理提示 (TLP Processing Hints);这些帮助系统路由代理做出选择以改善延迟和流量拥塞。|
+|UI|单位间隔 (Unit Interval);在链路上发送一位所花的时间 - Gen1 为 0.4ns,Gen2 为 0.2ns,Gen3 为 0.125ns。|
+|Uncorrectable Errors|无法由硬件纠正的错误,因此通常需要软件关注才能解决。这些分为致命错误 (Fatal Errors) - 使进一步链路操作不可靠的错误,以及非致命错误 (Non-Fatal Errors) - 尽管检测到问题但不影响链路操作的错误。|
+|USP|上游端口 (Upstream Port),即面向上游的端口,例如端点 (Endpoint) 或交换机上游端口 (Switch Upstream Port)。这种区别在 LTSSM 中是有意义的,因为端口在配置 (Configuration) 和恢复 (Recovery) 期间具有分配的角色。|
 
-60 **984** 
+**984**
 
-61 **Glossar y** 
+## _**术语表 (Glossary)**_
 
-62 |**Term**|**Definition**|
-63 |---|---|
-64 |Variables|使用多个标志在硬件层之间传递事件和状态。这些特定于硬件中的状态转换,通常对软件不可见。一些例子:<br>—<br>LinkUp — 从物理层 (Physical Layer) 到数据链路层 (Data Link Layer) 的指示,表示训练已完成,物理层 (Physical Layer) 现在处于运行状态。<br>—<br>idle_to_rlock_transitioned — 此计数器跟踪 LTSSM 从 Configuration.Idle 转换到 Recovery.RcvrLock 状态的次数。每当识别 TS2 以离开 Configuration 的过程无法工作时,LTSSM 转换到 Recovery 以采取适当的步骤。如果在 256 次通过 Recovery 后仍无法工作(计数器达到 FFh),则返回 Detect 重新开始。可能是某些 Lane 不工作。|
-65 |WAKE#|带外引脚,用于向系统发出应恢复电源的信号。在需要重要节能的系统中,它代替 Beacon 使用。|
+|**术语 (Term)**|**定义 (Definition)**|
+|---|---|
+|Variables|使用多个标志在硬件层之间传递事件和状态。这些特定于硬件中的状态转换,通常对软件不可见。一些例子:<br>—<br>LinkUp - 从物理层 (Physical Layer) 到数据链路层 (Data Link Layer) 的指示,表示训练已完成,物理层现在处于运行状态。<br>—<br>idle_to_rlock_transitioned - 此计数器跟踪 LTSSM 从 Configuration.Idle 转换到 Recovery.RcvrLock 状态的次数。每当识别 TS2 以离开 Configuration 的过程无法工作时,LTSSM 转换到 Recovery 以采取适当的步骤。如果在 256 次通过 Recovery 后仍无法工作(计数器达到 FFh),则返回 Detect 重新开始。可能是某些 Lane 不工作。|
+|WAKE#|带外 (Side-band) 引脚,用于向系统发出应恢复电源的信号。在需要重要节能的系统中,它代替 Beacon 使用。|
 
-66 **985** 
+**985**
 
-67 **PCI Ex ress Technolo p gy** 
+## **PCI Express Technology**
 
-68 **986** 
+**986**
 
-69 ## _**Numerics**_ 
+## _**数字 (Numerics)**_
 
-70 128b/130b 43 128b/130b Encoding 973 1x Packet Format 374, 375 3DW Header 152 3-Tap Transmitter Equalization 585 4DW Headers 152 4x Packet Format 374 8.0 GT/s 410 8b/10b 42 8b/10b Decoder 367 8b/10b Encoder 366 8b/10b Encoding 973 
+128b/130b 43 128b/130b Encoding 973 1x Packet Format 374, 375 3DW Header 152 3-Tap Transmitter Equalization 585 4DW Headers 152 4x Packet Format 374 8.0 GT/s 410 8b/10b 42 8b/10b Decoder 367 8b/10b Encoder 366 8b/10b Encoding 973
 
-71 ## _**A**_ 
+## _**A**_
 
-72 AC Coupling 468 ACK 318 Ack 311 ACK DLLP 75, 312 ACK/NAK DLLP 312 ACK/NAK Latency 328 ACK/NAK Protocol 318, 320, 329, 973 Ack/Nak Protocol 74 ACKD_SEQ Count 323 ACKNAK_Latency_Timer 328, 343 ACPI 711, 973 ACPI Driver 706 ACPI Machine Language 712 ACPI Source Language 712 ACPI spec 705 ACPI tables 712 ACS 973 Active State Power Management 405, 735 Address Routing 158 Address Space 121 Address Translation 958, 959 Advanced Correctable Error Reporting 690 Advanced Correctable Error Status 689 Advanced Correctable Errors 688 Advanced Error Reporting 685 Advanced Source ID Register 697 Advanced Uncorrectable Error Handling 691 Advanced Uncorrectable Error Status 691 Aggregate Bandwidth 408 Alternative Routing-ID Interpretation 909 AML 712 AML token interpreter 712 Arbitration 20, 270 Arbor 117 Architecture Overview 39 ARI 909, 974 ASL 712 ASPM 735, 742, 910, 974 ASPM Exit Latency 756, 757 Assert_INTx messages 806 Async Notice of Slot Status Change 876 
+AC Coupling 468 ACK 318 Ack 311 ACK DLLP 75, 312 ACK/NAK DLLP 312 ACK/NAK Latency 328 ACK/NAK Protocol 318, 320, 329, 973 Ack/Nak Protocol 74 ACKD_SEQ Count 323 ACKNAK_Latency_Timer 328, 343 ACPI 711, 973 ACPI Driver 706 ACPI Machine Language 712 ACPI Source Language 712 ACPI spec 705 ACPI tables 712 ACS 973 Active State Power Management 405, 735 Address Routing 158 Address Space 121 Address Translation 958, 959 Advanced Correctable Error Reporting 690 Advanced Correctable Error Status 689 Advanced Correctable Errors 688 Advanced Error Reporting 685 Advanced Source ID Register 697 Advanced Uncorrectable Error Handling 691 Advanced Uncorrectable Error Status 691 Aggregate Bandwidth 408 Alternative Routing-ID Interpretation 909 AML 712 AML token interpreter 712 Arbitration 20, 270 Arbor 117 Architecture Overview 39 ARI 909, 974 ASL 712 ASPM 735, 742, 910, 974 ASPM Exit Latency 756, 757 Assert_INTx messages 806 Async Notice of Slot Status Change 876
 
-73 AtomicOp 150 AtomicOps 897, 974 Attention Button 854, 862 Attention Indicator 854, 859 Aux_Current field 726 
+AtomicOp 150 AtomicOps 897, 974 Attention Button 854, 862 Attention Indicator 854, 859 Aux_Current field 726
 
-74 ## _**B**_
+## _**B**_
 
 </td>
 </tr></tbody></table>
@@ -2117,92 +2145,69 @@ Packet Format 151 Packet Generation 937 Packet-Based Protocol 169 Packet-based P
 </td>
 <td style="background-color:#e8e8e8">
 
-1 Bandwidth 42 Bandwidth Congestion 281 Bandwidth Management 974 BAR 126, 960, 974 Base Address Registers 126 Base and Limit Registers 136 BDF 85 Beacon 483, 772, 974 BER 974 BIOS 712, 853 Bit Lock 78, 395, 507, 742, 974 Bit Tracer 929 Block 974 Block Alignment 435 Block Encoding 410 Block Lock 507, 975 Boost 476 Bridge 975 Bus 85 Bus Master 20 Bus Number register 93 Byte Count Modified 201 Byte Enables 181 Byte Striping 371, 372, 373, 975 byte striping 371 Byte Striping logic 365 Byte Un-Striping 402 _**C**_ Capabilities List bit 818 Capabilities Pointer register 713 Capability ID 713, 814 Capability Structures 88 Card Connector Power Switching Logic 854 Card Insertion 855 Card Insertion Procedure 857 Card Present 854 Card Removal 855 Card Removal Procedure 856 Card Reset Logic 854 CC 975 CDR 435, 437, 975 Character 79, 366, 975 CL 976 Class driver 706 Clock Requirements 452 Code Violation 400 Coefficients 584 Cold Reset 834 
+Bandwidth 42 Bandwidth Congestion 281 Bandwidth Management 974 BAR 126, 960, 974 Base Address Registers 126 Base and Limit Registers 136 BDF 85 Beacon 483, 772, 974 BER 974 BIOS 712, 853 Bit Lock 78, 395, 507, 742, 974 Bit Tracer 929 Block 974 Block Alignment 435 Block Encoding 410 Block Lock 507, 975 Boost 476 Bridge 975 Bus 85 Bus Master 20 Bus Number register 93 Byte Count Modified 201 Byte Enables 181 Byte Striping 371, 372, 373, 975 byte striping 371 Byte Striping logic 365 Byte Un-Striping 402
 
-2 COM 386 Common-Mode Noise Rejection 452 Completer 33 Completer Abort 664 Completion Packet 197 Completion Status 200 Completion Time-out 665 Completion TLP 184 Completions 196, 218 Compliance Pattern 537 Compliance Pattern - 8b/10b 529 Configuration 85 Configuration Address Port 92, 93 Configuration Address Space 88 Configuration Cycle Generation 26 Configuration Data Port 92, 93 Configuration Headers 50 Configuration Read 151 Configuration Read Access 104 Configuration Register Space 27, 89 Configuration Registers 90 Configuration Request Packet 193 Configuration Requests 99, 192 Configuration Space 122 Configuration State 520, 540 Configuration Status Register 676 Configuration Status register 713 Configuration Transactions 91 Configuration Write 151 Configuration.Complete 562 Configuration.Idle 566 Configuration.Lanenum.Accept 560 Configuration.Lanenum.Wait 559 Configuration.Linkwidth.Accept 558 Configuration.Linkwidth.Start 553 Congestion Avoidance 897 Continuous-Time Linear Equalization 493 Control Character 976 Control Character Encoding 386 Control Method 712 Conventional Reset 834 Correctable Errors 651, 976 CR 976 CRC 976 CRD 383 Credit Allocated Count 229 Credit Limit counter 228 CREDIT_ALLOCATED 229 Credits Consumed counter 228 Credits Received Counter 229 CREDITS_RECEIVED 229 CTLE 493, 494 Current Running Disparity 383 Cursor Coefficient 584 Cut-Through 354 Cut-Through Mode 976 
+## _**C**_
 
-3 _**D**_ D0 709, 710, 714, 734 D0 Active 714 D0 Uninitialized 714 D1 709, 710, 716, 734 D1_Support bit 725 D2 709, 710, 717, 734 D2_Support bit 725 D3 709, 710, 719 D3cold 721, 734 D3hot 719, 734 Data Characters 976 Data Link Layer 55, 72 Data Link Layer Packet 72 Data Link Layer Packet Format 310 Data Link Layer Packets 73 Data Poisoning 660 Data Register 731 Data Stream 977 Data_Scale field 729 Data_Select field 729 DC Common Mode 462 DC Common Mode Voltage 466 DC Common-Mode Voltage 467 Deadlock Avoidance 303 Deassert_INTx messages 806 Debugging PCIe Traffic 917 Decision Feedback Equalization 495 De-emphasis 450, 468, 469, 471, 476, 977 De-Scrambler 367 Deserializer 395 De-Skew 399 Detect State 519, 522 Detect.Active 524 Detect.Quiet 523 Device 85 Device Capabilities 2 Register 899 Device Capabilities Register 873 Device Context 709 Device Core 59 Device core 55 Device Driver 706 device driver 853 Device Layers 54 Device PM States 713 device PM states 709 Device Status Register 681 Device-Specific Initialization (DSI) bit 727 DFE 493, 495, 497 Differential Driver 389 Differential Receiver 393, 435, 451 Differential Signaling 463 Differential Signals 44 Differential Transmitter 451 Digest 180, 977 Direct Address Translation 949 
+Capabilities List bit 818 Capabilities Pointer register 713 Capability ID 713, 814 Capability Structures 88 Card Connector Power Switching Logic 854 Card Insertion 855 Card Insertion Procedure 857 Card Present 854 Card Removal 855 Card Removal Procedure 856 Card Reset Logic 854 CC 975 CDR 435, 437, 975 Character 79, 366, 975 CL 976 Class driver 706 Clock Requirements 452 Code Violation 400 Coefficients 584 Cold Reset 834
 
-4 Disable State 521, 613 Discrete Time Linear Equalizer 493 Discrete-Time Linear Equalizer 494 Disparity 383 Disparity Error Detection 400 DLCMSM 977 DLE 493, 494 DLL 437 DLLP 73, 170, 238, 308, 311, 977 DLLP Elements 307 DMA 937 DPA 910, 977 Driver Characteristics 489 DSI bit 727 DSP 977 D-State Transitions 722 Dual Simplex 363 Dual-Simplex 40 Dual-Star Fabric 957 Dynamic Bandwidth Changes 618 Dynamic Link Speed Changes 619 Dynamic Link Width Changes 629 Dynamic Power Allocation 910 
+COM 386 Common-Mode Noise Rejection 452 Completer 33 Completer Abort 664 Completion Packet 197 Completion Status 200 Completion Time-out 665 Completion TLP 184 Completions 196, 218 Compliance Pattern 537 Compliance Pattern - 8b/10b 529 Configuration 85 Configuration Address Port 92, 93 Configuration Address Space 88 Configuration Cycle Generation 26 Configuration Data Port 92, 93 Configuration Headers 50 Configuration Read 151 Configuration Read Access 104 Configuration Register Space 27, 89 Configuration Registers 90 Configuration Request Packet 193 Configuration Requests 99, 192 Configuration Space 122 Configuration State 520, 540 Configuration Status Register 676 Configuration Status register 713 Configuration Transactions 91 Configuration Write 151 Configuration.Complete 562 Configuration.Idle 566 Configuration.Lanenum.Accept 560 Configuration.Lanenum.Wait 559 Configuration.Linkwidth.Accept 558 Configuration.Linkwidth.Start 553 Congestion Avoidance 897 Continuous-Time Linear Equalization 493 Control Character 976 Control Character Encoding 386 Control Method 712 Conventional Reset 834 Correctable Errors 651, 976 CR 976 CRC 976 CRD 383 Credit Allocated Count 229 Credit Limit counter 228 CREDIT_ALLOCATED 229 Credits Consumed counter 228 Credits Received Counter 229 CREDITS_RECEIVED 229 CTLE 493, 494 Current Running Disparity 383 Cursor Coefficient 584 Cut-Through 354 Cut-Through Mode 976
 
-5 ## _**E**_ 
+## _**D**_
 
-6 ECRC 63, 180, 978 ECRC Generation and Checking 657 EDB 373, 387 Egress Port 978 EIE 387 EIEOS 389, 739, 740 EIOS 388, 737 Elastic Buffer 366, 435, 978 Electrical Idle 388, 736, 738, 741 Electrical Idle Exit Ordered Set 389 Electrical Idle Ordered Set 388 EMI 77, 978 Encoding 410 END 373, 387 Endpoint 978 End-to-End CRC 180 Enhanced Configuration Access Mechanism 96 Enumeration 51, 104, 978 Equalization 474, 978 Equalization - Phase 0 578 Equalization - Phase 1 581 Equalization - Phase 2 583 Equalization - Phase 3 586 Equalization Control 513 Equalization Control Registers 579 Equalizer 475 Equalizer Coefficients 479 Error Classifications 651 Error Handling 282, 699 Error Isolation 937 Error Messages 209, 668 
+D0 709, 710, 714, 734 D0 Active 714 D0 Uninitialized 714 D1 709, 710, 716, 734 D1_Support bit 725 D2 709, 710, 717, 734 D2_Support bit 725 D3 709, 710, 719 D3cold 721, 734 D3hot 719, 734 Data Characters 976 Data Link Layer 55, 72 Data Link Layer Packet 72 Data Link Layer Packet Format 310 Data Link Layer Packets 73 Data Poisoning 660 Data Register 731 Data Stream 977 Data_Scale field 729 Data_Select field 729 DC Common Mode 462 DC Common Mode Voltage 466 DC Common-Mode Voltage 467 Deadlock Avoidance 303 Deassert_INTx messages 806 Debugging PCIe Traffic 917 Decision Feedback Equalization 495 De-emphasis 450, 468, 469, 471, 476, 977 De-Scrambler 367 Deserializer 395 De-Skew 399 Detect State 519, 522 Detect.Active 524 Detect.Quiet 523 Device 85 Device Capabilities 2 Register 899 Device Capabilities Register 873 Device Context 709 Device Core 59 Device core 55 Device Driver 706 device driver 853 Device Layers 54 Device PM States 713 device PM states 709 Device Status Register 681 Device-Specific Initialization (DSI) bit 727 DFE 493, 495, 497 Differential Driver 389 Differential Receiver 393, 435, 451 Differential Signaling 463 Differential Signals 44 Differential Transmitter 451 Digest 180, 977 Direct Address Translation 949
 
-7 ESD 459 ESD standards 448 Exerciser Card 931 Extended Configuration Space 89 Eye Diagram 486 
+Disable State 521, 613 Discrete Time Linear Equalizer 493 Discrete-Time Linear Equalizer 494 Disparity 383 Disparity Error Detection 400 DLCMSM 977 DLE 493, 494 DLL 437 DLLP 73, 170, 238, 308, 311, 977 DLLP Elements 307 DMA 937 DPA 910, 977 Driver Characteristics 489 DSI bit 727 DSP 977 D-State Transitions 722 Dual Simplex 363 Dual-Simplex 40 Dual-Star Fabric 957 Dynamic Bandwidth Changes 618 Dynamic Link Speed Changes 619 Dynamic Link Width Changes 629 Dynamic Power Allocation 910
 
-8 ## _**F**_ 
+## _**E**_
 
-9 Failover 942, 944, 952 FC Initialization 223 FC Initialization Sequence 223 FC_Init1 224 FC_Init2 225 FC_Update 238 First DW Byte Enables 178, 181 Flow Control 72, 76, 215, 217, 299, 928, 978 Flow Control Buffer 217, 229 Flow Control Buffers 217 Flow Control Credits 216, 219 Flow Control Elements 227, 231 Flow Control Initialization 227, 230, 237 Flow Control Packet 239 Flow Control Packet Format 314 Flow Control Update Frequency 239 Flow Control Updates 237 FLR 842, 844, 845, 978 Flying Lead Probe 924 Format Field 179 Framing Symbols 171, 979 FTS 387 FTS Ordered Set 388 FTSOS 388 Function 85 Function Level Reset 842, 843 Function PM State Transitions 722 Function State Transition Delays 724 Fundamental Reset 834 
+ECRC 63, 180, 978 ECRC Generation and Checking 657 EDB 373, 387 Egress Port 978 EIE 387 EIEOS 389, 739, 740 EIOS 388, 737 Elastic Buffer 366, 435, 978 Electrical Idle 388, 736, 738, 741 Electrical Idle Exit Ordered Set 389 Electrical Idle Ordered Set 388 EMI 77, 978 Encoding 410 END 373, 387 Endpoint 978 End-to-End CRC 180 Enhanced Configuration Access Mechanism 96 Enumeration 51, 104, 978 Equalization 474, 978 Equalization - Phase 0 578 Equalization - Phase 1 581 Equalization - Phase 2 583 Equalization - Phase 3 586 Equalization Control 513 Equalization Control Registers 579 Equalizer 475 Equalizer Coefficients 479 Error Classifications 651 Error Handling 282, 699 Error Isolation 937 Error Messages 209, 668
 
-10 ## _**G**_ 
+ESD 459 ESD standards 448 Exerciser Card 931 Extended Configuration Space 89 Eye Diagram 486
 
-11 Gen1 43, 77, 979 Gen2 43, 77, 979 Gen3 44, 77, 407, 979 Gen3 products 936 
+## _**F**_
 
-12 ## _**H**_ 
+Failover 942, 944, 952 FC Initialization 223 FC Initialization Sequence 223 FC_Init1 224 FC_Init2 225 FC_Update 238 First DW Byte Enables 178, 181 Flow Control 72, 76, 215, 217, 299, 928, 978 Flow Control Buffer 217, 229 Flow Control Buffers 217 Flow Control Credits 216, 219 Flow Control Elements 227, 231 Flow Control Initialization 227, 230, 237 Flow Control Packet 239 Flow Control Packet Format 314 Flow Control Update Frequency 239 Flow Control Updates 237 FLR 842, 844, 845, 978 Flying Lead Probe 924 Format Field 179 Framing Symbols 171, 979 FTS 387 FTS Ordered Set 388 FTSOS 388 Function 85 Function Level Reset 842, 843 Function PM State Transitions 722 Function State Transition Delays 724 Fundamental Reset 834
 
-13 handler 712 Hardware Based Fixed Arbitration 256 Hardware Fixed VC Arbitration 257 Hardware-Fixed Port Arbitration 265 Header Type 0 29 Header Type 1 28 Header Type/Format Field 178 High Speed Signaling 451 host/PCI bridge 94 Hot Plug 847, 852 
+## _**G**_
 
-14 Hot Plug Controller 863 Hot Plug Elements 852 Hot Plug Messages 211 Hot Reset 839 Hot Reset State 521, 612 Hot-Plug 116, 853 Hot-Plug Controller 853, 864 hot-plug primitives 874 Hot-Plug Service 852 Hot-Plug System Driver 852 HPC Applications 940 Hub Link 32 
+Gen1 43, 77, 979 Gen2 43, 77, 979 Gen3 44, 77, 407, 979 Gen3 products 936
 
-15 ## _**I**_ 
+## _**H**_
 
-16 ID Based Ordering 301 ID Routing 155 ID-based Ordering 301, 909, 979 IDL 387 IDO 301, 302, 909, 979 IEEE 1394 Bus Driver 711 Ignored Messages 211 Implicit Routing 148, 979 In-band Reset 837 Infinite Credits 221 Infinite Flow Control Credits 219 Ingress Port 979 InitFC1-Cpl 312 InitFC1-NP 311 InitFC1-P DLLP 311 InitFC2-Cpl 312 InitFC2-NP 312 InitFC2-P 312 Intelligent Adapters 943, 944, 951 Internal Error Reporting 911 Interrupt Disable 803 Interrupt Latency 829 interrupt latency 829 Interrupt Line Register 802 Interrupt Pin Register 801 Interrupt Status 804 Inter-symbol Interference 469 INTx Interrupt Messages 206 INTx Interrupt Signaling 206 INTx Message Format 807 INTx# Pins 800 INTx# Signaling 803 IO 126 IO Address Spaces 122 IO Range 141 IO Read 151 IO Requests 184 IO Virtualization 937 IO Write 151 ISI 979 Isochronous Packets 279 Isochronous Support 272 Isochronous Transaction Support 272 
+handler 712 Hardware Based Fixed Arbitration 256 Hardware Fixed VC Arbitration 257 Hardware-Fixed Port Arbitration 265 Header Type 0 29 Header Type 1 28 Header Type/Format Field 178 High Speed Signaling 451 host/PCI bridge 94 Hot Plug 847, 852
 
-17 ## _**J**_ 
+Hot Plug Controller 863 Hot Plug Elements 852 Hot Plug Messages 211 Hot Reset 839 Hot Reset State 521, 612 Hot-Plug 116, 853 Hot-Plug Controller 853, 864 hot-plug primitives 874 Hot-Plug Service 852 Hot-Plug System Driver 852 HPC Applications 940 Hub Link 32
 
-18 Jitter 485, 487 
+## _**I**_
 
-19 ## _**L**_ 
+ID Based Ordering 301 ID Routing 155 ID-based Ordering 301, 909, 979 IDL 387 IDO 301, 302, 909, 979 IEEE 1394 Bus Driver 711 Ignored Messages 211 Implicit Routing 148, 979 In-band Reset 837 Infinite Credits 221 Infinite Flow Control Credits 219 Ingress Port 979 InitFC1-Cpl 312 InitFC1-NP 311 InitFC1-P DLLP 311 InitFC2-Cpl 312 InitFC2-NP 312 InitFC2-P 312 Intelligent Adapters 943, 944, 951 Internal Error Reporting 911 Interrupt Disable 803 Interrupt Latency 829 interrupt latency 829 Interrupt Line Register 802 Interrupt Pin Register 801 Interrupt Status 804 Inter-symbol Interference 469 INTx Interrupt Messages 206 INTx Interrupt Signaling 206 INTx Message Format 807 INTx# Pins 800 INTx# Signaling 803 IO 126 IO Address Spaces 122 IO Range 141 IO Read 151 IO Requests 184 IO Virtualization 937 IO Write 151 ISI 979 Isochronous Packets 279 Isochronous Support 272 Isochronous Transaction Support 272
 
-20 L0 State 500, 520, 568 L0s 744 L0s Receiver State Machine 605 L0s State 520, 603, 744 L0s Transmitter State Machine 603 L1 ASPM 736, 747 L1 ASPM Negotiation 748 L1 ASPM State 747 L1 State 520, 607, 760 L2 State 521, 609, 767 L2/L3 Ready 767 L2/L3 Ready state 763, 764 Lane 40, 78, 365, 979 Lane # 511 Lane Number Negotiation 543, 547 Lane Reversal 507 Lane-Level Encoding 410 Lane-to-Lane de-skew 78 Lane-to-Lane Skew 979 Last DW Byte Enables 178, 181 Latency Tolerance Reporting 910 LCRC 63, 325, 329 LeCroy 922, 923, 933 LeCroy Tools 917 Legacy Endpoint 816, 979 Legacy Endpoints 972 LFSR 980 Link 40, 980 Link # 511 Link Capabilities 2 Register 640 Link Capability Register 743 Link Configuration - Failed Lane 549 Link Control 841 Link Data Rate 509 Link data rate 78 Link Equalization 577 Link Errors 683 Link Flow Control-Related Errors 666 Link Number Negotiation 542, 546 Link Power Management 733 Link Status Register 641 Link Training and Initialization 78 Link Training and Status State Machine (LTSSM) 518 Link Upconfigure Capability 512 Link Width 507 Link width 78 Link Width Change 570 Link Width Change Example 630 Lock 964 Locked Reads 66 Locked Transaction 209 
+## _**J**_
 
-21 Locked Transactions 963 Logic Analyzer 921 Logical Idle Sequence 370 Loopback Master 615 Loopback Slave 616 Loopback State 521, 613 Loopback.Active 617 Loopback.Entry 614 Loopback.Exit 618 Low-priority VC Arbitration 255 LTR 784, 910, 980 LTR Messages 786 LTR Registers 784 LTSSM 507, 518, 839, 927, 980 
+Jitter 485, 487
 
-22 ## _**M**_ 
+## _**L**_
 
-23 Malformed TLP 666 Memory Address Space 122 Memory Read 150 Memory Read Lock 150 Memory Request Packet 188 Memory Requests 188 Memory Write 150 Memory Writes 69 Message 151 Message Address Register 816 Message Address register 816, 818 Message Control Register 814 Message Control register 814, 818 Message Data register 817, 818 Message Request Packet 203 Message Requests 70, 203 Message Writes 70 Messages 148 Mid-Bus Probe 923 MindShare Arbor 117 Miniport Driver 706 MMIO 123 Modified Compliance Pattern 537 Modified Compliance Pattern - 8b/10b 532 MR-IOV 937, 939 MSI Capability Register 812 MSI Configuration 817 Multicast 893, 896 Multicast Capabilities 163 Multicast Capability Registers 889 Multi-casting 888 Multi-Function Arbitration 272 Multi-Host System 96 Multi-Host Systems 943 Multiple Message Capable field 818 Multiple Messages 820 Multi-Root 938 Multi-Root Enumeration 114 Multi-Root System 97, 116 
+L0 State 500, 520, 568 L0s 744 L0s Receiver State Machine 605 L0s State 520, 603, 744 L0s Transmitter State Machine 603 L1 ASPM 736, 747 L1 ASPM Negotiation 748 L1 ASPM State 747 L1 State 520, 607, 760 L2 State 521, 609, 767 L2/L3 Ready 767 L2/L3 Ready state 763, 764 Lane 40, 78, 365, 979 Lane # 511 Lane Number Negotiation 543, 547 Lane Reversal 507 Lane-Level Encoding 410 Lane-to-Lane de-skew 78 Lane-to-Lane Skew 979 Last DW Byte Enables 178, 181 Latency Tolerance Reporting 910 LCRC 63, 325, 329 LeCroy 922, 923, 933 LeCroy Tools 917 Legacy Endpoint 816, 979 Legacy Endpoints 972 LFSR 980 Link 40, 980 Link # 511 Link Capabilities 2 Register 640 Link Capability Register 743 Link Configuration - Failed Lane 549 Link Control 841 Link Data Rate 509 Link data rate 78 Link Equalization 577 Link Errors 683 Link Flow Control-Related Errors 666 Link Number Negotiation 542, 546 Link Power Management 733 Link Status Register 641 Link Training and Initialization 78 Link Training and Status State Machine (LTSSM) 518 Link Upconfigure Capability 512 Link Width 507 Link width 78 Link Width Change 570 Link Width Change Example 630 Lock 964 Locked Reads 66 Locked Transaction 209
 
-24 ## _**N**_ 
+Locked Transactions 963 Logic Analyzer 921 Logical Idle Sequence 370 Loopback Master 615 Loopback Slave 616 Loopback State 521, 613 Loopback.Active 617 Loopback.Entry 614 Loopback.Exit 618 Low-priority VC Arbitration 255 LTR 784, 910, 980 LTR Messages 786 LTR Registers 784 LTSSM 507, 518, 839, 927, 980
 
-25 N_FTS 511 Nak 311 NAK_SCHEDULED Flag 327 namespace 712 Native PCI Express Endpoints 972 NEXT_RCV_SEQ 313, 326, 341 Noise 485 Non-Posted 150 non-posted 60 Non-posted Request 980 Non-Posted Transactions 65, 218 Non-prefetchable 123 Non-prefetchable Memory 980 Non-Prefetchable Range 139 North Bridge 21 NP-MMIO 126, 139 NT bridging 936 Nullified Packet 388, 689, 980 
+## _**M**_
 
-26 ## _**O**_ 
+Malformed TLP 666 Memory Address Space 122 Memory Read 150 Memory Read Lock 150 Memory Request Packet 188 Memory Requests 188 Memory Write 150 Memory Writes 69 Message 151 Message Address Register 816 Message Address register 816, 818 Message Control Register 814 Message Control register 814, 818 Message Data register 817, 818 Message Request Packet 203 Message Requests 70, 203 Message Writes 70 Messages 148 Mid-Bus Probe 923 MindShare Arbor 117 Miniport Driver 706 MMIO 123 Modified Compliance Pattern 537 Modified Compliance Pattern - 8b/10b 532 MR-IOV 937, 939 MSI Capability Register 812 MSI Configuration 817 Multicast 893, 896 Multicast Capabilities 163 Multicast Capability Registers 889 Multi-casting 888 Multi-Function Arbitration 272 Multi-Host System 96 Multi-Host Systems 943 Multiple Message Capable field 818 Multiple Messages 820 Multi-Root 938 Multi-Root Enumeration 114 Multi-Root System 97, 116
 
-27 OBFF 776, 910, 981 OBFF Messages 213 OnNow Design Initiative 707 Optimized Buffer Flush and Fill 776, 910, 981 Optimized Buffer Flush and Fill Messages 213 Ordered Sets 981 Ordered-Sets 370 Ordering Rules 287 Ordering Rules Table 288, 289 Ordering Table 914 Oscilloscope 919 
+## _**N**_
 
-28 ## _**P**_ 
+N_FTS 511 Nak 311 NAK_SCHEDULED Flag 327 namespace 712 Native PCI Express Endpoints 972 NEXT_RCV_SEQ 313, 326, 341 Noise 485 Non-Posted 150 non-posted 60 Non-posted Request 980 Non-Posted Transactions 65, 218 Non-prefetchable 123 Non-prefetchable Memory 980 Non-Prefetchable Range 139 North Bridge 21 NP-MMIO 126, 139 NT bridging 936 Nullified Packet 388, 689, 980
 
-29 Packet Format 151 Packet Generation 937 Packet-Based Protocol 169 Packet-based Protocol 46 PAD 386 Pause command 853, 874 Pausing a Driver 874 PCI 981 PCI Bus Driver 706, 707, 711 PCI Bus PM Interface Specification 705 PCI Express 39 PCI PM 705 PCI power management 647, 703, 793 PCI Transaction Model 18 PCI-Based System 11 PCI-Compatible Error Reporting 674 PCIe System 53, 54 PCI-X 981 PERST# 835, 849 PETracer 918, 924 
-30 
-31 
-32 
-33 
-34 
-35 
-36 
-37 
-38 
-39 
-40 
-41 
-42 
-43 
-44 
-45 
-46 
-47 
-48 
-49 
-50 
-51 
-52 
-53 
-54 
-55 
-56 
-57 
-58
+## _**O**_
+
+OBFF 776, 910, 981 OBFF Messages 213 OnNow Design Initiative 707 Optimized Buffer Flush and Fill 776, 910, 981 Optimized Buffer Flush and Fill Messages 213 Ordered Sets 981 Ordered-Sets 370 Ordering Rules 287 Ordering Rules Table 288, 289 Ordering Table 914 Oscilloscope 919
+
+## _**P**_
+
+Packet Format 151 Packet Generation 937 Packet-Based Protocol 169 Packet-based Protocol 46 PAD 386 Pause command 853, 874 Pausing a Driver 874 PCI 981 PCI Bus Driver 706, 707, 711 PCI Bus PM Interface Specification 705 PCI Express 39 PCI PM 705 PCI power management 647, 703, 793 PCI Transaction Model 18 PCI-Based System 11 PCI-Compatible Error Reporting 674 PCIe System 53, 54 PCI-X 981 PERST# 835, 849 PETracer 918, 924
 
 </td>
 </tr></tbody></table>

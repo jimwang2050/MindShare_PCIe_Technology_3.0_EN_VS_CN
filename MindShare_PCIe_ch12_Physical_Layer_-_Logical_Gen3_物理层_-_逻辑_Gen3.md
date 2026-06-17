@@ -1521,230 +1521,179 @@ _Table 14‐3: Symbol Sequence 8b/10b Compliance Pattern (Continued)_
 </td>
 <td style="background-color:#e8e8e8">
 
-1. 第一个块由同步头 01b 组成，包含 64 个 1 后跟 64 个 0 的未加扰有效负载。
+- 如果没有 Lane 检测到接收器，则返回到 Detect.Quiet。它们之间的循环每 12ms 重复一次，只要没有检测到接收器。
 
-2. 第二个块具有同步头 01b，包含第 530 页表 14‐4 中所示的未加扰有效负载（注意，该模式在 8 个 Lane 后重复，P 表示正在使用的 4 位 Tx 预设，而 ~P 是其按位取反）。
+## _退出至"Polling 状态"_
 
-3. 第三个块具有同步头 01b，包含第 531 页表 14‐5 中所示的未加扰有效负载（与第二个块的注释相同）。
+- 如果在所有 Lane 上都检测到接收器，则下一个状态将是 Polling。Lane 现在必须在 0 至 3.6 V VTX‐CM‐DC 规范内驱动直流共模电压。
 
-4. 第四个块是 EIEOS 块
+## _特殊情况：_
 
-5. 32 个更多数据块，每个块包含 16 个加扰 IDL 符号 (00h)。
+如果设备的一些但不是所有 Lane 连接到接收器（例如 x4
 
-_表 14‐4：128b/130b 合规模式的第二个块_
-
-|**符号**|**Lane**<br>**0**|**Lane**<br>**1**|**Lane**<br>**2**|**Lane**<br>**3**|**Lane**<br>**4**|**Lane**<br>**5**|**Lane**<br>**6**|**Lane**<br>**7**|
-|---|---|---|---|---|---|---|---|---|
-|0|55h|FFh|FFh|FFh|55h|FFh|FFh|FFh|
-|1|55h|FFh|FFh|FFh|55h|FFh|FFh|FFh|
-
-
-
-**530**
+**524**
 
 **第 14 章：链路初始化与训练**
 
-_表 14‐4：128b/130b 合规模式的第二个块（续）_
+设备连接到 x2 设备），则等待 12 ms 并重试。如果相同的 Lane 在第二次时检测到接收器，则退出到 Polling 状态，否则返回到 Detect.Quiet。如果转到 Polling，对于未看到接收器的 Lane 有两种可能性：
 
-|**符号**|**Lane**<br>**0**|**Lane**<br>**1**|**Lane**<br>**2**|**Lane**<br>**3**|**Lane**<br>**4**|**Lane**<br>**5**|**Lane**<br>**6**|**Lane**<br>**7**|
-|---|---|---|---|---|---|---|---|---|
-|2|55h|00h|FFh|FFh|55h|FFh|FFh|FFh|
-|3|55h|00h|FFh|C0h|55h|FFh|F0h|F0h|
-|4|55h|00h|FFh|00h|55h|FFh|00h|00h|
-|5|55h|00h|C0h|00h|55h|E0h|00h|00h|
-|6|55h|00h|00h|00h|55h|00h|00h|00h|
-|7|{P,~P}|{P,~P}|{P,~P}|{P,~P}|{P,~P}|{P,~P}|{P,~P}|{P,~P}|
-|8|00h|1Eh|2Dh|3Ch|4Bh|5Ah|69h|78h|
-|9|00h|55h|00h|00h|00h|55h|00h|F0h|
-|10|00h|55h|00h|00h|00h|55h|00h|00h|
-|11|00h|55h|00h|00h|00h|55h|00h|00h|
-|12|00h|55h|0Fh|0Fh|00h|55h|07h|00h|
-|13|00h|55h|FFh|FFh|00h|55h|FFh|00h|
-|14|00h|55h|FFh|FFh|7Fh|55h|FFh|00h|
-|15|00h|55h|FFh|FFh|FFh|55h|FFh|00h|
+1. 如果 Lane 可以作为单独的链路运行（请参阅第 541 页的"设计具有可合并链路的设备"），请使用另一个 LTSSM 并让这些 Lane 重复检测序列。
 
+2. 如果另一个 LTSSM 不可用，则未检测到接收器的 Lane 将不属于该链路的一部分，并且必须转换为电气空闲 (Electrical Idle)。
 
+## **Polling 状态**
 
-_表 14‐5：128b/130b 合规模式的第三个块_
+## **简介**
 
-|**符号**|**Lane**<br>**0**|**Lane**<br>**1**|**Lane**<br>**2**|**Lane**<br>**3**|**Lane**<br>**4**|**Lane**<br>**5**|**Lane**<br>**6**|**Lane**<br>**7**|
-|---|---|---|---|---|---|---|---|---|
-|0|FFh|FFh|55h|FFh|FFh|FFh|55h|FFh|
-|1|FFh|FFh|55h|FFh|FFh|FFh|55h|FFh|
-|2|FFh|FFh|55h|FFh|FFh|FFh|55h|FFh|
-|3|F0h|F0h|55h|F0h|F0h|F0h|55h|F0h|
-|4|00h|00h|55h|00h|00h|00h|55h|00h|
+到此为止，链路一直处于电气空闲状态，然而在 Polling 期间，LTSSM TS1 和 TS2 在两个连接的设备之间交换。此状态的主要目的是让两个设备理解彼此的通信内容。换句话说，它们需要在彼此传输的比特流上建立位和符号锁定 (bit and symbol lock)，并解决任何极性反转问题。一旦完成此操作，每个设备都成功地接收来自其链路伙伴的 TS1 和 TS2 有序集。第 525 页图 14-9 显示了 Polling 状态机的子状态。
+
+_图 14-9：Polling 状态机_
+
+**==> picture [339 x 181] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Exit to<br>Detect<br>Entry from<br>Detect<br>24 ms<br>48 ms<br>Exchange<br>1024 TS1s<br>(unless directed Polling.Active Polling.Configuration<br>to Compliance) Bit/Symbol Lock (Polarity Inversion)<br>Directed or<br>Insufficient Lanes Electrical 8 TS1, TS2 (or complement) Rx on ALL 8 TS2 Rx. 16 TS2 Tx.<br>Lanes or 24 ms timeout and ANY<br>detect Idle Exit<br>exit from Electrical Idle Lane Rx 8 TS1, TS2 and ALL Lanes<br>detect exit from Electrical Idle<br>Exit to<br>Polling.Compliance Configuration<br>**----- End of picture text -----**
 
 
+**525**
 
-**531**
+**PCI Express 技术**
 
-## **PCI Express Technology**
+## **详细的 Polling 子状态**
 
-_表 14‐5：128b/130b 合规模式的第三个块（续）_
+## **Polling.Active**
 
-|**符号**|**Lane**<br>**0**|**Lane**<br>**1**|**Lane**<br>**2**|**Lane**<br>**3**|**Lane**<br>**4**|**Lane**<br>**5**|**Lane**<br>**6**|**Lane**<br>**7**|
-|---|---|---|---|---|---|---|---|---|
-|5|00h|00h|55h|00h|00h|00h|55h|00h|
-|6|00h|00h|55h|00h|00h|00h|55h|00h|
-|7|{P,~P}|{P,~P}|{P,~P}|{P,~P}|{P,~P}|{P,~P}|{P,~P}|{P,~P}|
-|8|00h|1Eh|2Dh|3Ch|4Bh|5Ah|69h|78h|
-|9|00h|00h|00h|55h|00h|00h|00h|55h|
-|10|00h|00h|00h|55h|00h|00h|00h|55h|
-|11|00h|00h|00h|55h|00h|00h|00h|55h|
-|12|FFh|0Fh|0Fh|55h|0Fh|0Fh|0Fh|55h|
-|13|FFh|FFh|FFh|55h|FFh|FFh|FFh|55h|
-|14|FFh|FFh|FFh|55h|FFh|FFh|FFh|55h|
-|15|FFh|FFh|FFh|55h|FFh|FFh|FFh|55h|
+## _在 Polling.Active 期间_
+
+一旦其共模电压稳定在 Transmit Margin 字段指定的水平上，发送器将在所有检测到的 Lane 上发送最少 1024 个连续的 TS1。两个链路伙伴可以在不同时间退出 Detect 状态，因此 TS1 交换未同步。在 Gen1 速度 (2.5 GT/s) 下发送 1024 个 TS1 所需的时间为 64μs。
+
+关于此子状态的一些注意事项：
+
+- PAD 符号必须用于 TS1 的 Lane 和 Link Number 字段中。
+
+- 必须通告设备支持的所有数据速率，即使它不打算使用全部。
+
+- 接收器使用传入的 TS1 获得位锁定 (Bit Lock)（请参阅第 395 页的"实现位锁定"），然后对于较低速率为符号锁定 (Symbol Lock)（请参阅第 396 页的"实现符号锁定"），或者对于 8.0 GT/s 为块对齐 (Block Alignment)（请参阅第 438 页的"实现块对齐"）。
+
+## _退出至"Polling.Configuration"_
+
+- 如果在发送至少 1024 个 TS1 之后，**所有**检测到的 Lane 收到 8 个连续的训练序列（或其补码，由于极性反转），满足以下条件之一，则下一个状态为 Polling.Configuration：
+
+- 接收到 Link 和 Lane 设置为 PAD 的 TS1，且 Compliance Receive 位清零为 0b (Symbol 5 的位 4)。
+
+- 接收到 Link 和 Lane 设置为 PAD 的 TS1，且 Symbol 5 的 Loopback 位置为 1b。
+
+- 
+
+- 接收到 Link 和 Lane 设置为 PAD 的 TS2。
+
+如果以上条件均不满足，则在 24ms 超时后，如果在收到 TS1 后已发送至少 1024 个 TS1，并且**任何**检测到的 Lane 收到 8 个连续的 TS1 或 TS2 有序集（或其补码），其 Lane 和 Link 号设置为 PAD，并且以下之一为真：
+
+- 接收到 Link 和 Lane 设置为 PAD 的 TS1，且 Compliance Receive (Symbol 5 的位 4) 清零为 0b。
+
+- 接收到 Link 和 Lane 设置为 PAD 的 TS1，且 Loopback (Symbol 5 的位 2) 置为 1b。
+
+- 接收到 Link 和 Lane 设置为 PAD 的 TS2。
+
+**526**
+
+**第 14 章：链路初始化与训练**
+
+如果以上条件仍然不满足，则如果至少预定数量的检测 Lane 也检测到自进入 Polling.Active 以来至少一次退出电气空闲（这可以防止一个或多个有问题的发送器或接收器阻碍链路配置）。预定 Lane 的确切集合现在是特定于实现的，这是相对于 1.1 规范的更改，后者需要查看所有检测到的 Lane 上的电气空闲退出。
+
+## _退出至"Polling.Compliance"_
+
+如果 Link Control 2 寄存器中的 Enter Compliance 位置为 1b，或者如果该位在进入 Polling.Active 之前已置位，则转换到 Polling.Compliance 必须是即时的，并且在 Polling.Active 中不发送 TS1。
+
+否则，在 24ms 超时后，如果：
+
+- 预定集合中的所有 Lane 自进入 Polling.Active 以来未观察到退出电气空闲（表明存在被动测试负载，例如至少一个 Lane 上的电阻迫使所有 Lane 进入 Poll‐ ing.Compliance）。
+
+- 任何检测到的 Lane 收到 8 个连续的 TS1（或其补码），其 Link 和 Lane 号设置为 PAD，Symbol 5 的 Compliance Receive 位置为 1b 且 Loopback 位清零为 0b。
+
+## _退出至"Detect 状态"_
+
+- 如果在 24ms 后，未满足转到 Polling.Configuration 或 Poll‐ ing.Compliance 的条件，则返回到 Detect 状态。
+
+## **Polling.Configuration**
+
+在此子状态下，发送器将停止发送 TS1 并开始发送 TS2，Link 和 Lane 号仍设置为 PAD。更改为发送 TS2 而不是 TS1 的目的是向链路伙伴通告此设备已准备好进入状态机中的下一状态。这是一种握手机制，以确保链路上的两个设备一起通过 LTSSM 前进。在两个设备都准备好之前，任何设备都不能进入下一状态。它们通过发送 TS2 有序集来通告它们已准备好。因此，一旦设备同时发送并接收 TS2，它就知道可以进入下一状态，因为它已准备好且其链路伙伴也已准备好。
+
+## _在 Polling.Configuration 期间_
+
+- 发送器在所有检测到的 Lane 上发送 Link 和 Lane 号设置为 PAD 的 TS2，并且必须通告其支持的所有数据速率，即使它不打算使用。此外，每个 Lane 的接收器必须根据需要独立反转其差分输入对的极性。有关如何完成此操作的说明，请参阅第 506 页的"概述"。Transmit Margin 字段必须重置为 000b。
+
+**527**
+
+## **PCI Express 技术**
+
+## _退出至"Configuration 状态"_
+
+在任何检测到的 Lane 上收到 8 个连续的 Link 和 Lane 设置为 PAD 的 TS2，并且自收到一个 TS2 以来已发送至少 16 个 TS2 之后，退出到 Configuration。
+
+## _退出至"Detect 状态"_
+
+否则，在 48ms 超时后退出到 Detect。
+
+## _退出至 Polling.Speed（不存在的子状态）_
+
+作为历史回顾，自规范 1.0 版本发布以来，Polling 的子状态已发生变化。当时认为，当其他速度可用时，应尽快在此状态下更改为最高可用速率。然而，更高速度的出现恰好伴随着这样的认识：在运行时出于电源管理原因同时更改更高和更低速度将是有利的。通过 Polling 状态涉及清除许多链路值，这使其成为运行时使用的不具吸引力的路径，因此速率更改阶段已从该状态移出到 Recovery 状态。请参阅第 528 页图 14-10。
+
+_图 14-10：具有旧式速度更改的 Polling 状态机_
+
+**==> picture [355 x 186] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+Exit to<br>Detect<br>Entry from<br>Detect<br>24 ms<br>Speed change step was<br>48 ms moved from this state to<br>Exchange Recovery state<br>1024 TS1s Polling.Speed<br>(unless directed Polling.Active Polling.Configuration (E lect ri c a l Idle ,<br>to Compliance) Bit/Symbol Lock (Polarity Inversion) Ch a ng e Spee d)<br>Directed or<br>Insufficient Lanes Electrical 8 TS1, TS2 (or complement) Rx on ALLLanes or 24 ms timeout and ANY 8 TS2 Rx. 16 TS2 Tx.<br>detect Idle Exit<br>exit from Electrical Idle Lane Rx 8 TS1, TS2 and ALL Lanes<br>detect exit from Electrical Idle<br>Exit to<br>Polling.Compliance Configuration<br>**----- End of picture text -----**
 
 
+如今，链路在复位后始终训练到 2.5 GT/s，即使其他速度可用。如果在 LTSSM 达到 L0 后有更高速率可用，则它转换到 Recovery 并尝试更改为最高共同支持或通告的速率。支持的速度在交换的 TS1 中报告。
 
-**8b/10b 的修改合规模式。** 第二种合规模式添加了一个错误状态字段，该字段报告在 Polling.Compliance 中检测到的接收器错误数。
+**528**
 
-在 8b/10b 模式下，仍使用原始模式，但添加了 2 个符号来报告错误状态（使用 2 个而不是一个以避免干扰序列所需的差异），并在末尾添加了 2 个 K28.5 符号，使该模式总共 8 个符号长。
+**第 14 章：链路初始化与训练**
 
-_表 14‐6：8b/10b 修改合规模式的符号序列_
+和 TS2，以便任一设备随后都可以通过转换到 Recovery 状态来决定发起速度更改。规范仍列出此子状态，但声明它现在不可达。
 
-|符号|Lane 0|Lane 1|Lane 2|...|Lane 8|
+## **Polling.Compliance**
+
+此子状态仅用于测试，并导致发送器发送旨在产生接近最坏情况的符号间干扰 (Inter‐Symbol Interference, ISI) 和串扰条件的特定模式，以促进对链路的分析。在此子状态下可以发送两种不同的模式：Compliance Pattern 和 Modified Compliance Pattern。
+
+**8b/10b 的合规模式。** 此模式由按顺序重复的 4 个符号组成：K28.5‐、D21.5+、K28.5+ 和 D10.2‐，其中 (‐) 表示负电流运行差异 (CRD)，(+) 表示正 CRD（由于强制 CRD，模式开头可以存在差异错误）。如果链路有多个 Lane，则四个延迟符号（显示为 D，但实际上只是其他 K28.5 符号）被注入到 Lane 0 上，在下一个合规模式之前两个，在合规模式之后两个。最后一个延迟符号在 Lane 0 上发送后，四个延迟符号也在 Lane 1 上发送（同样，在下一个合规模式之前两个，在之后两个）。此过程继续进行，直到延迟符号传播通过 Lane 7。然后它们返回到从 Lane 0 重新开始，如第 529 页表 14-3 所示（合规模式以灰色阴影显示）。每组八个 Lane 都以这种方式表现。移动延迟符号将确保相邻 Lane 之间的干扰，并提供更好的测试条件。
+
+_表 14-3：8b/10b 合规模式的符号序列_
+
+|**Symbol**|**Lane 0**|**Lane 1**|**Lane 2**|**...**|**Lane 8**|
 |---|---|---|---|---|---|
 |0|D|K28.5‐|K28.5‐||D|
 |1|D|K21.5|K21.5||D|
-|2|D|K28.5+|K28.5+||D|
-|3|D|D10.2|D10.2||D|
+|2|K28.5‐|K28.5+|K28.5+||K28.5‐|
+|3|K21.5|D10.2|D10.2||K21.5|
+|4|K28.5+|K28.5‐|K28.5‐||K28.5+|
+|5|D10.2|K21.5|K21.5||D10.2|
 
 
 
-**532**
+**529**
 
-**第 14 章：链路初始化与训练**
+## **PCI Express 技术**
 
-_表 14‐6：8b/10b 修改合规模式的符号序列（续）_
+_表 14-3：8b/10b 合规模式的符号序列（续）_
 
-|符号|Lane 0|Lane 1|Lane 2|...|Lane 8|
+|**Symbol**|**Lane 0**|**Lane 1**|**Lane 2**|**...**|**Lane 8**|
 |---|---|---|---|---|---|
-|4|K28.5‐|ERR|ERR||K28.5‐|
-|5|K21.5|ERR|ERR||K21.5|
-|6|K28.5+|K28.5‐|K28.5‐||K28.5+|
-|7|D10.2|K28.5+|K28.5+||D10.2|
-|8|ERR|K28.5‐|K28.5‐||ERR|
-|9|ERR|K21.5|K21.5||ERR|
-|10|K28.5‐|K28.5+|K28.5+||K28.5‐|
-|11|K28.5+|D10.2|D10.2||K28.5+|
-|12|K28.7‐|ERR|ERR||K28.7‐|
-|13|K28.7‐|ERR|ERR||K28.7‐|
-|14|K28.7‐|K28.5‐|K28.5‐||K28.7‐|
-|15|K28.7‐|K28.5+|K28.5+||K28.7‐|
-|16|K28.5‐|D|K28.5‐||K28.5‐|
+|6|D|K28.5+|K28.5+||D|
+|7|D|D10.2|D10.2||D|
+|8|K28.5‐|D|K28.5‐||K28.5‐|
+|9|K21.5|D|K21.5||K21.5|
+|10|K28.5+|K28.5‐|K28.5+||K28.5+|
+|...|...|...|...||...|
+|16|K28.5‐|K28.5‐|D||K28.5‐|
+|17|K21.5|K21.5|D||K21.5|
+|18|K28.5+|K28.5+|K28.5‐||K28.5+|
 
 
-
-编码的错误状态字节包含 ERR [6:0] 中的接收器错误计数，该计数报告自断言 Pattern Lock 以来看到的错误数。"Pattern Lock" 指示器是 ERR 位 [7]，显示接收器何时已锁定到传入的修改合规模式。该模式的延迟序列也不同，现在在序列开头添加四个连续的 K28.5 符号（在表中显示为"D"），在 8 符号模式末尾添加四个 K28.7 符号，使发送到下一个 Lane 之前的总符号数为 16。该模式在第 532 页的表 14‐6 中示出。可以看出延迟模式在 16 个符号后移至 Lane 1。和以前一样，基本模式（现在为 8 个符号）以灰色突出显示。
-
-**128b/130b 的修改合规模式。** 此模式由 65792 个块的重复序列组成，如下所列：
-
-1. 一个 EIEOS 块
-
-2. 256 个数据块，每个块包含 16 个加扰 IDL 符号 (00h)。
-
-**533**
-
-**PCI Express Technology**
-
-3. 255 组以下序列：
-
-   - 一个 SOS
-
-   - 256 个数据块，每个块包含 16 个加扰 IDL 符号。
-
-由于数据块中的有效负载全为零，因此输出最终只是该 Lane 的加扰器的输出。回想一下，加扰器不会随同步头位推进，并且由 EIEOS 初始化。由于加扰种子值取决于 Lane 编号，因此正确理解它们很重要。如果链路训练较早完成但随后软件通过设置 Link Control 2 寄存器中的 Enter Compliance 位将 LTSSM 发送到此子状态，则使用训练期间分配的 Lane 编号和极性反转。如果 Lane 在训练期间未处于活动状态，或者以任何其他方式进入此子状态，则 Lane 编号将是端口分配的默认编号。最后，请注意此模式中的数据块不形成数据流，不必遵循该要求（例如发送任何 SDS 有序集或 EDS 标记）。
-
-细心的读者可能想知道在此序列中缺少错误状态符号，这些符号在 8b/10b 序列中很突出。事实证明，对于 128b/130b，它们现在包含在 SOS 中。回想一下，SOS 的最后 2 个字节用于在 Polling.Compliance 期间报告接收器错误计数（有关详细信息，请参见第 426 页 "Ordered Set Example ‐ SOS"）。
-
-## _进入 Polling.Compliance：_
-
-与进入 Polling.Active 时的情况一样，Link Control 2 寄存器的 Transmit Margin 字段用于设置此子状态期间将生效的发送器电压范围。
-
-数据速率和去加重级别按如下所述确定。由于这些设置的许多选择取决于 Link Control 2 寄存器字段，因此该寄存器在第 536 页的图 14‐11 中显示以供参考。
-
-- 如果端口仅支持 2.5 GT/s，则这将是数据速率，去加重级别将为 ‐3.5dB。
-
-- 否则，如果此子状态是因为接收到 8 个连续的 TS1 而进入的，其中 Compliance Receive 位设置为 1b 且 Loopback 位清零为 0b（TS1 符号 5 的位 4 和 2），则速率将是任何 Lane 的最高公共值。select_deemphasis 变量必须设置为与 TS1 符号 4 中的 Selectable De‐emphasis 位匹配。如果选择的速率是 8.0 GT/s，则每个 Lane 的 select_preset 变量取自
-
-**534**
-
-**第 14 章：链路初始化与训练**
-
-连续 TS1 的符号 6。对于此 Gen3 速率，未接收到 8 个具有发送器预设信息的连续 TS1 的 Lane 可以选择它们支持的任何值。
-
-- 否则，如果在 Link Control 2 寄存器中设置了 Enter Compliance 位，则合规模式以 Target Link Speed 字段给出的数据速率发送。如果速率为 5.0 GT/s，则如果 Compliance Preset/De‐emphasis 字段等于 0001b，则设置 select_deemphasis 变量。如果速率为 8.0 GT/s，则每个 Lane 的 select_preset 变量清零为 0b，并且发送器必须使用 Compliance Preset/De‐emphasis 值，只要它不是保留编码。
-
-- 最后，如果其他情况都不成立，则数据速率、预设和去加重设置将根据组件支持的最大速度和以这种方式进入 Polling.Compliance 的次数循环遍历一个序列。该序列在第 535 页的表 14‐7 中给出，并以第一次进入 Polling.Compliance 时的设置编号 1 开始，每次重新进入时通过列表递增，如果重新进入超过 14 次，则最终重复该模式。这提供了一种方便的方法来测试组件所有支持的设置：转换到 Polling.Compliance，测试该设置，转换回 Polling.Active，然后再次返回 Polling.Compliance 以测试下一个设置。规范中描述了负载板引起这些转换的方法，包括在接收器差分对的一条腿上发送约 1ms 的 100MHz，350mVp‐p 信号。
-
-_表 14‐7：合规 Tx 设置序列_
-
-|设置<br>编号|数据<br>速率|去加重|Tx 预设<br>编码|
-|---|---|---|---|
-|1|2.5|‐3.5|n/a|
-|2|5.0|‐3.5|n/a|
-|3|5.0|‐6.0|n/a|
-|4|8.0|n/a|0000b|
-|5|8.0|n/a|0001b|
-|6|8.0|n/a|0010b|
-|7|8.0|n/a|0011b|
-|8|8.0|n/a|0100b|
-
-
-
-**535**
-
-## **PCI Express Technology**
-
-_表 14‐7：合规 Tx 设置序列（续）_
-
-|设置<br>编号|数据<br>速率|去加重|Tx 预设<br>编码|
-|---|---|---|---|
-|9|8.0|n/a|0101b|
-|10|8.0|n/a|0110b|
-|11|8.0|n/a|0111b|
-|12|8.0|n/a|1000b|
-|13|8.0|n/a|1001b|
-|14|8.0|n/a|1010b|
-
-
-
-_图 14‐11：Link Control 2 寄存器_
-
-**==> picture [316 x 172] intentionally omitted <==**
-
-**----- Start of picture text -----**<br>
-Link Control 2 寄存器<br>15 12 11 10 9 7 6 5 4 3 0<br>Compliance Preset/<br>De-emphasis<br>Compliance SOS<br>Enter Modified Compliance<br>Transmit Margin<br>Selectable De-emphasis<br>Hardware Autonomous<br>Speed Disable<br>Enter Compliance<br>Target Link Speed<br>**----- End of picture text -----**<br>
-
-
-如果数据速率不是 2.5 GT/s，那么：
-
-- 如果在 Polling.Active 期间发送了任何 TS1，则发送器必须在进入电气空闲之前发送一个或两个连续的 EIOS。
-
-- 如果在 Polling.Active 期间未发送任何 TS1，则发送器在不发送任何 EIOS 的情况下进入电气空闲。
-
-- 电气空闲周期必须 > 1ms 且 < 2ms。在此期间，数据速率更改为新速度并稳定。如果速率为 5.0 GT/s，则去加重级别由 select_deemphasis 变量给出
-
-**536**
-
-**第 14 章：链路初始化与训练**
-
-(0b = ‐3.5dB, 1b = ‐6.0 dB)。如果速率为 8.0 GT/s，则 select_preset 变量给出发送器要使用的预设。
-
-## _在 Polling.Compliance 期间：_
-
-一旦确定了数据速率和去加重或预设值，将应用以下规则：
-
-**合规模式。** 如果进入不是因为在 TS 有序集中设置了 Compliance Receive 位并清除了 Loopback 位，并且不是因为 Link Control 2 寄存器中的 Enter Compliance 和 Enter Modified Compliance 位都被设置，则发送器在所有检测到的 Lane 上发送合规模式。
-
-## _退出到 "Polling.Active"_
-
-如果满足以下任何条件：
-
-- a) 在任何检测到的 Lane 的接收器处检测到电气空闲退出，并且 Enter Compliance 位清零 (0b)。
+**128b/130b 的合规模式。** 此模式由以下 36 个块的重复序列组成：
 
 </td>
 </tr></tbody></table>

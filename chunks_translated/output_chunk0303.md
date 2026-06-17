@@ -1,135 +1,161 @@
-从站必须能够在接收到 EIOS 后 1ms 内检测到任何 Lane 上的 Electrical Idle。在接收到 EIOS 和实际检测到 Electrical Idle 之间,Loopback Slave 可能接收的位流未被编码方案定义,并且可以将其环回给发送器。
-
-**617** 
-
-## **PCI Ex ress Technolo p gy** 
-
-## **Loopback.Exit** 
-
-在此子状态期间,Loopback Master 发送一个 EIOS(对于仅支持 2.5 GT/s 的端口)或八个连续的 EIOS(对于支持高于 2.5 GT/s 速率的端口;对于仅支持 2.5 GT/s 的端口,也可选地发送 8 个),然后在所有 Lane 上进入 Electrical Idle 2ms。
-
-- Loopback Master 必须在发送最后一个 EIOS 后,在 TTX-IDLE-SET-TO-IDLE[内转换到 Electrical Idle。请注意,EIOS 标记主站的]发送和比较操作的结束。Master 在接收到任何 EIOS 后接收到的任何数据都是未定义的,应予以忽略。
-
-Loopback slave 必须在所有 Lane 上进入 Electrical Idle 2ms,但必须回显在检测到 Electrical Idle 之前接收到的所有符号,以确保 Master 将 EIOS 的到达视为逻辑发送和比较操作的结束。
+在此子状态期间，发送器将在至少 Lane 0 上发送 Beacon。请注意，此状态仅适用于上游端口，因为只有它们才能发送 Beacon。
 
 ## _退出到"Detect 状态"_
 
-一旦已交换所需的 EIOS 并且 Lane 已在 Electrical Idle 中保持 2ms,下一个状态将是 Detect。
+如果在某个上游端口的接收器上检测到电气空闲退出，则下一个状态将是 Detect。当然，必须已经恢复了设备的供电，相邻设备才能从电气空闲中退出。
 
-## **Dynamic Bandwidth Changes** 
+## **热复位状态**
 
-更高的数据速率和更宽的 PCIe 链路提供比前几代更高的性能,但也使用更多功率。因此,2.0 规范的作者选择包括另一对电源管理机制,允许硬件动态调整链路速度和宽度。这些允许链路在需要性能时使用最高速度和最宽的链路,或者降低到较低速度或较窄的链路宽度或两者兼而有之以降低功率。与更改链路或设备电源状态相比,此方法有两个明显的优势。
+端口进入热复位状态，要么是因为它是一个桥，并且软件对其配置空间进行编程以向下游传播热复位（如第 837 页的"热复位（带内复位）"中所述），要么是因为端口接收到了两个连续的、Hot Reset 位被置位的 TS1。
 
-首先,无论是否更改,链路始终能够通信,服务中断相对较短以进行更改。其次,节能可以更大。例如,与处于 L0s 状态下的 x16 链路相比,x16 链路作为活动 x1 链路运行几乎肯定会使用更少的功率。
+## _热复位期间_
 
-其次,除了节能之外,带宽缩减还可用于解决可靠性问题。例如,可能是高速链路产生不可接受的可靠性,在这种情况下,允许任一链路组件从其通告的支持速率列表中删除有问题的速度。组件如何进行可靠性确定未指定。
+端口以 Hot Reset 位置位连续发送 TS1，但不更改已配置的链路和 Lane 编号。
 
-**618** 
+如果交换机的上游端口进入热复位状态，则所有已配置的下游端口必须尽快转换为热复位。
 
-**Chapter 14: Link Initialization & Training** 
+## _退出到"Detect 状态"_
 
-有趣的是,也允许组件进入 Recovery 状态并通告一组不同的支持速度,而不在此过程中请求速度更改。
+在发起热复位的桥中，一旦软件清除了发起热复位的配置空间位，桥端口就进入 Detect。但是，端口必须在热复位状态中保持至少 2ms。
 
-更改链路速度或链路宽度需要重新训练链路。当链路处于 L0 状态并且需要更改速度时,需要更改速度的端口的 LTSSM 开始向其邻居发送 TS1。这样做会导致两个相关端口的 LTSSM 经过 Recovery 状态,在那里更改链路速度,然后返回 L0。
+**612**
 
-类似地,需要更改链路宽度的端口开始向其邻居发送 TS1。这样做会导致两个相关端口的 LTSSM 经过 Recovery 状态,然后经过 Configuration 状态,在那里更改链路宽度。LTSSM 最终返回到 L0,并建立新的链路宽度。
+**第 14 章：链路初始化与训练**
 
-由于 LTSSM 参与动态链路带宽管理,讨论链路带宽管理的两个方面(动态链路速度更改和动态链路宽度更改)是有意义的。让我分别考虑这两个选项,从链路速度更改开始。
+对于由于接收到两个连续的、Hot Reset 位置位的 TS1 而进入热复位的端口，只要它继续接收此类 TS1，它就保持在该状态。一旦端口停止接收 Hot Reset 位置位的 TS1，它将转换到 Detect 状态。但是，端口必须在热复位状态中保持至少 2ms。
 
-## **Dynamic Link Speed Changes** 
+## **禁用状态**
 
-回顾一下,LTSSM 状态如图 14-45(第 620 页)所示,以便于回忆状态流。虽然根据 Gen1 规范,速度更改指示在 Polling 状态中执行,但随后的 Gen2 规范将此功能移至 Recovery 状态。
+禁用的链路处于电气空闲状态，无需维持 DC 共模电压。软件通过在设备的 Link Control 寄存器中设置 Link Disable 位（请参见第 644 页的图 14‐71）来启动此操作，然后设备发送 Link Disable 位置位的 TS1。
 
-**619** 
+## _禁用期间_
 
-## **PCI Ex ress Technolo p gy** 
+所有 Lane 发送 16 到 32 个 Link Disable 位置位的 TS1，发送一个 EIOS（对于 5.0 GT/s 情况为两个连续的 EIOS），然后转换到电气空闲。DC 共模电压不需要在规范范围内。
 
-_Figure 14-45: LTSSM 概述_ 
+如果发送了 EIOS（对于 5.0 GT/s 情况为两个连续的 EIOS），并且在任何已配置的 Lane 上也接收到了 EIOS，则 LinkUp = 0b（假），并且 Lane 被认为是禁用的。
 
-**==> picture [196 x 255] intentionally omitted <==**
+## _退出到"Detect 状态"_
 
-**----- Start of picture text -----**<br>
-Detect<br>Polling<br>Configuration<br>L2 Recovery<br>L1 L0 L0s<br>**----- End of picture text -----**<br>
+对于上游端口，当在接收器处检测到电气空闲或者在 2ms 超时内未接收到 EIOS 时，下一个状态将是 Detect。
 
+对于下游端口，下一个状态也将是 Detect，但只有在软件将 Link Disable 位清零至 0b 后才会发生。
 
-在 Polling 状态期间,链路邻居之间交换 TS1,这些信息包含几种类型的信息,如图 14-46(第 621 页)所示。对我们来说,最有趣的部分是字节号 4,即 Rate Identifier。位 1、2 和 3 指示哪些数据速率可用,规范指出必须始终支持 2.5 GT/s,而如果支持 8.0 GT/s,则还必须支持 5.0 GT/s。
+## **回环状态**
 
-位 6 的含义取决于端口是面向上游还是下游,以及也取决于端口所处的 LTSSM 状态。但是,对于速度更改情况,选项会减少,因为仅来自上游端口的位才有意义,仅指示速度更改是否是自主事件。"自主"意味着端口出于其自身的硬件特定原因请求此更改,而不是由于可靠性问题。位 7 由上游端口用于请求速度更改。这些值在 TS2 中非常相似,尽管位 6 现在具有另一种含义,与我们稍后将讨论的自主链路宽度更改相关。
+回环状态是一个测试和调试功能，在正常运行期间不使用。充当回环主设备的设备可以通过发送 Loopback 位置位的 TS1 将链路伙伴置于回环从设备模式。这可以在电路中完成，从而可以使用回环状态对链路执行 BIST（Built In Self Test，内建自测试）。
 
-**620** 
+一旦进入此状态，回环主设备将有效的 Symbol 发送给回环从设备，然后回环从设备将其回显。回环从设备继续执行
 
-**Chapter 14: Link Initialization & Training** 
+**613**
 
-_Figure 14-46: TS1 内容_ 
+## **PCI Express 技术**
 
-**==> picture [315 x 176] intentionally omitted <==**
+时钟容差补偿，因此主设备必须继续以正确的间隔插入 SOS。为了执行时钟容差补偿，回环从设备可能必须向其回传给回环主设备的 SOS 添加或删除 SKP Symbol。
 
-**----- Start of picture text -----**<br>
-0 COM<br>1 Link #<br>Rate Identifier<br>2 Lane # Bit 0 Reserved, = 0<br>3 # FTS Bit 1 Indicates 2.5 GT/s support<br>4 Rate ID Bit 2 Indicates 5.0 GT/s support<br>5 Train Ctl Bit 3 Indicates 8.0 GT/s support<br>6 Bit 4:5 Reserved, = 0<br>TS ID Bit 6 Autonomous Change / Selectable De-<br>13 emphasis<br>14 TS ID Bit 7 Speed Change<br>15 TS ID<br>**----- End of picture text -----**<br>
+回环状态在回环主设备发送 EIOS 并且接收器检测到电气空闲时退出。回环状态机如图 14‐44（第 614 页）所示，并在以下文本中描述。
 
+_图 14‐44：回环状态机_
 
-_Figure 14-47: TS2 内容_ 
-
-**==> picture [316 x 177] intentionally omitted <==**
+**==> picture [368 x 171] intentionally omitted <==**
 
 **----- Start of picture text -----**<br>
-0 COM<br>1 Link # Rate Identifier<br>Bit 0 Reserved, = 0<br>2 Lane #<br>Bit 1 Indicates 2.5 GT/s support<br>3 # FTS<br>Bit 2 Indicates 5.0 GT/s support<br>4 Rate ID<br>Bit 3 Indicates 8.0 GT/s support<br>5 Train Ctl<br>Bit 4:5 Reserved, = 0<br>6<br>Bit 6 Autonomous Change / Link Up-<br>TS ID configure Capability / Selectable De-<br>13 emphasis<br>14 TS ID Bit 7 Speed Change<br>15 TS ID<br>**----- End of picture text -----**<br>
+Entry<br>
+from Configuration<br>
+Or Recovery<br>
+Slave: Enter Electrical<br>
+Master sends valid Idle for 2ms<br>
+Master sends Master receives Symbols - Master: Tx EIOSs<br>
+Identical TS1's; Slave required to and enter Electrical<br>
+TS1s w/ Loopback Slave has retransmit exactly Slave: Directed or  Idle for 2 ms<br>
+bit set entered 4 EIOS seen<br>
+Loopback Master: Directed<br>
+Loopback.Entry Loopback.Active Loopback.Exit<br>
+Timeout less than<br>
+100 ms Exit to<br>
+Detect<br>
+**----- End of picture text -----**<br>
 
 
-**621** 
+## **Loopback.Entry**
 
-## **PCI Ex ress Technolo p gy** 
+此子状态的典型行为是回环主设备发送 Loopback 位置位的 TS1，直到它开始看到这些 TS1 被返回。一旦回环主设备看到 Loopback 位被置位的 TS1 被返回，它就知道其链路伙伴现在正在充当回环从设备，并简单地重复其接收到的所有内容。
 
-## **上游端口发起速度更改** 
+在此子状态期间，链路不被认为是活动的（LinkUp = 0b）。此外，TS1 和 TS2 中使用的链路和 Lane 编号将被接收器忽略。规范对 128b/130b 编码的 Lane 编号的使用做了一个有趣的观察。事实证明，每个 Lane 使用不同的种子值用于其加扰器（参见第 430 页的"加扰"）。因此，如果在进入回环模式之前尚未协商 Lane 编号，则链路伙伴可能具有不同的 Lane 分配，因此将无法识别传入的 Symbol。这可以通过在指导主设备进入回环状态之前等待 Lane 编号协商完成，或者通过指导主设备在 Loopback.Entry 期间设置 Compliance Receive 位，或通过其他方法来避免。
 
-速度更改必须由上游端口(面向上游的端口)发起,并通过转换到 Recovery 状态来完成。Recovery 状态的子状态如图 14-48(第 622 页)所示,本次讨论中感兴趣的部分由椭圆突出显示。此处后面的讨论是整个速度更改过程的相对较高级别的概述,不会深入到 LTSSM 操作的详细信息。要了解更多信息,请参阅第 571 页的"Recovery State"讨论。
+**614**
 
-_Figure 14-48: Recovery 子状态_ 
+**第 14 章：链路初始化与训练**
 
-**==> picture [342 x 187] intentionally omitted <==**
+## **Loopback Master:**
 
-**----- Start of picture text -----**<br>
-Exit to<br>Recovery.Speed<br>Entry from Loopback Exit to<br>L1, L0, L0s Configuration<br>Recovery.Equalization<br>Recovery.RcvrLock Recovery.Idle Exit to<br>(bit/symbol re-lock) Recovery.RcvrCfg (Send idle data) Disabled<br>Exit to Hot<br>Exit to Exit to Reset<br>Configuration Detect<br>Exit to L0<br>**----- End of picture text -----**<br>
+在此子状态中，回环主设备将连续发送 Loopback 位置位的 TS1。主设备还可以在 TS1 中置位 Compliance Receive 位，以帮助当一个或两个端口在速率变化后难以获得位锁定、Symbol 锁定或块对齐时进行测试。如果该位被置位，则在此状态期间不得清除。
 
+如果此子状态是从 Configuration.Linkwidth.Start 进入的，请检查当前使用的速率是否是两个链路伙伴共同支持的最高速率。如果不是：
 
-## **速度更改示例** 
+- 更改为最高公共速率。发送 16 个 Loopback 位置位的 TS1，后跟一个 EIOS（如果当前速率为 5.0 GT/s，则为两个 EIOS），然后进入电气空闲状态 1ms。在空闲期间，将速率更改为共同支持的最高速率。
 
-为了说明该过程,请考虑图 14-49(第 623 页)中所示的速度更改示例。请注意,在此示例中已删除 Equalization 子状态以使图表更简单且更易于理解。该示例显示了从 2.5 GT/s 到 5.0 GT/s 的更改,因此无论如何不使用 Equalization 子状态。更改为 8.0 GT/s 将经历相同的过程,但只需在该过程结束时添加通过 Equalization 子状态的一次行程。要
+- 如果最高公共速率为 5.0 GT/s，则从设备的 Tx 去加重由主设备在 TS1 中将其 Selectable De‐emphasis 位设置为所需的值（1b = ‐3.5 dB，0b = ‐6 dB）来控制。
 
-**622** 
+- 对于 5.0 GT/s 及更高的数据速率，主设备的发送器可以选择任何其想要的去加重设置，无论它发送给从设备的设置如何。
 
-**Chapter 14: Link Initialization & Training** 
+- 潜在问题：如果在链路已经训练到 L0 且 LinkUp = 1b 之后进入回环，则一个端口可能从 Recovery 进入回环，而其伙伴从 Configuration 进入。如果发生这种情况，后一个端口可能尝试更改速率，而从 Recovery 进入的端口不会更改，从而导致结果未定义的情况。规范指出测试设置必须避免此类冲突情况。
 
-要了解有关均衡过程的更多信息,请参阅第 587 页的"Recovery.Equalization"。
+## _退出到"Loopback.Active"_
 
-此示例中的端点 (Endpoint) (只能具有上游端口)显示连接到根复合体 (Root Complex),后者只能具有下游端口。只有上游端口可以启动速度更改过程,它这样做是因为其 _Directed Speed Change_ 标志之前已根据某些硬件特定条件设置。要启动序列,它将其 LTSSM 更改为 Recovery 状态,进入 Recovery.RcvrLock 子状态,并发送 Speed Change 位为 1 且列出其将支持的速率的 TS1,如图 14-49(第 623 页)所示。当下游端口看到传入的 TS1 时,它也更改为 Recovery 状态并开始发回 TS1。由于 Speed Change 位已在传入的 TS1 中设置,这将在 Root Port 中设置 _Directed Speed Change_ 标志,并且传出的 TS1 也将设置该位。链路将尝试使用的速度将是最高共同支持的速度,因此,如果设备希望使用较低速度,它只需在此时不将较高速度列为受支持。
+在 2ms 之后，如果 Compliance Receive 位在发出的 TS1 中被置位，或者在设计特定数量的 Lane 上接收到两个连续的、Loopback 位置位且 Compliance Receive 位未在发出的 TS1 中置位的 TS1，则下一个状态将是 Loopback.Active。
 
-_Figure 14-49: 速度更改 - 已发起_ 
+请注意，如果更改了速率，则主设备必须确保已发送了足够的 TS1，以便从设备能够在进入 Loopback.Active 状态之前获得 Symbol 锁定或块对齐。
 
-**==> picture [336 x 196] intentionally omitted <==**
+**615**
 
-**----- Start of picture text -----**<br>
-Directed Speed Change = 0 Directed Speed Change = 1<br>Entry Entry<br>Speed Speed<br>RcvrLock RcvrCfg RcvrLock RcvrCfg<br>Speed_Change = 1<br>TS1 TS1 TS1 TS1<br>Root PCIe<br>Link Speed = 2.5 GT/s<br>Complex Endpoint<br>TS1 TS1 TS1 TS1<br>Speed_Change = 1<br>**----- End of picture text -----**<br>
+**PCI Express 技术**
 
+## _退出到"Loopback.Exit"_
 
-当上游端口检测到返回的 TS1 时,其状态机更改为 Recovery.RcvrCfg 子状态,并开始发送仍设置了 Speed Change 位的 TS2,如图 14-50(第 624 页)所示。这些
+如果进入 Loopback.Active 的两个条件均未满足，则在小于 100ms 的设计特定超时之后，下一个状态将是 Loopback.Exit。
 
-**623** 
+## **Loopback Slave:**
 
-## **PCI Ex ress Technolo p gy** 
+此子状态通过接收 Loopback 位置位的两个连续的 TS1 进入。
 
-如果此更改不是由链路上的可靠性问题引起的,则 TS2 现在还将设置 Autonomous Change 位。当下游端口看到传入的 TS2 时,它也更改为 Recovery.RcvrCfg 子状态,并返回设置了 Speed Change 位的 TS2。但是,在 Recovery 期间,下游端口的 TS2 中的 Autonomous Change 位是保留的。
+如果此子状态是从 Configuration.Linkwidth.Start 进入的，请检查当前使用的速率是否是两个链路伙伴共同支持的最高速率。如果不是：
 
-_Figure 14-50: 速度更改 - 第 2 部分_ 
+- 更改为最高公共速率。发送一个 EIOS（如果当前速率为 5.0 GT/s，则为两个 EIOS），然后进入电气空闲状态 2ms。在空闲期间，将速率更改为共同支持的最高速率。
 
-**==> picture [371 x 230] intentionally omitted <==**
+- 如果最高公共速率为 5.0 GT/s，则根据接收到的 TS1 中的 Selectable De‐emphasis 位设置发送器的去加重（1b = ‐3.5 dB，0b = ‐6 dB）。
 
-**----- Start of picture text -----**<br>
-Directed Speed Change = 1 Directed Speed Change = 1<br>Entry Entry<br>Speed Speed<br>RcvrLock RcvrCfg RcvrLock RcvrCfg<br>Speed_Change = 1<br>TS2 TS2 TS2 TS2<br>Root  PCIe<br>Link Speed = 2.5 GT/s<br>Complex Endpoint<br>TS2 TS2 TS2 TS2<br>Speed_Change = 1<br>Autonomous Change = 1<br>**----- End of picture text -----**<br>
+- 如果最高公共速率为 8.0 GT/s 并且：
 
+   - a) EQ TS1 指导从设备进入此状态，则使用它们指定的 Tx 预设设置。
 
-一旦每个端口看到 8 个连续的 Speed Change 位设置的 TS2,它们就知道下一步将是进入 Recovery.Speed 子状态,如图 14-51(第 625 页)所示。此时,下游端口需要记录传入 TS2 中的 Autonomous Change 位的设置。为支持此操作,已将一些额外字段添加到 PCIe Capability 寄存器中。
+   - b) 常规 TS1 指导从设备进入此状态，则允许从设备使用其默认发送器设置。
 
-链路带宽更改的状态位在 Link Status 寄存器中找到,如图 14-52(第 625 页)所示。如果设备能够并已启用,状态更改还可用于生成中断以将这些事件通知软件。该功能由 Link Bandwidth Notification Capable 位报告,如图 14-53(第 626 页)所示,并通过 Link Control 寄存器中的 Interrupt Enable 位启用,如图 14-54 所示,
+## _退出到"Loopback.Active"_
 
-**624**
+如果在指导从设备进入此状态的传入 TS1 中设置了 Compliance Receive 位，则下一个状态将是 Loopback.Active。从设备无需等待特定边界即可发送回送数据，并允许截断任何进行中的有序集。
+
+否则，从设备发送链路和 Lane 编号设置为 PAD 的 TS1，并且如果满足以下条件，则下一个状态将是 Loopback.Active：
+
+- 速率为 2.5 或 5.0 GT/s，并且在所有 Lane 上获得了 Symbol 锁定。
+
+- 速率为 8.0 GT/s，并且在所有活动 Lane 上看到两个连续的 TS1。通过评估和应用 TS1 中给定的值来处理均衡，只要它们受支持并且 EC 值对于端口的方向是适当的（下行端口为 10b，
+
+**616**
+
+**第 14 章：链路初始化与训练**
+
+上行端口为 11b）。可选地，端口可以接受这两个 EC 值中的任何一个以应对此情况。如果应用了设置，则必须在接收后 500ns 内生效，并且不得导致发送器在任何电气规范上违规超过 1ns。与 Recovery.Equalization 中的过程相比，一个重要的区别是从设备正在发送的 TS1 中不会回显新设置。— 对于 8b/10b，从设备必须仅在 Symbol 边界上转换为回送数据，但允许截断任何进行中的有序集。对于 128b/130b，没有指定何时可以发送回送数据的边界，但仍允许截断任何进行中的有序集。
+
+## **Loopback.Active**
+
+在此子状态期间，回环主设备发送有效的编码数据，并且在其准备退出回环之前不应发送 EIOS。回环从设备不加修改地回显接收到的信息（即使编码被确定为无效），但根据 Polling 状态确定的极性反转可能除外。从设备还继续执行时钟容差补偿。这意味着必须根据需要添加或删除 SKP，但不要求所有 Lane 都发送相同数量。
+
+## _退出到"Loopback.Exit"_
+
+对于回环主设备，如果被指导，则下一个状态将是 Loopback.Exit。
+
+对于回环从设备，如果以下两个条件中的任何一个为真，则下一个状态将是 Loopback.Exit：
+
+- 从设备被指示退出，或者在任何 Lane 上看到四个连续的 EIOS。
+
+- 可选地，如果当前速率为 2.5 GT/s，并且接收到 EIOS 或在任何 Lane 上检测到或推断出电气空闲。如果任何已配置的 Lane 在 128 μs 内未检测到电气空闲退出，则可以推断为电气空闲。

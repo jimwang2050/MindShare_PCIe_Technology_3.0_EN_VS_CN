@@ -1,119 +1,273 @@
-为了在硅后彻底测试 PCIe 设计的 PCIe 合规性和整体稳健性，使用了专用 Exerciser 卡，如图 13 所示（在第 932 页）的 LeCroy PETrainer。该卡允许用户生成各种合规和不合规的流量。例如，如果将 PCIe 卡放在标准主板中，则可能会限制它将看到的 TLP 数据包的大小。专用 Exerciser 卡可以跨数据包大小的整个合法范围生成 TLP 数据包。
+这些值由软件编程到表中以在正常运行期间使用。规范建议该表位于 TPH Requester Capability 结构中，如第 906 页的图 20‐16 所示，但也可以选择内置到 MSI‐X 表中。对于给定的功能，只能使用这两个表位置中的一个。该位置在 Requester Capability 寄存器的 ST Table Location 字段 [10:9] 中给出，如第 907 页的图 20‐17 所示。这 2 位的编码在第 907 页的表 20‐2 中显示。
 
-其次，如果您想测试卡是否在响应具有坏 LCRC 的 TLP 时发出 NAK，则不可能将卡连接到合规设备。它们不传输坏数据包。Exerciser 卡可以创建具有坏 LCRC 的 TLP、不正确的头值，或以 EDB 符号结束 TLP。
+_图 20‐16：TPH Requester Capability 结构_
 
-**931**
+|31|15|0<br>7|
+|---|---|
+|PCI Express Capabilities Register|Next Cap<br>Pointer|PCI Express<br>Cap ID (17h)|
+|TPH Requester Capability Register|||
+|TPH Requester Control Register|||
+|TPH ST Table (optional)<br>(Sized by number of ST entries)|||
 
-**PCI Ex ress Technolo p gy**
 
-如果您想测试您的卡在收到 NAK 时是否正确重放数据包，则可以使用 Exerciser 完成此操作。也许您想向某个 TLP 连续发出 4 个 NAK，以便启动链路恢复。此行为非常容易编程到 exerciser 卡中。
 
-测试用例和失败方案的数量仅受您编写的脚本数量的限制。一旦编写，这些脚本可以重复用于测试您设计的新版本。分析仪 SW 可以记录这些会话并使用脚本确定响应是否正确。许多 LeCroy 客户已使用这些工具创建了大型回归测试库。
+**906**
 
-_图 A-13：LeCroy Gen3 PETrainer Exerciser 卡_
+**第 20 章：规范修订版 2.1 的更新**
 
-## **PTC 卡**
+_图 20‐17：TPH 能力和控制寄存器_
 
-PCI SIG 已发布了一份特定的合规性测试列表，所有"合规"设备都必须通过这些测试。LeCroy 协议测试卡 (PTC) 是在 PCI SIG 合规性研讨会上执行这些测试所使用的硬件。用户可以从 LeCroy 购买 PTC 卡，如图 14 所示（在第 933 页），以预先测试其设备，确保它们将通过 PCI SIG 合规性测试。
+**==> picture [340 x 285] intentionally omitted <==**
 
-LeCroy PTC 用于在 x1 链路宽度下测试根复合体或端点设备。链路速度可以是 Gen1 或 Gen2。
+**----- Start of picture text -----**<br>
+TPH Requester Capability Register<br>
+31 27 26 16 15 11 10 9 8 7 3 2 1 0<br>
+RsvdP ST Table Size RsvdP RsvdP<br>
+ST Table Location<br>
+Extended TPH Requester Supported<br>
+Device-Specific Mode Supported<br>
+Interrupt Vector Mode Supported<br>
+No ST Mode Supported<br>
+TPH Requester Control Register<br>
+31 10 9 8 7 3 2 0<br>
+RsvdP RsvdP<br>
+TPH Requester Enable<br>
+ST Mode Select<br>
+**----- End of picture text -----**<br>
 
-**932**
 
-**A endix A pp**
+_表 20‐2：ST 表位置编码_
 
-_图 A-14：LeCroy Gen2 协议测试卡 (PTC)_
+|**位 [10:9]**|**ST 表位置**|
+|---|---|
+|00b|不存在|
+|01b|位于 Requester Capa‐<br>bility 结构中|
+|10b|位于 MSI‐X 表中|
+|11b|保留|
 
-## **结论**
 
-如今，PCIe 开发人员可以使用各种工具来帮助调试其 PCIe 设计。由于 PCIe 标准的广泛采用，许多这些工具是专门为 PCIe 调试而设计的，包括解决许多 PCIe 设备面临的挑战的功能。
 
-有关 LeCroy PCIe 工具产品的更多信息，请访问 LeCroy 网站 www.lecroy.com
+**907**
 
-**933**
+**PCI Express 技术**
 
-**PCI Ex ress Technolo p gy**
+Requester Capability 寄存器在位 [26:16] 中列出 ST 表中的条目数。每个表条目宽 2 字节，在 TPH Capability 寄存器集中实现的 ST 表在第 908 页的图 20‐18 中显示，其中突出显示了条目零。Requester Capability 寄存器还描述了请求方支持哪些 ST 模式（通过低 3 位）：
 
-**934**
+- **No ST** - 对 ST 位使用零。在 TPH Requester Control 寄存器的 ST Mode Select 字段中当值 = 000b 时选择。
 
-## _**附录 B：**_
+- **Interrupt Vector** - 使用中断向量号作为到表的偏移，这意味着值包含在 MSI‐X 表中。（ST Mode Select 值 = 001b。）
 
-## _**PCI Express 的市场与应用**_
+- **Device‐Specific** - 使用设备特定的方法偏移到 TPH Capability 结构中的 ST 表，因为 ST 值位于那里。这是推荐的实现方式，尽管如何将给定的请求与特定 ST 条目关联超出了规范的范围。（ST Mode Select 值 = 010b。）
 
-Akber Kazmi（PLX Technology, Inc. 高级市场总监）
+- 所有其他 ST Mode Select 编码保留供将来使用。
 
-## **简介**
+_图 20‐18：TPH Capability ST 表_
 
-自 20 世纪 90 年代初定义以来，PCI 已成为计算机历史上最成功的互连技术。最初用于个人计算机系统，PCI 架构已扩展到几乎每个计算平台类别，包括服务器、存储、通信和广泛的嵌入式控制应用。最重要的是，PCI 总线速度和宽度的每次进步都提供了向后兼容性。
+||31|24|23|16|15|8|7|0||
+|---|---|---|---|---|---|---|---|---|---|
+||ST Upper Entry (1)||ST|Lower Entry (1)|ST Upper Entry (0)||ST Lower Entry (0)|||
+||ST Upper Entry (3)||ST|Lower Entry (3)|ST Upper Entry (2)||ST Lower Entry (2)|||
+|||||||||||
+|||ST Upper Entry|ST Lower Entry|||ST Upper Entry|ST Lower Entry||
+|||(Table Size)||(Table Size)||(Table Size - 1)|(Table Size - 1)|||
+|||||||||||
 
-尽管 PCI 架构如此成功，但多分支、并行、共享总线互连技术可以实现的目标是有限的。许多问题 — 时钟偏移、高引脚数、印刷电路板 (PCB) 中的走线布线限制、带宽和延迟要求、物理可扩展性以及需要在系统中支持各种应用的服务质量 (QoS) — 导致定义了 PCI Expressª (PCIe) 架构。
 
-PCIe 是 PCI 的天然继任者，开发用于提供先进的、高速串行互连技术的优势以及基于分层的分组架构，但保持与大型 PCI 软件基础的向后兼容性。关键目标是为各种未来平台提供优化的通用互连解决方案，包括桌面、服务器、工作站、存储、通信和嵌入式系统。
 
-**935**
+## **TLP 前缀**
 
-**PCI Ex ress 3.0 Technolo p gy**
+如果需要，可以通过添加可选的 TLP 前缀来扩展 Steering Tag 位。当 TLP 带有一个或多个前缀时，头通过设置 Format 字段的最高有效位来报告，如第 909 页的图 20‐19 所示。
 
-PCIe 于 2001 年推出后，已经历了三代增强。在第一代 (Gen1) 中，信号速率设定为 2.5 GT/s，后来增强到 5 GT/s (Gen2)，最终达到 8 GT/s (Gen3)。PCIe 规范允许将 2、4、8、12、16 或 32 条通道组合成单个端口。但是，今天可用的产品不支持 12 和 32 通道宽度的端口。重要的是，所有 PCIe Gen2 和 Gen3 设备都需要在速度上向后兼容上一代。
+**908**
 
-业界已经推出并完全采用了 PCIe Gen3 产品，同时 PCI 特别兴趣小组 (PCI-SIG) 正在分析 Gen4 的信号速率（速度）。PCIe Gen4 的目标是将 Gen3 的速度加倍，达到 16 GT/s。
+**第 20 章：规范修订版 2.1 的更新**
 
-PCIe 交换机有多种尺寸，从 3 到 96 条通道，从 3 到 24 个端口，其中每个端口可以是 1、2、4、8 或 16 条通道宽。Gen3 单通道将提供 1GB/s 的带宽，而 16 通道端口在每个方向上提供 16GB 的带宽。此外，PCIe 交换机供应商（如 PLX Technology）已为其产品添加了 PCIe 规范中未包含的功能和改进，使它们能够区分其产品并为系统设计人员增加价值。这些功能提供了易用性、高性能、故障转移、错误检测、错误隔离和现场可升级性。
+_图 20‐19：TPH 前缀指示_
 
-片上功能包括非透明 (NT) 桥接、对等通信、热插拔、直接内存访问 (DMA) 和错误检查/恢复。此外，调试功能（如数据包生成、接收器眼图测量、流量监控和实时流量中的错误注入）为设计人员提供了重要价值，从而实现早期系统启动。这些功能中的许多还可用于运行时性能改进和监控。
+**==> picture [344 x 126] intentionally omitted <==**
 
-下一代 PCIe 交换机中包含的功能包括：
+**----- Start of picture text -----**<br>
++0 +1 +2 +3<br>
+7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>
+Fmt At T T E<br>
+Byte 0 Type R TC R R Attr AT Length<br>
+1  0 0 tr H D P<br>
+Last DW 1st DW<br>
+Byte 4 Requester ID Tag<br>
+BE BE<br>
+Byte 8 Address [63:32]<br>
+Byte 12 Address [31:2] PH<br>
+**----- End of picture text -----**<br>
 
-- **NT 桥接：** 允许两个主机/CPU 连接到同一 PCIe 交换机，同时在电气和逻辑上隔离。NT 桥接功能广泛用于需要隔离两个活动 CPU 或两个 CPU（其中一个活动而另一个被动）的系统。NT 功能允许两个主机 CPU 之间交换心跳，以便在其中任何一个发生故障时实现故障转移。
 
-**936**
+## **IDO（基于 ID 的排序）**
 
-**第 : 附录 B：PCI 的市场与应用**
+事务排序规则对于正确的流量流动很重要，但有时不需要这些规则，在这些情况下可以改善延迟。特别是，来自不同请求方的 TLP 之间不太可能存在依赖关系，因此此功能允许软件启用它们以进行重新排序以提高性能。此操作的详细信息在第 301 页名为"基于 ID 的排序 (IDO)"的部分中描述。
 
-- **DMA：** PCIe 交换机中的片上 DMA 控制器为设计人员提供了重要价值，因为它使他们能够节省 CPU 周期，以便在对等方与 CPU 之间以及 I/O 之间移动数据。CPU 在移动数据方面的减少工作量提高了系统的整体性能，因为节省的 CPU 周期可用于运行应用程序而不是管理数据 I/O。
+## **ARI（备用路由 ID 解释）**
 
-- **错误隔离：** 用户可以对某些错误事件编程触发器并由交换机响应。交换机的响应也可以编程为忽略、触发主机中断、关闭有错误的端口或关闭整个交换机。
+此可选功能的动机是增加端点可用的功能号。设备号在像 PCI 这样的共享总线架构中很有用，但在点对点架构中通常不需要。因此，规范编写者选择允许设备以不同的方式解释 ID 路由命令的目标。这是通过将设备号始终定义为零，然后允许功能号使用 ID 中以前是设备号的 5 位来实现的。实际上，设备号消失了，而功能号增加到 8 位。使用 ARI 的 TLP 的目标需要被启用以在使用此功能之前识别它，但路径中的路由元素不必知道这一点。它们仅查看总线号以确定路由。
 
-- **数据包生成：** 通常，在不使用昂贵的分组生成器设备的情况下生成饱和 PCIe 端口的流量是困难的。PCIe 交换机现在具有饱和任何 PCIe 端口与所需流量（如事务层数据包）的能力，以检查系统的性能和稳健性。
+**909**
 
-## **PCI Express IO 虚拟化解决方案**
+**PCI Express 技术**
 
-PCIe 技术最初被定义为单主机互连技术，但在过去几年中，已经开发了使 PCIe 适合多主机系统的新标准，作为数据中心和企业 IT 应用程序的交换结构技术。x86 CPU 和服务器平台上本地 PCIe 接口（端口）的存在使设计人员能够将 PCIe 用作中小型服务器集群的背板和结构技术。
+## **电源管理改进**
 
-2007 年，PCI-SIG 发布了单根 I/O 虚拟化 (SR-IOV) 规范，该规范使网络接口卡或主机总线适配器等单个物理资源能够在运行于一个主机上的多个虚拟机之间共享。这是在不同应用程序或虚拟机之间共享资源或 I/O 设备的最简单方法。
+有四项新增功能可以改善系统有效管理电源的能力，在此列出。所有这些内容在第 703 页的第 16 章"电源管理"中介绍。
 
-PCI-SIG 随后于 2008 年完成了其多根 I/O 虚拟化 (MR-IOV) 规范的工作，该规范将 PCIe 技术的使用从单根域扩展到多根域。MR-IOV 规范允许多个主机和多个系统映像同时使用单个 I/O 设备，如图 0-1 所示（在第 938 页）。此插图显示了一个多主机环境，其中具有 MR-IOV 功能的 NIC 和 HBA 通过 MR-IOV 交换机在多个服务器或虚拟机之间共享。
+## **DPA（动态功率分配）**
 
-**937**
+一组新的扩展配置寄存器定义了 D0 以下的最多 32 个子状态。这允许软件轻松地更改设备的电源状态，而无需承担一直转换到 D1 设备电源状态的延迟惩罚。要了解更多信息，请参阅第 714 页的"动态功率分配 (DPA)"。
 
-**PCI Ex ress 3.0 Technolo p gy**
+## **LTR（延迟容忍报告）**
 
-_图 0-1：MR-IOV 交换机使用_
+允许端点报告它们可以容忍的延迟以响应其请求，使系统软件能够就系统响应时间和睡眠状态做出更好的选择。要了解更多信息，请参阅第 784 页的"LTR（延迟容忍报告）"。
 
-为了实现 MR-IOV 规范，需要开发系统的三个组件 — MR-IOV PCIe 交换机、端点和管理软件。所有这三个组件必须同时可用并无缝工作。不幸的是，在规范开发四年后，没有一个硅供应商具有 MR-IOV 功能的 PCIe 交换机或端点。PCIe 交换机供应商通过供应商定义的功能并利用可用的 SR-IOV 端点提供为 MR-IOV 定义的能力的解决方案。
+## **OBFF（优化缓冲区刷新和填充）**
 
-## **多根 (MR) PCIe 交换机解决方案**
+类似地，允许系统报告端点应该或不应该启动 DMA 或中断流量的首选时间段，有助于协调系统睡眠时间并改善电源管理。有关更多信息，请参阅第 776 页的"OBFF（优化缓冲区刷新和填充）"。
 
-PCIe 交换机供应商已创建了通过非透明桥接和多根 (MR) 功能提供多主机功能实现的交换机。这些 MR 交换机允许多个主机连接到单个交换设备，该设备可以在用户控制下进行划分，以使每个主机将连接到交换机的所需的下游端口集。
+## **ASPM 选项**
 
-在 MR 交换机中，其中一个主机充当主站并将 I/O 分配给其他主机端口。每个主机独立于其他主机运行，并控制其域中的下游设备。图 0-2（在第 939 页）说明了 MR 交换机的内部架构，其中特定的下游端口集在管理控制下与特定的主机端口相关联。
+此更改只是允许设备在选择这样做时支持没有 ASPM 链路电源管理。在以前的规范版本中，对 L0s 的支持是强制性的，但现在它变为可选的。
 
-**938**
+**910**
 
-**第 : 附录 B：PCI 的市场与应用**
+**第 20 章：规范修订版 2.1 的更新**
 
-_图 0-2：MR-IOV 交换机内部架构_
+## **配置改进**
 
-## **超越芯片到芯片互连的 PCIe**
+添加了一些配置寄存器以改善设备的软件可见性和控制。
 
-在 PCIe 部署的早期，该技术用作芯片到芯片互连，但现在 CPU、芯片组和 IO 上的 PCIe 接口的广泛可用性以及这些组件的广泛采用正在将其推向传统应用之外。在新一代应用中，PCIe 用于系统背板、交换结构、布线系统、存储/IO 扩展、IO 虚拟化、高性能计算 (HPC) 和服务器集群。图 0-3（在第 940 页）说明了在数据中心中 PCIe 用于高性能计算应用程序，其中机架中的服务器通过机架顶部 (TOR) PCIe 交换结构框进行集群。TOR PCIe 交换机可以通过以太网连接到网络，并通过 PCIe 链路连接到本地存储和计算资源。
+## **内部错误报告**
 
-盒外的 PCIe 连接取决于行业领导者以较低成本推出的 PCIe 铜缆或光缆。PCIe TOR 结构适用于服务器/计算集群，并可能取代 InfiniBand 成为 PCIe 作为结构增长时的生态系统。
+这旨在为像交换机这样没有驱动程序来处理此类问题的设备提供一种标准化的方式来报告内部问题。它还添加了在多个 TLP 头导致错误时跟踪多个 TLP 头（而不是像以前那样只有一个）的能力。本主题在名为第 667 页的"内部错误"的错误章节中介绍。
 
-**939**
+## **可调整大小的 BAR**
 
-**PCI Ex ress 3.0 Technolo p gy**
+这组新的扩展配置寄存器允许使用大量本地内存的设备报告它们是否可以处理较小的内存量，如果可以，什么大小是可接受的。知道查找它们的软件可以找到新寄存器（如第 912 页的图 20‐20 所示），并根据系统内存和其他设备的竞争要求，对它们进行编程以为平台提供适当的内存大小。
 
-_图 0-3：用于 HPC 应用程序的数据中心中的 PCIe_
+这些寄存器的使用适用一些规则：
 
-## **SSD/存储 IO 扩展框**
+1. 为避免混淆，只有在 Command 寄存器中的 Memory Enable 位已被清除时，才应更改 BAR 大小。
+
+2. 规范强烈建议功能不要通告比它们可以有效使用的更大的 BAR。
+
+3. 为了确保最佳性能，软件应分配将在系统上工作的最大 BAR 大小。
+
+**911**
+
+## **PCI Express 技术**
+
+## _图 20‐20：可调整大小的 BAR 寄存器_
+
+**==> picture [363 x 166] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+31 20 19 16 15 0<br>
+Next Extended Version PCIe Extended Capability ID<br>
+Capability Offset (1h) (0015h for Resizable BAR)<br>
+31 0 Offset<br>
+PCIe Enhanced Capability Header 000h<br>
+Resizable BAR Capability Register (0) 004h<br>
+Register Pair<br>
+for each  Reserved Resizable BAR Control Register (0) 008h<br>
+supported<br>
+BAR …<br>
+Resizable BAR Capability Register (n) n*8 +4<br>
+Reserved Resizable BAR Control Register (n) n*8 +8<br>
+**----- End of picture text -----**<br>
+
+
+## **Capability 寄存器**
+
+此寄存器仅报告哪些 BAR 大小适用于此功能。位 4 到 23 用于此目的，值如下所示：
+
+- 位 4 - 1MB BAR 大小适用于此功能
+
+- 位 5 - 2MB
+
+- 位 6 - 4MB
+
+- ...
+
+- 位 23 - 512GB 适用于此功能
+
+_图 20‐21：可调整大小的 BAR Capability 寄存器_
+
+**==> picture [242 x 38] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+31 24   23 4   3 0<br>
+RsvdP RsvdP<br>
+**----- End of picture text -----**<br>
+
+
+## **Control 寄存器**
+
+此寄存器中的 BAR Index 字段报告此大小所指的 BAR（0 到 5 是可能的）。Number of Resizable BARs 字段仅为 Control
+
+**912**
+
+**第 20 章：规范修订版 2.1 的更新**
+
+寄存器零定义，并为所有其他寄存器保留。它说明了六个可能的 BAR 中实际有多少个具有可调整的大小。最后，BAR Size 字段由软件编程以指定由 BAR Index 字段指示的 BAR 的所需大小（0 = 1MB，1=2MB，2=4MB，...，19=512GB）。
+
+_图 20‐22：可调整大小的 BAR Control 寄存器_
+
+**==> picture [281 x 136] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+31 13  12 8   7 5   4 3    2 0<br>
+RsvdP RsvdP<br>
+BAR Size (RW)<br>
+Number of Resizable<br>
+BARs (RO)<br>
+BAR Index (RO)<br>
+**----- End of picture text -----**<br>
+
+
+一旦对可调整大小的值进行了编程，则枚举软件将能够像往常一样工作：将所有 F 写入每个 BAR 然后回读将报告所选的大小。请注意，如果大小值已更改，则 BAR 的内容将丢失，如果先前已设置，则需要重新编程。图 20‐23（第 914 页）突出显示了 Type 0 头的配置头空间中的 BAR 寄存器。
+
+**913**
+
+**PCI Express 技术**
+
+## _图 20‐23：Type0 配置头中的 BAR_
+
+**==> picture [160 x 273] intentionally omitted <==**
+
+**----- Start of picture text -----**<br>
+3 2 1 0 DW<br>
+Device Vendor 00<br>
+ID ID<br>
+Status Command 01<br>
+Register Register<br>
+Class Code Revision 02<br>
+ID<br>
+HeaderType LatencyTimer CacheLineSize 03<br>
+04<br>
+Base Address 0<br>
+05<br>
+Base Address 1<br>
+06<br>
+Base Address 2<br>
+07<br>
+Base Address 3<br>
+08<br>
+Base Address 4<br>
+09<br>
+Base Address 5<br>
+10<br>
+CardBus CIS Pointer<br>
+Subsystem ID SubsystemVendor ID 11<br>
+Expansion ROM 12<br>
+Base Address<br>
+Reserved CapabilitiesPointer 13<br>
+14<br>
+Max_Lat Min_Gnt InterruptPin InterruptLine 15<br>
+**----- End of picture text -----**<br>
+
+
+## **简化的排序表**
