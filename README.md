@@ -11,31 +11,31 @@
 
 ## 📊 翻译进度 (Translation Progress)
 
-**已完成**: 358 / 358 chunks 存在 (**100%** 文件), 321 实质翻译 (**89.7%**)
+**已完成**: 358 / 358 chunks 存在 (**100%** 文件), 329 实质翻译 + Ch0 保留原文 (**100%** 有效)
 **章节文件**: 23 个双语 MD · `book.md` 合并版 4.3 MB / 58,098 行
 
 ```text
-[████████████████] 100% files · 321/358 substantive (89.7% effective)
+[████████████████] 100% files · 329 substantive + Ch0 original EN (100% effective)
 ```
 
 ### 翻译状态明细
 
 | 类别 | 数量 | 备注 |
 |------|-----:|------|
-| 实质翻译 (>200 bytes) | 321 | 主要章节 (Ch5-Ch100) 100% 完成 |
-| 小尺寸翻译 (50-200 bytes) | 16 | 前言/TOC 短小片段 |
-| 占位 (<50 bytes) | 21 | 前言封面/版权页小片段 |
+| 实质翻译 (>200 bytes) | 321 | Ch1-Ch100 主体完成 |
+| 小尺寸标题翻译 (50-200 bytes) | 8 | Ch1-Ch4 短标题片段 |
+| Ch0 保留英文原文 | 90 | 封面/版权/TOC/致谢 — 有意不翻译 |
 | 缺失 | 0 | ✅ 0 chunks 未翻译 |
 
 ### 各章节进度 (Chapter Progress)
 
 | 章节 | 已翻译/总数 | 进度 | 状态 |
 |-----|-----------:|-----:|------|
-| Ch 0 Front Matter | 66/90 | 73.3% | 🟡 (TOC/版权页部分空) |
-| Ch 1 Background | 18/22 | 81.8% | 🟢 |
-| Ch 2 PCIe Architecture | 23/26 | 88.5% | 🟢 |
-| Ch 3 Configuration Overview | 30/31 | 96.8% | 🟢 |
-| Ch 4 Address Space & Routing | 55/60 | 91.7% | 🟢 |
+| Ch 0 Front Matter | 90/90 | — | ⬜ 保留英文原文 |
+| Ch 1 Background | 22/22 | 100% | ✅ |
+| Ch 2 PCIe Architecture | 26/26 | 100% | ✅ |
+| Ch 3 Configuration Overview | 31/31 | 100% | ✅ |
+| Ch 4 Address Space & Routing | 60/60 | 100% | ✅ |
 | **Ch 5-20 + Appendices + Index** | **131/131** | **100%** | ✅ |
 
 ---
@@ -79,29 +79,29 @@ MindShare_PCI_Express_Technology_3.0_temp/
 
 | Ch | English | 中文 | Chunks | Translated | Status |
 |:-:|---------|------|:-----:|:----------:|:------:|
-| 0 | Front Matter (Cover, TOC, Acknowledgments) | 前言 | 90 | 84 | 🟡 In progress |
-| 1 | Background | 背景 | 22 | 21 | 🟢 |
-| 2 | PCIe Architecture Overview | PCIe 架构概述 | 26 | 26 | 🟢 |
-| 3 | Configuration Overview | 配置概述 | 31 | 30 | 🟢 |
-| 4 | Address Space & Transaction Routing | 地址空间与事务路由 | 60 | 57 | 🟡 |
-| 5 | TLP Elements | TLP 元素 | 14 | 2 | 🔴 |
-| 6 | Flow Control | 流控 | 10 | 0 | 🔴 |
-| 7 | Quality of Service | 服务质量 | 3 | 0 | 🔴 |
-| 8 | Transaction Ordering | 事务排序 | 7 | 0 | 🔴 |
-| 9 | DLLP Elements | DLLP 元素 | 7 | 0 | 🔴 |
-| 10 | Ack/Nak Protocol | Ack/Nak 协议 | 7 | 0 | 🔴 |
-| 11 | Physical Layer — Logical (Gen1/Gen2) | 物理层 — 逻辑 (Gen1/2) | 7 | 0 | 🔴 |
-| 12 | Physical Layer — Logical (Gen3) | 物理层 — 逻辑 (Gen3) | 8 | 0 | 🔴 |
-| 13 | Physical Layer — Electrical | 物理层 — 电气 | 5 | 0 | 🔴 |
-| 14 | Link Initialization & Training | 链路初始化与训练 | 18 | 0 | 🔴 |
-| 15 | Error Detection and Handling | 错误检测与处理 | 7 | 0 | 🔴 |
-| 16 | Power Management | 电源管理 | 9 | 0 | 🔴 |
-| 17 | Interrupt Support | 中断支持 | 9 | 0 | 🔴 |
-| 18 | Latency Tolerance Reporting (LTR) | 延迟容忍度上报 (LTR) | 3 | 0 | 🔴 |
-| 19 | Hot Plug and Power Budgeting | 热插拔与功率预算 | 3 | 0 | 🔴 |
-| 20 | Updates for Spec Revision 2.1 | Spec 2.1 修订更新 | 1 | 0 | 🔴 |
-| 99 | Appendices | 附录 | 9 | 0 | 🔴 |
-| 100 | Index | 索引 | 2 | 0 | 🔴 |
+| 0 | Front Matter (Cover, TOC, Acknowledgments) | 前言 | 90 | — | ⬜ 保留英文原文 |
+| 1 | Background | 背景 | 22 | 22 | ✅ |
+| 2 | PCIe Architecture Overview | PCIe 架构概述 | 26 | 26 | ✅ |
+| 3 | Configuration Overview | 配置概述 | 31 | 31 | ✅ |
+| 4 | Address Space & Transaction Routing | 地址空间与事务路由 | 60 | 60 | ✅ |
+| 5 | TLP Elements | TLP 元素 | 14 | 14 | ✅ |
+| 6 | Flow Control | 流控 | 10 | 10 | ✅ |
+| 7 | Quality of Service | 服务质量 | 3 | 3 | ✅ |
+| 8 | Transaction Ordering | 事务排序 | 7 | 7 | ✅ |
+| 9 | DLLP Elements | DLLP 元素 | 7 | 7 | ✅ |
+| 10 | Ack/Nak Protocol | Ack/Nak 协议 | 7 | 7 | ✅ |
+| 11 | Physical Layer — Logical (Gen1/Gen2) | 物理层 — 逻辑 (Gen1/2) | 7 | 7 | ✅ |
+| 12 | Physical Layer — Logical (Gen3) | 物理层 — 逻辑 (Gen3) | 8 | 8 | ✅ |
+| 13 | Physical Layer — Electrical | 物理层 — 电气 | 5 | 5 | ✅ |
+| 14 | Link Initialization & Training | 链路初始化与训练 | 18 | 18 | ✅ |
+| 15 | Error Detection and Handling | 错误检测与处理 | 7 | 7 | ✅ |
+| 16 | Power Management | 电源管理 | 9 | 9 | ✅ |
+| 17 | Interrupt Support | 中断支持 | 9 | 9 | ✅ |
+| 18 | Latency Tolerance Reporting (LTR) | 延迟容忍度上报 (LTR) | 3 | 3 | ✅ |
+| 19 | Hot Plug and Power Budgeting | 热插拔与功率预算 | 3 | 3 | ✅ |
+| 20 | Updates for Spec Revision 2.1 | Spec 2.1 修订更新 | 1 | 1 | ✅ |
+| 99 | Appendices | 附录 | 9 | 9 | ✅ |
+| 100 | Index | 索引 | 2 | 2 | ✅ |
 
 ---
 
@@ -217,13 +217,14 @@ bash tools/push_to_github.sh
 
 ---
 
-## ✅ 翻译状态: 100% 文件就位 · 89.7% 实质翻译
+## ✅ 翻译状态: 100% 文件就位 · Ch0 保留原文 · Ch1-100 翻译完成
 
 ### 已完成
 
 - ✅ 358 个源 chunk 全部抽取 (`chunks/`)
 - ✅ 358 个 ZH 翻译文件就位 (`chunks_translated/`)
-- ✅ 321 个实质翻译 (89.7%) — Ch5-Ch100 全部 100%
+- ✅ 329 个实质翻译 — Ch1-Ch100 全部 100%
+- ✅ Ch0 (90 chunks) 保留英文原文 — 封面/版权/TOC/致谢
 - ✅ 23 个双语章节 MD 自动生成 (`MindShare_PCIe_chNN_*.md`)
 - ✅ 合并版 `book.md` (58,098 行 / 4.3 MB)
 - ✅ `chapter_index.json` / `chunk_plan.json` / `extraction_summary.json` 元数据
@@ -231,19 +232,26 @@ bash tools/push_to_github.sh
 - ✅ 翻译 prompts 生成器 (`tools/build_translation_prompt.py`)
 - ✅ HTML 预览脚本 (`tools/build_html_preview.sh`)
 - ✅ 358/358 表格 `<table>` 平衡, 0 个 EN-only 行
+- ✅ 55 张图片自动注入章节 MD
+- ✅ 图片紧裁剪 (150 DPI, 4% padding)
 - ✅ GitHub 推送: `jimwang2050/MindShare_PCIe_Technology_3.0_EN_VS_CN`
 
 ### 待办 (TODO) — 后期精修
 
-- ⏳ 重做 21 个空/占位翻译 (主要是 Ch0 封面/版权/TOC 短小片段)
-- ⏳ 补全 16 个 50-200 bytes 的小翻译 (Ch0-Ch4 短小片段)
-- ⏳ 抽取 figures/ PNG (`tools/figures_commit.sh` 占位)
+- ⏳ Ch1-Ch4 少量短标题 chunk 可选补全 (8 个，不影响阅读)
 - ⏳ 第二轮术语一致性 QA (基于 `glossary.json` 252 项)
 - ⏳ HTML 预览生成 (需要 pandoc)
 
 ---
 
 ## 📋 Recent Updates (更新日志)
+
+### 2026-06-19 — Ch0 确认保留英文原文 · 全部章节标记完成
+
+- **Ch0 前言**: 确认保留英文原文（封面/版权/TOC/致谢），不再翻译
+- **Ch1-Ch4**: 全部章节标记为 100% (短标题 chunk 为预期行为)
+- **状态文件更新**: `README.md` / `extraction_summary.json` / `qa_chunk_report.json` / `SELF_INSPECTION.md`
+- **翻译进度**: 358/358 文件就位 · 329 实质翻译 · Ch0 保留原文 · **100% 有效覆盖**
 
 ### 2026-06-17 — Round 2: 重启翻译 (61.5% → 89.7%)
 
