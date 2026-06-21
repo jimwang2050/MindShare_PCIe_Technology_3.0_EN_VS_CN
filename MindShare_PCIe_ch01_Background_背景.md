@@ -36,8 +36,16 @@
 ## 1.1 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## Part One: 
@@ -56,7 +64,9 @@ _**1 Background**_
 _**1 背景**_
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -69,8 +79,16 @@ _**1 背景**_
 ## 1.2 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **This Chapter** 
@@ -89,7 +107,9 @@ PCIe.
 PCI-X（PCI-eXtended），并描述它们的基本特性和特点，随后讨论从这些早期的并行总线模型迁移到 PCIe 所采用的串行总线模型的动机。
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -102,8 +122,16 @@ PCI-X（PCI-eXtended），并描述它们的基本特性和特点，随后讨论
 ## 1.3 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **The Next Chapter** 
@@ -120,7 +148,9 @@ describes the responsibilities of each layer.
 下一章将介绍 PCI Express 架构，旨在作为一份“管理层”级别的概览，从高层次覆盖该架构的所有基础知识。它将介绍规范中给出的 PCIe 端口设计的分层方法，并描述每一层的职责。
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -130,8 +160,16 @@ describes the responsibilities of each layer.
 ## 1.4 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **Introduction** 
@@ -146,7 +184,7 @@ backward com‐ patibility encourages migration from the older designs to the ne
 possible. As a result, older PCI software works unchanged in a PCIe system and new software will con‐ tinue to use the same models of
 operation. For this reason and others, under‐ standing PCI and its models of operation will facilitate an understanding of PCIe.
 
-**9** 
+**9**
 
 </td>
 <td width="50%">
@@ -159,10 +197,12 @@ operation. For this reason and others, under‐ standing PCI and its models of o
 举一个能够体现这些背景知识作用的例子:PCIe 所使用的软件与 PCI 时代基本相同。保持这种向后兼容性,可以通过使软件变更尽可能简单和廉价,从而鼓励从旧设计向新设计的迁移。因此,旧版 PCI 软件可以在 PCIe
 系统中无需修改地运行,而新软件也将继续沿用相同的操作模型。出于这一原因及其他原因,理解 PCI 及其操作模型将有助于理解 PCIe。
 
-**9** 
+**9**
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -172,8 +212,16 @@ operation. For this reason and others, under‐ standing PCI and its models of o
 ## 1.5 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **PCI and PCI-X** 
@@ -253,7 +301,9 @@ Special Interest Group，PCI 特殊兴趣小组）的组织。全新开发的总
 **第 1 章：背景**
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -263,8 +313,16 @@ Special Interest Group，PCI 特殊兴趣小组）的组织。全新开发的总
 ## 1.6 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **PCI Basics**
@@ -275,7 +333,9 @@ Special Interest Group，PCI 特殊兴趣小组）的组织。全新开发的总
 ## **PCI 基础知识**
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -285,8 +345,16 @@ Special Interest Group，PCI 特殊兴趣小组）的组织。全新开发的总
 ## 1.7 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **Basics of a PCI-Based System** 
@@ -307,7 +375,9 @@ pro‐ vided system signals like reset, reference clock, and error reporting.
 图形总线以及 PCI 总线。多个设备共享 PCI 总线，它们要么直接连接到总线上，要么插入到扩展卡连接器中。南桥将 PCI 与系统外设（例如 ISA 总线，用于在早期几年中继续承载传统外设）连接起来。南桥通常也是 PCI 的中央资源，提供复位、参考时钟以及错误报告等系统信号。
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -317,8 +387,16 @@ pro‐ vided system signals like reset, reference clock, and error reporting.
 ## 1.8 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **PCI Express Technology** 
@@ -343,7 +421,9 @@ _图 1‐1：传统 PCI 总线架构平台_
 调制解调器 音频 超级<br>ROM 芯片 芯片 I/O<br>COM1<br>COM2<br>**----- 图片文字结束 -----**<br>
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -353,8 +433,16 @@ _图 1‐1：传统 PCI 总线架构平台_
 ## 1.9 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **PCI Bus Initiator and Target** 
@@ -394,7 +482,9 @@ _图 1-2:PCI 总线仲裁_
 <br>
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -404,8 +494,16 @@ _图 1-2:PCI 总线仲裁_
 ## 1.10 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **Typical PCI Bus Cycle** 
@@ -433,7 +531,9 @@ decoding the address to see whether it’s a match for them.
 2. 在时钟边沿 2 上,由发起方断言 FRAME#,表示新事务已开始。同时,它驱动该事务的地址和命令。总线上的所有其他设备将锁存此信息并开始对地址进行解码,以查看该事务是否与它们匹配。
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -443,8 +543,16 @@ decoding the address to see whether it’s a match for them.
 ## 1.11 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **PCI Express Technology** 
@@ -525,7 +633,9 @@ _**图 1‐3:简单的 PCI 总线传输**_
 <br>
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -535,8 +645,16 @@ _**图 1‐3:简单的 PCI 总线传输**_
 ## 1.12 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **Reflected-Wave Signaling** 
@@ -640,7 +758,9 @@ COM2 编解码器（CODEC）编解码器（CODEC）以太网（Ethernet） ROM<b
 **----- 图片文字结束 -----**<br>
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -650,8 +770,16 @@ COM2 编解码器（CODEC）编解码器（CODEC）以太网（Ethernet） ROM<b
 ## 1.13 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **PCI Bus Architecture Perspective**
@@ -662,7 +790,9 @@ COM2 编解码器（CODEC）编解码器（CODEC）以太网（Ethernet） ROM<b
 ## **PCI 总线架构视角 (PCI Bus Architecture Perspective)**
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -672,8 +802,16 @@ COM2 编解码器（CODEC）编解码器（CODEC）以太网（Ethernet） ROM<b
 ## 1.14 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **PCI Transaction Models** 
@@ -689,7 +827,9 @@ illustrated in Figure 1‐6 on page 19 and described in the following sections.
 与之前的总线模型一样,PCI 使用三种模型进行数据传输:编程 I/O (PIO)、对等 (Peer-to-Peer) 和 DMA。这些模型如图 1-6(第 19 页)所示,并将在以下各节中进行描述。
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -699,8 +839,16 @@ illustrated in Figure 1‐6 on page 19 and described in the following sections.
 ## 1.15 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **Programmed I/O** 
@@ -750,7 +898,9 @@ _图 1‐6:PCI 事务模型_
 HDD<br>USB 南桥 逻辑错误 以太网 SCSI<br>ISA<br>启动 调制解调器 音频 超级<br>ROM 芯片 芯片 I/O<br>COM1<br>COM2<br>**----- 图片文字结束 -----**<br>
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -760,8 +910,16 @@ HDD<br>USB 南桥 逻辑错误 以太网 SCSI<br>ISA<br>启动 调制解调器 �
 ## 1.16 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **Direct Memory Access (DMA)** 
@@ -794,7 +952,9 @@ the CPU is not involved in the data movement, and a single bus cycle may be suff
 外设可能会产生一个中断以通知系统。DMA 数据传输方法更为高效，因为 CPU 不参与数据的搬移，并且单个总线周期便足以搬移一整块数据。
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -804,8 +964,16 @@ the CPU is not involved in the data movement, and a single bus cycle may be suff
 ## 1.17 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **Peer-to-Peer** 
@@ -829,7 +997,9 @@ the target, defeating the goal of a peer‐to‐peer transfer.
 对其进行重新格式化，然后再传输到目标设备，这就违背了对等传输的目标。
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -839,8 +1009,16 @@ the target, defeating the goal of a peer‐to‐peer transfer.
 ## 1.18 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **PCI Bus Arbitration** 
@@ -869,7 +1047,9 @@ to as “hidden” bus arbitration, which was a design improvement over earlier 
 仲裁器可以在上一个总线主控设备仍在执行其传输的过程中，就将总线所有权授予下一个请求的设备，因此在总线上不会消耗额外的时钟周期来决定下一个所有者。因此，仲裁过程看起来好像在后台完成，被称为"隐藏式"总线仲裁，这是相对于早期总线协议的一项设计改进。
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -879,8 +1059,16 @@ to as “hidden” bus arbitration, which was a design improvement over earlier 
 ## 1.19 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **PCI Inefficiencies**
@@ -891,7 +1079,9 @@ to as “hidden” bus arbitration, which was a design improvement over earlier 
 ## **PCI 的不足之处 (PCI Inefficiencies)**
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -901,8 +1091,16 @@ to as “hidden” bus arbitration, which was a design improvement over earlier 
 ## 1.20 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **PCI Retry Protocol** 
@@ -935,10 +1133,12 @@ _图 1-7:PCI 交易重试机制_
 处理器<br>FSB<br>显卡<br>北桥北桥桥桥<br>(Intel 440(Intel 440 ) S DRAM<br>地址端口 数据端口<br>1. 发起<br>PCI 33 MHz 3. 重试<br>插槽<br>IDE<br>CD HDD<br>USB 南桥 逻辑错误
 以太网 SCSI<br>ISA<br>启动 调制解调器 音频 超级 2. 目标设备<br>ROM 芯片 芯片 I/O 未就绪<br>COM1<br>COM2<br>**----- 图片文字结束 -----**<br>
 
-考虑下面这个示例:北桥发起一次内存读交易,以读取以太网设备中的数据。以太网目标设备声明占用该总线周期。然而,以太网目标设备并不能立即将数据返回给北桥主设备。以太网设备有两种选择来延迟数据传输。第一种是在 
+考虑下面这个示例:北桥发起一次内存读交易,以读取以太网设备中的数据。以太网目标设备声明占用该总线周期。然而,以太网目标设备并不能立即将数据返回给北桥主设备。以太网设备有两种选择来延迟数据传输。第一种是在
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -948,8 +1148,16 @@ _图 1-7:PCI 交易重试机制_
 ## 1.21 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **PCI Express Technology** 
@@ -975,7 +1183,9 @@ cycle again and the process is repeated until the master successfully transfers 
 总线。等到被重试的主设备获得总线授权并重新发起总线周期时，希望目标设备此时能接受该周期并准备好传输数据。该总线周期将携带数据传输完成。否则，如果目标设备仍未准备好，它会再次重试主设备的总线周期，并重复该过程，直到主设备成功完成数据传输。
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -985,8 +1195,16 @@ cycle again and the process is repeated until the master successfully transfers 
 ## 1.22 Background | 背景
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
 <td width="50%">
 
 ## **PCI Disconnect Protocol** 
@@ -1038,7 +1256,9 @@ bridge)发起突发内存读事务以从以太网设备读取数据。以太网�
 <br>
 
 </td>
-</tr></tbody></table>
+</tr>
+</tbody>
+</table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 

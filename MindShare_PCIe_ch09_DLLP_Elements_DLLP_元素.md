@@ -20,14 +20,34 @@
 ## 9.1 DLLP Elements | DLLP 元素
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
+<tr>
 <td width="50%">
 
 Now that we’ve described how the protocol works, this is a good time to explain an exception to its general operation. PCIe supports a
 Switch feature, called ‘cut‐through mode’, that can be used to improve the transfer latency for large TLPs through a Switch.
 
-**Cha ter 10: Ack/Nak Protocol p** 
+**Cha ter 10: Ack/Nak Protocol p**
+
+</td>
+<td width="50%">
+
+'D' Character<br>Transaction Layer Packet (TLP)<br>STP Sequence Header Data Payload ECRC LCRC END<br>'D' Character<br>'K' Character 'K'
+Character<br>Data Link Layer Packet (DLLP)<br>SDP DLLP Type Misc. CRC END<br>'K' Character 'K' Character<br>**----- 图片文字结束 -----**<br>
+
+</td>
+</tr>
+<tr>
+<td width="50%">
 
 ## **Background** 
 
@@ -35,6 +55,23 @@ Consider an example where a large TLP needs to pass through a Switch as shown in
 can’t tell whether there was an error in the packet until it has seen the whole TLP, it’ll normally store the entire packet and check it for
 errors before forwarding it to the Egress Port. This store‐and‐forward method works but, for large packets, the latency to get through the
 Switch can be large which may be an issue for some applications. It would be nice to minimize this latency if possible.
+
+</td>
+<td width="50%">
+
+## **字节交叉（用于宽链路）**
+
+我们示例中显示的下一步是字节交叉，尽管仅当端口实现多个 Lane（称为宽链路）时才需要。交叉意味着字符流中的每个连续输出字符被路由到连续的 Lane。使用的 Lane 数量是在链路训练过程中配置的，基于共享链路的两个设备所支持的。
+
+以下图中说明了字节交叉的三个示例。在第 372 页的图 11-8 中，显示了单 Lane 链路 (x1)。这不是一个非常有趣的案例，因为报文一次以一个字节进入物理层并以相同的方式离开，但它说明了字符序列的绘制方式。
+
+第 372 页的图 11-9 显示了来自多路复用器的传入 Dword 报文。每个字节被定向到相应的 Lane。最后，第 373 页的图 11-10 说明了一个八 Lane (x8) 链路。在此示例中，需要两个 Dword 才能填充所有 8 个 Lane。这要求 Dword
+以比先前示例快两倍的速率到达。每个 Lane 上发送的数据格式将在以下小节中描述。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
 
 ## **A Latency Improvement Option** 
 
@@ -54,6 +91,51 @@ neighboring receiver when it sees the error, but the packet in the replay buffer
 problem. We might truncate the bad packet in flight, but the spec doesn’t allow for that possibility. To make this work, we need another
 option, and that’s where the Cut‐Through option comes into play.
 
+</td>
+<td width="50%">
+
+## **PCI Exress Technology**
+
+_图 11-8：x1 字节交叉_
+
+**==> 图片 [154 x 220] 已省略 <==**
+
+**----- 图片文字开始 -----**<br>
+Packet byte stream from Mux block<br>8 D/K#<br>Character 7<br>Character 6<br>Character 5<br>Character 4<br>Character 3<br>Character
+2<br>Character 1<br>Character 0<br>x1 Byte Striping 8 D/K#<br>Character 2<br>Character 1<br>Character 0<br>8 D/K#<br>To Scrambler<br>**-----
+图片文字结束 -----**<br>
+
+
+_图 11-9：x4 字节交叉_
+
+**==> 图片 [338 x 205] 已省略 <==**
+
+**----- 图片文字开始 -----**<br>
+Packet Dword Stream from Mux Block<br>D/K# D/K# D/K# D/K#<br>8 8 8 8<br>Character 12 Character 13 Character 14 Character 15<br>Character 8
+Character 9 Character 10 Character 11<br>Character 4 Character 5 Character 6 Character 7<br>Character 0 Character 1 Character 2 Character
+3<br>Character 12 Character 13 Character 14 Character 15<br>Character 16 Character 17 Character 11 Character 11<br>Character 8 Character 9
+Character 7 Character 7<br>Character 0 Character 1 Character 3 Character 3<br>8 D/K# 8 D/K# 8 D/K# 8 D/K#<br>To Lane 0 To Lane 1 To Lane 2
+To Lane 3<br>Scrambler Scrambler Scrambler Scrambler<br>**----- 图片文字结束 -----**<br>
+
+
+**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
+
+_图 11-10：使用 DWord 并行数据的 x8 字节交叉_
+
+**==> 图片 [368 x 240] 已省略 <==**
+
+**----- 图片文字开始 -----**<br>
+D/K# D/K# D/K# D/K#<br>8 8 8 8<br>Character 20 Character 21 Character 22 Character 23<br>Character 16 Character 17 Character 18 Character
+19<br>Character 12 Character 13 Character 14 Character 15<br>Character 8 Character 9 Character 10 Character 11<br>Character 4 Character 5
+Character 6 Character 7<br>Character 0 Character 1 Character 2 Character 3<br>x8 Byte Striping<br>Character 16 Character 17 Character
+23<br>Character 8 Character 9 Character 15<br>Character 0 Character 1 Character 7<br>8 D/K# 8 D/K# 8<br>To Lane 0 To Lane 1 To Lane
+7<br>Scrambler Scrambler Scrambler<br>**----- 图片文字结束 -----**<br>
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
 ## **Cut-Through Operation** 
 
 Cut‐though mode provides the solution to the forwarding problem described in the previous section: if an error is seen in the incoming
@@ -67,6 +149,16 @@ decremented by one (rolled back).
 When a device receives a TLP that it recognizes as being a nullified TLP, it sim‐ ply drops the packet and treats it as if it never existed.
 The NEXT_RCV_SEQ is not incremented, the AckNak_LATENCY_TIMER is not started, nor is the NAK_SCHEDULED set. The receiving device silently
 discards the nullified TLP and does not return an Ack/Nak for it.
+
+</td>
+<td width="50%">
+
+## **报文格式规则**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
 
 ## **Example of Cut-Through Operation** 
 
@@ -103,18 +195,94 @@ width="700">
 
 <br>
 
+</td>
+<td width="50%">
+
+## **一般规则**
+
+- 每个报文的总报文长度（包括起始和结束字符）始终是四的倍数。这是数据长度以 dword 为单位测量的自然扩展。
+
+- TLP 以 STP 字符开始，以 END 或 EDB 字符结束。
+
+- DLLP 以 SDP 开始，以 END 字符结束。并且正好 8 个字符长 (SDP + 6 字符 + END)。
+
+- STP 和 SDP 字符在逻辑空闲传输之后开始报文传输时放置在 Lane 0 上。在其他情况下，它们可以从可被 4 整除的 Lane 编号开始。
+
+- 接收方的物理层允许监视这些规则的违规行为，并可能将其作为接收方错误报告给数据链路层。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
 
 ## Part Four: 
 
-# Physical Layer 
+# Physical Layer
 
-## _**11 Physical Layer ‐ Logical (Gen1 and Gen2)**_ 
+</td>
+<td width="50%">
+
+## **示例：x1 格式**
+
+第 374 页的图 11-11 中所示的示例说明了通过 x1 链路（仅一个 Lane 运行的链路）传输的报文的格式。显示了一系列报文，其中穿插了一个 SKIP 有序集。末尾显示了逻辑空闲，以表示发送方没有更多报文要发送并使用空闲字符作为填充的情况。
+
+_图 11-11：x1 报文格式_
+
+**==> 图片 [351 x 220] 已省略 <==**
+
+**----- 图片文字开始 -----**<br>
+Lane<br>0<br>STP COM STP STP<br>SKP<br>TLP SKP TLP<br>SKP<br>STP<br>TLP<br>END END<br>SDP SDP<br>DLLP TLP DLLP<br>END<br>Idle (00h)<br>Idle
+(00h)<br>Idle (00h)<br>END END END<br>Time<br>**----- 图片文字结束 -----**<br>
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## _**11 Physical Layer ‐ Logical (Gen1 and Gen2)**_
+
+</td>
+<td width="50%">
+
+## **x4 格式规则**
+
+- STP 和 SDP 字符始终在 Lane 0 上发送。
+
+- END 和 EDB 字符始终在 Lane 3 上发送。
+
+- 当发送有序集（如 SKIP）时，它必须同时出现在所有 Lane 上。
+
+- 当传输逻辑空闲时，它们必须同时在所有 Lane 上发送。
+
+- 这些规则的任何违规都可能作为接收方错误报告给数据链路层。
+
+**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
 
 ## **The Previous Chapter** 
 
 The previous chapter describes the Ack/Nak Protocol: an automatic, hardware‐ based mechanism for ensuring reliable transport of TLPs across
 the Link. Ack DLLPs confirm good reception of TLPs while Nak DLLPs indicate a transmis‐ sion error. The chapter describes the normal rules
 of operation as well as error recovery mechanisms.
+
+</td>
+<td width="50%">
+
+## **示例 x4 格式**
+
+第 375 页的图 11-12 中所示的示例说明了通过 x4 链路（具有四个运行数据 Lane 的链路）发送的报文的格式。该图显示了一个 TLP，后跟在所有 Lane 上传输的用于接收方时钟补偿的 SKIP 有序集。接下来是一个 DLLP，然后是所有 Lane
+上的逻辑空闲。本例强调了报文始终是 4 的字符倍数，因为起始字符始终出现在 Lane 0 中，而结束字符始终在 Lane 3 中。它还说明了有序集必须同时出现在所有 Lane 上。
+
+_图 11-12：x4 报文格式_
+
+</td>
+</tr>
+<tr>
+<td width="50%">
 
 ## **This Chapter** 
 
@@ -123,11 +291,53 @@ steps are needed to accomplish this and they are described in detail. This chapt
 protocol that use 8b/10b encoding. The logic for Gen3 does not use 8b/10b encoding and is described separately in the chap‐ ter called
 “Physical Layer ‐ Logical (Gen3)” on page 407.
 
+</td>
+<td width="50%">
+
+## **大链路宽度报文格式规则**
+
+以下规则适用于通过 x8、x12、x16 或 x32 链路传输报文时：
+
+- 当在传输逻辑空闲期间之后开始传输时，STP/SDP 字符始终在 Lane 0 上发送。之后，当发送背靠背报文时，它们只能发送到可被 4 整除的 Lane 编号（Lane 4、8、12 等）。
+
+- END/EDB 字符发送到可被 4 整除的 Lane 编号，然后减一（Lane 3、7、11 等）。
+
+- 如果报文没有在链路的最后一个 Lane 上结束，并且没有更多准备发送的报文，则 PAD 符号用作剩余 Lane 编号的填充。逻辑空闲不能用于此目的，因为它必须同时出现在所有 Lane 上。
+
+- 有序集必须同时在所有 Lane 上发送。
+
+- 类似地，逻辑空闲在使用时必须在所有 Lane 上发送。
+
+- 这些规则的任何违规都可能作为接收方错误报告给数据链路层。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
 ## **The Next Chapter** 
 
 The next chapter describes the Physical Layer characteristics for the third gener‐ ation (Gen3) of PCIe. The major change includes the
 ability to double the band‐ width relative to Gen2 without needing to double the frequency by eliminating the need for 8b/10b encoding. More
 robust signal compensation is necessary at Gen3 speed. Making these changes is more complex than might be expected.
+
+</td>
+<td width="50%">
+
+## **x8 报文格式示例**
+
+第 377 页的图 11-13 中所示的示例说明了通过 x8 链路传输的报文的格式。该图显示了一个 TLP，后跟 SKIP 有序集、一个 DLLP，最后是一个在 Lane 3 结束的 TLP。在那时，发送方没有更多准备发送的报文，但当前报文未扩展到包括所有可用
+Lane。有人可能期望用逻辑空闲填充额外的 Lane，但这在这里不起作用，因为空闲必须同时出现在所有 Lane 上。因此需要另一个填充字符，规范编写者选择在此处使用 PAD 控制字符。PAD 唯一使用的另一个位置是在训练过程中。最后，由于仍没有更多要发送的报文，因此会在所有
+Lane 上发送逻辑空闲。
+
+**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
+
+_图 11-13：x8 报文格式_
+
+</td>
+</tr>
+<tr>
+<td width="50%">
 
 ## **Physical Layer Overview** 
 
@@ -171,6 +381,18 @@ width="700">
 
 <br>
 
+</td>
+<td width="50%">
+
+## **加扰器**
+
+我们示例中的下一步是加扰，如图 11-5（第 369 页）所示，旨在防止数据流中的重复模式。重复模式在链路上产生"纯音"，这意味着由该模式产生的一致频率会产生比通常更多的噪声或 EMI。通过将此能量扩展到更宽的频率范围来减少此问题是加扰的主要目标。此外，单个 Lane
+上的加扰传输还可减少对宽链路上相邻 Lane 的干扰。这种"空间频率去相关"，或减少串扰噪声，有助于每个 Lane 上的接收方区分所需的信号。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
 
 ## **Observation** 
 
@@ -179,6 +401,18 @@ writers were reluc‐ tant to give details or example implementations because th
 with clever or creative versions of the logic. For our discussion though, an example is indispensable, and one was cho‐ sen that illustrates
 the concepts. It’s important to make clear that this example has not been tested or validated, nor should a designer feel compelled to
 imple‐ ment a Physical Layer in such a manner.
+
+</td>
+<td width="50%">
+
+## **PCI Exress Technology**
+
+为了帮助接收方与加扰序列保持同步，控制字符不会进行加扰，因此即使加扰器失去同步，它们也可被识别。此外，COM 控制字符 (K28.5) 的每次到达都会重新初始化链路两端的加扰器，从而重新同步它们。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
 
 ## **Transmit Logic Overview** 
 
@@ -194,9 +428,760 @@ take on based on the source of the character.
 </td>
 <td width="50%">
 
-'D' Character<br>Transaction Layer Packet (TLP)<br>STP Sequence Header Data Payload ECRC LCRC END<br>'D' Character<br>'K' Character 'K'
-Character<br>Data Link Layer Packet (DLLP)<br>SDP DLLP Type Misc. CRC END<br>'K' Character 'K' Character<br>**----- 图片文字结束 -----**<br>
+## **加扰算法**
 
+规范中描述的加扰器如图 11-14（第 378 页）所示。它由一个 16 位线性反馈移位寄存器 (Linear Feedback Shift Register, LFSR) 组成，其反馈点实现以下多项式：
+
+G(x) = X[16] + X[5] + X[4] + X[3] + 1
+
+_图 11-14：加扰器_
+
+LFSR 以馈送数据字节的时钟频率的 8 倍频率进行计时，其输出被计时到 8 位寄存器中，该寄存器与 8 位数据字符进行 XOR 以形成加扰的数据输出。
+
+**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
+
+## **一些加扰器实现规则：**
+
+- 在多 Lane 链路实现中，与每个 Lane 相关联的加扰器必须协同工作，在每个 LFSR 中保持相同的同步值。
+
+- 加扰仅应用于 'D' 字符，即与 TLP 和 DLLP 以及逻辑空闲 (00h) 字符相关联的字符。但是，TS1 和 TS2 有序集内的那些 'D' 字符不会被加扰。
+
+- 加扰从不应用于 'K' 字符和有序集中的字符，例如 TS1、TS2、SKIP、FTS 和电子空闲。这些字符绕过加扰器逻辑。其中一个原因是确保即使加扰器意外失去顺序，它们仍然可以被接收方识别。
+
+- 合规性模式字符（用于测试）也不会被加扰。
+
+- COM 字符（不会被加扰的控制字符）用于将链路两端的 LFSR 重新初始化为 FFFFh。
+
+- 除 COM 字符外，LFSR 通常对每个发送的 D 或 K 字符串行前进 8 次，但它在与 SKIP 有序集关联的 SKP 字符上不前进。原因在于接收方可能会添加或删除 SKP 符号以执行时钟容限补偿。改变接收方中的字符数与发送的字符数相比，如果不忽略这些字符，则会导致接收方
+LFSR 中的值与发送方 LFSR 值失去同步。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
+
+## **禁用加扰**
+
+加扰默认启用，但规范允许出于测试和调试目的禁用它。这是因为测试可能需要控制发送的确切比特模式，并且由于硬件处理加扰，因此软件没有合理的方法来强制执行特定模式。规范未定义用于指示物理层禁用加扰的特定软件机制，因此这必须是特定于设计的实现。
+
+</td>
+</tr>
+
+</tbody>
+</table></tr></tbody></table>
+
+[⬆️ 返回目录](#本章目录-table-of-contents)
+
+---
+
+<a id="sec-9-2"></a>
+## 9.2 DLLP Elements | DLLP 元素
+
+<table>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
+<tr>
+<td width="50%">
+
+Gen3 mode of operation, doesn’t use control characters, so data patterns are used to make up the ordered sets that identify if transmitted
+bytes are associ‐ ated with TLPs / DLLPs or Ordered Sets. A 2‐bit Sync Header is inserted at the beginning of a 128 bit (16 byte) block of
+data. The Sync Header informs the receiver whether the received block is a Data Block (TLP or DLLP related bytes) or an Ordered Set Block.
+Since there are no control characters in Gen3 mode, the D/K# bit is not needed.
+_Figure 11‐3: Physical Layer Transmit Details_ 
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0371.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+<br>
+
+
+Next, the parallel data bytes coming from the upper layers are sent to Byte Striping logic where they are spread out, or striped, onto all
+the lanes of this link. One byte of the packet is transferred per lane, and all active lanes are used for each packet going out. The Lanes
+of the Link are all transmitting at the same time, so the bytes must come into this logic fast enough to accommodate that. For example, if
+there are eight Lanes, eight bytes of parallel from the upper lay‐ ers may arrive at the byte‐striping logic allowing data to be clocked
+onto all lanes simultaneously.
+
+</td>
+<td width="50%">
+
+'D' Character<br>Transaction Layer Packet (TLP)<br>STP Sequence Header Data Payload ECRC LCRC END<br>'D' Character<br>'K' Character 'K'
+Character<br>Data Link Layer Packet (DLLP)<br>SDP DLLP Type Misc. CRC END<br>'K' Character 'K' Character<br>## **字节条带化（用于宽链路）**
+
+我们示例中显示的下一步是字节条带化 (Byte Striping)，尽管仅当端口实现多个 Lane（称为宽链路 (wide Link)）时才需要此步骤。条带化意味着字符流中的每个连续输出字符被路由到连续的 Lane 上。使用的 Lane 数在链路训练 (Link
+training) 过程中根据共享链路的两台设备所支持的 Lane 数进行配置。
+
+以下图表中说明了字节条带化的三个示例。在第 372 页图 11-8 中，显示了单 Lane 链路 (x1)。这不是一个非常有趣的案例，因为数据包以字节为单位进入物理层 (Physical Layer) 并以相同方式发出，但它说明了字符序列的绘制方式。
+
+第 372 页图 11-9 显示了来自多路复用器的传入双字 (Dword) 数据包。每个字节被定向到对应的 Lane。最后，第 373 页图 11-10 说明了八 Lane (x8) 链路。在此示例中，需要两个双字 (Dwords) 来填充所有 8 个
+Lane。这要求双字以比前一示例快两倍的速率到达。后续章节中描述了通过每个 Lane 发送的数据格式。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **PCI Express Technology** 
+
+Next is the Scrambler, which XORs a pseudo‐random pattern onto the outgoing data bytes to mix up the bits. Although it would seem that this
+might introduce problems, it doesn’t because the scrambling pattern is predictable and not truly random, so the receiver can use the same
+algorithm to easily recover the origi‐ nal data. If the scramblers get out of step then the Receiver won’t be able to make sense of the bit
+stream so, to guard against that problem, the scrambler is reset periodically (Gen1 and Gen2). That way, if the scramblers do get out of
+step with each other it won’t be long before they’re both re‐initialized and back in step again. For Gen1 and Gen2 modes that
+re‐initialization happens when‐ ever the COM character is detected. For Gen3 mode, it happens whenever an EIEOS ordered set is seen. A more
+sophisticated 24‐bit based scrambler is uti‐ lized in Gen3 mode, hence the alternate path through the Gen3 scrambler, as depicted in Figure
+11‐3 on page 365.
+
+For Gen1 and Gen2 mode, the scrambled 8‐bit characters are then encoded for transmission by the 8b/10b Encoder. Recall that a Character is
+an 8‐bit un‐ encoded byte, while a Symbol is the 10‐bit encoded output of the 8b/10b logic. There are several advantages to 8b/10b encoding,
+but it does add overhead.
+
+For Gen3 a separate path is shown bypassing the encoder. In other words, scrambled bytes of a packet are transmitted without 8b/10b
+encoding. The Sync Bit Generator adds a 2‐bit Sync Header prior to every 16 byte block of a packet. The added 2‐bit Sync Header identifies
+the following 16 byte block to be either a data block or an ordered set block. This addition of a 2‐bit Sync Header every 16 bytes (128
+bits) is the basis of Gen3’s 128b/130b encoding scheme.
+
+Finally, the Symbols are serialized into a bit stream and forwarded to the electri‐ cal sub‐block of the Physical Layer and transmitted to
+the other end of the link.
+
+</td>
+<td width="50%">
+
+## **PCI Express 技术**
+
+_图 11-8：x1 字节条带化_
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0370.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+
+_图 11-9：x4 字节条带化_
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0371.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+
+**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
+
+_图 11-10：使用双字并行数据的 x8 字节条带化_
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0372.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Receive Logic Overview** 
+
+Figure 11‐4 on page 367 shows the key elements that make up the receiver logic. The process described below is performed for each lane.
+Starting at the bottom this time, the first thing to mention is the receiver Clock and Data Recovery (CDR). The first step in this process
+is to recover the clock based on transitions in the incoming bit stream. This recovered clock faithfully reproduces the Trans‐ mitter’s
+clock that was used to send the data and is used to latch the incoming bits into a deserializing buffer.
+
+The next steps in the CDR process are to find the Gen1/Gen2 Symbol bound‐ aries and divide the recovered clock by 10 to latch the 10‐bit
+Symbols into the Elastic Buffer. For Gen3, the next step is to acquire Block Lock and then latch the 8‐bit Symbols associated with each of
+the 16 bytes in the block into the Elastic Buffer — more on this in the next chapter.
+Logic controlling the Elastic Buffer adjusts for minor clock variations between the recovered clock and the local clock of the receiver by
+adding or removing SKP Symbols as needed when an SOS (SKP Ordered Set) is detected. Finally, the Receiver’s local clock moves each Symbol
+out of the Elastic Buffer.
+
+_Figure 11‐4: Physical Layer Receive Logic Details_ 
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0372.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+<br>
+
+
+Using the 8b/10b Decoder, Gen1/Gen2 Symbols are decoded thus converting the 10‐bit symbols to 8‐bit characters. The descrambler applies the
+same scrambling method used at the transmitter to recover the original data. Finally, the bytes from each Lane are un‐striped to form a byte
+stream that will be forwarded up to the Data Link Layer. Only TLPs and DLLPs are loaded into the receive buffer and sent to the Data Link
+Layer.
+
+</td>
+<td width="50%">
+
+## **数据包格式规则**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Transmit Logic Details (Gen1 and Gen2 Only)** 
+
+The section provides more detail associated with the steps identified in the pre‐ vious section. Refer to the block diagram in Figure 11‐5
+on page 369 during this discussion.
+
+</td>
+<td width="50%">
+
+## **一般规则**
+
+- 每个数据包的总长度（包括开始和结束字符）始终是 4 的倍数。这是数据长度以双字 (dwords) 为单位这一事实的自然延伸。
+
+- TLP 以 STP 字符开始，并以 END 或 EDB 字符结束。
+
+- DLLP 以 SDP 开头，以 END 字符结束，并且恰好为 8 个字符长 (SDP + 6 个字符 + END)。
+
+- 在发送完逻辑空闲 (Logical Idles) 后开始传输数据包时，STP 和 SDP 字符被放置在 Lane 0 上。在其他情况下，它们可以以可被 4 整除的 Lane 号开始。
+
+- 接收方的物理层 (Physical Layer) 允许监视对这些规则的违反情况，并可将其作为接收器错误 (Receiver Errors) 报告给数据链路层 (Data Link Layer)。
+
+**PCI Express 技术**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Tx Buffer** 
+
+Starting from the top of the diagram once again, the buffer accepts TLPs and DLLPs from the Data Link Layer, along with ‘Control’
+information that specifies when a new packet begins. As mentioned, the buffer allows us to stall the flow of characters from time to time in
+order to insert control characters and ordered sets. A ‘throttle’ signal is also shown going back up to the Data Link Layer to stop the flow
+of characters if the buffer should become full.
+
+</td>
+<td width="50%">
+
+## **示例：x1 格式**
+
+第 374 页图 11-11 中所示的示例说明了通过 x1 链路（仅一个 Lane 工作的链路）传输的数据包的格式。图中显示了一系列数据包，其中穿插着一个 SKIP 有序集。最后显示逻辑空闲 (Logical
+Idles)，以表示发送器没有更多数据包可发送并使用空闲字符作为填充的情况。
+
+_图 11-11：x1 数据包格式_
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0373.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Mux and Control Logic** 
+
+The multiplexer, shown in Figure 11‐6 on page 370, is used to insert special con‐ trol (K) characters into the data flow coming from the
+buffer. Only the Physical Layer uses K control characters; they are inserted during transmission and removed at the receiver. The four
+different inputs to the mux are:
+
+- **Transmit Data Buffer** . When the Data Link Layer supplies a packet, the mux gates the character stream through. All of the characters
+coming from the buffer are D characters, so the D/K# signal is driven high when Tx Buffer contents are gated.
+
+- **Start and End characters.** These Control characters are added to the start and end of every TLP and DLLP (see Figure 11‐7 on page 371)
+and allow a receiver to readily detect the boundaries of a packet. There are two Start characters: STP indicates the start of a TLP, while
+SDP indicates the start of a DLLP. An indicator from the Data Link Layer, along with the packet type, determines what type of framing
+character to insert. There are also two end characters, the End Good character (END) for normal transmission, and the End Bad character
+(EDB) to handle some error cases. Start and End charac‐ ters are K characters, so the D/K# signal is driven low when the Start and End
+characters are inserted (see Table 11‐1 on page 386 for a list of Control characters).
+_Figure 11‐5: Physical Layer Transmit Logic Details (Gen1 and Gen2 Only)_ 
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0373.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+<br>
+
+
+- **Ordered Sets** . As mentioned earlier, control characters are only used by the Physical Layer and are not seen by the higher layers.
+Some communication across the Link is necessary to initiate and maintain Link operation, and that is accomplished by exchanging Ordered
+Sets. Every ordered set starts with a K character called a comma (COM), and contains other K or D char‐ acters depending on the type of
+Order Set be delivered. Ordered Sets are always aligned on four byte boundaries and are transmitted during a vari‐ ety of circumstances
+including:
+
+ - Error recovery, initiating events (such as Hot Reset), or exit from low‐ power states. In these cases, the Training Sequence 1 and 2 (TS1
+and TS2) ordered sets are exchanged across the Link.
+
+ - At periodic intervals, the mux inserts the SKIP ordered set pattern to facilitate clock tolerance compensation in the receiver. For a
+detailed description of this process, refer to “Clock Compensation” on page 391.
+
+</td>
+<td width="50%">
+
+## **x4 格式规则**
+
+- STP 和 SDP 字符始终在 Lane 0 上发送。
+
+- END 和 EDB 字符始终在 Lane 3 上发送。
+
+- 当发送有序集（例如 SKIP）时，必须同时出现在所有 Lane 上。
+
+- 当发送逻辑空闲 (Logical Idles) 时，必须同时在所有 Lane 上发送。
+
+- 对这些规则的任何违反都可以作为接收器错误 (Receiver Error) 报告给数据链路层 (Data Link Layer)。
+
+**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **PCI Express Technology** 
+
+- When a device wants to place its transmitter in the Electrical Idle state, it must inform the remote receiver at the other end of the
+Link. The mux inserts an **Electrical Idle ordered set** to accomplish this.
+
+- When a device wants to change the Link power state from L0s low power state to the L0 full‐on power state, it sends a set of **Fast
+Training Sequence** (FTS) ordered sets to the receiver. The receiver uses this ordered set to re‐synchronize its PLL to the transmitter
+clock.
+
+- **Logical Idle Sequence.** When there are no packets ready to transmit and no ordered sets to send, the link is logically idle. In order
+to keep the receiver PLL locked on to the transmitter’s frequency, it’s important that the transmitter keep sending something, so Logical
+Idle characters are inserted for that case. Logical Idle is very simple, and consists of nothing more than a string of Data 00h characters.
+
+_Figure 11‐6: Transmit Logic Multiplexer_ 
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0374.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+<br>
+
+_Figure 11‐7: TLP and DLLP Packet Framing with Start and End Control Characters_ 
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0375.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+<br>
+
+</td>
+<td width="50%">
+
+## **x4 格式示例**
+
+第 375 页图 11-12 中所示的示例说明了通过 x4 链路（四条数据 Lane 工作的链路）发送的数据包的格式。该图显示了在所有 Lane 上发送的一个 TLP 后跟一个 SKIP 有序集，用于接收器时钟补偿。接下来是一个 DLLP，然后是所有 Lane 上的逻辑空闲
+(Logical Idle)。此示例突出表明数据包始终是 4 的倍数，因为起始字符始终出现在 Lane 0 中，结束字符始终在 Lane 3 中。它还说明有序集必须同时出现在所有 Lane 上。
+
+_图 11-12：x4 数据包格式_
+
+**PCI Express 技术**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Byte Striping (for Wide Links)** 
+
+The next step shown in our example is Byte Striping, although this is only needed if the port implements more than one Lane (called a wide
+Link). Strip‐ ing means that each consecutive outbound character in a character stream is routed onto consecutive Lanes. The number of Lanes
+used is configured during the Link training process based on what is supported by both devices that share the Link.
+
+Three examples of byte striping are illustrated in the following diagrams. In Figure 11‐8 on page 372, a single‐lane link (x1) is shown.
+This is not a very inter‐ esting case, since the packet enters the Physical Layer a byte at a time and goes out the same way, but
+illustrates the way the sequence of characters will be drawn.
+
+Figure 11‐9 on page 372 shows the incoming Dword packets from the muti‐ plexer. Each byte is directed to the corresponding lanes. Finally,
+Figure 11‐10 on page 373 illustrates an eight‐lane (x8) link. In this example, two Dwords are required to populate all 8 lanes. This
+requires the Dword to arrive at twice the rate as the previous example. The format of the data being sent across each lane is described in
+the sections that follow.
+
+</td>
+<td width="50%">
+
+## **大链路宽度数据包格式规则**
+
+当通过 x8、x12、x16 或 x32 链路传输数据包时，以下规则适用：
+
+- 在发送完一段时间的逻辑空闲 (Logical Idles) 后开始发送时，STP/SDP 字符始终在 Lane 0 上发送。在此之后，仅当背靠背发送数据包时，它们才能在可被 4 整除的 Lane 号上发送（Lane 4、8、12 等）。
+
+- END/EDB 字符在可被 4 整除然后减一的 Lane 号上发送（Lane 3、7、11 等）。
+
+- 如果数据包未在链路的最后一个 Lane 上结束，并且没有更多准备发送的数据包，则使用 PAD 符号 (PAD Symbols) 作为其余 Lane 号的填充。逻辑空闲 (Logical Idle) 不能用于此目的，因为它必须同时出现在所有 Lane 上。
+
+- 有序集必须同时在所有 Lane 上发送。
+
+- 类似地，在使用逻辑空闲时，必须同时在所有 Lane 上发送。
+
+- 对这些规则的任何违反都可以作为接收器错误 (Receiver Error) 报告给数据链路层 (Data Link Layer)。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **PCI Express Technology** 
+
+_Figure 11‐8: x1 Byte Striping_ 
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0376.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+<br>
+
+
+_Figure 11‐9: x4 Byte Striping_ 
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0377.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+<br>
+
+_Figure 11‐10: x8 Byte Striping with DWord Parallel Data_ 
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0368.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+<br>
+
+</td>
+<td width="50%">
+
+## **x8 数据包格式示例**
+
+第 377 页图 11-13 中所示的示例说明了通过 x8 链路传输的数据包的格式。该图显示了一个 TLP 后跟一个 SKIP 有序集、一个 DLLP，最后是一个在 Lane 3 上结束的 TLP。此时，发送器没有更多准备发送的数据包，但当前数据包未扩展到包括所有可用的
+Lane。人们可能期望用逻辑空闲 (Logical Idle) 填充额外的 Lane，但在这里不起作用，因为空闲必须同时出现在所有 Lane 上。因此需要另一个填充字符，规范作者选择在此处使用 PAD 控制字符。PAD
+唯一使用的另一个地方是在训练过程中。最后，由于仍然没有更多数据包可发送，因此在所有 Lane 上发送逻辑空闲 (Logical Idles)。
+
+**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
+
+_图 11-13：x8 数据包格式_
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Packet Format Rules**
+
+</td>
+<td width="50%">
+
+## **加扰器**
+
+我们示例中的下一步是加扰 (scrambling)，如第 369 页图 11-5 所示，旨在防止数据流中出现重复模式。重复模式会在链路上产生"纯音"，即由模式引起的超过通常噪声的一致频率，或称为 EMI
+(电磁干扰)。通过将能量扩展到更宽的频率范围来减少此问题是加扰的主要目标。此外，一条 Lane 上的加扰传输还可减少宽链路上相邻 Lane 之间的干扰。这种"空间去相关"或串扰噪声的减少有助于每个 Lane 上的接收器区分所需信号。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **General Rules** 
+
+- The total packet length (including Start and End characters) of each packet is always a multiple of four characters. This is a natural
+extension of the fact that the data length is measured in dwords.
+
+- TLPs start with the STP character and finish with either an END or EDB character. 
+
+- DLLPs start with SDP, terminate with the END character. and are exactly 8 characters long (SDP + 6 characters + END) 
+
+- STP and SDP characters are placed on Lane 0 when starting the transmis‐ sion of a packet after the transmission of Logical Idles. In other
+cases, they may start on a Lane number divisible by 4.
+
+- The receiver’s Physical Layer is allowed to watch for violation of these rules and may report them as Receiver Errors to the Data Link
+Layer.
+
+</td>
+<td width="50%">
+
+## **PCI Express 技术**
+
+为了帮助接收器与加扰序列保持同步，控制字符不会被加扰，因此即使加扰器失去同步也是可识别的。此外，COM 控制字符 (K28.5) 每次到达时都会重新初始化链路两端的加扰器，从而使其重新同步。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Example: x1 Format** 
+
+The example shown in Figure 11‐11 on page 374 illustrates the format of packets transmitted over a x1 link (a link with only one lane
+operational). A sequence of packets is shown interspersed with one SKIP Ordered Set. Logical Idles are shown at the end to represent the
+case when the transmitter has no more packets to send and uses idle characters as filler.
+
+_Figure 11‐11: x1 Packet Format_ 
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0369.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+<br>
+
+</td>
+<td width="50%">
+
+## **加扰算法**
+
+规范中描述的加扰器 (scrambler) 如第 378 页图 11-14 所示。它由一个 16 位线性反馈移位寄存器 (Linear Feedback Shift Register, LFSR) 组成，其反馈点实现以下多项式：
+
+G(x) = X[16] + X[5] + X[4] + X[3] + 1
+
+_图 11-14：加扰器_
+
+LFSR 以馈送数据字节的时钟频率的 8 倍频率进行计时，其输出被计时进入一个 8 位寄存器，该寄存器与 8 位数据字符进行 XOR 异或运算以形成加扰数据输出。
+
+**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **x4 Format Rules** 
+
+- STP and SDP characters are always sent on Lane 0. 
+
+- END and EDB characters are always sent on Lane 3. 
+
+- When an ordered set such as the SKIP is sent, it must appear on all lanes simultaneously. 
+
+- When Logical Idles are transmitted, they must be sent on all lanes simulta‐ neously. 
+
+- Any violation of these rules may be reported as a Receiver Error to the Data Link Layer.
+
+</td>
+<td width="50%">
+
+## **一些加扰器实现规则：**
+
+- 在多 Lane 链路 (multi‐Lane Link) 实现中，与每个 Lane 关联的加扰器 (Scramblers) 必须协调运行，在每个 LFSR 中保持相同的同步值。
+
+- 加扰 (Scrambling) 仅应用于 'D' 字符，即那些与 TLP 和 DLLP 以及逻辑空闲 (Logical Idle, 00h) 字符相关联的字符。但是，TS1 和 TS2 有序集内的那些 'D' 字符不会被加扰。
+
+- 加扰 (Scrambling) 从不应用于 'K' 字符以及有序集内的字符，例如 TS1、TS2、SKIP、FTS 和电气空闲 (Electrical Idle)。这些字符绕过加扰器逻辑。这样做的一个原因是确保即使加扰器以某种方式失去序列，接收器仍然可以识别它们。
+
+- 合规模式 (Compliance Pattern) 字符（用于测试）也不被加扰。
+
+- COM 字符（不被加扰的控制字符）用于将发送器和接收器两端的 LFSR 重新初始化为 FFFFh。
+
+- 除 COM 字符外，LFSR 通常在每发送一个 D 或 K 字符时串行推进 8 次，但在与 SKIP 有序集关联的 SKP 字符上不推进。原因是接收器可以添加或删除 SKP 符号以执行时钟容差补偿。如果不忽略 SKP 字符，与发送的数量相比，接收器中字符数量的变化将导致接收器
+LFSR 中的值与发送器 LFSR 值失去同步。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Example x4 Format** 
+
+The example shown in Figure 11‐12 on page 375 illustrates the format of packets sent over a x4 Link (link with four data lanes operational).
+The illustration shows one TLP followed by a SKIP ordered set transmitted on all Lanes for receiver clock compensation. Next is a DLLP,
+followed by Logical Idle on all lanes. This example highlights that the packets are always multiples of 4 charac‐ ters because the start
+character always appears in lane 0 and the end character is always in lane 3. It also illustrates that ordered sets must appear on all the
+lanes simultaneously.
+
+_Figure 11‐12: x4 Packet Format_
+
+</td>
+<td width="50%">
+
+## **禁用加扰**
+
+默认情况下启用加扰 (Scrambling)，但规范允许出于测试和调试目的将其禁用。那是因为测试可能需要控制发送的确切位模式，并且由于硬件处理加扰，软件没有合理的方法来强制特定模式。规范中未定义用于指示物理层 (Physical Layer)
+禁用加扰的特定软件机制，因此这必须是特定于设计 (design‐specific) 的实现。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Large Link-Width Packet Format Rules** 
+
+The following rules apply when a packet is transmitted over a x8, x12, x16, or x32 Link: 
+
+- STP/SDP characters are always sent on Lane 0 when transmission starts after a period during which Logical Idles are transmitted. After
+that, they may only be sent on Lane numbers divisible by 4 when sending back‐to‐ back packets (Lane 4, 8, 12, etc.).
+
+- END/EDB characters are sent on Lane numbers divisible by 4 and then minus one (Lane 3, 7, 11, etc.). 
+
+- If a packet doesn’t end on the last Lane of the Link and there are no more packets ready to go, PAD Symbols are used as filler on the
+remaining lane numbers. Logical Idle can’t be used for this purpose because it must appear on all Lanes at the same time.
+
+- Ordered sets must be sent on all lanes simultaneously. 
+
+- Similarly, logical idles must be sent on all lanes when they are used. 
+
+- Any violation of these rules may be reported as a Receiver Error to the Data Link Layer.
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **x8 Packet Format Example** 
+
+The example shown in Figure 11‐13 on page 377 illustrates the format of packets transmitted over a x8 link. The illustration shows a TLP
+followed by a SKIP ordered set, a DLLP, and finally a TLP that ends on Lane 3. At that point, the transmitter has no more packets ready to
+send but the current packet doesn’t extend to include all the available lanes. One might expect the extra lanes to be filled with Logical
+Idle, but it won’t work here because idles must appear on all lanes at the same time. So another fill character is needed, and the spec
+writers chose to use the PAD control character here. The only other place that PAD is used is during the training process. Finally, since
+there are still no more packets to send, Logical Idles are sent on all the lanes.
+_Figure 11‐13: x8 Packet Format_
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Scrambler** 
+
+The next step in our example is scrambling, as shown in Figure 11‐5 on page 369, which is intended to prevent repetitive patterns in the
+data stream. Repeti‐ tive patterns create “pure tones” on the link, meaning a consistent frequency caused by the pattern that generates more
+than the usual noise, or EMI. Reduc‐ ing this problem by spreading this energy over a wider frequency range is the primary goal of
+scrambling. In addition, though, scrambled transmission on one Lane also reduces interference with adjacent Lanes on a wide Link. This
+“spatial frequency de‐correlation”, or reduction of crosstalk noise, helps the receiver on each lane to distinguish the desired signal.
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **PCI Express Technology** 
+
+To help the receiver maintain synchronization with the scrambled sequence, control characters do not get scrambled and are thus recognizable
+even if the scramblers get out of sync. In addition, the arrival of the COM control character (K28.5) reinitializes the scramblers on both
+ends of the Link each time it arrives and thus re‐synchronizes them.
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Scrambler Algorithm** 
+
+The scrambler described in the spec is shown in Figure 11‐14 on page 378. It’s made of a 16‐bit Linear Feedback Shift Register (LFSR) with
+feedback points that implement the following polynomial:
+
+G(x) = X[16] + X[5] + X[4] + X[3 ] +1 
+
+_Figure 11‐14: Scrambler_ 
+
+The LFSR is clocked at 8 times the frequency of the clock feeding the data bytes, and its output is clocked into an 8‐bit register that is
+XORed with the 8‐bit data characters to form the scrambled data output.
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Some Scrambler implementation rules:** 
+
+- On a multi‐Lane Link implementation, Scramblers associated with each Lane must operate in concert, maintaining the same simultaneous value
+in each LFSR.
+
+- Scrambling is applied to ‘D’ characters only, meaning those associated with TLP and DLLPs and the Logical Idle (00h) characters. However,
+those ‘D’ characters that are within the TS1 and TS2 ordered sets are not scrambled.
+
+- Scrambling is never applied to ‘K’ characters and characters within ordered sets, such as TS1, TS2, SKIP, FTS and Electrical Idle. These
+characters bypass the scrambler logic. One reason for this is to ensure they’ll still be recogniz‐ able by the receiver even if the
+scramblers somehow get out of sequence.
+
+- Compliance Pattern characters (used for testing) are also not scrambled. 
+
+- • The COM character, a control character that does not get scrambled, is used to reinitialize the LFSR to FFFFh at both the transmitter
+and receiver.
+
+- Except for the COM character, the LFSR normally will serially advance eight times for every D or K character sent, but it does not advance
+on SKP characters associated with the SKIP ordered set. The reason is that a receiver may add or delete SKP Symbols to perform clock
+tolerance com‐ pensation. Changing the number of characters in the receiver compared to the number that were sent would cause the value in
+the receiver LFSR to lose synchronization with the transmitter LFSR value if they were not ignored.
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Disabling Scrambling** 
+
+Scrambling is enabled by default, but the spec allows it to be disabled for test and debug purposes. That’s because testing may require
+control of the exact bit pattern sent and, since the hardware handles scrambling, there’s no reasonable way for the software to be able to
+force a specific pattern. No specific software mechanism is defined by which to instruct the Physical Layer to disable scram‐ bling, so this
+has to be a design‐specific implementation.
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+
+</tbody>
+</table></tr></tbody></table>
+
+[⬆️ 返回目录](#本章目录-table-of-contents)
+
+---
+
+<a id="sec-9-3"></a>
+## 9.3 DLLP Elements | DLLP 元素
+
+<table>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
+<tr>
+<td width="50%">
+
+If scrambling is disabled by a device, this gets communicated to the neighbor‐ ing device by sending at least two TS1s and TS2s that have
+the appropriate bit set in the control field as described in “Configuration State” on page 539. In response, the neighboring device also
+disables its scrambling.
+
+</td>
+<td width="50%">
+
+**'D' Character**
+Transaction Layer Packet (TLP)
+STP Sequence Header Data Payload ECRC LCRC END
+**'D' Character**
+**'K' Character 'K' Character**
+Data Link Layer Packet (DLLP)
+SDP DLLP Type Misc. CRC END
+**'K' Character 'K' Character**
+**----- 图片文字结束 -----**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **8b/10b Encoding**
+
+</td>
+<td width="50%">
 
 ## **字节交叉（用于宽链路）**
 
@@ -206,6 +1191,20 @@ Character<br>Data Link Layer Packet (DLLP)<br>SDP DLLP Type Misc. CRC END<br>'K'
 
 第 372 页的图 11-9 显示了来自多路复用器的传入 Dword 报文。每个字节被定向到相应的 Lane。最后，第 373 页的图 11-10 说明了一个八 Lane (x8) 链路。在此示例中，需要两个 Dword 才能填充所有 8 个 Lane。这要求 Dword
 以比先前示例快两倍的速率到达。每个 Lane 上发送的数据格式将在以下小节中描述。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **General** 
+
+The first two generations of PCIe use 8b/10b encoding. Each Lane implements an 8b/10b Encoder that translates the 8‐bit characters into
+10‐bit Symbols. This coding scheme was patented by IBM in 1984 and is widely used in many serial transports today, such as Gigabit Ethernet
+and Fibre Channel.
+
+</td>
+<td width="50%">
 
 ## **PCI Exress Technology**
 
@@ -244,632 +1243,10 @@ Character 6 Character 7<br>Character 0 Character 1 Character 2 Character 3<br>x8
 23<br>Character 8 Character 9 Character 15<br>Character 0 Character 1 Character 7<br>8 D/K# 8 D/K# 8<br>To Lane 0 To Lane 1 To Lane
 7<br>Scrambler Scrambler Scrambler<br>**----- 图片文字结束 -----**<br>
 
-
-## **报文格式规则**
-
-## **一般规则**
-
-- 每个报文的总报文长度（包括起始和结束字符）始终是四的倍数。这是数据长度以 dword 为单位测量的自然扩展。
-
-- TLP 以 STP 字符开始，以 END 或 EDB 字符结束。
-
-- DLLP 以 SDP 开始，以 END 字符结束。并且正好 8 个字符长 (SDP + 6 字符 + END)。
-
-- STP 和 SDP 字符在逻辑空闲传输之后开始报文传输时放置在 Lane 0 上。在其他情况下，它们可以从可被 4 整除的 Lane 编号开始。
-
-- 接收方的物理层允许监视这些规则的违规行为，并可能将其作为接收方错误报告给数据链路层。
-
-## **示例：x1 格式**
-
-第 374 页的图 11-11 中所示的示例说明了通过 x1 链路（仅一个 Lane 运行的链路）传输的报文的格式。显示了一系列报文，其中穿插了一个 SKIP 有序集。末尾显示了逻辑空闲，以表示发送方没有更多报文要发送并使用空闲字符作为填充的情况。
-
-_图 11-11：x1 报文格式_
-
-**==> 图片 [351 x 220] 已省略 <==**
-
-**----- 图片文字开始 -----**<br>
-Lane<br>0<br>STP COM STP STP<br>SKP<br>TLP SKP TLP<br>SKP<br>STP<br>TLP<br>END END<br>SDP SDP<br>DLLP TLP DLLP<br>END<br>Idle (00h)<br>Idle
-(00h)<br>Idle (00h)<br>END END END<br>Time<br>**----- 图片文字结束 -----**<br>
-
-
-## **x4 格式规则**
-
-- STP 和 SDP 字符始终在 Lane 0 上发送。
-
-- END 和 EDB 字符始终在 Lane 3 上发送。
-
-- 当发送有序集（如 SKIP）时，它必须同时出现在所有 Lane 上。
-
-- 当传输逻辑空闲时，它们必须同时在所有 Lane 上发送。
-
-- 这些规则的任何违规都可能作为接收方错误报告给数据链路层。
-
-**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
-
-## **示例 x4 格式**
-
-第 375 页的图 11-12 中所示的示例说明了通过 x4 链路（具有四个运行数据 Lane 的链路）发送的报文的格式。该图显示了一个 TLP，后跟在所有 Lane 上传输的用于接收方时钟补偿的 SKIP 有序集。接下来是一个 DLLP，然后是所有 Lane
-上的逻辑空闲。本例强调了报文始终是 4 的字符倍数，因为起始字符始终出现在 Lane 0 中，而结束字符始终在 Lane 3 中。它还说明了有序集必须同时出现在所有 Lane 上。
-
-_图 11-12：x4 报文格式_
-
-## **大链路宽度报文格式规则**
-
-以下规则适用于通过 x8、x12、x16 或 x32 链路传输报文时：
-
-- 当在传输逻辑空闲期间之后开始传输时，STP/SDP 字符始终在 Lane 0 上发送。之后，当发送背靠背报文时，它们只能发送到可被 4 整除的 Lane 编号（Lane 4、8、12 等）。
-
-- END/EDB 字符发送到可被 4 整除的 Lane 编号，然后减一（Lane 3、7、11 等）。
-
-- 如果报文没有在链路的最后一个 Lane 上结束，并且没有更多准备发送的报文，则 PAD 符号用作剩余 Lane 编号的填充。逻辑空闲不能用于此目的，因为它必须同时出现在所有 Lane 上。
-
-- 有序集必须同时在所有 Lane 上发送。
-
-- 类似地，逻辑空闲在使用时必须在所有 Lane 上发送。
-
-- 这些规则的任何违规都可能作为接收方错误报告给数据链路层。
-
-## **x8 报文格式示例**
-
-第 377 页的图 11-13 中所示的示例说明了通过 x8 链路传输的报文的格式。该图显示了一个 TLP，后跟 SKIP 有序集、一个 DLLP，最后是一个在 Lane 3 结束的 TLP。在那时，发送方没有更多准备发送的报文，但当前报文未扩展到包括所有可用
-Lane。有人可能期望用逻辑空闲填充额外的 Lane，但这在这里不起作用，因为空闲必须同时出现在所有 Lane 上。因此需要另一个填充字符，规范编写者选择在此处使用 PAD 控制字符。PAD 唯一使用的另一个位置是在训练过程中。最后，由于仍没有更多要发送的报文，因此会在所有
-Lane 上发送逻辑空闲。
-
-**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
-
-_图 11-13：x8 报文格式_
-
-## **加扰器**
-
-我们示例中的下一步是加扰，如图 11-5（第 369 页）所示，旨在防止数据流中的重复模式。重复模式在链路上产生"纯音"，这意味着由该模式产生的一致频率会产生比通常更多的噪声或 EMI。通过将此能量扩展到更宽的频率范围来减少此问题是加扰的主要目标。此外，单个 Lane
-上的加扰传输还可减少对宽链路上相邻 Lane 的干扰。这种"空间频率去相关"，或减少串扰噪声，有助于每个 Lane 上的接收方区分所需的信号。
-
-## **PCI Exress Technology**
-
-为了帮助接收方与加扰序列保持同步，控制字符不会进行加扰，因此即使加扰器失去同步，它们也可被识别。此外，COM 控制字符 (K28.5) 的每次到达都会重新初始化链路两端的加扰器，从而重新同步它们。
-
-## **加扰算法**
-
-规范中描述的加扰器如图 11-14（第 378 页）所示。它由一个 16 位线性反馈移位寄存器 (Linear Feedback Shift Register, LFSR) 组成，其反馈点实现以下多项式：
-
-G(x) = X[16] + X[5] + X[4] + X[3] + 1
-
-_图 11-14：加扰器_
-
-LFSR 以馈送数据字节的时钟频率的 8 倍频率进行计时，其输出被计时到 8 位寄存器中，该寄存器与 8 位数据字符进行 XOR 以形成加扰的数据输出。
-
-**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
-
-## **一些加扰器实现规则：**
-
-- 在多 Lane 链路实现中，与每个 Lane 相关联的加扰器必须协同工作，在每个 LFSR 中保持相同的同步值。
-
-- 加扰仅应用于 'D' 字符，即与 TLP 和 DLLP 以及逻辑空闲 (00h) 字符相关联的字符。但是，TS1 和 TS2 有序集内的那些 'D' 字符不会被加扰。
-
-- 加扰从不应用于 'K' 字符和有序集中的字符，例如 TS1、TS2、SKIP、FTS 和电子空闲。这些字符绕过加扰器逻辑。其中一个原因是确保即使加扰器意外失去顺序，它们仍然可以被接收方识别。
-
-- 合规性模式字符（用于测试）也不会被加扰。
-
-- COM 字符（不会被加扰的控制字符）用于将链路两端的 LFSR 重新初始化为 FFFFh。
-
-- 除 COM 字符外，LFSR 通常对每个发送的 D 或 K 字符串行前进 8 次，但它在与 SKIP 有序集关联的 SKP 字符上不前进。原因在于接收方可能会添加或删除 SKP 符号以执行时钟容限补偿。改变接收方中的字符数与发送的字符数相比，如果不忽略这些字符，则会导致接收方
-LFSR 中的值与发送方 LFSR 值失去同步。
-
-## **禁用加扰**
-
-加扰默认启用，但规范允许出于测试和调试目的禁用它。这是因为测试可能需要控制发送的确切比特模式，并且由于硬件处理加扰，因此软件没有合理的方法来强制执行特定模式。规范未定义用于指示物理层禁用加扰的特定软件机制，因此这必须是特定于设计的实现。
-
 </td>
-</tr></tbody></table>
-
-[⬆️ 返回目录](#本章目录-table-of-contents)
-
----
-
-<a id="sec-9-2"></a>
-## 9.2 DLLP Elements | DLLP 元素
-
-<table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+</tr>
+<tr>
 <td width="50%">
-
-Gen3 mode of operation, doesn’t use control characters, so data patterns are used to make up the ordered sets that identify if transmitted
-bytes are associ‐ ated with TLPs / DLLPs or Ordered Sets. A 2‐bit Sync Header is inserted at the beginning of a 128 bit (16 byte) block of
-data. The Sync Header informs the receiver whether the received block is a Data Block (TLP or DLLP related bytes) or an Ordered Set Block.
-Since there are no control characters in Gen3 mode, the D/K# bit is not needed.
-_Figure 11‐3: Physical Layer Transmit Details_ 
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0371.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-<br>
-
-
-Next, the parallel data bytes coming from the upper layers are sent to Byte Striping logic where they are spread out, or striped, onto all
-the lanes of this link. One byte of the packet is transferred per lane, and all active lanes are used for each packet going out. The Lanes
-of the Link are all transmitting at the same time, so the bytes must come into this logic fast enough to accommodate that. For example, if
-there are eight Lanes, eight bytes of parallel from the upper lay‐ ers may arrive at the byte‐striping logic allowing data to be clocked
-onto all lanes simultaneously.
-
-## **PCI Express Technology** 
-
-Next is the Scrambler, which XORs a pseudo‐random pattern onto the outgoing data bytes to mix up the bits. Although it would seem that this
-might introduce problems, it doesn’t because the scrambling pattern is predictable and not truly random, so the receiver can use the same
-algorithm to easily recover the origi‐ nal data. If the scramblers get out of step then the Receiver won’t be able to make sense of the bit
-stream so, to guard against that problem, the scrambler is reset periodically (Gen1 and Gen2). That way, if the scramblers do get out of
-step with each other it won’t be long before they’re both re‐initialized and back in step again. For Gen1 and Gen2 modes that
-re‐initialization happens when‐ ever the COM character is detected. For Gen3 mode, it happens whenever an EIEOS ordered set is seen. A more
-sophisticated 24‐bit based scrambler is uti‐ lized in Gen3 mode, hence the alternate path through the Gen3 scrambler, as depicted in Figure
-11‐3 on page 365.
-
-For Gen1 and Gen2 mode, the scrambled 8‐bit characters are then encoded for transmission by the 8b/10b Encoder. Recall that a Character is
-an 8‐bit un‐ encoded byte, while a Symbol is the 10‐bit encoded output of the 8b/10b logic. There are several advantages to 8b/10b encoding,
-but it does add overhead.
-
-For Gen3 a separate path is shown bypassing the encoder. In other words, scrambled bytes of a packet are transmitted without 8b/10b
-encoding. The Sync Bit Generator adds a 2‐bit Sync Header prior to every 16 byte block of a packet. The added 2‐bit Sync Header identifies
-the following 16 byte block to be either a data block or an ordered set block. This addition of a 2‐bit Sync Header every 16 bytes (128
-bits) is the basis of Gen3’s 128b/130b encoding scheme.
-
-Finally, the Symbols are serialized into a bit stream and forwarded to the electri‐ cal sub‐block of the Physical Layer and transmitted to
-the other end of the link.
-
-## **Receive Logic Overview** 
-
-Figure 11‐4 on page 367 shows the key elements that make up the receiver logic. The process described below is performed for each lane.
-Starting at the bottom this time, the first thing to mention is the receiver Clock and Data Recovery (CDR). The first step in this process
-is to recover the clock based on transitions in the incoming bit stream. This recovered clock faithfully reproduces the Trans‐ mitter’s
-clock that was used to send the data and is used to latch the incoming bits into a deserializing buffer.
-
-The next steps in the CDR process are to find the Gen1/Gen2 Symbol bound‐ aries and divide the recovered clock by 10 to latch the 10‐bit
-Symbols into the Elastic Buffer. For Gen3, the next step is to acquire Block Lock and then latch the 8‐bit Symbols associated with each of
-the 16 bytes in the block into the Elastic Buffer — more on this in the next chapter.
-Logic controlling the Elastic Buffer adjusts for minor clock variations between the recovered clock and the local clock of the receiver by
-adding or removing SKP Symbols as needed when an SOS (SKP Ordered Set) is detected. Finally, the Receiver’s local clock moves each Symbol
-out of the Elastic Buffer.
-
-_Figure 11‐4: Physical Layer Receive Logic Details_ 
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0372.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-<br>
-
-
-Using the 8b/10b Decoder, Gen1/Gen2 Symbols are decoded thus converting the 10‐bit symbols to 8‐bit characters. The descrambler applies the
-same scrambling method used at the transmitter to recover the original data. Finally, the bytes from each Lane are un‐striped to form a byte
-stream that will be forwarded up to the Data Link Layer. Only TLPs and DLLPs are loaded into the receive buffer and sent to the Data Link
-Layer.
-
-## **Transmit Logic Details (Gen1 and Gen2 Only)** 
-
-The section provides more detail associated with the steps identified in the pre‐ vious section. Refer to the block diagram in Figure 11‐5
-on page 369 during this discussion.
-
-## **Tx Buffer** 
-
-Starting from the top of the diagram once again, the buffer accepts TLPs and DLLPs from the Data Link Layer, along with ‘Control’
-information that specifies when a new packet begins. As mentioned, the buffer allows us to stall the flow of characters from time to time in
-order to insert control characters and ordered sets. A ‘throttle’ signal is also shown going back up to the Data Link Layer to stop the flow
-of characters if the buffer should become full.
-
-## **Mux and Control Logic** 
-
-The multiplexer, shown in Figure 11‐6 on page 370, is used to insert special con‐ trol (K) characters into the data flow coming from the
-buffer. Only the Physical Layer uses K control characters; they are inserted during transmission and removed at the receiver. The four
-different inputs to the mux are:
-
-- **Transmit Data Buffer** . When the Data Link Layer supplies a packet, the mux gates the character stream through. All of the characters
-coming from the buffer are D characters, so the D/K# signal is driven high when Tx Buffer contents are gated.
-
-- **Start and End characters.** These Control characters are added to the start and end of every TLP and DLLP (see Figure 11‐7 on page 371)
-and allow a receiver to readily detect the boundaries of a packet. There are two Start characters: STP indicates the start of a TLP, while
-SDP indicates the start of a DLLP. An indicator from the Data Link Layer, along with the packet type, determines what type of framing
-character to insert. There are also two end characters, the End Good character (END) for normal transmission, and the End Bad character
-(EDB) to handle some error cases. Start and End charac‐ ters are K characters, so the D/K# signal is driven low when the Start and End
-characters are inserted (see Table 11‐1 on page 386 for a list of Control characters).
-_Figure 11‐5: Physical Layer Transmit Logic Details (Gen1 and Gen2 Only)_ 
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0373.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-<br>
-
-
-- **Ordered Sets** . As mentioned earlier, control characters are only used by the Physical Layer and are not seen by the higher layers.
-Some communication across the Link is necessary to initiate and maintain Link operation, and that is accomplished by exchanging Ordered
-Sets. Every ordered set starts with a K character called a comma (COM), and contains other K or D char‐ acters depending on the type of
-Order Set be delivered. Ordered Sets are always aligned on four byte boundaries and are transmitted during a vari‐ ety of circumstances
-including:
-
- - Error recovery, initiating events (such as Hot Reset), or exit from low‐ power states. In these cases, the Training Sequence 1 and 2 (TS1
-and TS2) ordered sets are exchanged across the Link.
-
- - At periodic intervals, the mux inserts the SKIP ordered set pattern to facilitate clock tolerance compensation in the receiver. For a
-detailed description of this process, refer to “Clock Compensation” on page 391.
-
-## **PCI Express Technology** 
-
-- When a device wants to place its transmitter in the Electrical Idle state, it must inform the remote receiver at the other end of the
-Link. The mux inserts an **Electrical Idle ordered set** to accomplish this.
-
-- When a device wants to change the Link power state from L0s low power state to the L0 full‐on power state, it sends a set of **Fast
-Training Sequence** (FTS) ordered sets to the receiver. The receiver uses this ordered set to re‐synchronize its PLL to the transmitter
-clock.
-
-- **Logical Idle Sequence.** When there are no packets ready to transmit and no ordered sets to send, the link is logically idle. In order
-to keep the receiver PLL locked on to the transmitter’s frequency, it’s important that the transmitter keep sending something, so Logical
-Idle characters are inserted for that case. Logical Idle is very simple, and consists of nothing more than a string of Data 00h characters.
-
-_Figure 11‐6: Transmit Logic Multiplexer_ 
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0374.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-<br>
-
-_Figure 11‐7: TLP and DLLP Packet Framing with Start and End Control Characters_ 
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0375.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-<br>
-
-
-## **Byte Striping (for Wide Links)** 
-
-The next step shown in our example is Byte Striping, although this is only needed if the port implements more than one Lane (called a wide
-Link). Strip‐ ing means that each consecutive outbound character in a character stream is routed onto consecutive Lanes. The number of Lanes
-used is configured during the Link training process based on what is supported by both devices that share the Link.
-
-Three examples of byte striping are illustrated in the following diagrams. In Figure 11‐8 on page 372, a single‐lane link (x1) is shown.
-This is not a very inter‐ esting case, since the packet enters the Physical Layer a byte at a time and goes out the same way, but
-illustrates the way the sequence of characters will be drawn.
-
-Figure 11‐9 on page 372 shows the incoming Dword packets from the muti‐ plexer. Each byte is directed to the corresponding lanes. Finally,
-Figure 11‐10 on page 373 illustrates an eight‐lane (x8) link. In this example, two Dwords are required to populate all 8 lanes. This
-requires the Dword to arrive at twice the rate as the previous example. The format of the data being sent across each lane is described in
-the sections that follow.
-
-## **PCI Express Technology** 
-
-_Figure 11‐8: x1 Byte Striping_ 
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0376.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-<br>
-
-
-_Figure 11‐9: x4 Byte Striping_ 
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0377.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-<br>
-
-_Figure 11‐10: x8 Byte Striping with DWord Parallel Data_ 
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0368.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-<br>
-
-
-## **Packet Format Rules** 
-
-## **General Rules** 
-
-- The total packet length (including Start and End characters) of each packet is always a multiple of four characters. This is a natural
-extension of the fact that the data length is measured in dwords.
-
-- TLPs start with the STP character and finish with either an END or EDB character. 
-
-- DLLPs start with SDP, terminate with the END character. and are exactly 8 characters long (SDP + 6 characters + END) 
-
-- STP and SDP characters are placed on Lane 0 when starting the transmis‐ sion of a packet after the transmission of Logical Idles. In other
-cases, they may start on a Lane number divisible by 4.
-
-- The receiver’s Physical Layer is allowed to watch for violation of these rules and may report them as Receiver Errors to the Data Link
-Layer.
-
-## **Example: x1 Format** 
-
-The example shown in Figure 11‐11 on page 374 illustrates the format of packets transmitted over a x1 link (a link with only one lane
-operational). A sequence of packets is shown interspersed with one SKIP Ordered Set. Logical Idles are shown at the end to represent the
-case when the transmitter has no more packets to send and uses idle characters as filler.
-
-_Figure 11‐11: x1 Packet Format_ 
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0369.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-<br>
-
-
-## **x4 Format Rules** 
-
-- STP and SDP characters are always sent on Lane 0. 
-
-- END and EDB characters are always sent on Lane 3. 
-
-- When an ordered set such as the SKIP is sent, it must appear on all lanes simultaneously. 
-
-- When Logical Idles are transmitted, they must be sent on all lanes simulta‐ neously. 
-
-- Any violation of these rules may be reported as a Receiver Error to the Data Link Layer. 
-## **Example x4 Format** 
-
-The example shown in Figure 11‐12 on page 375 illustrates the format of packets sent over a x4 Link (link with four data lanes operational).
-The illustration shows one TLP followed by a SKIP ordered set transmitted on all Lanes for receiver clock compensation. Next is a DLLP,
-followed by Logical Idle on all lanes. This example highlights that the packets are always multiples of 4 charac‐ ters because the start
-character always appears in lane 0 and the end character is always in lane 3. It also illustrates that ordered sets must appear on all the
-lanes simultaneously.
-
-_Figure 11‐12: x4 Packet Format_ 
-
-## **Large Link-Width Packet Format Rules** 
-
-The following rules apply when a packet is transmitted over a x8, x12, x16, or x32 Link: 
-
-- STP/SDP characters are always sent on Lane 0 when transmission starts after a period during which Logical Idles are transmitted. After
-that, they may only be sent on Lane numbers divisible by 4 when sending back‐to‐ back packets (Lane 4, 8, 12, etc.).
-
-- END/EDB characters are sent on Lane numbers divisible by 4 and then minus one (Lane 3, 7, 11, etc.). 
-
-- If a packet doesn’t end on the last Lane of the Link and there are no more packets ready to go, PAD Symbols are used as filler on the
-remaining lane numbers. Logical Idle can’t be used for this purpose because it must appear on all Lanes at the same time.
-
-- Ordered sets must be sent on all lanes simultaneously. 
-
-- Similarly, logical idles must be sent on all lanes when they are used. 
-
-- Any violation of these rules may be reported as a Receiver Error to the Data Link Layer. 
-
-## **x8 Packet Format Example** 
-
-The example shown in Figure 11‐13 on page 377 illustrates the format of packets transmitted over a x8 link. The illustration shows a TLP
-followed by a SKIP ordered set, a DLLP, and finally a TLP that ends on Lane 3. At that point, the transmitter has no more packets ready to
-send but the current packet doesn’t extend to include all the available lanes. One might expect the extra lanes to be filled with Logical
-Idle, but it won’t work here because idles must appear on all lanes at the same time. So another fill character is needed, and the spec
-writers chose to use the PAD control character here. The only other place that PAD is used is during the training process. Finally, since
-there are still no more packets to send, Logical Idles are sent on all the lanes.
-_Figure 11‐13: x8 Packet Format_ 
-
-## **Scrambler** 
-
-The next step in our example is scrambling, as shown in Figure 11‐5 on page 369, which is intended to prevent repetitive patterns in the
-data stream. Repeti‐ tive patterns create “pure tones” on the link, meaning a consistent frequency caused by the pattern that generates more
-than the usual noise, or EMI. Reduc‐ ing this problem by spreading this energy over a wider frequency range is the primary goal of
-scrambling. In addition, though, scrambled transmission on one Lane also reduces interference with adjacent Lanes on a wide Link. This
-“spatial frequency de‐correlation”, or reduction of crosstalk noise, helps the receiver on each lane to distinguish the desired signal.
-
-## **PCI Express Technology** 
-
-To help the receiver maintain synchronization with the scrambled sequence, control characters do not get scrambled and are thus recognizable
-even if the scramblers get out of sync. In addition, the arrival of the COM control character (K28.5) reinitializes the scramblers on both
-ends of the Link each time it arrives and thus re‐synchronizes them.
-
-## **Scrambler Algorithm** 
-
-The scrambler described in the spec is shown in Figure 11‐14 on page 378. It’s made of a 16‐bit Linear Feedback Shift Register (LFSR) with
-feedback points that implement the following polynomial:
-
-G(x) = X[16] + X[5] + X[4] + X[3 ] +1 
-
-_Figure 11‐14: Scrambler_ 
-
-The LFSR is clocked at 8 times the frequency of the clock feeding the data bytes, and its output is clocked into an 8‐bit register that is
-XORed with the 8‐bit data characters to form the scrambled data output.
-## **Some Scrambler implementation rules:** 
-
-- On a multi‐Lane Link implementation, Scramblers associated with each Lane must operate in concert, maintaining the same simultaneous value
-in each LFSR.
-
-- Scrambling is applied to ‘D’ characters only, meaning those associated with TLP and DLLPs and the Logical Idle (00h) characters. However,
-those ‘D’ characters that are within the TS1 and TS2 ordered sets are not scrambled.
-
-- Scrambling is never applied to ‘K’ characters and characters within ordered sets, such as TS1, TS2, SKIP, FTS and Electrical Idle. These
-characters bypass the scrambler logic. One reason for this is to ensure they’ll still be recogniz‐ able by the receiver even if the
-scramblers somehow get out of sequence.
-
-- Compliance Pattern characters (used for testing) are also not scrambled. 
-
-- • The COM character, a control character that does not get scrambled, is used to reinitialize the LFSR to FFFFh at both the transmitter
-and receiver.
-
-- Except for the COM character, the LFSR normally will serially advance eight times for every D or K character sent, but it does not advance
-on SKP characters associated with the SKIP ordered set. The reason is that a receiver may add or delete SKP Symbols to perform clock
-tolerance com‐ pensation. Changing the number of characters in the receiver compared to the number that were sent would cause the value in
-the receiver LFSR to lose synchronization with the transmitter LFSR value if they were not ignored.
-
-## **Disabling Scrambling** 
-
-Scrambling is enabled by default, but the spec allows it to be disabled for test and debug purposes. That’s because testing may require
-control of the exact bit pattern sent and, since the hardware handles scrambling, there’s no reasonable way for the software to be able to
-force a specific pattern. No specific software mechanism is defined by which to instruct the Physical Layer to disable scram‐ bling, so this
-has to be a design‐specific implementation.
-
-</td>
-<td width="50%">
-
-'D' Character<br>Transaction Layer Packet (TLP)<br>STP Sequence Header Data Payload ECRC LCRC END<br>'D' Character<br>'K' Character 'K'
-Character<br>Data Link Layer Packet (DLLP)<br>SDP DLLP Type Misc. CRC END<br>'K' Character 'K' Character<br>## **字节条带化（用于宽链路）**
-
-我们示例中显示的下一步是字节条带化 (Byte Striping)，尽管仅当端口实现多个 Lane（称为宽链路 (wide Link)）时才需要此步骤。条带化意味着字符流中的每个连续输出字符被路由到连续的 Lane 上。使用的 Lane 数在链路训练 (Link
-training) 过程中根据共享链路的两台设备所支持的 Lane 数进行配置。
-
-以下图表中说明了字节条带化的三个示例。在第 372 页图 11-8 中，显示了单 Lane 链路 (x1)。这不是一个非常有趣的案例，因为数据包以字节为单位进入物理层 (Physical Layer) 并以相同方式发出，但它说明了字符序列的绘制方式。
-
-第 372 页图 11-9 显示了来自多路复用器的传入双字 (Dword) 数据包。每个字节被定向到对应的 Lane。最后，第 373 页图 11-10 说明了八 Lane (x8) 链路。在此示例中，需要两个双字 (Dwords) 来填充所有 8 个
-Lane。这要求双字以比前一示例快两倍的速率到达。后续章节中描述了通过每个 Lane 发送的数据格式。
-
-## **PCI Express 技术**
-
-_图 11-8：x1 字节条带化_
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0370.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-
-_图 11-9：x4 字节条带化_
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0371.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-
-**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
-
-_图 11-10：使用双字并行数据的 x8 字节条带化_
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0372.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-
-## **数据包格式规则**
-
-## **一般规则**
-
-- 每个数据包的总长度（包括开始和结束字符）始终是 4 的倍数。这是数据长度以双字 (dwords) 为单位这一事实的自然延伸。
-
-- TLP 以 STP 字符开始，并以 END 或 EDB 字符结束。
-
-- DLLP 以 SDP 开头，以 END 字符结束，并且恰好为 8 个字符长 (SDP + 6 个字符 + END)。
-
-- 在发送完逻辑空闲 (Logical Idles) 后开始传输数据包时，STP 和 SDP 字符被放置在 Lane 0 上。在其他情况下，它们可以以可被 4 整除的 Lane 号开始。
-
-- 接收方的物理层 (Physical Layer) 允许监视对这些规则的违反情况，并可将其作为接收器错误 (Receiver Errors) 报告给数据链路层 (Data Link Layer)。
-
-**PCI Express 技术**
-
-## **示例：x1 格式**
-
-第 374 页图 11-11 中所示的示例说明了通过 x1 链路（仅一个 Lane 工作的链路）传输的数据包的格式。图中显示了一系列数据包，其中穿插着一个 SKIP 有序集。最后显示逻辑空闲 (Logical
-Idles)，以表示发送器没有更多数据包可发送并使用空闲字符作为填充的情况。
-
-_图 11-11：x1 数据包格式_
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0373.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-
-## **x4 格式规则**
-
-- STP 和 SDP 字符始终在 Lane 0 上发送。
-
-- END 和 EDB 字符始终在 Lane 3 上发送。
-
-- 当发送有序集（例如 SKIP）时，必须同时出现在所有 Lane 上。
-
-- 当发送逻辑空闲 (Logical Idles) 时，必须同时在所有 Lane 上发送。
-
-- 对这些规则的任何违反都可以作为接收器错误 (Receiver Error) 报告给数据链路层 (Data Link Layer)。
-
-**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
-
-## **x4 格式示例**
-
-第 375 页图 11-12 中所示的示例说明了通过 x4 链路（四条数据 Lane 工作的链路）发送的数据包的格式。该图显示了在所有 Lane 上发送的一个 TLP 后跟一个 SKIP 有序集，用于接收器时钟补偿。接下来是一个 DLLP，然后是所有 Lane 上的逻辑空闲
-(Logical Idle)。此示例突出表明数据包始终是 4 的倍数，因为起始字符始终出现在 Lane 0 中，结束字符始终在 Lane 3 中。它还说明有序集必须同时出现在所有 Lane 上。
-
-_图 11-12：x4 数据包格式_
-
-**PCI Express 技术**
-
-## **大链路宽度数据包格式规则**
-
-当通过 x8、x12、x16 或 x32 链路传输数据包时，以下规则适用：
-
-- 在发送完一段时间的逻辑空闲 (Logical Idles) 后开始发送时，STP/SDP 字符始终在 Lane 0 上发送。在此之后，仅当背靠背发送数据包时，它们才能在可被 4 整除的 Lane 号上发送（Lane 4、8、12 等）。
-
-- END/EDB 字符在可被 4 整除然后减一的 Lane 号上发送（Lane 3、7、11 等）。
-
-- 如果数据包未在链路的最后一个 Lane 上结束，并且没有更多准备发送的数据包，则使用 PAD 符号 (PAD Symbols) 作为其余 Lane 号的填充。逻辑空闲 (Logical Idle) 不能用于此目的，因为它必须同时出现在所有 Lane 上。
-
-- 有序集必须同时在所有 Lane 上发送。
-
-- 类似地，在使用逻辑空闲时，必须同时在所有 Lane 上发送。
-
-- 对这些规则的任何违反都可以作为接收器错误 (Receiver Error) 报告给数据链路层 (Data Link Layer)。
-
-## **x8 数据包格式示例**
-
-第 377 页图 11-13 中所示的示例说明了通过 x8 链路传输的数据包的格式。该图显示了一个 TLP 后跟一个 SKIP 有序集、一个 DLLP，最后是一个在 Lane 3 上结束的 TLP。此时，发送器没有更多准备发送的数据包，但当前数据包未扩展到包括所有可用的
-Lane。人们可能期望用逻辑空闲 (Logical Idle) 填充额外的 Lane，但在这里不起作用，因为空闲必须同时出现在所有 Lane 上。因此需要另一个填充字符，规范作者选择在此处使用 PAD 控制字符。PAD
-唯一使用的另一个地方是在训练过程中。最后，由于仍然没有更多数据包可发送，因此在所有 Lane 上发送逻辑空闲 (Logical Idles)。
-
-**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
-
-_图 11-13：x8 数据包格式_
-
-## **加扰器**
-
-我们示例中的下一步是加扰 (scrambling)，如第 369 页图 11-5 所示，旨在防止数据流中出现重复模式。重复模式会在链路上产生"纯音"，即由模式引起的超过通常噪声的一致频率，或称为 EMI
-(电磁干扰)。通过将能量扩展到更宽的频率范围来减少此问题是加扰的主要目标。此外，一条 Lane 上的加扰传输还可减少宽链路上相邻 Lane 之间的干扰。这种"空间去相关"或串扰噪声的减少有助于每个 Lane 上的接收器区分所需信号。
-
-## **PCI Express 技术**
-
-为了帮助接收器与加扰序列保持同步，控制字符不会被加扰，因此即使加扰器失去同步也是可识别的。此外，COM 控制字符 (K28.5) 每次到达时都会重新初始化链路两端的加扰器，从而使其重新同步。
-
-## **加扰算法**
-
-规范中描述的加扰器 (scrambler) 如第 378 页图 11-14 所示。它由一个 16 位线性反馈移位寄存器 (Linear Feedback Shift Register, LFSR) 组成，其反馈点实现以下多项式：
-
-G(x) = X[16] + X[5] + X[4] + X[3] + 1
-
-_图 11-14：加扰器_
-
-LFSR 以馈送数据字节的时钟频率的 8 倍频率进行计时，其输出被计时进入一个 8 位寄存器，该寄存器与 8 位数据字符进行 XOR 异或运算以形成加扰数据输出。
-
-**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
-
-## **一些加扰器实现规则：**
-
-- 在多 Lane 链路 (multi‐Lane Link) 实现中，与每个 Lane 关联的加扰器 (Scramblers) 必须协调运行，在每个 LFSR 中保持相同的同步值。
-
-- 加扰 (Scrambling) 仅应用于 'D' 字符，即那些与 TLP 和 DLLP 以及逻辑空闲 (Logical Idle, 00h) 字符相关联的字符。但是，TS1 和 TS2 有序集内的那些 'D' 字符不会被加扰。
-
-- 加扰 (Scrambling) 从不应用于 'K' 字符以及有序集内的字符，例如 TS1、TS2、SKIP、FTS 和电气空闲 (Electrical Idle)。这些字符绕过加扰器逻辑。这样做的一个原因是确保即使加扰器以某种方式失去序列，接收器仍然可以识别它们。
-
-- 合规模式 (Compliance Pattern) 字符（用于测试）也不被加扰。
-
-- COM 字符（不被加扰的控制字符）用于将发送器和接收器两端的 LFSR 重新初始化为 FFFFh。
-
-- 除 COM 字符外，LFSR 通常在每发送一个 D 或 K 字符时串行推进 8 次，但在与 SKIP 有序集关联的 SKP 字符上不推进。原因是接收器可以添加或删除 SKP 符号以执行时钟容差补偿。如果不忽略 SKP 字符，与发送的数量相比，接收器中字符数量的变化将导致接收器
-LFSR 中的值与发送器 LFSR 值失去同步。
-
-## **禁用加扰**
-
-默认情况下启用加扰 (Scrambling)，但规范允许出于测试和调试目的将其禁用。那是因为测试可能需要控制发送的确切位模式，并且由于硬件处理加扰，软件没有合理的方法来强制特定模式。规范中未定义用于指示物理层 (Physical Layer)
-禁用加扰的特定软件机制，因此这必须是特定于设计 (design‐specific) 的实现。
-
-</td>
-</tr></tbody></table>
-
-[⬆️ 返回目录](#本章目录-table-of-contents)
-
----
-
-<a id="sec-9-3"></a>
-## 9.3 DLLP Elements | DLLP 元素
-
-<table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
-<td width="50%">
-
-If scrambling is disabled by a device, this gets communicated to the neighbor‐ ing device by sending at least two TS1s and TS2s that have
-the appropriate bit set in the control field as described in “Configuration State” on page 539. In response, the neighboring device also
-disables its scrambling.
-
-## **8b/10b Encoding** 
-
-## **General** 
-
-The first two generations of PCIe use 8b/10b encoding. Each Lane implements an 8b/10b Encoder that translates the 8‐bit characters into
-10‐bit Symbols. This coding scheme was patented by IBM in 1984 and is widely used in many serial transports today, such as Gigabit Ethernet
-and Fibre Channel.
 
 ## **Motivation** 
 
@@ -914,6 +1291,15 @@ width="700">
 
 <br>
 
+</td>
+<td width="50%">
+
+## **报文格式规则**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
 
 ## **Properties of 10-bit Symbols** 
 
@@ -935,7 +1321,27 @@ a legal Symbol, as listed below. A Symbol that doesn’t follow these properties
 
  - The 6‐bit sub‐block contains no more than four 1s or four 0s. 
 
- - The 4‐bit sub‐block contains no more than three 1s or three 0s. 
+ - The 4‐bit sub‐block contains no more than three 1s or three 0s.
+
+</td>
+<td width="50%">
+
+## **一般规则**
+
+- 每个报文的总报文长度（包括起始和结束字符）始终是四的倍数。这是数据长度以 dword 为单位测量的自然扩展。
+
+- TLP 以 STP 字符开始，以 END 或 EDB 字符结束。
+
+- DLLP 以 SDP 开始，以 END 字符结束。并且正好 8 个字符长 (SDP + 6 字符 + END)。
+
+- STP 和 SDP 字符在逻辑空闲传输之后开始报文传输时放置在 Lane 0 上。在其他情况下，它们可以从可被 4 整除的 Lane 编号开始。
+
+- 接收方的物理层允许监视这些规则的违规行为，并可能将其作为接收方错误报告给数据链路层。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
 
 ## **Character Notation** 
 
@@ -958,6 +1364,26 @@ width="700">
 
 <br>
 
+</td>
+<td width="50%">
+
+## **示例：x1 格式**
+
+第 374 页的图 11-11 中所示的示例说明了通过 x1 链路（仅一个 Lane 运行的链路）传输的报文的格式。显示了一系列报文，其中穿插了一个 SKIP 有序集。末尾显示了逻辑空闲，以表示发送方没有更多报文要发送并使用空闲字符作为填充的情况。
+
+_图 11-11：x1 报文格式_
+
+**==> 图片 [351 x 220] 已省略 <==**
+
+**----- 图片文字开始 -----**<br>
+Lane<br>0<br>STP COM STP STP<br>SKP<br>TLP SKP TLP<br>SKP<br>STP<br>TLP<br>END END<br>SDP SDP<br>DLLP TLP DLLP<br>END<br>Idle (00h)<br>Idle
+(00h)<br>Idle (00h)<br>END END END<br>Time<br>**----- 图片文字结束 -----**<br>
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
 ## **Disparity** 
 
 **Definition.** Disparity refers to the inequality between the number of ones and zeros within a 10‐bit Symbol and is used to help maintain
@@ -978,144 +1404,8 @@ that, there are only two legal CRD cases: it can remain the same if the new Symb
 polarity if the new Symbol has the opposite disparity. What is not legal is for the disparity of the new Symbol to be the same as the CRD.
 Such an event would be a disparity error and should never occur after the initial adjustment unless an error has occurred.
 
-## **Encoding Procedure** 
-
-There are different ways that 8b/10b encoding could be accomplished. The sim‐ plest approach is probably to implement a look‐up table that
-contains all the possible output values. However, this table can require a comparatively large number of gates. Another approach is to
-implement the decoder as a logic block, and this is usually the preferred choice because it typically results in a smaller and cheaper
-solution. The specifics of the encoding logic are described in detail in the referenced literature, so we’ll focus here on the bigger
-picture of how it works instead.
-
-## **PCI Express Technology** 
-
-An example 8b/10b block diagram is shown in Figure 11‐17 on page 384. A new outgoing Symbol is created based on three things: the incoming
-character, the D/K# indication for that character, and the CRD. A new CRD value is computed based on the outgoing Symbol and is fed back for
-use in encoding the next char‐ acter. After encoding, the resulting Symbol is fed to a serializer that clocks out the individual bits.
-Figure 11‐18 on page 385 shows some sample 8b/10b encod‐ ings that will be useful for the example that follows.
-
-_Figure 11‐17: 8‐bit to 10‐bit (8b/10b) Encoder_ 
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0376.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-<br>
-
-_Figure 11‐18: Example 8b/10b Encodings_ 
-
-## **Example Transmission** 
-
-Figure 11‐19 illustrates the encode and transmission of three characters: the first and second are the control character K28.5 and the third
-character is the data character D10.3.
-
-In this example the initial CRD is negative so K28.5 encodes into 001111 1010b. This Symbol has positive disparity (more ones than zeros),
-and causes the CRD polarity to flip to positive. The next K28.5 is encoded into 110000 0101b and has a negative disparity. That causes the
-CRD this time to flip to negative. Finally, D10.3 is encoded into 010101 1100b. Since its disparity is neutral, the CRD doesn’t change in
-this case but remains negative for whatever the next character will be.
-
-_Figure 11‐19: Example 8b/10b Transmission_ 
-
-## **Use these two characters in the example below:** 
-
-|**D/K#**|**Hex Byte**|**Binary Bits**<br>**HGF EDCBA**|**Byte Name**|**CRD –**<br>**abcdei fghj**|**CRD +**<br>**abcdei
-fghj**|
-|---|---|---|---|---|---|
-|**Control(K)**|**BC**|**101 11100**|**K28.5**|**001111 1010**|**110000 0101**|
-|**Data(D)**|**6A**|**011 01010**|**D10.3**|**010101 1100**|**010101 0011**|
-
-
-## **Example Transmission** 
-
-||**CRD**|**Character**|**CRD**|**Character**|**CRD**|**Character**|**CRD**|
-|---|---|---|---|---|---|---|---|
-|**Character to** **be transmitted**|**-**|**K28.5 (BCh)**|**+**|**K28.5 (BCh)**|**-**|**D10.3 (6Ah)**|**-**|
-
 </td>
 <td width="50%">
-
-**'D' Character**
-Transaction Layer Packet (TLP)
-STP Sequence Header Data Payload ECRC LCRC END
-**'D' Character**
-**'K' Character 'K' Character**
-Data Link Layer Packet (DLLP)
-SDP DLLP Type Misc. CRC END
-**'K' Character 'K' Character**
-**----- 图片文字结束 -----**
-
-
-## **字节交叉（用于宽链路）**
-
-我们示例中显示的下一步是字节交叉，尽管仅当端口实现多个 Lane（称为宽链路）时才需要。交叉意味着字符流中的每个连续输出字符被路由到连续的 Lane。使用的 Lane 数量是在链路训练过程中配置的，基于共享链路的两个设备所支持的。
-
-以下图中说明了字节交叉的三个示例。在第 372 页的图 11-8 中，显示了单 Lane 链路 (x1)。这不是一个非常有趣的案例，因为报文一次以一个字节进入物理层并以相同的方式离开，但它说明了字符序列的绘制方式。
-
-第 372 页的图 11-9 显示了来自多路复用器的传入 Dword 报文。每个字节被定向到相应的 Lane。最后，第 373 页的图 11-10 说明了一个八 Lane (x8) 链路。在此示例中，需要两个 Dword 才能填充所有 8 个 Lane。这要求 Dword
-以比先前示例快两倍的速率到达。每个 Lane 上发送的数据格式将在以下小节中描述。
-
-## **PCI Exress Technology**
-
-_图 11-8：x1 字节交叉_
-
-**==> 图片 [154 x 220] 已省略 <==**
-
-**----- 图片文字开始 -----**<br>
-Packet byte stream from Mux block<br>8 D/K#<br>Character 7<br>Character 6<br>Character 5<br>Character 4<br>Character 3<br>Character
-2<br>Character 1<br>Character 0<br>x1 Byte Striping 8 D/K#<br>Character 2<br>Character 1<br>Character 0<br>8 D/K#<br>To Scrambler<br>**-----
-图片文字结束 -----**<br>
-
-
-_图 11-9：x4 字节交叉_
-
-**==> 图片 [338 x 205] 已省略 <==**
-
-**----- 图片文字开始 -----**<br>
-Packet Dword Stream from Mux Block<br>D/K# D/K# D/K# D/K#<br>8 8 8 8<br>Character 12 Character 13 Character 14 Character 15<br>Character 8
-Character 9 Character 10 Character 11<br>Character 4 Character 5 Character 6 Character 7<br>Character 0 Character 1 Character 2 Character
-3<br>Character 12 Character 13 Character 14 Character 15<br>Character 16 Character 17 Character 11 Character 11<br>Character 8 Character 9
-Character 7 Character 7<br>Character 0 Character 1 Character 3 Character 3<br>8 D/K# 8 D/K# 8 D/K# 8 D/K#<br>To Lane 0 To Lane 1 To Lane 2
-To Lane 3<br>Scrambler Scrambler Scrambler Scrambler<br>**----- 图片文字结束 -----**<br>
-
-
-**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
-
-_图 11-10：使用 DWord 并行数据的 x8 字节交叉_
-
-**==> 图片 [368 x 240] 已省略 <==**
-
-**----- 图片文字开始 -----**<br>
-D/K# D/K# D/K# D/K#<br>8 8 8 8<br>Character 20 Character 21 Character 22 Character 23<br>Character 16 Character 17 Character 18 Character
-19<br>Character 12 Character 13 Character 14 Character 15<br>Character 8 Character 9 Character 10 Character 11<br>Character 4 Character 5
-Character 6 Character 7<br>Character 0 Character 1 Character 2 Character 3<br>x8 Byte Striping<br>Character 16 Character 17 Character
-23<br>Character 8 Character 9 Character 15<br>Character 0 Character 1 Character 7<br>8 D/K# 8 D/K# 8<br>To Lane 0 To Lane 1 To Lane
-7<br>Scrambler Scrambler Scrambler<br>**----- 图片文字结束 -----**<br>
-
-
-## **报文格式规则**
-
-## **一般规则**
-
-- 每个报文的总报文长度（包括起始和结束字符）始终是四的倍数。这是数据长度以 dword 为单位测量的自然扩展。
-
-- TLP 以 STP 字符开始，以 END 或 EDB 字符结束。
-
-- DLLP 以 SDP 开始，以 END 字符结束。并且正好 8 个字符长 (SDP + 6 字符 + END)。
-
-- STP 和 SDP 字符在逻辑空闲传输之后开始报文传输时放置在 Lane 0 上。在其他情况下，它们可以从可被 4 整除的 Lane 编号开始。
-
-- 接收方的物理层允许监视这些规则的违规行为，并可能将其作为接收方错误报告给数据链路层。
-
-## **示例：x1 格式**
-
-第 374 页的图 11-11 中所示的示例说明了通过 x1 链路（仅一个 Lane 运行的链路）传输的报文的格式。显示了一系列报文，其中穿插了一个 SKIP 有序集。末尾显示了逻辑空闲，以表示发送方没有更多报文要发送并使用空闲字符作为填充的情况。
-
-_图 11-11：x1 报文格式_
-
-**==> 图片 [351 x 220] 已省略 <==**
-
-**----- 图片文字开始 -----**<br>
-Lane<br>0<br>STP COM STP STP<br>SKP<br>TLP SKP TLP<br>SKP<br>STP<br>TLP<br>END END<br>SDP SDP<br>DLLP TLP DLLP<br>END<br>Idle (00h)<br>Idle
-(00h)<br>Idle (00h)<br>END END END<br>Time<br>**----- 图片文字结束 -----**<br>
-
 
 ## **x4 格式规则**
 
@@ -1131,12 +1421,52 @@ Lane<br>0<br>STP COM STP STP<br>SKP<br>TLP SKP TLP<br>SKP<br>STP<br>TLP<br>END E
 
 **第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Encoding Procedure** 
+
+There are different ways that 8b/10b encoding could be accomplished. The sim‐ plest approach is probably to implement a look‐up table that
+contains all the possible output values. However, this table can require a comparatively large number of gates. Another approach is to
+implement the decoder as a logic block, and this is usually the preferred choice because it typically results in a smaller and cheaper
+solution. The specifics of the encoding logic are described in detail in the referenced literature, so we’ll focus here on the bigger
+picture of how it works instead.
+
+</td>
+<td width="50%">
+
 ## **示例 x4 格式**
 
 第 375 页的图 11-12 中所示的示例说明了通过 x4 链路（具有四个运行数据 Lane 的链路）发送的报文的格式。该图显示了一个 TLP，后跟在所有 Lane 上传输的用于接收方时钟补偿的 SKIP 有序集。接下来是一个 DLLP，然后是所有 Lane
 上的逻辑空闲。本例强调了报文始终是 4 的字符倍数，因为起始字符始终出现在 Lane 0 中，而结束字符始终在 Lane 3 中。它还说明了有序集必须同时出现在所有 Lane 上。
 
 _图 11-12：x4 报文格式_
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **PCI Express Technology** 
+
+An example 8b/10b block diagram is shown in Figure 11‐17 on page 384. A new outgoing Symbol is created based on three things: the incoming
+character, the D/K# indication for that character, and the CRD. A new CRD value is computed based on the outgoing Symbol and is fed back for
+use in encoding the next char‐ acter. After encoding, the resulting Symbol is fed to a serializer that clocks out the individual bits.
+Figure 11‐18 on page 385 shows some sample 8b/10b encod‐ ings that will be useful for the example that follows.
+
+_Figure 11‐17: 8‐bit to 10‐bit (8b/10b) Encoder_ 
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0376.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+<br>
+
+_Figure 11‐18: Example 8b/10b Encodings_
+
+</td>
+<td width="50%">
 
 ## **大链路宽度报文格式规则**
 
@@ -1154,6 +1484,26 @@ _图 11-12：x4 报文格式_
 
 - 这些规则的任何违规都可能作为接收方错误报告给数据链路层。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Example Transmission** 
+
+Figure 11‐19 illustrates the encode and transmission of three characters: the first and second are the control character K28.5 and the third
+character is the data character D10.3.
+
+In this example the initial CRD is negative so K28.5 encodes into 001111 1010b. This Symbol has positive disparity (more ones than zeros),
+and causes the CRD polarity to flip to positive. The next K28.5 is encoded into 110000 0101b and has a negative disparity. That causes the
+CRD this time to flip to negative. Finally, D10.3 is encoded into 010101 1100b. Since its disparity is neutral, the CRD doesn’t change in
+this case but remains negative for whatever the next character will be.
+
+_Figure 11‐19: Example 8b/10b Transmission_
+
+</td>
+<td width="50%">
+
 ## **x8 报文格式示例**
 
 第 377 页的图 11-13 中所示的示例说明了通过 x8 链路传输的报文的格式。该图显示了一个 TLP，后跟 SKIP 有序集、一个 DLLP，最后是一个在 Lane 3 结束的 TLP。在那时，发送方没有更多准备发送的报文，但当前报文未扩展到包括所有可用
@@ -1164,14 +1514,52 @@ Lane 上发送逻辑空闲。
 
 _图 11-13：x8 报文格式_
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Use these two characters in the example below:** 
+
+|**D/K#**|**Hex Byte**|**Binary Bits**<br>**HGF EDCBA**|**Byte Name**|**CRD –**<br>**abcdei fghj**|**CRD +**<br>**abcdei
+fghj**|
+|---|---|---|---|---|---|
+|**Control(K)**|**BC**|**101 11100**|**K28.5**|**001111 1010**|**110000 0101**|
+|**Data(D)**|**6A**|**011 01010**|**D10.3**|**010101 1100**|**010101 0011**|
+
+</td>
+<td width="50%">
+
 ## **加扰器**
 
 我们示例中的下一步是加扰，如图 11-5（第 369 页）所示，旨在防止数据流中的重复模式。重复模式在链路上产生"纯音"，这意味着由该模式产生的一致频率会产生比通常更多的噪声或 EMI。通过将此能量扩展到更宽的频率范围来减少此问题是加扰的主要目标。此外，单个 Lane
 上的加扰传输还可减少对宽链路上相邻 Lane 的干扰。这种"空间频率去相关"，或减少串扰噪声，有助于每个 Lane 上的接收方区分所需的信号。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Example Transmission** 
+
+||**CRD**|**Character**|**CRD**|**Character**|**CRD**|**Character**|**CRD**|
+|---|---|---|---|---|---|---|---|
+|**Character to** **be transmitted**|**-**|**K28.5 (BCh)**|**+**|**K28.5 (BCh)**|**-**|**D10.3 (6Ah)**|**-**|
+
+</td>
+<td width="50%">
+
 ## **PCI Exress Technology**
 
 为了帮助接收方与加扰序列保持同步，控制字符不会进行加扰，因此即使加扰器失去同步，它们也可被识别。此外，COM 控制字符 (K28.5) 的每次到达都会重新初始化链路两端的加扰器，从而重新同步它们。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **加扰算法**
 
@@ -1184,6 +1572,14 @@ _图 11-14：加扰器_
 LFSR 以馈送数据字节的时钟频率的 8 倍频率进行计时，其输出被计时到 8 位寄存器中，该寄存器与 8 位数据字符进行 XOR 以形成加扰的数据输出。
 
 **第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **一些加扰器实现规则：**
 
@@ -1200,17 +1596,49 @@ LFSR 以馈送数据字节的时钟频率的 8 倍频率进行计时，其输出
 - 除 COM 字符外，LFSR 通常对每个发送的 D 或 K 字符串行前进 8 次，但它在与 SKIP 有序集关联的 SKP 字符上不前进。原因在于接收方可能会添加或删除 SKP 符号以执行时钟容限补偿。改变接收方中的字符数与发送的字符数相比，如果不忽略这些字符，则会导致接收方
 LFSR 中的值与发送方 LFSR 值失去同步。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
+
 ## **禁用加扰**
 
 加扰默认启用，但规范允许出于测试和调试目的禁用它。这是因为测试可能需要控制发送的确切比特模式，并且由于硬件处理加扰，因此软件没有合理的方法来强制执行特定模式。规范未定义用于指示物理层禁用加扰的特定软件机制，因此这必须是特定于设计的实现。
 
 如果设备禁用了加扰，则通过在控制字段中设置适当的位来发送至少两个 TS1 和 TS2 与相邻设备通信，如第 539 页的"配置状态"所述。作为响应，相邻设备也禁用其加扰。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
+
 ## **8b/10b 编码**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **概述**
 
 PCIe 的前两代使用 8b/10b 编码。每个 Lane 实现一个 8b/10b 编码器，将 8 位字符转换为 10 位符号。此编码方案由 IBM 于 1984 年获得专利，今天广泛用于许多串行传输，例如千兆以太网和光纤通道。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **动机**
 
@@ -1242,6 +1670,13 @@ _图 11-15：8 位字符 00h 编码示例_
 **----- 图片文字开始 -----**<br>
 8b Value<br>0 0 0 0 0 0 0 0<br>Data 00h<br>10b Encoded<br>0 11 0 0 0 1 0 1 1<br>Value<br>**----- 图片文字结束 -----**<br>
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **10 位符号的属性**
 
@@ -1262,6 +1697,14 @@ _图 11-15：8 位字符 00h 编码示例_
  - 6 位子块包含不超过四个 1 或四个 0。
 
  - 4 位子块包含不超过三个 1 或三个 0。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **字符表示法**
 
@@ -1287,6 +1730,14 @@ _图 11-16：8b/10b 命名法_
 
 **第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
+
 ## **差异**
 
 **定义。** 差异是指 10 位符号内 1 和 0 的数量之间的不等式，并用于帮助维持链路上的直流平衡。具有更多 0 的符号称为具有负 (-) 差异，而具有更多 1 的符号具有正 (+) 差异。当符号具有相等数量的 1 和 0
@@ -1298,10 +1749,26 @@ _图 11-16：8b/10b 命名法_
 CRD 的初始状态（在传输任何字符之前）可能与发送方和接收方之间不匹配，但事实证明这并不重要。当接收方在训练完成后看到第一个符号时，它将检查差异错误，如果发现，则只需更改 CRD。这不会被视为错误，而只是 CRD 调整以匹配接收方和发送方。之后，只有两种合法的 CRD
 情况：如果新符号具有中性差异，则它可以保持不变；如果新符号具有相反的差异，则它可以翻转为相反极性。新符号的差异与 CRD 相同是不合法的。这样的事件将是差异错误，除非发生错误，否则在初始调整之后永远不会发生。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
+
 ## **编码过程**
 
 可以通过不同方式完成 8b/10b
 编码。最简单的方法可能是实现一个包含所有可能输出值的查找表。但是，此表可能需要相对大量的门。另一种方法是将解码器实现为逻辑块，这通常是首选，因为它通常会产生更小且更便宜的解决方案。编码逻辑的细节在所引用的文献中有详细描述，因此我们将重点放在其工作原理的更大图景上。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **PCI Exress Technology**
 
@@ -1322,6 +1789,14 @@ to Transmitter<br>using Tx Clock<br>**----- 图片文字结束 -----**<br>
 
 _图 11-18：示例 8b/10b 编码_
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
+
 ## **示例传输**
 
 图 11-19 说明了三个字符的编码和传输：第一个和第二个是控制字符 K28.5，第三个字符是数据字符 D10.3。
@@ -1331,6 +1806,14 @@ _图 11-18：示例 8b/10b 编码_
 
 _图 11-19：示例 8b/10b 传输_
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
+
 ## **在以下示例中使用这两个字符：**
 
 |**D/K#**|**十六进制** **字节**|**二进制位** **HGF EDCBA**|**字节** **名称**|**CRD –** **abcdei fghj**|**CRD +** **abcdei fghj**|
@@ -1338,6 +1821,13 @@ _图 11-19：示例 8b/10b 传输_
 |**控制(K)**|**BC**|**101 11100**|**K28.5**|**001111 1010**|**110000 0101**|
 |**数据(D)**|**6A**|**011 01010**|**D10.3**|**010101 1100**|**010101 0011**|
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **示例传输**
 
@@ -1346,7 +1836,10 @@ _图 11-19：示例 8b/10b 传输_
 |**要传输的** **字符**|**-**|**K28.5 (BCh)**|**+**|**K28.5 (BCh)**|**-**|**D10.3 (6Ah)**|**-**|
 
 </td>
-</tr></tbody></table>
+</tr>
+
+</tbody>
+</table></tr></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -1356,14 +1849,33 @@ _图 11-19：示例 8b/10b 传输_
 ## 9.4 DLLP Elements | DLLP 元素
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
+<tr>
 <td width="50%">
 
 |**Bit stream**<br>**transmitted**||**Yields**<br>**001111 1010**<br>**CRD is +**||**Yields**<br>**110000 0101**<br>**CRD is
 -**||**Yields**<br>**010101 1100**<br>**CRD is neutral**||
 |Initialized value of CRD is don’t car...|
 
+</td>
+<td width="50%">
+
+|**传输的位流**||**产生** **001111 1010** **CRD 为 +**||**产生** **110000 0101** **CRD 为 -**||**产生** **010101 1100** **CRD 为中性**|
+|CRD 的初始值为无关项 (don't care)。接收器可以从输入位流中确定||||||||
+
+</td>
+</tr>
+<tr>
+<td width="50%">
 
 ## **Control Characters** 
 
@@ -1423,120 +1935,11 @@ full‐on L0 state.
 
 - **IDL** (Idle): Part of the Electrical Idle ordered set sent to inform the receiver that the Link is transitioning into a low power state.
 
-- **EIE** (Electrical Idle Exit): Added in the PCIe 2.0 spec and used to help an electrically‐idle link begin the wake up process. 
-
-## **Ordered sets** 
-
-**General.** Ordered Sets are used for communication between the Physical Layers of Link partners and may be thought of as Lane management
-packets. By definition they are a series of characters that are not TLPs or DLLPs. For Gen1 and Gen2 they always begin with the COM
-character. Ordered Sets are replicated on all Lanes at the same time, because each Lane is tech‐ nically an independent serial path. This
-also allows Receivers to verify alignment and de‐skewing. Ordered Sets are used for things like Link train‐ ing, clock tolerance
-compensation, and changing Link power states.
-
-**TS1 and TS2 Ordered Set (TS1OS/TS2OS).** Training sequences one and two are used for Link initialization and training. They allow the Link
-partners to achieve bit lock and Symbol lock, negotiate the link speed, and report other variables associated with Link operation. They are
-described in more detail in the section titled “TS1 and TS2 Ordered Sets” on page 510.
-
-**Electrical Idle Ordered Set (EIOS).** A Transmitter that wishes to go to a lower‐power link state sends this before ceasing transmission.
-Upon receipt, Receivers know to prepare for the low power state. The EIOS con‐ sists of four Symbols: the COM Symbol followed by three IDL
-Symbols. Receivers detect this Ordered Set and prepare for the Link to go to into Elec‐ trical Idle by ignoring input errors until exiting
-from Electrical Idle. Shortly after sending EIOS, the Transmitter reduces its differential voltage to less than 20mV peak.
-
-**FTS Ordered Set (FTSOS).** A Transmitter sends the proper number of these (the minimum number was given by the Link neighbor during train‐
-ing) to take a Link from the low‐power L0s state back to the fully‐opera‐ tional L0 state. The receiver detects the FTSs, recognizes that
-the Link is
-exiting from Electrical Idle, and uses them to recover Bit and Symbol Lock.The FTS Ordered Set consists of four Symbols: the COM Symbol fol‐
-lowed by three FTS Symbols.
-
-**SKP Ordered Set (SOS).** This consists of four Symbols: the COM Symbol followed by three SKP Symbols. It’s transmitted at regular
-intervals and is used for Clock Tolerance Compensation as described in “Clock Compensa‐ tion” on page 391 and “Receiver Clock Compensation
-Logic” on page 396. Basically, the Receiver evaluates the SOS and internally adds or removes SKP Symbols as needed to prevent its elastic
-buffer from under‐flowing or over‐flowing.
-
-**Electrical Idle Exit Ordered Set (EIEOS).** Added in the PCIe 2.0 spec, this Ordered Set was defined to provide a lower‐frequency sequence
-required to exit the electrical idle Link state. The EIEOS for 8b/10b encod‐ ing, uses repeated K28.7 control characters to appear as a
-repeating string of 5 ones followed by 5 zeros. This low frequency string produces a low‐fre‐ quency signal that allows for higher signal
-voltages that are more readily detected at the receiver. In fact, the spec states that this pattern guarantees that the Receiver will
-properly detect an exit from Electrical Idle, something that scrambled data cannot do. For details on electrical idle exit, refer to the
-section “Electrical Idle” on page 736.
-
-## **Serializer** 
-
-The 8b/10b encoder on each lane feeds a serializer that clocks the Symbols out in bit order (see Figure 11‐17 on page 384), with the least
-significant bit (a) shifted out first and the most significant bit (j) shifted out last. For each lane, the Sym‐ bols will be supplied to
-the serializer at either 250MHz or 500MHz to support a serial bit rate 10 times faster than that at 2.5 GHz or 5.0 GHz.
-
-## **Differential Driver** 
-
-The differential driver that actually sends the bit stream onto the wire uses NRZ encoding. NRZ simply means that there are no special or
-intermediate voltage levels used. Differential signalling improves signal integrity and allows for both higher frequencies and lower
-voltages. Details regarding the electrical charac‐ teristics of the driver are discussed in the section “Transmitter Voltages” on page 462.
-
-## **Transmit Clock (Tx Clock)** 
-
-The serialized output on each Lane is clocked out by the Tx Clock signal. As mentioned earlier, the clock frequency must be accurate to
-+/–300ppm around the center frequency (600ppm total variation). There are two options regarding the source of this clock. It can be
-generated internally or derived from an exter‐ nal reference that may optionally be available. The PCIe spec for peripheral cards includes
-the definition of a 100MHz reference clock supplied by the sys‐ tem board for this purpose. This reference clock is multiplied internally to
-derive the local clock that drives the internal logic and the Tx clock used by the serializer.
-
-## **Miscellaneous Transmit Topics** 
-
-## **Logical Idle** 
-
-In order to keep the receiver’s PLL from drifting, something must be transmit‐ ted during periods when there are no TLPs, DLLPs or ordered
-sets to transmit, and it is logical idle characters that are injected into the character flow during these times. Some properties of the
-logical idle character:
-
-- It’s an 8‐bit Data character with a value of 00h. 
-
-- When sent, it goes on all Lanes at the same time and the Link is said to be in the logical idle state (not to be confused with electrical
-Idle—the state when the output driver stops transmitting altogether and the receiver PLL loses synchronization).
-
-- The logical idle character is scrambled, but a receiver can distinguish it from other data because it occurs outside of a packet framing
-context (i.e.: after an END or EDB, but before an STP or SDP).
-
-- It is 8b/10b encoded. 
-
-- During logical idle transmission, SKIP ordered sets are still sent periodi‐ cally. 
-
-## **Tx Signal Skew** 
-
-Understandably, the transmitter should introduce a minimal skew between lanes to leave as much Rx skew budget as possible for routing and
-other varia‐ tions. The spec lists the Tx skew values as 500ps + 2 UI for Gen1, 500ps + 4UI for Gen2, and 500ps + 6 UI for Gen3. Recalling
-that UI (unit interval) represents one bit time on the Link, this works out as shown in Table 11‐2 below.
-_Table 11‐2: Allowable Transmitter Signal Skew_ 
-
-|**Spec Version**|**Allowable Tx Skew**|
-|---|---|
-|Gen1|1300 ps|
-|Gen2|1300 ps|
-|Gen3|1250 ps|
-
-
-## **Clock Compensation** 
-
-**Background.** High‐speed serial transports like PCIe have a particular clock problem to solve. The receiver recovers a clock from the
-incoming bit stream and uses that to latch in the data bits, but this recovered clock is not synchronized with the receiver’s internal clock
-and at some point it has to begin clocking the data with its own internal clock. Even if they have an optional common external reference
-clock, the best they can do is to gener‐ ate an internal clock within a specified tolerance of the desired frequency. Consequently, one of
-the clocks will almost always have a slightly higher frequency than the other. If the transmitter clock is faster, the packets will be
-arriving faster than they can be taken in. To compensate, the transmitter must inject some “throw‐away characters” in the bit stream that
-the receiver can discard if it proves necessary to avoid a buffer over‐run condition. For PCIe, these characters which can be deleted take
-the form of the SKIP ordered set, which consists of a COM character followed by three SKP char‐ acters (see Figure 11‐20). For more detail
-on this topic, refer to “Receiver Clock Compensation Logic” on page 396).
-
-**SKIP ordered set Insertion Rules.** A transmitter is required to send SKIP ordered sets on a periodic basis, and the following rules
-apply:
-
-- The SKIP ordered set must be scheduled for insertion between 1180 and 1538 Symbol times (a Symbol time is the time required to send one
-Symbol and is 10 bit times, so at 2.5 GT/s, a Symbol time is 4ns and at 5.0 GT/s, it’s 2ns).
+- **EIE** (Electrical Idle Exit): Added in the PCIe 2.0 spec and used to help an electrically‐idle link begin the wake up process.
 
 </td>
 <td width="50%">
 
-|**传输的位流**||**产生** **001111 1010** **CRD 为 +**||**产生** **110000 0101** **CRD 为 -**||**产生** **010101 1100** **CRD 为中性**|
-|CRD 的初始值为无关项 (don't care)。接收器可以从输入位流中确定||||||||
 ## **控制字符 (Control Characters)**
 
 8b/10b 编码提供了多个用于链路管理的特殊字符，第 386 页的表 11-1 显示了它们的编码。
@@ -1588,6 +1991,49 @@ of Cut-Through Operation)"。）
 
 - **EIE**（Electrical Idle Exit，电气空闲退出）：在 PCIe 2.0 规范中添加，用于帮助电气空闲链路开始唤醒过程。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Ordered sets** 
+
+**General.** Ordered Sets are used for communication between the Physical Layers of Link partners and may be thought of as Lane management
+packets. By definition they are a series of characters that are not TLPs or DLLPs. For Gen1 and Gen2 they always begin with the COM
+character. Ordered Sets are replicated on all Lanes at the same time, because each Lane is tech‐ nically an independent serial path. This
+also allows Receivers to verify alignment and de‐skewing. Ordered Sets are used for things like Link train‐ ing, clock tolerance
+compensation, and changing Link power states.
+
+**TS1 and TS2 Ordered Set (TS1OS/TS2OS).** Training sequences one and two are used for Link initialization and training. They allow the Link
+partners to achieve bit lock and Symbol lock, negotiate the link speed, and report other variables associated with Link operation. They are
+described in more detail in the section titled “TS1 and TS2 Ordered Sets” on page 510.
+
+**Electrical Idle Ordered Set (EIOS).** A Transmitter that wishes to go to a lower‐power link state sends this before ceasing transmission.
+Upon receipt, Receivers know to prepare for the low power state. The EIOS con‐ sists of four Symbols: the COM Symbol followed by three IDL
+Symbols. Receivers detect this Ordered Set and prepare for the Link to go to into Elec‐ trical Idle by ignoring input errors until exiting
+from Electrical Idle. Shortly after sending EIOS, the Transmitter reduces its differential voltage to less than 20mV peak.
+
+**FTS Ordered Set (FTSOS).** A Transmitter sends the proper number of these (the minimum number was given by the Link neighbor during train‐
+ing) to take a Link from the low‐power L0s state back to the fully‐opera‐ tional L0 state. The receiver detects the FTSs, recognizes that
+the Link is
+exiting from Electrical Idle, and uses them to recover Bit and Symbol Lock.The FTS Ordered Set consists of four Symbols: the COM Symbol fol‐
+lowed by three FTS Symbols.
+
+**SKP Ordered Set (SOS).** This consists of four Symbols: the COM Symbol followed by three SKP Symbols. It’s transmitted at regular
+intervals and is used for Clock Tolerance Compensation as described in “Clock Compensa‐ tion” on page 391 and “Receiver Clock Compensation
+Logic” on page 396. Basically, the Receiver evaluates the SOS and internally adds or removes SKP Symbols as needed to prevent its elastic
+buffer from under‐flowing or over‐flowing.
+
+**Electrical Idle Exit Ordered Set (EIEOS).** Added in the PCIe 2.0 spec, this Ordered Set was defined to provide a lower‐frequency sequence
+required to exit the electrical idle Link state. The EIEOS for 8b/10b encod‐ ing, uses repeated K28.7 control characters to appear as a
+repeating string of 5 ones followed by 5 zeros. This low frequency string produces a low‐fre‐ quency signal that allows for higher signal
+voltages that are more readily detected at the receiver. In fact, the spec states that this pattern guarantees that the Receiver will
+properly detect an exit from Electrical Idle, something that scrambled data cannot do. For details on electrical idle exit, refer to the
+section “Electrical Idle” on page 736.
+
+</td>
+<td width="50%">
+
 ## **有序集合 (Ordered sets)**
 
 **概述。** 有序集合用于链路伙伴 (Link partners) 的物理层之间的通信，可以被视为通道管理包 (Lane management packets)。按定义，它们是一系列既不是 TLP 也不是 DLLP 的字符。对于 Gen1 和 Gen2，它们始终以 COM
@@ -1610,21 +2056,101 @@ Compensation Logic)"中所述。基本上，接收器评估 SOS 并根据需要�
 **电气空闲退出有序集合 (EIEOS)。** 在 PCIe 2.0 规范中添加，定义此有序集合是为了提供退出电气空闲链路状态所需的低频序列。8b/10b 编码的 EIEOS 使用重复的 K28.7 控制字符，呈现为重复的 5 个 1 后跟 5 个 0
 的字符串。这个低频字符串产生一个低频信号，该信号允许更高的信号电压，更容易被接收器检测到。事实上，规范指出此模式保证接收器将正确检测到电气空闲退出，而加扰数据无法做到这一点。有关电气空闲退出的详细信息，请参阅第 736 页的"电气空闲 (Electrical Idle)"。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Serializer** 
+
+The 8b/10b encoder on each lane feeds a serializer that clocks the Symbols out in bit order (see Figure 11‐17 on page 384), with the least
+significant bit (a) shifted out first and the most significant bit (j) shifted out last. For each lane, the Sym‐ bols will be supplied to
+the serializer at either 250MHz or 500MHz to support a serial bit rate 10 times faster than that at 2.5 GHz or 5.0 GHz.
+
+</td>
+<td width="50%">
+
 ## **串行器 (Serializer)**
 
 每个通道上的 8b/10b 编码器馈入一个串行器 (serializer)，该串行器按位顺序将字符移出（参见第 384 页的图 11-17），最低有效位 (a) 最先移出，最高有效位 (j) 最后移出。对于每个通道，字符将以 250MHz 或 500MHz
 的频率提供给串行器，以支持 2.5 GHz 或 5.0 GHz 时 10 倍快的串行比特率。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Differential Driver** 
+
+The differential driver that actually sends the bit stream onto the wire uses NRZ encoding. NRZ simply means that there are no special or
+intermediate voltage levels used. Differential signalling improves signal integrity and allows for both higher frequencies and lower
+voltages. Details regarding the electrical charac‐ teristics of the driver are discussed in the section “Transmitter Voltages” on page 462.
+
+</td>
+<td width="50%">
+
 ## **差分驱动器 (Differential Driver)**
 
 实际将位流发送到线路上的差分驱动器使用 NRZ 编码。NRZ 简单地意味着不使用特殊的或中间的电压电平。差分信号改善了信号完整性，并允许更高的频率和更低的电压。有关驱动器电气特性的详细信息在第 462 页的"发送器电压 (Transmitter Voltages)"部分讨论。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Transmit Clock (Tx Clock)** 
+
+The serialized output on each Lane is clocked out by the Tx Clock signal. As mentioned earlier, the clock frequency must be accurate to
++/–300ppm around the center frequency (600ppm total variation). There are two options regarding the source of this clock. It can be
+generated internally or derived from an exter‐ nal reference that may optionally be available. The PCIe spec for peripheral cards includes
+the definition of a 100MHz reference clock supplied by the sys‐ tem board for this purpose. This reference clock is multiplied internally to
+derive the local clock that drives the internal logic and the Tx clock used by the serializer.
+
+</td>
+<td width="50%">
 
 ## **发送时钟 (Tx Clock)**
 
 每个通道上的串行化输出由 Tx Clock 信号定时移出。如前所述，时钟频率必须精确到中心频率的 +/–300ppm（总共 600ppm 变化）。关于此时钟的来源有两个选项。它可以内部生成，也可以从可能可选的外部参考时钟派生。PCIe 规范对外围卡的定义包括系统板提供的
 100MHz 参考时钟，用于此目的。该参考时钟在内部倍频以派生驱动内部逻辑的本地时钟和串行器使用的 Tx 时钟。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Miscellaneous Transmit Topics**
+
+</td>
+<td width="50%">
+
 ## **其他发送主题**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Logical Idle** 
+
+In order to keep the receiver’s PLL from drifting, something must be transmit‐ ted during periods when there are no TLPs, DLLPs or ordered
+sets to transmit, and it is logical idle characters that are injected into the character flow during these times. Some properties of the
+logical idle character:
+
+- It’s an 8‐bit Data character with a value of 00h. 
+
+- When sent, it goes on all Lanes at the same time and the Link is said to be in the logical idle state (not to be confused with electrical
+Idle—the state when the output driver stops transmitting altogether and the receiver PLL loses synchronization).
+
+- The logical idle character is scrambled, but a receiver can distinguish it from other data because it occurs outside of a packet framing
+context (i.e.: after an END or EDB, but before an STP or SDP).
+
+- It is 8b/10b encoded. 
+
+- During logical idle transmission, SKIP ordered sets are still sent periodi‐ cally.
+
+</td>
+<td width="50%">
 
 ## **逻辑空闲 (Logical Idle)**
 
@@ -1639,6 +2165,27 @@ Compensation Logic)"中所述。基本上，接收器评估 SOS 并根据需要�
 - 它是 8b/10b 编码的。
 
 - 在逻辑空闲传输期间，SKIP 有序集合仍然定期发送。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Tx Signal Skew** 
+
+Understandably, the transmitter should introduce a minimal skew between lanes to leave as much Rx skew budget as possible for routing and
+other varia‐ tions. The spec lists the Tx skew values as 500ps + 2 UI for Gen1, 500ps + 4UI for Gen2, and 500ps + 6 UI for Gen3. Recalling
+that UI (unit interval) represents one bit time on the Link, this works out as shown in Table 11‐2 below.
+_Table 11‐2: Allowable Transmitter Signal Skew_ 
+
+|**Spec Version**|**Allowable Tx Skew**|
+|---|---|
+|Gen1|1300 ps|
+|Gen2|1300 ps|
+|Gen3|1250 ps|
+
+</td>
+<td width="50%">
 
 ## **Tx 信号偏斜 (Tx Signal Skew)**
 
@@ -1655,6 +2202,32 @@ _表 11-2：允许的发送器信号偏斜_
 |Gen2|1300 ps|
 |Gen3|1250 ps|
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Clock Compensation** 
+
+**Background.** High‐speed serial transports like PCIe have a particular clock problem to solve. The receiver recovers a clock from the
+incoming bit stream and uses that to latch in the data bits, but this recovered clock is not synchronized with the receiver’s internal clock
+and at some point it has to begin clocking the data with its own internal clock. Even if they have an optional common external reference
+clock, the best they can do is to gener‐ ate an internal clock within a specified tolerance of the desired frequency. Consequently, one of
+the clocks will almost always have a slightly higher frequency than the other. If the transmitter clock is faster, the packets will be
+arriving faster than they can be taken in. To compensate, the transmitter must inject some “throw‐away characters” in the bit stream that
+the receiver can discard if it proves necessary to avoid a buffer over‐run condition. For PCIe, these characters which can be deleted take
+the form of the SKIP ordered set, which consists of a COM character followed by three SKP char‐ acters (see Figure 11‐20). For more detail
+on this topic, refer to “Receiver Clock Compensation Logic” on page 396).
+
+**SKIP ordered set Insertion Rules.** A transmitter is required to send SKIP ordered sets on a periodic basis, and the following rules
+apply:
+
+- The SKIP ordered set must be scheduled for insertion between 1180 and 1538 Symbol times (a Symbol time is the time required to send one
+Symbol and is 10 bit times, so at 2.5 GT/s, a Symbol time is 4ns and at 5.0 GT/s, it’s 2ns).
+
+</td>
+<td width="50%">
+
 ## **时钟补偿 (Clock Compensation)**
 
 **背景。** 像 PCIe
@@ -1666,7 +2239,10 @@ PCIe，这些可以删除的字符采用 SKIP 有序集合的形式，由一个 
 - SKIP 有序集合必须调度在 1180 到 1538 字符时间内插入（字符时间是发送一个字符所需的时间，是 10 个位时间，因此在 2.5 GT/s 时，字符时间为 4ns；在 5.0 GT/s 时，为 2ns）。
 
 </td>
-</tr></tbody></table>
+</tr>
+
+</tbody>
+</table></tr></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -1676,8 +2252,17 @@ PCIe，这些可以删除的字符采用 SKIP 有序集合的形式，由一个 
 ## 9.5 DLLP Elements | DLLP 元素
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
+<tr>
 <td width="50%">
 
 - They are only inserted on packet boundaries (nothing is allowed to interrupt a packet) and must go simultaneously on all Lanes. If a
@@ -1701,143 +2286,6 @@ width="700">
 
 <br>
 
-
-## **Receive Logic Details (Gen1 and Gen2 Only)** 
-
-Figure 11‐21 shows the receiver logic of the Logical Physical Layer. This section describes packet processing from the time the data is
-received serially on each lane until the packet byte stream is clocked into the Data Link Layer.
-_Figure 11‐21: Physical Layer Receive Logic Details (Gen1 and Gen2 Only)_ 
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0368.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-<br>
-
-
-## **Differential Receiver** 
-
-The first parts of the receiver logic are shown in Figure 11‐22, including the dif‐ ferential input buffer for each lane. The buffer senses
-peak‐to‐peak voltage dif‐ ferences and determines whether the difference represents a logical one or zero.
-
-For a detailed discussion of receiver characteristics, see section “Receiver Char‐ acteristics” on page 492. 
-
-_Figure 11‐22: Receiver Logic’s Front End Per Lane_ 
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0369.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-<br>
-
-
-## **Rx Clock Recovery** 
-
-## **General** 
-
-Next the receiver generates an Rx Clock from the data bit transitions in the input data stream, probably using a PLL. This recovered clock
-has the same fre‐ quency (2.5 or 5.0 GHz) as that of the Tx Clock that was used to clock the bit stream onto the wire. The Rx Clock is used
-to clock the inbound bit stream into the deserializer. The deserializer has to be aligned to the 10‐bit Symbol bound‐ ary (a process called
-achieving Symbol lock), and then its Symbol stream output is clocked into the elastic buffer with a version of the Rx Clock that’s been
-divided by 10. Even thought both must be accurate to within +/–300ppm of the center frequency, the Rx Clock is probably a little different
-from the Local Clock and if so, compensation is needed.
-## **Achieving Bit Lock** 
-
-Recall that the 8b/10b encoding scheme guarantees the inbound serial Symbol stream will contain frequent transitions. The receiver PLL uses
-those transitions to create an Rx Clock that is synchronized with the Tx Clock that was used to clock the bit stream out of the transmitter.
-When the receiver locks on to the Tx Clock frequency, the receiver is said to have achieved **“Bit Lock”** .
-
-During Link training, the transmitter sends a long series of TS1 and TS2 ordered sets to the receiver, which then uses the bit transitions
-in them to achieve Bit Lock. There are enough transitions on the Link during normal operation for the receiver to maintain Bit Lock after
-that.
-
-## **Losing Bit Lock** 
-
-If the Link is put in a low power state (such as L0s or L1) in which packet transmission ceases, the receiver will lose synchronization. To
-avoid having the error circuit see this as an error, the transmitter sends an electrical Idle ordered set (EIOS) before going to the lower
-power state to tell the receiver to de‐gate its input.
-
-## **Regaining Bit Lock** 
-
-When the transmitter is ready to wake the Link from the L0s state, it sends a specific number FTS ordered sets (the actual number is design
-specific) and the receiver uses these to regain bit and Symbol lock. A relatively small number of FTSs are needed to recover and so the
-recovery latency is short. Because the Link is in the L0s state for a short time, the receiver PLL does not usually drift too far from the
-Tx Clock before it begins to receive the FTSs. If the Link was instead in the L1 low power state and the transmitter instead starts
-transmitting TS1OSs. This results in the Link getting re‐trained and wakeup time is longer than L0s wakeup time. Should the Link have a more
-serious error and the Ack/ Nak mechanism be unsuccessful in error recovery after four attempts of retry‐ ing the TLPs, the Data Link Layer
-signals the Physical Layer to re‐training the Link. Here again, Bit Lock is re‐established during the re‐training process.
-
-## **Deserializer** 
-
-## **General** 
-
-The incoming data is clocked into each Lane’s deserializer (serial‐to‐parallel converter) by the Rx clock (see Figure 11‐22 on page 394).
-The 10‐bit Symbols produced are clocked into the Elastic Buffer using a divided‐by‐10 version of the Rx Clock.
-
-## **Achieving Symbol Lock** 
-
-When the receive logic starts receiving a bit stream, it is JABOB (just a bunch of bits) with no markers to differentiate Symbols or any
-boundaries. The receive logic must have a way to find the start and end of a 10‐bit Symbol, and the Comma (COM) Symbol serves this purpose.
-
-The 10‐bit encoding of the COM Symbol contains two bits of one polarity fol‐ lowed by five bits of the opposite polarity (0011111010b or
-1100000101b), mak‐ ing it easily detectable. Recall that the COM Control character, like all other Control characters, is also not scrambled
-by the transmitter, and that ensures that the desired sequence will be seen at the receiver. Upon detection of the COM, the logic knows that
-the next bit received will be the first bit of the next 10‐bit Symbol. At that point, the deserializer is said to have achieved **‘Symbol
-Lock’** .
-
-The COM Symbol is used to achieve Symbol Lock as follows: 
-
-- During Link training when the Link is first established or when re‐training is needed, and TS1 and TS2 ordered sets are transmitted. 
-
-- When FTS ordered sets are sent to inform the receiver to change the state of the Link from L0s to L0. 
-
-## **Receiver Clock Compensation Logic** 
-
-## **Background** 
-
-We’ve observed before that the clocks used by the transmitter and receiver on either end of a link aren’t required to have exactly the same
-frequencies. This will be the case whenever the link doesn’t use a common reference clock and introduces the problem that one of them is
-running slightly faster than the other. The only requirement is that both clocks must be within +/– 300 ppm (parts per million) of the
-center frequency. Since one could be +300 ppm and the other could be ‐300 ppm in the worst case, the worst separation between them could be
-600ppm. That difference translates into a gain or loss of one Symbol clock every 1666 clocks. Once the Link is trained, the receive clock
-(Rx Clock) in the receiver is the same as the transmit clock (Tx Clock) at the other end of the Link (because the receive clock is derived
-from the bit stream).
-## **Elastic Buffer’s Role** 
-
-To compensate for that worst‐case frequency difference, an elastic buffer (see Figure 11‐22 on page 394) is built into the receive path.
-Received Symbols are clocked into it using the recovered clock and clocked out using the receiver’s local clock. The Elastic Buffer
-compensates for the frequency difference by add‐ ing or removing SKP Symbols. When a SKP ordered set arrives, logic watching the status of
-the elastic buffer makes an evaluation. If the local clock is running faster, Symbols are being clocked out faster than they’re coming in,
-so the buffer will be approaching an underflow condition. The logic will compensate for this by appending an extra SKP Symbol to the ordered
-set when it arrives to quickly refill the buffer. On the other hand, if the recovered clock is running faster, the buffer will be
-approaching an overflow condition and the logic will compensate for that by deleting one of the SKP Symbols to quickly drain the buffer.
-These actions will make up for difference in rates of arrival and consumption of the Symbols and prevent any confusion or loss of data.
-
-The transmitter periodically sends the SKIP ordered sets for this purpose. As the name implies, the SKP characters are really disposable
-characters. Deleting or adding a SKP Symbol prevents a buffer overflow or underflow in the elastic buffer and then they get discarded along
-with all the other control characters when the Symbols are forwarded to the next layer. Consequently, they use a lit‐ tle bandwidth but
-don’t otherwise affect the flow of packets at all.
-
-Although lost Symbols due to an Elastic Buffer overflow or underflow is an error condition, it’s optional for receivers to check for this.
-If they do, and this situation occurs, a Receiver Error will be indicated to the Data Link Layer.
-
-The transmitter schedules a SKIP ordered set transmission once every 1180 to 1538 Symbol times. However, if the transmitter starts a maximum
-sized TLP transmission right at the 1538 Symbol time boundary when a SKIP ordered set is scheduled to be transmitted, the SKIP ordered set
-transmission is deferred. Receivers must be able to tolerate SKIP ordered sets that have a maximum sepa‐ ration dependent on the maximum
-packet payload size a device supports. The formula for the maximum number of Symbols ( _n_ ) between SKIP ordered sets is: _n_ = 1538 +
-(maximum packet payload size + 28)
-
-The number 28 in the equation is the TLP overhead. It is the largest number of Symbols that would be associated with the header (16 bytes),
-the optional ECRC (4 bytes), the LCRC (4 bytes), the sequence number (2 bytes) and the framing Symbols STP and END (2 bytes).
-
-## **Lane-to-Lane Skew** 
-
-## **Flight Time Will Vary Between Lanes** 
-
-For wide links, skew between lanes is an issue that can’t be avoided and which must be compensated at the receiver. Symbols are sent
-simultaneously on all lanes using the same transmit clock, but they can’t be expected to arrive at the receiver at precisely the same time.
-Sources of Lane‐to‐Lane skew include:
-
-- Differences between electrical drivers and receivers
-
 </td>
 <td width="50%">
 
@@ -1858,6 +2306,24 @@ _图 11-20：SKIP 有序集合_
 **----- 图片文字开始 -----**<br>
 编码<br>COM K28.5<br>SKP K28.0<br>SKP K28.0<br>SKP K28.0<br>**----- 图片文字结束 -----**<br>
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Receive Logic Details (Gen1 and Gen2 Only)** 
+
+Figure 11‐21 shows the receiver logic of the Logical Physical Layer. This section describes packet processing from the time the data is
+received serially on each lane until the packet byte stream is clocked into the Data Link Layer.
+_Figure 11‐21: Physical Layer Receive Logic Details (Gen1 and Gen2 Only)_ 
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0368.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+<br>
+
+</td>
+<td width="50%">
 
 ## **接收逻辑详细信息（仅限 Gen1 和 Gen2）**
 
@@ -1895,6 +2361,27 @@ Rx Rx<br>
 通道 0 通道 1, ..,N-1 通道 N<br>
 **----- 图片文字结束 -----**<br>
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Differential Receiver** 
+
+The first parts of the receiver logic are shown in Figure 11‐22, including the dif‐ ferential input buffer for each lane. The buffer senses
+peak‐to‐peak voltage dif‐ ferences and determines whether the difference represents a logical one or zero.
+
+For a detailed discussion of receiver characteristics, see section “Receiver Char‐ acteristics” on page 492. 
+
+_Figure 11‐22: Receiver Logic’s Front End Per Lane_ 
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0369.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+<br>
+
+</td>
+<td width="50%">
 
 ## **差分接收器 (Differential Receiver)**
 
@@ -1928,8 +2415,34 @@ D- 接收器 串行位 PLL PLL<br>
 a b c d e f g h i j<br>
 **----- 图片文字结束 -----**<br>
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Rx Clock Recovery**
+
+</td>
+<td width="50%">
 
 ## **Rx 时钟恢复 (Rx Clock Recovery)**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **General** 
+
+Next the receiver generates an Rx Clock from the data bit transitions in the input data stream, probably using a PLL. This recovered clock
+has the same fre‐ quency (2.5 or 5.0 GHz) as that of the Tx Clock that was used to clock the bit stream onto the wire. The Rx Clock is used
+to clock the inbound bit stream into the deserializer. The deserializer has to be aligned to the 10‐bit Symbol bound‐ ary (a process called
+achieving Symbol lock), and then its Symbol stream output is clocked into the elastic buffer with a version of the Rx Clock that’s been
+divided by 10. Even thought both must be accurate to within +/–300ppm of the center frequency, the Rx Clock is probably a little different
+from the Local Clock and if so, compensation is needed.
+
+</td>
+<td width="50%">
 
 ## **概述**
 
@@ -1938,15 +2451,65 @@ a b c d e f g h i j<br>
 
 **第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Achieving Bit Lock** 
+
+Recall that the 8b/10b encoding scheme guarantees the inbound serial Symbol stream will contain frequent transitions. The receiver PLL uses
+those transitions to create an Rx Clock that is synchronized with the Tx Clock that was used to clock the bit stream out of the transmitter.
+When the receiver locks on to the Tx Clock frequency, the receiver is said to have achieved **“Bit Lock”** .
+
+During Link training, the transmitter sends a long series of TS1 and TS2 ordered sets to the receiver, which then uses the bit transitions
+in them to achieve Bit Lock. There are enough transitions on the Link during normal operation for the receiver to maintain Bit Lock after
+that.
+
+</td>
+<td width="50%">
+
 ## **实现位锁定 (Achieving Bit Lock)**
 
 回想一下，8b/10b 编码方案保证入站串行字符流将包含频繁的转换。接收器 PLL 使用这些转换来创建与用于将位流移出发送器的 Tx Clock 同步的 Rx Clock。当接收器锁定 Tx Clock 频率时，接收器被称为已实现 **"位锁定 (Bit Lock)"**。
 
 在链路训练期间，发送器向接收器发送一系列长 TS1 和 TS2 有序集合，然后接收器使用其中的位转换来实现位锁定。在此之后的正常操作期间，链路上的转换足以让接收器保持位锁定。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Losing Bit Lock** 
+
+If the Link is put in a low power state (such as L0s or L1) in which packet transmission ceases, the receiver will lose synchronization. To
+avoid having the error circuit see this as an error, the transmitter sends an electrical Idle ordered set (EIOS) before going to the lower
+power state to tell the receiver to de‐gate its input.
+
+</td>
+<td width="50%">
+
 ## **失去位锁定 (Losing Bit Lock)**
 
 如果链路被置于低功耗状态（例如 L0s 或 L1）下，数据包传输停止，接收器将失去同步。为了避免错误电路将其视为错误，发送器在进入较低功耗状态之前发送电气空闲有序集合 (EIOS)，以告诉接收器解除其输入选通。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Regaining Bit Lock** 
+
+When the transmitter is ready to wake the Link from the L0s state, it sends a specific number FTS ordered sets (the actual number is design
+specific) and the receiver uses these to regain bit and Symbol lock. A relatively small number of FTSs are needed to recover and so the
+recovery latency is short. Because the Link is in the L0s state for a short time, the receiver PLL does not usually drift too far from the
+Tx Clock before it begins to receive the FTSs. If the Link was instead in the L1 low power state and the transmitter instead starts
+transmitting TS1OSs. This results in the Link getting re‐trained and wakeup time is longer than L0s wakeup time. Should the Link have a more
+serious error and the Ack/ Nak mechanism be unsuccessful in error recovery after four attempts of retry‐ ing the TLPs, the Data Link Layer
+signals the Physical Layer to re‐training the Link. Here again, Bit Lock is re‐established during the re‐training process.
+
+</td>
+<td width="50%">
 
 ## **重新获得位锁定 (Regaining Bit Lock)**
 
@@ -1954,11 +2517,59 @@ a b c d e f g h i j<br>
 Tx Clock 漂移太远。如果链路处于 L1 低功耗状态并且发送器改为开始发送 TS1OS。这导致链路被重新训练，唤醒时间比 L0s 唤醒时间长。如果链路有更严重的错误并且在四次重试 TLP 后 Ack/Nak
 机制未能成功恢复错误，则数据链路层向物理层发信号以重新训练链路。同样，位锁定在重新训练过程中重新建立。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Deserializer**
+
+</td>
+<td width="50%">
+
 ## **解串器 (Deserializer)**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **General** 
+
+The incoming data is clocked into each Lane’s deserializer (serial‐to‐parallel converter) by the Rx clock (see Figure 11‐22 on page 394).
+The 10‐bit Symbols produced are clocked into the Elastic Buffer using a divided‐by‐10 version of the Rx Clock.
+
+</td>
+<td width="50%">
 
 ## **概述**
 
 传入数据由 Rx 时钟定时送入每个通道的解串器（串行转并行转换器）（参见第 394 页的图 11-22）。生成的 10 位字符使用 Rx Clock 除以 10 的版本被送入弹性缓冲区。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Achieving Symbol Lock** 
+
+When the receive logic starts receiving a bit stream, it is JABOB (just a bunch of bits) with no markers to differentiate Symbols or any
+boundaries. The receive logic must have a way to find the start and end of a 10‐bit Symbol, and the Comma (COM) Symbol serves this purpose.
+
+The 10‐bit encoding of the COM Symbol contains two bits of one polarity fol‐ lowed by five bits of the opposite polarity (0011111010b or
+1100000101b), mak‐ ing it easily detectable. Recall that the COM Control character, like all other Control characters, is also not scrambled
+by the transmitter, and that ensures that the desired sequence will be seen at the receiver. Upon detection of the COM, the logic knows that
+the next bit received will be the first bit of the next 10‐bit Symbol. At that point, the deserializer is said to have achieved **‘Symbol
+Lock’** .
+
+The COM Symbol is used to achieve Symbol Lock as follows: 
+
+- During Link training when the Link is first established or when re‐training is needed, and TS1 and TS2 ordered sets are transmitted. 
+
+- When FTS ordered sets are sent to inform the receiver to change the state of the Link from L0s to L0.
+
+</td>
+<td width="50%">
 
 ## **实现字符锁定 (Achieving Symbol Lock)**
 
@@ -1973,7 +2584,35 @@ COM 字符用于按如下方式实现字符锁定：
 
 - 当发送 FTS 有序集合以通知接收器将链路状态从 L0s 更改为 L0 时。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Receiver Clock Compensation Logic**
+
+</td>
+<td width="50%">
+
 ## **接收器时钟补偿逻辑 (Receiver Clock Compensation Logic)**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Background** 
+
+We’ve observed before that the clocks used by the transmitter and receiver on either end of a link aren’t required to have exactly the same
+frequencies. This will be the case whenever the link doesn’t use a common reference clock and introduces the problem that one of them is
+running slightly faster than the other. The only requirement is that both clocks must be within +/– 300 ppm (parts per million) of the
+center frequency. Since one could be +300 ppm and the other could be ‐300 ppm in the worst case, the worst separation between them could be
+600ppm. That difference translates into a gain or loss of one Symbol clock every 1666 clocks. Once the Link is trained, the receive clock
+(Rx Clock) in the receiver is the same as the transmit clock (Tx Clock) at the other end of the Link (because the receive clock is derived
+from the bit stream).
+
+</td>
+<td width="50%">
 
 ## **背景**
 
@@ -1982,6 +2621,42 @@ ppm（百万分之一）以内。由于在最坏的情况下一个可以是 +300
 与链路另一端的发送时钟 (Tx Clock) 相同（因为接收时钟是从位流中派生的）。
 
 **第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Elastic Buffer’s Role** 
+
+To compensate for that worst‐case frequency difference, an elastic buffer (see Figure 11‐22 on page 394) is built into the receive path.
+Received Symbols are clocked into it using the recovered clock and clocked out using the receiver’s local clock. The Elastic Buffer
+compensates for the frequency difference by add‐ ing or removing SKP Symbols. When a SKP ordered set arrives, logic watching the status of
+the elastic buffer makes an evaluation. If the local clock is running faster, Symbols are being clocked out faster than they’re coming in,
+so the buffer will be approaching an underflow condition. The logic will compensate for this by appending an extra SKP Symbol to the ordered
+set when it arrives to quickly refill the buffer. On the other hand, if the recovered clock is running faster, the buffer will be
+approaching an overflow condition and the logic will compensate for that by deleting one of the SKP Symbols to quickly drain the buffer.
+These actions will make up for difference in rates of arrival and consumption of the Symbols and prevent any confusion or loss of data.
+
+The transmitter periodically sends the SKIP ordered sets for this purpose. As the name implies, the SKP characters are really disposable
+characters. Deleting or adding a SKP Symbol prevents a buffer overflow or underflow in the elastic buffer and then they get discarded along
+with all the other control characters when the Symbols are forwarded to the next layer. Consequently, they use a lit‐ tle bandwidth but
+don’t otherwise affect the flow of packets at all.
+
+Although lost Symbols due to an Elastic Buffer overflow or underflow is an error condition, it’s optional for receivers to check for this.
+If they do, and this situation occurs, a Receiver Error will be indicated to the Data Link Layer.
+
+The transmitter schedules a SKIP ordered set transmission once every 1180 to 1538 Symbol times. However, if the transmitter starts a maximum
+sized TLP transmission right at the 1538 Symbol time boundary when a SKIP ordered set is scheduled to be transmitted, the SKIP ordered set
+transmission is deferred. Receivers must be able to tolerate SKIP ordered sets that have a maximum sepa‐ ration dependent on the maximum
+packet payload size a device supports. The formula for the maximum number of Symbols ( _n_ ) between SKIP ordered sets is: _n_ = 1538 +
+(maximum packet payload size + 28)
+
+The number 28 in the equation is the TLP overhead. It is the largest number of Symbols that would be associated with the header (16 bytes),
+the optional ECRC (4 bytes), the LCRC (4 bytes), the sequence number (2 bytes) and the framing Symbols STP and END (2 bytes).
+
+</td>
+<td width="50%">
 
 ## **弹性缓冲区的角色 (Elastic Buffer's Role)**
 
@@ -1998,7 +2673,33 @@ ppm（百万分之一）以内。由于在最坏的情况下一个可以是 +300
 
 公式中的数字 28 是 TLP 开销。它是与头部（16 字节）、可选 ECRC（4 字节）、LCRC（4 字节）、序列号（2 字节）以及成帧字符 STP 和 END（2 字节）相关联的最大字符数。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Lane-to-Lane Skew**
+
+</td>
+<td width="50%">
+
 ## **通道间偏斜 (Lane-to-Lane Skew)**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Flight Time Will Vary Between Lanes** 
+
+For wide links, skew between lanes is an issue that can’t be avoided and which must be compensated at the receiver. Symbols are sent
+simultaneously on all lanes using the same transmit clock, but they can’t be expected to arrive at the receiver at precisely the same time.
+Sources of Lane‐to‐Lane skew include:
+
+- Differences between electrical drivers and receivers
+
+</td>
+<td width="50%">
 
 ## **通道间飞行时间不同 (Flight Time Will Vary Between Lanes)**
 
@@ -2007,7 +2708,10 @@ ppm（百万分之一）以内。由于在最坏的情况下一个可以是 +300
 - 电气驱动器和接收器之间的差异
 
 </td>
-</tr></tbody></table>
+</tr>
+
+</tbody>
+</table></tr></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -2017,8 +2721,17 @@ ppm（百万分之一）以内。由于在最坏的情况下一个可以是 +300
 ## 9.6 DLLP Elements | DLLP 元素
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
+<tr>
 <td width="50%">
 
 - Printed wiring board impedance variations 
@@ -2028,12 +2741,39 @@ ppm（百万分之一）以内。由于在最坏的情况下一个可以是 +300
 When the serial bit streams carrying a packet arrive at the receiver, this Lane‐to‐ Lane skew must be removed to receive the bytes in the
 correct order. This pro‐ cess is referred to as de‐skewing the link.
 
+</td>
+<td width="50%">
+
+- 印刷电路板阻抗变化
+
+- 走线长度不匹配
+
+当携带数据包的串行位流到达接收器时，必须移除此通道间偏斜以按正确顺序接收字节。此过程被称为链路的去偏斜 (de-skewing)。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
 ## **Ordered sets Help De-Skewing** 
 
 The unique structure of the ordered sets and the fact that they are sent simulta‐ neously on all the lanes makes them useful for detecting
 timing misalignment between Lanes. The spec doesn’t define a method for doing this but in Gen1 and Gen2 the receiver logic can simply look
 for the COM character on each lane. If it doesn’t appear at the same time on all Lanes, then the early arriving COMs are delayed until they
 all match up on all Lanes.
+
+</td>
+<td width="50%">
+
+## **有序集合有助于去偏斜 (Ordered sets Help De-Skewing)**
+
+有序集合的独特结构以及它们在所有通道上同时发送的事实使它们可用于检测通道之间的时序失准。规范没有定义执行此操作的方法，但在 Gen1 和 Gen2 中，接收器逻辑可以简单地查找每个通道上的 COM 字符。如果它没有同时出现在所有通道上，则延迟早到达的 COM
+直到它们在所有通道上匹配。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
 
 ## **Receiver Lane-to-Lane De-Skew Capability** 
 
@@ -2055,185 +2795,8 @@ _Table 11‐3: Allowable Receiver Signal Skew_
 In Gen3 mode there aren’t any COM characters to use for de‐skewing, but detecting Ordered Sets can still provide the necessary timing
 alignment.
 
-## **De-Skew Opportunities** 
-
-An unambiguous pattern is needed on all lanes at the same time to perform de‐ skewing and any ordered set will do. Link training sends
-these, but the SKIP ordered set is sent regularly during normal Link operation. Checking its arrival time allows the skew to be checked on
-an ongoing basis in case it might change based on temperature or voltage. If it does, the Link will need to transition to the Recovery LTSSM
-state to correct it. If that happens while packets are in flight, however, a receiver error may occur and a packet could be dropped, pos‐
-sibly resulting in replayed TLPs.
-
-_Figure 11‐23: Receiver’s Link De‐Skew Logic_ 
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0370.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-<br>
-
-
-## **8b/10b Decoder** 
-
-## **General** 
-
-The first two generations of PCIe use 8b/10b, while Gen3 does not. Let’s explore the operation of it first and then consider the difference
-for Gen3. Refer to Fig‐ ure 11‐24 on page 401. Each receiver Lane incorporates a 10b/8b decoder which is fed from the Elastic Buffer. The
-decoder is shown with two lookup tables (the D and K tables) to decode the 10‐bit Symbol stream into 8‐bit characters plus the D/K# signal.
-The state of the D/K# signal indicates that the received Symbol is a Data (D) character if a match for the received Symbol is found in the D
-table, or a Control (K) character if a match for the received Symbol is discovered in the K table.
-
-## **Disparity Calculator** 
-
-The decoder sets the disparity value based on the disparity of the first Symbol received. After the first Symbol, once Symbol lock has been
-achieved and dis‐ parity has been initialized, the calculated disparity for each subsequent Sym‐ bol’s disparity is expected to follow the
-rules. If it does not, a Receiver Error is reported.
-
-## **Code Violation and Disparity Error Detection** 
-
-**General.** The error detection logic of the 8b/10b decoder detects illegal Symbols in the received Symbol stream. Some error checking is
-optional in the receiver, but the spec requires that these errors be checked and reported as a Receiver Error. The two types of errors
-detected are:
-
-## **Code Violations.** 
-
-- Any 6‐bit sub‐block containing more than four 1s or four 0s is in error. 
-
-- Any 4‐bit sub‐block containing more than three 1s or three 0s is in error. 
-
-- Any 10‐bit Symbol containing more than six 1s or six 0s is in error. 
-
-- Any 10‐bit Symbol containing more than five consecutive 1s or five con‐ secutive 0s is in error. 
-
-- Any 10‐bit Symbol that doesn’t decode into an 8‐bit character is in error. 
-
-## **Disparity Errors.** 
-
-At the receiver a Symbol cannot have a disparity that doesn’t match what it should be for the CRD. If it does, a disparity error is
-detected. Some dispar‐ ity errors may not be detectable until the subsequent Symbol is processed
-(see Figure 11‐25 on page 401). For example, if two bits in a Symbol flip in error, the error may not be visible and the Symbol may decode
-into a valid 8‐bit character. Such an error won’t be detected in the Physical Layer.
-
-_Figure 11‐24: 8b/10b Decoder per Lane_ 
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0371.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-<br>
-
-
-_Figure 11‐25: Example of Delayed Disparity Error Detection_ 
-
-||**CRD**|**Character**|**Character**|**CRD**|**Character**|**CRD**|**Character**|**CRD**|
-|---|---|---|---|---|---|---|---|---|
-|**Transmitted** **Character Stream**|**-**|**D21.1**||**-**|**D10.2**|**-**|**D23.5**|**+**|
-|**Transmitted Bit** **Stream**|**-**|**101010 1001**||**-**|**010101 0101**|**-**|**111010 1010**|**+**|
-|**Bit Stream After** **Error**|**-**|**101010 101** **1**||**+**|**010101 0101**|**+**|**111010 1010**|**+**|
-|**Decoded** **Character Stream**|**-**|**D21.0**||**+**|**D10.2**|**+**|**Invalid**|**+**|
-|Error occurs here<br>Error detected here|||||||||
-
-
-## **Descrambler** 
-
-The descrambler is fed by the 8b/10b decoder. It only descrambles Data (D) characters associated with a TLP or DLLP (D/K# is high). It
-doesn’t descramble Control (K) characters or ordered sets because they’re not scrambled at the transmitter.
-
-## **Some Descrambler Implementation Rules:** 
-
-- On a multi‐Lane Link, descramblers associated with each Lane must oper‐ ate in concert, maintaining the same simultaneous value in each
-LFSR.
-
-- Descrambling is applied to ‘D’ characters associated with TLP and DLLPs including the Logical Idle (00h) sequence. ‘D’ characters within
-ordered set are not descrambled.
-
-- ‘K’ characters and ordered set characters bypass the descrambler logic. 
-
-- Compliance Pattern characters are not descrambled. 
-
-- When a COM character enters the descrambler, it reinitializes the LFSR value to FFFFh. 
-
-- With one exception, the LFSR serially advances eight times for every char‐ acter (D or K character) received. The LFSR does NOT advance on
-SKP characters associated with the SKIP ordered sets received. The reason the LFSR is not advanced on detecting SKPs is because there may be
-a differ‐ ence between the number of SKP characters transmitted and the SKP char‐ acters exiting the Elastic Buffer (as discussed in
-“Receiver Clock Compensation Logic” on page 396).
-
-## **Disabling Descrambling** 
-
-By default, descrambling is always enabled, but the spec allows it to be disabled for test and debug purposes although no standard software
-method is given for disabling it. If the descrambler receives at least two TS1/TS2 ordered sets with the “disable scrambling” bit set on all
-of its configured Lanes, it disables the descrambler.
-
-## **Byte Un-Striping** 
-
-Figure 11‐26 on page 403 shows eight character streams from the descramblers of a x8 Link being un‐striped into a single byte stream which
-is fed to the char‐ acter filter logic.
-_Figure 11‐26: Example of x8 Byte Un‐Striping_ 
-
-<img src="figures/chapter_09_DLLP_Elements/page/page0372.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
-width="700">
-
-<br>
-
-
-## **Filter and Packet Alignment Check** 
-
-The serial byte stream supplied by the byte un‐striping logic contains TLPs, DLLPs, Logical Idle sequences, Control characters such as STP,
-SDP, END, EDB, and PADs, as well as the ordered sets. Of these, the Logical Idle sequence, the control characters and ordered sets are
-detected and eliminated before they get to the next layer. What remains are the TLPs and DLLPs and these are sent to the Rx Buffer along
-with an indicator of the start and end of each packet.
-
-## **Receive Buffer (Rx Buffer)** 
-
-The Rx Buffer holds received TLPs and DLLPs after the start and end characters have been eliminated. The received packets are ready to send
-to the Data Link Layer. The interface to the Data Link Layer is not described in the spec, so the designer is free to decide details like
-data bus width. As an example, we can
-
-assume an interface clock of 250MHz and a Gen1 speed on the Link. For that case, the number of bytes in the data bus between these layers
-would be the same as the number of Lanes supported.
-
-## **Physical Layer Error Handling** 
-
-## **General** 
-
-Physical Layer errors are reported as Receiver Errors to the Data Link Layer. According to the spec, some errors must be checked and trigger
-a receiver error, while others are optional.
-
-Required error checking: 
-
-- 8b/10b decode errors: disparity error, illegal Symbol 
-
-Optional error checking: 
-
-- Loss of Symbol lock (see “Achieving Symbol Lock” on page 396) 
-
-- Elastic Buffer overflow or underflow 
-
-- Lane deskew errors (see “Lane‐to‐Lane Skew” on page 398) 
-
-- Packets inconsistent with format rules 
-
-## **Response of Data Link Layer to Receiver Error** 
-
-If the Physical Layer indicates a Receiver Error to the Data Link Layer, the Data Link Layer discards the TLP currently being received and
-frees any storage allo‐ cated for the TLP. It then schedules a NAK to go back to the transmitter of the TLP. That causes the transmitter to
-replay TLPs from the Replay Buffer, which should automatically correct the error. The Data Link Layer may also direct the Physical Layer to
-initiate Link re‐training.
-
-If the PCI Express Extended Advanced Error Capabilities register set is imple‐ mented, a Receiver Error sets the Receiver Error Status bit
-in the Correctable Error Status register. If enabled, the device can send an ERR_COR (correctable error) message to the Root Complex.
-## **Active State Power Management**
-
 </td>
 <td width="50%">
-
-- 印刷电路板阻抗变化
-
-- 走线长度不匹配
-
-当携带数据包的串行位流到达接收器时，必须移除此通道间偏斜以按正确顺序接收字节。此过程被称为链路的去偏斜 (de-skewing)。
-
-## **有序集合有助于去偏斜 (Ordered sets Help De-Skewing)**
-
-有序集合的独特结构以及它们在所有通道上同时发送的事实使它们可用于检测通道之间的时序失准。规范没有定义执行此操作的方法，但在 Gen1 和 Gen2 中，接收器逻辑可以简单地查找每个通道上的 COM 字符。如果它没有同时出现在所有通道上，则延迟早到达的 COM
-直到它们在所有通道上匹配。
 
 ## **接收器通道间去偏斜能力 (Receiver Lane-to-Lane De-Skew Capability)**
 
@@ -2251,6 +2814,29 @@ _表 11-3：允许的接收器信号偏斜_
 |Gen3|6 ns<br>（1.25ns 每字符的 4 个时钟）|
 
 在 Gen3 模式下没有任何 COM 字符可用于去偏斜，但检测有序集合仍然可以提供必要的时序对齐。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **De-Skew Opportunities** 
+
+An unambiguous pattern is needed on all lanes at the same time to perform de‐ skewing and any ordered set will do. Link training sends
+these, but the SKIP ordered set is sent regularly during normal Link operation. Checking its arrival time allows the skew to be checked on
+an ongoing basis in case it might change based on temperature or voltage. If it does, the Link will need to transition to the Recovery LTSSM
+state to correct it. If that happens while packets are in flight, however, a receiver error may occur and a packet could be dropped, pos‐
+sibly resulting in replayed TLPs.
+
+_Figure 11‐23: Receiver’s Link De‐Skew Logic_ 
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0370.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+<br>
+
+</td>
+<td width="50%">
 
 ## **去偏斜机会 (De-Skew Opportunities)**
 
@@ -2280,21 +2866,94 @@ COM COM<br>
 COM COM<br>
 **----- 图片文字结束 -----**<br>
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **8b/10b Decoder**
+
+</td>
+<td width="50%">
 
 ## **8b/10b 解码器 (8b/10b Decoder)**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **General** 
+
+The first two generations of PCIe use 8b/10b, while Gen3 does not. Let’s explore the operation of it first and then consider the difference
+for Gen3. Refer to Fig‐ ure 11‐24 on page 401. Each receiver Lane incorporates a 10b/8b decoder which is fed from the Elastic Buffer. The
+decoder is shown with two lookup tables (the D and K tables) to decode the 10‐bit Symbol stream into 8‐bit characters plus the D/K# signal.
+The state of the D/K# signal indicates that the received Symbol is a Data (D) character if a match for the received Symbol is found in the D
+table, or a Control (K) character if a match for the received Symbol is discovered in the K table.
+
+</td>
+<td width="50%">
 
 ## **概述**
 
 PCIe 的前两代使用 8b/10b，而 Gen3 不使用。让我们首先探讨其操作，然后考虑 Gen3 的差异。参见第 401 页的图 11-24。每个接收器通道都包含一个 10b/8b 解码器，由弹性缓冲区馈送。解码器显示有两个查找表（D 表和 K 表），用于将 10
 位字符流解码为 8 位字符加上 D/K# 信号。D/K# 信号的状态指示接收到的字符是数据 (D) 字符如果在 D 表中找到了接收字符的匹配，或者是控制 (K) 字符如果在 K 表中发现了接收字符的匹配。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Disparity Calculator** 
+
+The decoder sets the disparity value based on the disparity of the first Symbol received. After the first Symbol, once Symbol lock has been
+achieved and dis‐ parity has been initialized, the calculated disparity for each subsequent Sym‐ bol’s disparity is expected to follow the
+rules. If it does not, a Receiver Error is reported.
+
+</td>
+<td width="50%">
+
 ## **不一致性计算器 (Disparity Calculator)**
 
 解码器根据接收到的第一个字符的不一致性设置不一致性值。在第一个字符之后，一旦实现字符锁定并初始化不一致性，则期望每个后续字符计算的不一致性遵循规则。如果不是这样，则报告接收器错误。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Code Violation and Disparity Error Detection** 
+
+**General.** The error detection logic of the 8b/10b decoder detects illegal Symbols in the received Symbol stream. Some error checking is
+optional in the receiver, but the spec requires that these errors be checked and reported as a Receiver Error. The two types of errors
+detected are:
+
+</td>
+<td width="50%">
+
 ## **代码违规和不一致性错误检测 (Code Violation and Disparity Error Detection)**
 
 **概述。** 8b/10b 解码器的错误检测逻辑检测接收字符流中的非法字符。接收器中某些错误检查是可选的，但规范要求检查这些错误并将其报告为接收器错误。检测到的两种错误类型是：
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Code Violations.** 
+
+- Any 6‐bit sub‐block containing more than four 1s or four 0s is in error. 
+
+- Any 4‐bit sub‐block containing more than three 1s or three 0s is in error. 
+
+- Any 10‐bit Symbol containing more than six 1s or six 0s is in error. 
+
+- Any 10‐bit Symbol containing more than five consecutive 1s or five con‐ secutive 0s is in error. 
+
+- Any 10‐bit Symbol that doesn’t decode into an 8‐bit character is in error.
+
+</td>
+<td width="50%">
 
 ## **代码违规 (Code Violations)。**
 
@@ -2307,6 +2966,39 @@ PCIe 的前两代使用 8b/10b，而 Gen3 不使用。让我们首先探讨其�
 - 任何包含超过五个连续 1 或五个连续 0 的 10 位字符是错误的。
 
 - 任何不能解码为 8 位字符的 10 位字符是错误的。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Disparity Errors.** 
+
+At the receiver a Symbol cannot have a disparity that doesn’t match what it should be for the CRD. If it does, a disparity error is
+detected. Some dispar‐ ity errors may not be detectable until the subsequent Symbol is processed
+(see Figure 11‐25 on page 401). For example, if two bits in a Symbol flip in error, the error may not be visible and the Symbol may decode
+into a valid 8‐bit character. Such an error won’t be detected in the Physical Layer.
+
+_Figure 11‐24: 8b/10b Decoder per Lane_ 
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0371.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+<br>
+
+
+_Figure 11‐25: Example of Delayed Disparity Error Detection_ 
+
+||**CRD**|**Character**|**Character**|**CRD**|**Character**|**CRD**|**Character**|**CRD**|
+|---|---|---|---|---|---|---|---|---|
+|**Transmitted** **Character Stream**|**-**|**D21.1**||**-**|**D10.2**|**-**|**D23.5**|**+**|
+|**Transmitted Bit** **Stream**|**-**|**101010 1001**||**-**|**010101 0101**|**-**|**111010 1010**|**+**|
+|**Bit Stream After** **Error**|**-**|**101010 101** **1**||**+**|**010101 0101**|**+**|**111010 1010**|**+**|
+|**Decoded** **Character Stream**|**-**|**D21.0**||**+**|**D10.2**|**+**|**Invalid**|**+**|
+|Error occurs here<br>Error detected here|||||||||
+
+</td>
+<td width="50%">
 
 ## **不一致性错误 (Disparity Errors)。**
 
@@ -2347,10 +3039,49 @@ _图 11-25：延迟不一致性错误检测示例_
 |**解码后 的字符流**|**-**|**D21.0**||**+**|**D10.2**|**+**|**无效**|**+**|
 |错误发生在此处<br>错误检测到在此处|||||||||
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Descrambler** 
+
+The descrambler is fed by the 8b/10b decoder. It only descrambles Data (D) characters associated with a TLP or DLLP (D/K# is high). It
+doesn’t descramble Control (K) characters or ordered sets because they’re not scrambled at the transmitter.
+
+</td>
+<td width="50%">
 
 ## **解扰器 (Descrambler)**
 
 解扰器由 8b/10b 解码器馈送。它仅解扰与 TLP 或 DLLP 相关联的数据 (D) 字符（D/K# 为高）。它不解扰控制 (K) 字符或有序集合，因为它们在发送器处未被加扰。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Some Descrambler Implementation Rules:** 
+
+- On a multi‐Lane Link, descramblers associated with each Lane must oper‐ ate in concert, maintaining the same simultaneous value in each
+LFSR.
+
+- Descrambling is applied to ‘D’ characters associated with TLP and DLLPs including the Logical Idle (00h) sequence. ‘D’ characters within
+ordered set are not descrambled.
+
+- ‘K’ characters and ordered set characters bypass the descrambler logic. 
+
+- Compliance Pattern characters are not descrambled. 
+
+- When a COM character enters the descrambler, it reinitializes the LFSR value to FFFFh. 
+
+- With one exception, the LFSR serially advances eight times for every char‐ acter (D or K character) received. The LFSR does NOT advance on
+SKP characters associated with the SKIP ordered sets received. The reason the LFSR is not advanced on detecting SKPs is because there may be
+a differ‐ ence between the number of SKP characters transmitted and the SKP char‐ acters exiting the Elastic Buffer (as discussed in
+“Receiver Clock Compensation Logic” on page 396).
+
+</td>
+<td width="50%">
 
 ## **一些解扰器实现规则 (Some Descrambler Implementation Rules)：**
 
@@ -2367,9 +3098,42 @@ _图 11-25：延迟不一致性错误检测示例_
 - 除一个例外外，LFSR 每接收一个字符（D 或 K 字符）就串行推进八次。LFSR 不会在接收到的 SKIP 有序集合相关联的 SKP 字符上推进。LFSR 在检测到 SKP 时不推进的原因是，传输的 SKP 字符数与退出弹性缓冲区的 SKP 字符数可能存在差异（如第 396
 页的"接收器时钟补偿逻辑 (Receiver Clock Compensation Logic)"中所讨论的）。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Disabling Descrambling** 
+
+By default, descrambling is always enabled, but the spec allows it to be disabled for test and debug purposes although no standard software
+method is given for disabling it. If the descrambler receives at least two TS1/TS2 ordered sets with the “disable scrambling” bit set on all
+of its configured Lanes, it disables the descrambler.
+
+</td>
+<td width="50%">
+
 ## **禁用解扰 (Disabling Descrambling)**
 
 默认情况下，解扰始终是启用的，但规范允许出于测试和调试目的禁用它，尽管没有给出标准的软件方法来禁用它。如果解扰器在其所有已配置通道上接收到至少两个设置了"禁用加扰 (disable scrambling)"位的 TS1/TS2 有序集合，则它禁用解扰器。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Byte Un-Striping** 
+
+Figure 11‐26 on page 403 shows eight character streams from the descramblers of a x8 Link being un‐striped into a single byte stream which
+is fed to the char‐ acter filter logic.
+_Figure 11‐26: Example of x8 Byte Un‐Striping_ 
+
+<img src="figures/chapter_09_DLLP_Elements/page/page0372.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+width="700">
+
+<br>
+
+</td>
+<td width="50%">
 
 ## **字节解交错 (Byte Un-Striping)**
 
@@ -2400,11 +3164,42 @@ _图 11-26：x8 字节解交错示例_
 解扰器 解扰器 解扰器<br>
 **----- 图片文字结束 -----**<br>
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Filter and Packet Alignment Check** 
+
+The serial byte stream supplied by the byte un‐striping logic contains TLPs, DLLPs, Logical Idle sequences, Control characters such as STP,
+SDP, END, EDB, and PADs, as well as the ordered sets. Of these, the Logical Idle sequence, the control characters and ordered sets are
+detected and eliminated before they get to the next layer. What remains are the TLPs and DLLPs and these are sent to the Rx Buffer along
+with an indicator of the start and end of each packet.
+
+</td>
+<td width="50%">
 
 ## **过滤和包对齐检查 (Filter and Packet Alignment Check)**
 
 由字节解交错逻辑提供的串行字节流包含 TLP、DLLP、逻辑空闲序列、控制字符（如 STP、SDP、END、EDB 和 PAD）以及有序集合。其中，逻辑空闲序列、控制字符和有序集合在被传递到下一层之前被检测并消除。剩下的是 TLP 和
 DLLP，它们与每个数据包的开始和结束指示符一起被发送到 Rx 缓冲区。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Receive Buffer (Rx Buffer)** 
+
+The Rx Buffer holds received TLPs and DLLPs after the start and end characters have been eliminated. The received packets are ready to send
+to the Data Link Layer. The interface to the Data Link Layer is not described in the spec, so the designer is free to decide details like
+data bus width. As an example, we can
+
+assume an interface clock of 250MHz and a Gen1 speed on the Link. For that case, the number of bytes in the data bus between these layers
+would be the same as the number of Lanes supported.
+
+</td>
+<td width="50%">
 
 ## **接收缓冲区 (Rx Buffer)**
 
@@ -2412,7 +3207,44 @@ Rx 缓冲区在开始和结束字符被消除后保存接收到的 TLP 和 DLLP�
 
 假设接口时钟为 250MHz，链路上的 Gen1 速度。对于这种情况，这些层之间的数据总线中的字节数将与支持的通道数相同。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Physical Layer Error Handling**
+
+</td>
+<td width="50%">
+
 ## **物理层错误处理 (Physical Layer Error Handling)**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **General** 
+
+Physical Layer errors are reported as Receiver Errors to the Data Link Layer. According to the spec, some errors must be checked and trigger
+a receiver error, while others are optional.
+
+Required error checking: 
+
+- 8b/10b decode errors: disparity error, illegal Symbol 
+
+Optional error checking: 
+
+- Loss of Symbol lock (see “Achieving Symbol Lock” on page 396) 
+
+- Elastic Buffer overflow or underflow 
+
+- Lane deskew errors (see “Lane‐to‐Lane Skew” on page 398) 
+
+- Packets inconsistent with format rules
+
+</td>
+<td width="50%">
 
 ## **概述**
 
@@ -2432,6 +3264,25 @@ Rx 缓冲区在开始和结束字符被消除后保存接收到的 TLP 和 DLLP�
 
 - 数据包与格式规则不一致
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Response of Data Link Layer to Receiver Error** 
+
+If the Physical Layer indicates a Receiver Error to the Data Link Layer, the Data Link Layer discards the TLP currently being received and
+frees any storage allo‐ cated for the TLP. It then schedules a NAK to go back to the transmitter of the TLP. That causes the transmitter to
+replay TLPs from the Replay Buffer, which should automatically correct the error. The Data Link Layer may also direct the Physical Layer to
+initiate Link re‐training.
+
+If the PCI Express Extended Advanced Error Capabilities register set is imple‐ mented, a Receiver Error sets the Receiver Error Status bit
+in the Correctable Error Status register. If enabled, the device can send an ERR_COR (correctable error) message to the Root Complex.
+## **Active State Power Management**
+
+</td>
+<td width="50%">
+
 ## **数据链路层对接收器错误的响应 (Response of Data Link Layer to Receiver Error)**
 
 如果物理层向数据链路层指示接收器错误，则数据链路层丢弃当前正在接收的 TLP 并释放为该 TLP 分配的任何存储。然后它调度一个 NAK 返回给 TLP 的发送器。这导致发送器从 Replay Buffer 重放
@@ -2442,34 +3293,106 @@ TLP，这应该自动纠正错误。数据链路层也可以指示物理层发�
 
 **第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
+
 ## **活动状态电源管理 (Active State Power Management)**
 
 有几种链路电源状态允许在某些条件下节省功耗。这些是 L0s、L1、L2 和 L3，它们表示功耗越来越低，并且恢复链路回到完全运行状态 L0 的恢复时间也越来越长。L0s 状态只能由硬件控制进入，而 L1 可以由硬件或软件启动。由于 L0s 和 L1
 可以由硬件控制，因此规范将其称为 ASPM（活动状态电源管理，Active State Power Management）状态。有关链路和设备电源管理的详细信息，请参见第 735 页的"活动状态电源管理 (ASPM)"部分。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
+
 ## **链路训练和初始化 (Link Training and Initialization)**
 
 正如我们刚刚在本章中简要提到的，物理层还负责在复位后初始化链路。但是，这个主题太大，无法在此处涵盖，而是在第 14 章"链路初始化和训练 (Link Initialization & Training)"的第 505 页中介绍。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
+
 ## _**12**_
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
+
 ## _**物理层 - 逻辑 (Gen3)**_
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **上一章**
 
 上一章描述了 Gen1/Gen2 物理层的逻辑子块。该层准备数据包以进行串行传输和恢复，并详细描述了完成此操作所需的几个步骤。本章涵盖了使用 8b/10b 编码/解码的 Gen1 和 Gen2 协议相关联的逻辑。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
+
 ## **本章**
 
 本章描述了 PCIe 第三代（Gen3）逻辑物理层的特性。主要变化包括能够在不使频率翻倍的情况下将带宽相对于 Gen2 速度翻倍（链路速度从 5 GT/s 到 8 GT/s）。这是通过在 Gen3 模式下消除 8b/10b 编码来实现的。在 Gen3 速度下需要更稳健的信号补偿。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **下一章**
 
 下一章描述物理层到链路的电气接口。对信号均衡 (signal equalization) 的需求以及用于实现它的方法也将在此处讨论。本章结合了 Gen1、Gen2 和 Gen3 速度的电气发送器和接收器特性。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
+
 ## **Gen3 介绍**
 
 回想一下，当 PCIe 链路进入训练时（即，在复位之后），它始终从 Gen1 速度开始以实现向后兼容。如果在训练期间通告了更高的速度，则链路将立即转换到 Recovery 状态并尝试更改为最高共同支持的速度。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **PCI Express Technology**
 
@@ -2492,6 +3415,14 @@ _表 12-1：各种链路宽度的 PCI Express 总带宽_
 这些考虑导致了 Gen3 规范与前几代相比的两个重大变化：新的编码模型和更复杂的信号均衡模型。
 
 **第 12 章：物理层 - 逻辑 (Gen3)**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **新的编码模型 (New Encoding Model)**
 
@@ -2527,6 +3458,13 @@ _图 12-2：128b/130b 块编码_
 Sync 字段 字符 0 字符 1 字符 15<br>
 **----- 图片文字结束 -----**<br>
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **复杂的信号均衡 (Sophisticated Signal Equalization)**
 
@@ -2534,9 +3472,25 @@ Sync 字段 字符 0 字符 1 字符 15<br>
 以上会导致信号完整性问题变得更加明显，需要更多的发送器和接收器补偿。这可以在电路板级别进行一些管理，但设计人员希望允许外部基础设施尽可能保持不变，而是将负担放在 PHY 发送器和接收器电路上。有关信号调节的更多详细信息，请参阅第 474 页的"8.0 GT/s 解决方案 -
 发送器均衡 (Solution for 8.0 GT/s - Transmitter Equalization)"。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
+
 ## **8.0 GT/s 的编码 (Encoding for 8.0 GT/s)**
 
 如前所述，Gen3 128b/130b 编码方法使用链路范围的数据包和每通道块编码。本节提供有关编码的其他详细信息。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **通道级编码 (Lane-Level Encoding)**
 
@@ -2561,6 +3515,13 @@ UI UI UI<br>
 时间 时间 时间 时间<br>
 **----- 图片文字结束 -----**<br>
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **块对齐 (Block Alignment)**
 
@@ -2582,6 +3543,13 @@ _图 12-4：Gen3 模式 EIEOS 字符模式_
 15 11111111<br>
 **----- 图片文字结束 -----**<br>
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **有序集合块 (Ordered Set Blocks)**
 
@@ -2626,7 +3594,10 @@ UI UI UI<br>
 7. SDS - 数据流开始有序集合：新增 - 有关更多信息，请参见第 413 页的"数据流和数据块 (Data Stream and Data Blocks)"
 
 </td>
-</tr></tbody></table>
+</tr>
+
+</tbody>
+</table></tr></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 

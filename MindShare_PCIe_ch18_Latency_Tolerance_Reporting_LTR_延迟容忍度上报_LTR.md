@@ -16,8 +16,17 @@
 ## 18.1 Latency Tolerance Reporting (LTR) | 延迟容忍度上报 (LTR)
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
+<tr>
 <td width="50%">
 
 |2|**MRL Sensor Changed**— If an MRL Sensor is implemented, this is<br>set when a MRL Sensor state change is detected. If no sensor
@@ -43,310 +52,6 @@ _Table 19‐7: Slot Status Register Fields and Descriptions (Continued)_
 |8|**Data Link State Changed**— This bit is set when the Data Link<br>Layer Link Active bit in the Link Status register changes. In
 response<br>to this event, software must read the Data Link Layer Link Active bit<br>to determine whether the Link is active before sending
 configura‐<br>tion cycles to the hot plugged device.|
-
-
-## **Add-in Card Capabilities** 
-
-The Device Capability register, seen in Figure 19‐8 on page 873, also has fields relevant to add‐in cards that record the power reported by
-the Hot Plug Con‐ troller as being available to their slot. This information must be communicated automatically with a Set_Slot_Power_Limit
-Message whenever either of these takes place:
-
-- A configuration write to the Slot Capabilities register changes the Slot Power Limit Value and Slot Power Limit Scale values. 
-
-- The Link transitions from non‐DL_UP to DL_Up status (unless the Slot Capabilities register has not yet been initialized). 
-
-The message updates the Captured Slot Power Limit Value and Scale registers with the values in the message, making this information readily
-available to its device driver.
-_Figure 19‐8: Device Capabilities Register_ 
-
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
-
-<br>
-
-
-## **Quiescing Card and Driver** 
-
-## **General** 
-
-Prior to removing a card from the system, two things must occur: the device driver must stop accessing the card, and the card must stop
-initiating or responding to new Requests. How this is accomplished is OS‐specific, but the following must take place:
-
-- The OS must stop issuing new requests to the device’s driver or instruct the driver to stop accepting new requests. 
-
-- The driver must terminate or complete all outstanding requests. 
-
-- The card must be disabled from generating interrupts or Requests. 
-
-When the OS commands the driver to quiesce itself and its device, the OS must not expect the device to remain in the system (in other words,
-it could be removed and not replaced with an identical card).
-
-## **Pausing a Driver (Optional)** 
-
-Optionally, an OS could implement a “Pause” capability to temporarily stop driver activity in the expectation that the same card will be
-reinserted. If the card is not reinstalled within a reasonable amount of time, however, the driver must be quiesced and then removed from
-memory.
-
-As an example, the currently‐installed card is failing or is being replaced with a later revision as an upgrade. If the operation is to
-appear seamless from a soft‐ ware and operational perspective, the driver would have to quiesce the device, save the current context
-(contents of registers, stack and instruction pointer of local micro‐controller, etc.) and turn off the power to the slot. The new card
-could then be installed and powered, and then, when its context is restored, it could resume normal operation where it left off. Of course,
-if the old card had failed, it may not be possible to simply resume operation.
-
-## **Quiescing a Driver That Controls Multiple Devices** 
-
-If a driver controls multiple cards and it receives a command from the OS to quiesce its activity with respect to a specific card, it must
-only quiesce its activ‐ ity with that card and the card itself.
-
-## **Quiescing a Failed Card** 
-
-If a card has failed, it may not be possible for the driver to complete requests previously issued to the card. In this case, the driver
-must detect the error, ter‐ minate the requests without completion, and attempt to reset the card.
-
-## **The Primitives** 
-
-This section discusses the hot‐plug software elements and the information passed between them. For a review of the software elements and
-their relation‐ ships to each other, refer to Table 19‐1 on page 852. Communications between the Hot‐Plug Service within the OS and the
-Hot‐Plug System Driver is in the form of requests. The spec doesn’t define the exact format of these requests, but does define the basic
-request types and their content. Each request type issued to the Hot‐Plug System Driver by the Hot‐Plug Service is referred to as a _primi‐
-tive_ . They are listed and described in Table 19‐8 on page 875.
-_Table 19‐8: The Primitives_ 
-
-|**Primitive**|**Parameters**|**Description**|
-|---|---|---|
-|Query Hot‐Plug<br>System Driver|**Input**: None|Requests that the Hot‐Plug System<br>Driver return a set of Logical Slot<br>IDs for the
-slots it controls.|
-||**Return**: Set of Logical Slot<br>IDs for slots controlled by<br>this driver.||
-|Set Slot Status|**Inputs**:<br>• Logical Slot ID<br>• New slot state (on or<br>off).<br>• New Attention Indica‐<br>tor state.<br>• New
-Power Indicator<br>state.|This request is used to control the<br>slots and the Attention Indicator<br>associated with each slot.
-Good<br>completion of a request is indicated<br>by returning the Status Change Suc‐<br>cessful parameter. If a fault is<br>incurred during
-an attempted sta‐<br>tus change, the Hot‐Plug System<br>Driver should return the appropri‐<br>ate fault message (see middle col‐<br>umn).
-Unless otherwise specified,<br>the card should be left in the off<br>state.|
-||**Return**: Request comple‐<br>tion status:<br>• status change successful<br>• fault—wrong frequency<br>• fault—insufficient<br>power<br>•
-fault—insufficient con‐<br>figuration resources<br>• fault—power fail<br>• fault—general failure||
-|Query Slot<br>Status|**Input**: Logical Slot ID|This request returns the state of the<br>indicated slot (if a card is present).<br>The
-Hot‐Plug System Driver must<br>return the Slot Power status infor‐<br>mation.|
-||**Return**:<br>• Slot state (on or off)<br>• Card power require‐<br>ments.||
-
-
-_Table 19‐8: The Primitives (Continued)_ 
-
-|**Primitive**|**Parameters**|**Description**|
-|---|---|---|
-|Async Notice of<br>Slot Status<br>Change|**Input**: Logical Slot ID|This is the only primitive (defined<br>by the spec) that is issued to
-the<br>Hot‐Plug Service by the Hot‐Plug<br>System Driver. It is sent when the<br>Driver detects an unsolicited<br>change in the state of a
-slot. Exam‐<br>ples would be a run‐time power<br>fault or a card installed in a previ‐<br>ously‐empty slot with no warning.|
-||**Return**: none||
-
-
-## **Introduction to Power Budgeting** 
-
-The primary goal of the PCI Express power budgeting capability is to allocate power for PCI Express hot plug devices that are added to the
-system during runtime. This ensures that the system can allocate the proper amount of power and cooling for these devices.
-
-The spec states that “power budgeting capability is optional for PCI Express devices implemented in a form factor which does not require hot
-plug, or that are integrated on the system board.” None of the form factor specs released at the time of this writing required support for
-hot plug or the power budgeting capability, but these change often.
-
-System power budgeting is always required to support all system board devices and add‐in cards. The new capability provides mechanisms for
-managing the budgeting process for a hot‐plug card. Each form factor spec defines the min and max power for a given expansion slot. For
-example, the CEM spec limits the power an expansion card can consume prior to being fully enabled but, after it is enabled, it can consume
-the maximum amount of power specified for the slot. In the absence of the power budgeting capability registers, the system designer is
-responsible for guaranteeing that power has been budgeted cor‐ rectly and that sufficient cooling is available to support any compliant card
-installed into the connector.
-
-The spec defines the configuration registers to support the power budgeting process, but does not define the power budgeting methods and
-processes. The next section describes the hardware and software elements that would be involved in power budgeting, including the specified
-configuration registers.
-## **The Power Budgeting Elements** 
-
-Figure 19‐10 illustrates the concept of Power Budgeting for hot plug cards. The role of each element involved in the power budgeting,
-allocation, and reporting process is listed and described below:
-
-- System Firmware for Power Management (used during boot time). 
-
-- Power Budget Manager (used during run time). 
-
-- Expansion Ports (to which card slots are attached). 
-
-- Add‐in Devices (Power Budget Capable). 
-
-## **System Firmware** 
-
-Written by the platform designers the specific system, this is responsible for reporting system power information. The spec recommends the
-following power information be reported to the PCI Express power budget manager, which allocates and verifies power consumption and
-dissipation during runt‐ ime:
-
-- Total system power available. 
-
-- Power allocated to system devices by firmware 
-
-- Number and type of slots in the system. 
-
-Firmware may also allocate power to PCIe devices that support the power bud‐ geting capability register set, such as a hot‐plug device used
-during boot time. The Power Budgeting Capability register, shown in Figure 19‐9 on page 878, contains a System Allocated bit that is
-hardware initialized (usually by firm‐ ware) to notify the power budget manager that power for this device has already been included in the
-system power allocation. If so, the Power Budget Manager still needs to read and save the power information for the hot‐plug devices that
-were allocated in case they are later removed during runtime.
-
-_Figure 19‐9: Power Budget Registers_ 
-
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
-
-<br>
-
-
-## **The Power Budget Manager** 
-
-This initializes when the OS installs and receives power‐budget information from system firmware, although the spec does not define the
-method for deliv‐ ering this information. This manager is responsible for allocating power for all PCI Express devices including:
-
-- PCI Express devices that have not already been allocated by the system (including embedded devices that support power budgeting). 
-
-- Hot‐plugged devices installed at boot time. 
-
-- New devices added during runtime. 
-
-## **Expansion Ports** 
-
-Figure 19‐10 on page 880 illustrates a hot plug port that must have the Slot Power Limit and Slot Power Scale fields within the Slot
-Capabilities register implemented. The firmware or power budget manager must load these fields with a value that represents the maximum
-amount of power supported by this Port. When software writes to these fields the Port automatically delivers a Set_Slot_Power_Limit message
-to the device. These fields are also written when software configures a new card that has been added as a hot plug installation.
-## Spec requirements: 
-
-- Any Downstream Port that has a slot attached (the Slot Implemented bit in its PCIe Capabilities register is set) must implement the Slot
-Capabilities register.
-
-- Software must initialize the Slot Power Limit Value and Scale fields of the Slot Capabilities register of the Downstream Port that is
-connected to an add‐in slot.
-
-- Upstream Ports must implement the Device Capabilities register. 
-
-- When a card is installed in a slot and software updates the power limit and scale values in the Downstream Port, that Port will
-automatically send the Set_Slot_Power_Limit message to the Upstream Port on the installed card.
-
-- The recipient of the Message must use the data payload to limit its power usage for the entire card, unless the card will never exceed the
-lowest value specified in the corresponding electromechanical spec.
-
-## **Add-in Devices** 
-
-Expansion cards that support the power budgeting capability must include the Slot Power Limit Value and Slot Limit Scale fields within the
-Device Capabilities register, and the Power Budgeting Capability register set for reporting power‐ related information.
-
-These devices must not consume more than the lowest power specified by the form factor spec. Once power budgeting software allocates
-additional power via the Set_Slot_Power_Limit message, the device can consume the power that has been specified, but not until it has been
-configured and enabled.
-
-**Device Driver** —The device’s software driver is responsible for verifying that sufficient power is available for proper device operation
-prior to enabling it. If the power is lower than that required by the device, the device driver is respon‐ sible for reporting this to a
-higher software authority.
-
-_Figure 19‐10: Elements Involved in Power Budget_ 
-
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
-
-<br>
-
-## **Slot Power Limit Control** 
-
-Software is responsible for determining the maximum power that an expansion device is allowed to consume. This allocation is based on the
-power partitioning within the system, thermal capabilities, etc. Knowledge of the system’s power and thermal limits comes from system
-firmware. The firmware or power man‐ ager is responsible for reporting the power limits to each expansion port.
-
-## **Expansion Port Delivers Slot Power Limit** 
-
-Software writes to the _Slot Power Limit Value_ and _Slot Power Limit Scale_ fields of the Slot Capability register to specify the maximum
-power that can be con‐ sumed by the device. Software is required to specify a power value that reflects one of the maximum values defined by
-the spec. For example, revision 2.0 of the CEM spec defines power usage as listed in Table 19‐9.
-
-An interesting note about these values is that a standard‐height x1 server card is limited to 10W after a reset and is only allowed to use
-the full 25W after it’s been configured and enabled. Similarly, a x16 graphics card will be limited to 25W until configured and enabled to
-use the full 75W.
-
-_Table 19‐9: Maximum Power Consumption for System Board Expansion Slots_ 
-
-||**X1 Link**|**X1 Link**|**X4/X8 Link**|**X16 Link**|**X16 Link**|
-|---|---|---|---|---|---|
-|Standard Height|10W (max ‐ desktop)|25W (max ‐ server)|25W (max)|25W (max ‐ server)|75W (max ‐ graph‐ ics card)|
-|Low Profile Card|10W (max)||25W (max)|25W (max)||
-
-
-In addition to the base CEM spec, two more specs have been defined for higher‐ powered devices. First is the PCIe x16 Graphics 150W‐ATX Spec
-1.0, which defines a video card that’s able to draw 75W from the card connector and another 75W from a separate 3‐pin ATX power connector.
-The second is the PCIe 225W/300W High Power CEM Spec 1.0, which extends this by adding another 3‐pin power connector to achieve 225W, or a
-4‐pin ATX connector that brings the total to 300W.
-
-## **PCI Express Technology** 
-
-When the Slot Power registers are written by power budget software, the expan‐ sion port sends a Set_Slot_Power_Limit message to the
-expansion device. This procedure is illustrated in Figure 19‐11 on page 882.
-
-_Figure 19‐11: Slot Power Limit Sequence_ 
-
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
-
-<br>
-
-
-1. When Hot Plug software is notified of a card insertion request, Power and Clock are restored to the slot. 
-
-2. Hot Plug software calls configuration and power budgeting software to configure and allocate power to the device. 
-
-3. Power budget software may interrogate the card to determine it's power requirements and characteristics. 
-
-4. Power is then allocated based on the device's requirements and the system's capabilities 5. Power management software writes to the Slot
-Power Scale and Slot Power Value fields within the expansion port.
-
-6. Writes to these fields command the port to send the Set_Slot_Power_Limit message to convey the contents of the Slot Power fields. 
-
-7. The slot receives the message and updates its Captured Slot Power Limit Value and Scale fields. 
-
-8. These values limit the power that the expansion device can consume once it is enabled by its device driver. 
-## **Expansion Device Limits Power Consumption** 
-
-The device driver reads the values from the Captured Slot Power Limit and Scale fields to verify that the power available is sufficient to
-operate the device. Several conditions may exist:
-
-- Enough power is available to operate the device at full capability. In this case, the driver enables the device by writing to the
-configuration Com‐ mand register, permitting the device to consume power up to the limit spec‐ ified in the Power Limit fields.
-
-- The power available is sufficient to operate the device but not at full capa‐ bility. In this case, the driver is required to configure
-the device such that it consumes no more power than specified in the Power Limit fields.
-
-- The power available is insufficient to operate the device. In this case, the driver must not enable the card and must report the
-inadequate power con‐ dition to the upper software layers, which should in turn inform the end user of the problem.
-
-- The power available exceeds the maximum power specified by the form factor spec. This condition should not occur. but, if it does, the
-device is not permitted to consume power beyond the maximum permitted by the form factor.
-
-- The power available is less than the lowest value specified by the form fac‐ tor spec. This is a violation of the spec, which states that
-the expansion port “must not transmit a Set_Slot_Power_Limit Message that indicates a limit lower than the lowest value specified in the
-electromechanical spec for the slotʹs form factor.”
-
-Some expansion devices may consume less power than the lowest limit speci‐ fied for their form factor. Such devices are permitted to discard
-the information delivered in the Set_Slot_Power_Limit Messages. When the Slot Power Limit Value and Scale fields are read, these devices
-return zeros.
-
-## **The Power Budget Capabilities Register Set** 
-
-These registers permit power budgeting software to allocate power more effec‐ tively based on information provided by the device through its
-power budget data select and data register. This feature is similar to the data select and data fields within the power management
-capability registers. However, the power budget registers provide more detailed information to software to aid it in determining the effects
-of expansion cards that are added during runtime on
-
-## **PCI Express Technology** 
-
-the system power budget and cooling requirements. Through this capability, a device can report the power it consumes: 
-
-- from each power rail 
-
-- in various power management states 
-
-- in different operating conditions 
-
-These registers are not required for devices implemented on the system board or on expansion devices that do not support hot plug. Figure
-19‐12 on page 884 illustrates the power budget capabilities register set and shows the data select and data field that provide the method
-for accessing the power budget information.
 
 </td>
 <td width="50%">
@@ -374,12 +79,47 @@ Supported<br>Extended Fmt<br>Field Supported<br>TPH Completer Supported<br>LTR M
 CAS Completer Supported<br>64-bit AtomicOp Completer Supported<br>32-bit AtomicOp Completer Supported<br>AtomicOp Routing Supported<br>ARI
 Forwarding Supported<br>Completion Timeout Disable Supported<br>Completion Timeout Ranges Supported<br>**----- 图片文字结束 -----**
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Add-in Card Capabilities** 
+
+The Device Capability register, seen in Figure 19‐8 on page 873, also has fields relevant to add‐in cards that record the power reported by
+the Hot Plug Con‐ troller as being available to their slot. This information must be communicated automatically with a Set_Slot_Power_Limit
+Message whenever either of these takes place:
+
+- A configuration write to the Slot Capabilities register changes the Slot Power Limit Value and Slot Power Limit Scale values. 
+
+- The Link transitions from non‐DL_UP to DL_Up status (unless the Slot Capabilities register has not yet been initialized). 
+
+The message updates the Captured Slot Power Limit Value and Scale registers with the values in the message, making this information readily
+available to its device driver.
+_Figure 19‐8: Device Capabilities Register_ 
+
+<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+
+<br>
+
+</td>
+<td width="50%">
 
 ## **TPH (TLP 处理提示)**
 
 添加有关系统应如何处理目标为内存空间的 TLP 的提示可以改善延迟和流量拥塞。规范将此特殊处理基本上描述为提供关于系统中多个可能的缓存位置中的哪一个是 TLP 临时副本的最佳位置的信息。
 
 规范指出，由于为 TPH 描述的使用与缓存相关，因此通常使用目标为不可预取内存空间 (Non-prefetchable Memory Space) 的 TLP 是不合理的。如果需要这样的使用，则必须以某种方式保证缓存此类 TLP 不会引起不良副作用。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Quiescing Card and Driver**
+
+</td>
+<td width="50%">
 
 ## **TPH 示例**
 
@@ -443,6 +183,27 @@ by TPH bits to an intermediate cache. In this case, both may update dif‐<br>fe
 one Endpoint may<br>update data that the other needs to read several times. In both cases, using the<br>intermediate cache improves system
 performance.<br>**----- 图片文字结束 -----**
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **General** 
+
+Prior to removing a card from the system, two things must occur: the device driver must stop accessing the card, and the card must stop
+initiating or responding to new Requests. How this is accomplished is OS‐specific, but the following must take place:
+
+- The OS must stop issuing new requests to the device’s driver or instruct the driver to stop accepting new requests. 
+
+- The driver must terminate or complete all outstanding requests. 
+
+- The card must be disabled from generating interrupts or Requests. 
+
+When the OS commands the driver to quiesce itself and its device, the OS must not expect the device to remain in the system (in other words,
+it could be removed and not replaced with an identical card).
+
+</td>
+<td width="50%">
 
 ## **PCI Express Technology**
 
@@ -453,6 +214,25 @@ _图 20-14：端点之间的 TPH 使用_
 **----- 图片文字开始 -----**<br>
 Cache<br>**----- 图片文字结束 -----**
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Pausing a Driver (Optional)** 
+
+Optionally, an OS could implement a “Pause” capability to temporarily stop driver activity in the expectation that the same card will be
+reinserted. If the card is not reinstalled within a reasonable amount of time, however, the driver must be quiesced and then removed from
+memory.
+
+As an example, the currently‐installed card is failing or is being replaced with a later revision as an upgrade. If the operation is to
+appear seamless from a soft‐ ware and operational perspective, the driver would have to quiesce the device, save the current context
+(contents of registers, stack and instruction pointer of local micro‐controller, etc.) and turn off the power to the slot. The new card
+could then be installed and powered, and then, when its context is restored, it could resume normal operation where it left off. Of course,
+if the old card had failed, it may not be possible to simply resume operation.
+
+</td>
+<td width="50%">
 
 ## **TPH 头位**
 
@@ -481,6 +261,18 @@ _表 20-1：PH 编码表_
 |10b|目标|DWHR，HWDR（设备到主机或主机到设备的传输）。指示主机的频繁读/写访问。|
 |11b|带优先级的目标|与目标相同，但具有额外的时间重用优先级信息。指示主机的频繁读/写访问以及所访问数据的高时间局部性。|
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Quiescing a Driver That Controls Multiple Devices** 
+
+If a driver controls multiple cards and it receives a command from the OS to quiesce its activity with respect to a specific card, it must
+only quiesce its activ‐ ity with that card and the card itself.
+
+</td>
+<td width="50%">
 
 ## **PCI Express Technology**
 
@@ -493,7 +285,382 @@ Tag（有关更多详细信息，请参阅第 908 页上的"TLP Prefixes"）。
 ## **Steering Tags**
 
 </td>
-</tr></tbody></table>
+</tr>
+<tr>
+<td width="50%">
+
+## **Quiescing a Failed Card** 
+
+If a card has failed, it may not be possible for the driver to complete requests previously issued to the card. In this case, the driver
+must detect the error, ter‐ minate the requests without completion, and attempt to reset the card.
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **The Primitives** 
+
+This section discusses the hot‐plug software elements and the information passed between them. For a review of the software elements and
+their relation‐ ships to each other, refer to Table 19‐1 on page 852. Communications between the Hot‐Plug Service within the OS and the
+Hot‐Plug System Driver is in the form of requests. The spec doesn’t define the exact format of these requests, but does define the basic
+request types and their content. Each request type issued to the Hot‐Plug System Driver by the Hot‐Plug Service is referred to as a _primi‐
+tive_ . They are listed and described in Table 19‐8 on page 875.
+_Table 19‐8: The Primitives_ 
+
+|**Primitive**|**Parameters**|**Description**|
+|---|---|---|
+|Query Hot‐Plug<br>System Driver|**Input**: None|Requests that the Hot‐Plug System<br>Driver return a set of Logical Slot<br>IDs for the
+slots it controls.|
+||**Return**: Set of Logical Slot<br>IDs for slots controlled by<br>this driver.||
+|Set Slot Status|**Inputs**:<br>• Logical Slot ID<br>• New slot state (on or<br>off).<br>• New Attention Indica‐<br>tor state.<br>• New
+Power Indicator<br>state.|This request is used to control the<br>slots and the Attention Indicator<br>associated with each slot.
+Good<br>completion of a request is indicated<br>by returning the Status Change Suc‐<br>cessful parameter. If a fault is<br>incurred during
+an attempted sta‐<br>tus change, the Hot‐Plug System<br>Driver should return the appropri‐<br>ate fault message (see middle col‐<br>umn).
+Unless otherwise specified,<br>the card should be left in the off<br>state.|
+||**Return**: Request comple‐<br>tion status:<br>• status change successful<br>• fault—wrong frequency<br>• fault—insufficient<br>power<br>•
+fault—insufficient con‐<br>figuration resources<br>• fault—power fail<br>• fault—general failure||
+|Query Slot<br>Status|**Input**: Logical Slot ID|This request returns the state of the<br>indicated slot (if a card is present).<br>The
+Hot‐Plug System Driver must<br>return the Slot Power status infor‐<br>mation.|
+||**Return**:<br>• Slot state (on or off)<br>• Card power require‐<br>ments.||
+
+
+_Table 19‐8: The Primitives (Continued)_ 
+
+|**Primitive**|**Parameters**|**Description**|
+|---|---|---|
+|Async Notice of<br>Slot Status<br>Change|**Input**: Logical Slot ID|This is the only primitive (defined<br>by the spec) that is issued to
+the<br>Hot‐Plug Service by the Hot‐Plug<br>System Driver. It is sent when the<br>Driver detects an unsolicited<br>change in the state of a
+slot. Exam‐<br>ples would be a run‐time power<br>fault or a card installed in a previ‐<br>ously‐empty slot with no warning.|
+||**Return**: none||
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Introduction to Power Budgeting** 
+
+The primary goal of the PCI Express power budgeting capability is to allocate power for PCI Express hot plug devices that are added to the
+system during runtime. This ensures that the system can allocate the proper amount of power and cooling for these devices.
+
+The spec states that “power budgeting capability is optional for PCI Express devices implemented in a form factor which does not require hot
+plug, or that are integrated on the system board.” None of the form factor specs released at the time of this writing required support for
+hot plug or the power budgeting capability, but these change often.
+
+System power budgeting is always required to support all system board devices and add‐in cards. The new capability provides mechanisms for
+managing the budgeting process for a hot‐plug card. Each form factor spec defines the min and max power for a given expansion slot. For
+example, the CEM spec limits the power an expansion card can consume prior to being fully enabled but, after it is enabled, it can consume
+the maximum amount of power specified for the slot. In the absence of the power budgeting capability registers, the system designer is
+responsible for guaranteeing that power has been budgeted cor‐ rectly and that sufficient cooling is available to support any compliant card
+installed into the connector.
+
+The spec defines the configuration registers to support the power budgeting process, but does not define the power budgeting methods and
+processes. The next section describes the hardware and software elements that would be involved in power budgeting, including the specified
+configuration registers.
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **The Power Budgeting Elements** 
+
+Figure 19‐10 illustrates the concept of Power Budgeting for hot plug cards. The role of each element involved in the power budgeting,
+allocation, and reporting process is listed and described below:
+
+- System Firmware for Power Management (used during boot time). 
+
+- Power Budget Manager (used during run time). 
+
+- Expansion Ports (to which card slots are attached). 
+
+- Add‐in Devices (Power Budget Capable).
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **System Firmware** 
+
+Written by the platform designers the specific system, this is responsible for reporting system power information. The spec recommends the
+following power information be reported to the PCI Express power budget manager, which allocates and verifies power consumption and
+dissipation during runt‐ ime:
+
+- Total system power available. 
+
+- Power allocated to system devices by firmware 
+
+- Number and type of slots in the system. 
+
+Firmware may also allocate power to PCIe devices that support the power bud‐ geting capability register set, such as a hot‐plug device used
+during boot time. The Power Budgeting Capability register, shown in Figure 19‐9 on page 878, contains a System Allocated bit that is
+hardware initialized (usually by firm‐ ware) to notify the power budget manager that power for this device has already been included in the
+system power allocation. If so, the Power Budget Manager still needs to read and save the power information for the hot‐plug devices that
+were allocated in case they are later removed during runtime.
+
+_Figure 19‐9: Power Budget Registers_ 
+
+<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+
+<br>
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **The Power Budget Manager** 
+
+This initializes when the OS installs and receives power‐budget information from system firmware, although the spec does not define the
+method for deliv‐ ering this information. This manager is responsible for allocating power for all PCI Express devices including:
+
+- PCI Express devices that have not already been allocated by the system (including embedded devices that support power budgeting). 
+
+- Hot‐plugged devices installed at boot time. 
+
+- New devices added during runtime.
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Expansion Ports** 
+
+Figure 19‐10 on page 880 illustrates a hot plug port that must have the Slot Power Limit and Slot Power Scale fields within the Slot
+Capabilities register implemented. The firmware or power budget manager must load these fields with a value that represents the maximum
+amount of power supported by this Port. When software writes to these fields the Port automatically delivers a Set_Slot_Power_Limit message
+to the device. These fields are also written when software configures a new card that has been added as a hot plug installation.
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## Spec requirements: 
+
+- Any Downstream Port that has a slot attached (the Slot Implemented bit in its PCIe Capabilities register is set) must implement the Slot
+Capabilities register.
+
+- Software must initialize the Slot Power Limit Value and Scale fields of the Slot Capabilities register of the Downstream Port that is
+connected to an add‐in slot.
+
+- Upstream Ports must implement the Device Capabilities register. 
+
+- When a card is installed in a slot and software updates the power limit and scale values in the Downstream Port, that Port will
+automatically send the Set_Slot_Power_Limit message to the Upstream Port on the installed card.
+
+- The recipient of the Message must use the data payload to limit its power usage for the entire card, unless the card will never exceed the
+lowest value specified in the corresponding electromechanical spec.
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Add-in Devices** 
+
+Expansion cards that support the power budgeting capability must include the Slot Power Limit Value and Slot Limit Scale fields within the
+Device Capabilities register, and the Power Budgeting Capability register set for reporting power‐ related information.
+
+These devices must not consume more than the lowest power specified by the form factor spec. Once power budgeting software allocates
+additional power via the Set_Slot_Power_Limit message, the device can consume the power that has been specified, but not until it has been
+configured and enabled.
+
+**Device Driver** —The device’s software driver is responsible for verifying that sufficient power is available for proper device operation
+prior to enabling it. If the power is lower than that required by the device, the device driver is respon‐ sible for reporting this to a
+higher software authority.
+
+_Figure 19‐10: Elements Involved in Power Budget_ 
+
+<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+
+<br>
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Slot Power Limit Control** 
+
+Software is responsible for determining the maximum power that an expansion device is allowed to consume. This allocation is based on the
+power partitioning within the system, thermal capabilities, etc. Knowledge of the system’s power and thermal limits comes from system
+firmware. The firmware or power man‐ ager is responsible for reporting the power limits to each expansion port.
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Expansion Port Delivers Slot Power Limit** 
+
+Software writes to the _Slot Power Limit Value_ and _Slot Power Limit Scale_ fields of the Slot Capability register to specify the maximum
+power that can be con‐ sumed by the device. Software is required to specify a power value that reflects one of the maximum values defined by
+the spec. For example, revision 2.0 of the CEM spec defines power usage as listed in Table 19‐9.
+
+An interesting note about these values is that a standard‐height x1 server card is limited to 10W after a reset and is only allowed to use
+the full 25W after it’s been configured and enabled. Similarly, a x16 graphics card will be limited to 25W until configured and enabled to
+use the full 75W.
+
+_Table 19‐9: Maximum Power Consumption for System Board Expansion Slots_ 
+
+||**X1 Link**|**X1 Link**|**X4/X8 Link**|**X16 Link**|**X16 Link**|
+|---|---|---|---|---|---|
+|Standard Height|10W (max ‐ desktop)|25W (max ‐ server)|25W (max)|25W (max ‐ server)|75W (max ‐ graph‐ ics card)|
+|Low Profile Card|10W (max)||25W (max)|25W (max)||
+
+
+In addition to the base CEM spec, two more specs have been defined for higher‐ powered devices. First is the PCIe x16 Graphics 150W‐ATX Spec
+1.0, which defines a video card that’s able to draw 75W from the card connector and another 75W from a separate 3‐pin ATX power connector.
+The second is the PCIe 225W/300W High Power CEM Spec 1.0, which extends this by adding another 3‐pin power connector to achieve 225W, or a
+4‐pin ATX connector that brings the total to 300W.
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **PCI Express Technology** 
+
+When the Slot Power registers are written by power budget software, the expan‐ sion port sends a Set_Slot_Power_Limit message to the
+expansion device. This procedure is illustrated in Figure 19‐11 on page 882.
+
+_Figure 19‐11: Slot Power Limit Sequence_ 
+
+<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+
+<br>
+
+
+1. When Hot Plug software is notified of a card insertion request, Power and Clock are restored to the slot. 
+
+2. Hot Plug software calls configuration and power budgeting software to configure and allocate power to the device. 
+
+3. Power budget software may interrogate the card to determine it's power requirements and characteristics. 
+
+4. Power is then allocated based on the device's requirements and the system's capabilities 5. Power management software writes to the Slot
+Power Scale and Slot Power Value fields within the expansion port.
+
+6. Writes to these fields command the port to send the Set_Slot_Power_Limit message to convey the contents of the Slot Power fields. 
+
+7. The slot receives the message and updates its Captured Slot Power Limit Value and Scale fields. 
+
+8. These values limit the power that the expansion device can consume once it is enabled by its device driver.
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Expansion Device Limits Power Consumption** 
+
+The device driver reads the values from the Captured Slot Power Limit and Scale fields to verify that the power available is sufficient to
+operate the device. Several conditions may exist:
+
+- Enough power is available to operate the device at full capability. In this case, the driver enables the device by writing to the
+configuration Com‐ mand register, permitting the device to consume power up to the limit spec‐ ified in the Power Limit fields.
+
+- The power available is sufficient to operate the device but not at full capa‐ bility. In this case, the driver is required to configure
+the device such that it consumes no more power than specified in the Power Limit fields.
+
+- The power available is insufficient to operate the device. In this case, the driver must not enable the card and must report the
+inadequate power con‐ dition to the upper software layers, which should in turn inform the end user of the problem.
+
+- The power available exceeds the maximum power specified by the form factor spec. This condition should not occur. but, if it does, the
+device is not permitted to consume power beyond the maximum permitted by the form factor.
+
+- The power available is less than the lowest value specified by the form fac‐ tor spec. This is a violation of the spec, which states that
+the expansion port “must not transmit a Set_Slot_Power_Limit Message that indicates a limit lower than the lowest value specified in the
+electromechanical spec for the slotʹs form factor.”
+
+Some expansion devices may consume less power than the lowest limit speci‐ fied for their form factor. Such devices are permitted to discard
+the information delivered in the Set_Slot_Power_Limit Messages. When the Slot Power Limit Value and Scale fields are read, these devices
+return zeros.
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **The Power Budget Capabilities Register Set** 
+
+These registers permit power budgeting software to allocate power more effec‐ tively based on information provided by the device through its
+power budget data select and data register. This feature is similar to the data select and data fields within the power management
+capability registers. However, the power budget registers provide more detailed information to software to aid it in determining the effects
+of expansion cards that are added during runtime on
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **PCI Express Technology** 
+
+the system power budget and cooling requirements. Through this capability, a device can report the power it consumes: 
+
+- from each power rail 
+
+- in various power management states 
+
+- in different operating conditions 
+
+These registers are not required for devices implemented on the system board or on expansion devices that do not support hot plug. Figure
+19‐12 on page 884 illustrates the power budget capabilities register set and shows the data select and data field that provide the method
+for accessing the power budget information.
+
+</td>
+<td width="50%">
+
+</td>
+</tr>
+
+</tbody>
+</table></tr></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -506,8 +673,17 @@ Tag（有关更多详细信息，请参阅第 908 页上的"TLP Prefixes"）。
 ## 18.2 Latency Tolerance Reporting (LTR) | 延迟容忍度上报 (LTR)
 
 <table>
-<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
+<thead><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
+</tbody>
+</table></thead>
+<tbody><table>
+<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
+<tbody>
+<tr>
+<tr>
 <td width="50%">
 
 The power budget information is maintained within a table that consists of one or more 32‐bit entries. Each table entry contains power
@@ -527,154 +703,6 @@ _Figure 19‐13: Power Budget Data Field Format and Definition_
 <img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
 
 <br>
-
-
-## _**20**_ 
-
-## _**Updates for Spec Revision 2.1**_ 
-
-## **Previous Chapter** 
-
-The previous chapter describes the PCI Express hot plug model. A standard usage model is also defined for all devices and form factors that
-support hot plug capability. Power is an issue for hot plug cards, too, and when a new card is added to a system during runtime, it’s
-important to ensure that its power needs don’t exceed what the system can deliver. A mechanism was needed to query the power requirements of
-a device before giving it permission to oper‐ ate. Power budgeting registers provide that.
-
-## **This Chapter** 
-
-This chapter describes the changes and new features that were added with the 2.1 revision of the spec. Some of these topics, like the ones
-related to power management, are described in other chapters, but for others there wasn’t another logical place for them. In the end, it
-seemed best to group them all together in one chapter to ensure that they were all covered and to help clarify what features were new.
-
-## **The Next Chapter** 
-
-The next section is the book appendix which includes topics such as: Debugging PCI Express Traffic using LeCroy Tools, Markets &
-Applications of PCI Express Architecture, Implementing Intelligent Adapters and Multi‐Host Systems with PCI Express Technology, Legacy
-Support for Locking and the book Glossary.
-
-## **Changes for PCIe Spec Rev 2.1** 
-
-The 2.1 revision of the spec for PCIe introduced several changes to enhance per‐ formance or improve operational characteristics. It did not
-add another data rate and that’s why it was considered an incremental revision. The modifica‐ tions can be grouped generally into four areas
-of improvement: System Redun‐ dancy, Performance, Power Management, and Configuration.
-
-## **System Redundancy Improvement: Multi-casting** 
-
-The Multi‐casting capability allows a Posted Write TLP to be routed to more than one destination at the same time, allowing for things like
-automatically making redundant copies of data or supporting multi‐headed graphics. As shown in Figure 20‐1 on page 888, a TLP sourced from
-one Endpoint can be routed to multiple destinations based solely on its address. In this example, data is sent to the video port for display
-while redundant copies of it are auto‐ matically routed to storage. There are other ways this activity could be sup‐ ported, of course, but
-this is very efficient in terms of Link usage since it doesn’t require a recipient to re‐send the packet to secondary locations.
-
-_Figure 20‐1: Multicast System Example_ 
-
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
-
-<br>
-
-
-This mechanism is only supported for posted, address‐routed Requests, such as Memory Writes, that contain data to be delivered and an
-address that can be decoded to show which Ports should receive it. Non‐posted Requests will not be treated as Multicast even if their
-addresses fall within the MultiCast address range. Those will be treated as unicast TLPs just as they normally would.
-
-The setup for Multicast operation involves programming a new register block for each routing element and Function that will be involved,
-called the Multi‐ cast Capability structure. The contents of this block are shown in Figure 20‐2 on page 889, where it can be seen that they
-define addresses and also MCGs (Mul‐ tiCast Group numbers) that explain whether a Function should send or receive copies of an incoming TLP
-or whether a Port should forward them. Let’s
-
-**Cha ter 20: U dates for S ec Revision 2.1 p p p** 
-
-describe these registers next and discuss how they’re used to create Multicast operations in a system. 
-
-_Figure 20‐2: Multicast Capability Registers_ 
-
-|20<br>31|19|19|16|15||0||||
-|---|---|---|---|---|---|---|---|---|---|
-|Next Extended Capability Offset||Version (1h)||PCIe Extended Capability ID (0012h fo...|
-||||31|||||0|Offset|
-|||||PCIe Enhanced Capability Header|||||00h|
-|||||Multicast Control||Multicast Capability|||04h|
-|MCGs this Function||||MC_Base_Address Register|||||08h<br>0Ch|
-|is allowed to receive||||||||||
-|or forward||||MC_Receive||Register|||10h<br>14h|
-|MCGs this Function||||||||||
-|must not send|||||||||18h|
-|or forward||||MC_Block_All||Register|||1Ch|
-|MCGs this Function<br>must not send or||||MC_Block_Untranslated Register|||||20h<br>24h|
-|forward if the address||||||||||
-|Root Ports and<br>is untranslated||||MC_Overlay_BAR|||||28h<br>2Ch|
-|Switch Ports||||||||||
-
-
-## **Multicast Capability Registers** 
-
-The Capability Header register at the top of the figure includes the Capability ID of 0012h, a 4‐bit Version number, and a pointer to the
-next capability struc‐ ture in the linked list of registers.
-
-## **Multicast Capability** 
-
-This register, shown in detail in Figure 20‐3 on page 890, contains several fields. The MC_Max_Group value defines how many Multicast Groups
-this Function has been designed to support minus one, so that a value of zero means one
-
-group is supported. The Window Size Requested, which is only valid for End‐ points and reserved in Switches and Root Ports, represents the
-address size needed for this purpose as a power of two.
-
-_Figure 20‐3: Multicast Capability Register_ 
-
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
-
-<br>
-
-
-Lastly, bit 15 indicates whether this Function supports regenerating the ECRC value in a TLP if forwarding it involved making address
-changes to it. Refer to the section called “Overlay Example” on page 895 for more detail on this.
-
-## **Multicast Control** 
-
-This register, shown in Figure 20‐4 on page 890, contains the MC_Num_Group that is programmed with the number of Multicast Groups configured
-by soft‐ ware for use by this Function. The default number is zero, and the spec notes that programming a value here that is greater than
-the max value defined in the MC_Max_Group register will result in undefined behavior. The MC_Enable bit is used to enable the Multicast
-mechanism for this component.
-
-_Figure 20‐4: Multicast Control Register_ 
-
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
-
-<br>
-
-
-**Cha ter 20: U dates for S ec Revision 2.1 p p p** 
-
-## **Multicast Base Address** 
-
-The base address register, shown in Figure 20‐5 on page 891, contains the 64‐bit starting address of the Multicast Address range for this
-component. The Multi‐ Cast Index Position register indicates the bit position within the address where the MultiCast Group (MCG) number is
-to be found. When the address of an incoming TLP falls within the MultiCast address range starting at this Base Address, the logic will
-offset into the address itself by the number of bit loca‐ tions given in the Index Position and interpret the next bits (up to 6 bits,
-allow‐ ing up to 64 groups) as the MCG number for that TLP. The MCG number, in turn, will indicate whether the Port should forward a copy of
-this TLP.
-
-_Figure 20‐5: Multicast Base Address Register_ 
-
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
-
-<br>
-
-
-An example of locating the MCG within the address is shown in Figure 20‐6 on page 892. Here the Index Position value is 24, so the MCG is
-found in address bits 25 to 30. Interestingly, since the base address doesn’t define the lower 12 bits of the address, the MC Index Position
-must be 12 or greater to be valid. If it’s less than 12 and the MC_Enable bit is set, the component’s behavior will be unde‐ fined.
-
-## **PCI Express Technology** 
-
-_Figure 20‐6: Position of Multicast Group Number_ 
-
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
-
-<br>
-
-
-## **MC Receive**
 
 </td>
 <td width="50%">
@@ -737,6 +765,15 @@ _图 20-18：TPH Capability ST Table_
 |||(Table Size)||(Table Size)||(Table Size - 1)|(Table Size - 1)|||
 |||||||||||
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## _**20**_
+
+</td>
+<td width="50%">
 
 ## **TLP Prefixes**
 
@@ -753,11 +790,35 @@ _图 20-19：TPH 前缀指示_
 0 tr H D P<br>Last DW 1st DW<br>Byte 4 Requester ID Tag<br>BE BE<br>Byte 8 Address [63:32]<br>Byte 12 Address [31:2] PH<br>**----- 图片文字结束
 -----**
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## _**Updates for Spec Revision 2.1**_
+
+</td>
+<td width="50%">
 
 ## **IDO（基于 ID 的排序）**
 
 事务排序规则对于正确的流量流很重要，但有时不需要，并且在这些情况下可以改善延迟。特别是来自不同请求者的 TLP 之间不太可能有依赖关系，因此此功能允许软件启用它们以重新排序以提高性能。此操作的详细信息在第 301 页上名为"ID Based Ordering
 (IDO)"的部分中描述。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Previous Chapter** 
+
+The previous chapter describes the PCI Express hot plug model. A standard usage model is also defined for all devices and form factors that
+support hot plug capability. Power is an issue for hot plug cards, too, and when a new card is added to a system during runtime, it’s
+important to ensure that its power needs don’t exceed what the system can deliver. A mechanism was needed to query the power requirements of
+a device before giving it permission to oper‐ ate. Power budgeting registers provide that.
+
+</td>
+<td width="50%">
 
 ## **ARI（替代路由 ID 解释）**
 
@@ -765,21 +826,131 @@ _图 20-19：TPH 前缀指示_
 number 使用 ID 中以前是 Device number 的 5 位。实际上，Device number 消失了，而 Function number 增加到 8 位。使用 ARI 的 TLP
 的目标需要被启用以识别它，然后软件才能使用此功能，但路径中的路由元素不必意识到这一点。它们只查看总线号以确定路由。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **This Chapter** 
+
+This chapter describes the changes and new features that were added with the 2.1 revision of the spec. Some of these topics, like the ones
+related to power management, are described in other chapters, but for others there wasn’t another logical place for them. In the end, it
+seemed best to group them all together in one chapter to ensure that they were all covered and to help clarify what features were new.
+
+</td>
+<td width="50%">
+
 ## **电源管理改进**
 
 有四项新增功能可提高系统有效管理电源的能力，它们在此处列出。所有这些内容均在第 16 章"电源管理"（第 703 页）中介绍。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **The Next Chapter** 
+
+The next section is the book appendix which includes topics such as: Debugging PCI Express Traffic using LeCroy Tools, Markets &
+Applications of PCI Express Architecture, Implementing Intelligent Adapters and Multi‐Host Systems with PCI Express Technology, Legacy
+Support for Locking and the book Glossary.
+
+</td>
+<td width="50%">
 
 ## **DPA（动态功率分配）**
 
 一组新的扩展配置寄存器定义了 D0 以下最多 32 个子状态。这允许软件轻松地更改设备的电源状态，而不会产生一直转到 D1 设备电源状态的延迟惩罚。有关详细信息，请参阅第 714 页的"动态功率分配 (DPA)"。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Changes for PCIe Spec Rev 2.1** 
+
+The 2.1 revision of the spec for PCIe introduced several changes to enhance per‐ formance or improve operational characteristics. It did not
+add another data rate and that’s why it was considered an incremental revision. The modifica‐ tions can be grouped generally into four areas
+of improvement: System Redun‐ dancy, Performance, Power Management, and Configuration.
+
+</td>
+<td width="50%">
+
 ## **LTR（延迟容忍报告）**
 
 允许端点报告它们可以容忍的延迟以响应其请求，使系统软件能够就系统响应时间和睡眠状态做出更好的选择。有关详细信息，请参阅第 784 页的"LTR（延迟容忍报告）"。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **System Redundancy Improvement: Multi-casting** 
+
+The Multi‐casting capability allows a Posted Write TLP to be routed to more than one destination at the same time, allowing for things like
+automatically making redundant copies of data or supporting multi‐headed graphics. As shown in Figure 20‐1 on page 888, a TLP sourced from
+one Endpoint can be routed to multiple destinations based solely on its address. In this example, data is sent to the video port for display
+while redundant copies of it are auto‐ matically routed to storage. There are other ways this activity could be sup‐ ported, of course, but
+this is very efficient in terms of Link usage since it doesn’t require a recipient to re‐send the packet to secondary locations.
+
+_Figure 20‐1: Multicast System Example_ 
+
+<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+
+<br>
+
+
+This mechanism is only supported for posted, address‐routed Requests, such as Memory Writes, that contain data to be delivered and an
+address that can be decoded to show which Ports should receive it. Non‐posted Requests will not be treated as Multicast even if their
+addresses fall within the MultiCast address range. Those will be treated as unicast TLPs just as they normally would.
+
+The setup for Multicast operation involves programming a new register block for each routing element and Function that will be involved,
+called the Multi‐ cast Capability structure. The contents of this block are shown in Figure 20‐2 on page 889, where it can be seen that they
+define addresses and also MCGs (Mul‐ tiCast Group numbers) that explain whether a Function should send or receive copies of an incoming TLP
+or whether a Port should forward them. Let’s
+
+**Cha ter 20: U dates for S ec Revision 2.1 p p p** 
+
+describe these registers next and discuss how they’re used to create Multicast operations in a system. 
+
+_Figure 20‐2: Multicast Capability Registers_ 
+
+|20<br>31|19|19|16|15||0||||
+|---|---|---|---|---|---|---|---|---|---|
+|Next Extended Capability Offset||Version (1h)||PCIe Extended Capability ID (0012h fo...|
+||||31|||||0|Offset|
+|||||PCIe Enhanced Capability Header|||||00h|
+|||||Multicast Control||Multicast Capability|||04h|
+|MCGs this Function||||MC_Base_Address Register|||||08h<br>0Ch|
+|is allowed to receive||||||||||
+|or forward||||MC_Receive||Register|||10h<br>14h|
+|MCGs this Function||||||||||
+|must not send|||||||||18h|
+|or forward||||MC_Block_All||Register|||1Ch|
+|MCGs this Function<br>must not send or||||MC_Block_Untranslated Register|||||20h<br>24h|
+|forward if the address||||||||||
+|Root Ports and<br>is untranslated||||MC_Overlay_BAR|||||28h<br>2Ch|
+|Switch Ports||||||||||
+
+</td>
+<td width="50%">
+
 ## **OBFF（优化缓冲区刷新和填充）**
 
 类似地，允许系统报告端点应该或不应该启动 DMA 或中断流量的首选时间段，有助于协调系统睡眠时间并改善电源管理。有关详细信息，请参阅第 776 页的"OBFF（优化缓冲区刷新和填充）"。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Multicast Capability Registers** 
+
+The Capability Header register at the top of the figure includes the Capability ID of 0012h, a 4‐bit Version number, and a pointer to the
+next capability struc‐ ture in the linked list of registers.
+
+</td>
+<td width="50%">
 
 ## **ASPM 选项**
 
@@ -787,13 +958,91 @@ number 使用 ID 中以前是 Device number 的 5 位。实际上，Device numbe
 
 **Cha ter 20: U dates for S ec Revision 2.1 p p p**
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Multicast Capability** 
+
+This register, shown in detail in Figure 20‐3 on page 890, contains several fields. The MC_Max_Group value defines how many Multicast Groups
+this Function has been designed to support minus one, so that a value of zero means one
+
+group is supported. The Window Size Requested, which is only valid for End‐ points and reserved in Switches and Root Ports, represents the
+address size needed for this purpose as a power of two.
+
+_Figure 20‐3: Multicast Capability Register_ 
+
+<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+
+<br>
+
+
+Lastly, bit 15 indicates whether this Function supports regenerating the ECRC value in a TLP if forwarding it involved making address
+changes to it. Refer to the section called “Overlay Example” on page 895 for more detail on this.
+
+</td>
+<td width="50%">
+
 ## **配置改进**
 
 添加了一些配置寄存器以改进对设备的软件可见性和控制。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Multicast Control** 
+
+This register, shown in Figure 20‐4 on page 890, contains the MC_Num_Group that is programmed with the number of Multicast Groups configured
+by soft‐ ware for use by this Function. The default number is zero, and the spec notes that programming a value here that is greater than
+the max value defined in the MC_Max_Group register will result in undefined behavior. The MC_Enable bit is used to enable the Multicast
+mechanism for this component.
+
+_Figure 20‐4: Multicast Control Register_ 
+
+<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+
+<br>
+
+
+**Cha ter 20: U dates for S ec Revision 2.1 p p p**
+
+</td>
+<td width="50%">
+
 ## **内部错误报告**
 
 这旨在为没有驱动程序来处理它们的设备（如交换机）提供一种标准化的方式来报告内部问题。它还添加了在错误结果时跟踪多个 TLP 头而不是像以前那样只跟踪一个的功能。本主题在第 667 页的关于错误的"内部错误"部分中介绍。
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **Multicast Base Address** 
+
+The base address register, shown in Figure 20‐5 on page 891, contains the 64‐bit starting address of the Multicast Address range for this
+component. The Multi‐ Cast Index Position register indicates the bit position within the address where the MultiCast Group (MCG) number is
+to be found. When the address of an incoming TLP falls within the MultiCast address range starting at this Base Address, the logic will
+offset into the address itself by the number of bit loca‐ tions given in the Index Position and interpret the next bits (up to 6 bits,
+allow‐ ing up to 64 groups) as the MCG number for that TLP. The MCG number, in turn, will indicate whether the Port should forward a copy of
+this TLP.
+
+_Figure 20‐5: Multicast Base Address Register_ 
+
+<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+
+<br>
+
+
+An example of locating the MCG within the address is shown in Figure 20‐6 on page 892. Here the Index Position value is 24, so the MCG is
+found in address bits 25 to 30. Interestingly, since the base address doesn’t define the lower 12 bits of the address, the MC Index Position
+must be 12 or greater to be valid. If it’s less than 12 and the MC_Enable bit is set, the component’s behavior will be unde‐ fined.
+
+</td>
+<td width="50%">
 
 ## **Resizable BAR**
 
@@ -807,7 +1056,34 @@ number 使用 ID 中以前是 Device number 的 5 位。实际上，Device numbe
 
 3. 为了确保最佳性能，软件应分配将适用于系统的最大 BAR 大小。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+## **PCI Express Technology** 
+
+_Figure 20‐6: Position of Multicast Group Number_ 
+
+<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+
+<br>
+
+
+## **MC Receive**
+
+</td>
+<td width="50%">
+
 ## **PCI Express Technology**
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## _图 20-20：Resizable BAR 寄存器_
 
@@ -819,6 +1095,13 @@ Offset<br>PCIe Enhanced Capability Header 000h<br>Resizable BAR Capability Regis
 BAR Control Register (0) 008h<br>supported<br>BAR …<br>Resizable BAR Capability Register (n) n*8 +4<br>Reserved Resizable BAR Control
 Register (n) n*8 +8<br>**----- 图片文字结束 -----**
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **Capability Register**
 
@@ -841,6 +1124,13 @@ _图 20-21：Resizable BAR Capability 寄存器_
 **----- 图片文字开始 -----**<br>
 31 24 23 4 3 0<br>RsvdP RsvdP<br>**----- 图片文字结束 -----**
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
 
 ## **Control Register**
 
@@ -861,6 +1151,14 @@ _图 20-22：Resizable BAR Control 寄存器_
 一旦 Resizable 值被编程，枚举软件将能够像通常一样工作：将所有 F 写入每个 BAR 并读回它将报告所选的大小。请注意，如果大小值被更改，BAR 的内容将丢失，如果之前已设置，则需要重新编程。图 20-23（在第 914 页）突出显示了 Type 0 头的配置头空间中的
 BAR 寄存器。
 
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+</td>
+<td width="50%">
+
 ## _图 20-23：Type0 配置头中的 BAR_
 
 **==> 图片 [160 x 273] 已故意省略 <==**
@@ -875,7 +1173,10 @@ CapabilitiesPointer 13<br>14<br>Max_Lat Min_Gnt InterruptPin InterruptLine 15<br
 ## **简化的排序表**
 
 </td>
-</tr></tbody></table>
+</tr>
+
+</tbody>
+</table></tr></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
