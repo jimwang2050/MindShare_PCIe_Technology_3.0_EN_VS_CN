@@ -11,17 +11,16 @@
 
 - [11.1 Component Interfaces — 物理层 - 逻辑 (Gen1 与 Gen2)](#sec-11-1)
 - [11.2 8.0 GT/s — 物理层 - 逻辑 (Gen1 与 Gen2)](#sec-11-2)
-- [11.3 Reduced-Swing Differential Voltage — 物理层 - 逻辑 (Gen1 与 Gen2)](#sec-11-3)
-- [11.4 Solution for 2.5 GT/s — 物理层 - 逻辑 (Gen1 与 Gen2)](#sec-11-4)
-- [11.5 Presets and Ratios — 物理层 - 逻辑 (Gen1 与 Gen2)](#sec-11-5)
-- [11.6 Beacon Signaling — 物理层 - 逻辑 (Gen1 与 Gen2)](#sec-11-6)
-- [11.7 Receiver Characteristics — 物理层 - 逻辑 (Gen1 与 Gen2)](#sec-11-7)
+- [11.3 Physical Layer - Logical (Gen1 and Gen2) — 物理层 - 逻辑 (Gen1 与 Gen2)](#sec-11-3)
+- [11.4 Physical Layer - Logical (Gen1 and Gen2) — 物理层 - 逻辑 (Gen1 与 Gen2)](#sec-11-4)
+- [11.5 Physical Layer - Logical (Gen1 and Gen2) — 物理层 - 逻辑 (Gen1 与 Gen2)](#sec-11-5)
+- [11.6 Physical Layer - Logical (Gen1 and Gen2) — 物理层 - 逻辑 (Gen1 与 Gen2)](#sec-11-6)
+- [11.7 Physical Layer - Logical (Gen1 and Gen2) — 物理层 - 逻辑 (Gen1 与 Gen2)](#sec-11-7)
 
 <a id="sec-11-1"></a>
 ## 11.1 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
@@ -200,7 +199,7 @@ usual 600 ppm), and that could require more complex logic. And second, the maxim
 maintained and it’s less clear how that would be done without a common reference.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 **第 13 章：物理层 - 电气**
 
@@ -407,8 +406,7 @@ V-<br>
 <a id="sec-11-2"></a>
 ## 11.2 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
@@ -585,7 +583,7 @@ Layer" width="700">
 ## **Differential Notation**
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 差分信号电压是通过取两个导体 D+ 和 D- 上的电压差来定义的。每个导体上相对于地的电压为 VD+ 和 VD-。差分电压由 VDIFF = VD+ ‐ VD- 给出。共模电压 VCM 定义为信号开关周围的电压，即 VCM = (VD+ + VD-) / 2 给出的平均值。
 
@@ -745,11 +743,10 @@ interference）**。
 <a id="sec-11-3"></a>
 ## 11.3 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 A differential signal voltage is defined by taking the difference in the voltage on the two conductors, D+ and D‐. The voltage with respect
 to ground on each con‐ ductor is VD+ and VD‐. The differential voltage is given by VDIFF = VD+ ‐ VD‐. The Common Mode voltage, VCM, is
@@ -902,7 +899,7 @@ bits of the same polarity have been de‐emphasized. De‐emphasis can be though
 are:
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 差分信号电压是通过取两条导线 D+ 和 D- 上的电压差来定义的。每条导线相对于地的电压为 VD+ 和 VD-。差分电压由 VDIFF = VD+ ‐ VD- 给出。共模电压 (Common Mode voltage, VCM) 定义为信号切换的电压范围，即由 VCM =
 (VD+ + VD-) / 2 给出的平均值。
@@ -1028,11 +1025,10 @@ inter‐symbol interference**)。
 <a id="sec-11-4"></a>
 ## 11.4 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 - When the signal changes to the opposite polarity of the preceding bit it’s not de‐emphasized, but uses the peak‐to‐peak differential
 voltage as specified by VTX‐DIFFp‐p (see Table 13‐3 on page 489).
@@ -1192,7 +1188,7 @@ but the voltage levels depend on whether a Transmitter implements preshoot or de
 The waveform shows the four general voltages to be transmitted, which are: maximum‐height (Vd), normal (Va), de‐emphasized (Vb), and
 pre‐shoot (Vc).
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **发送器 (Tx) 规格**
 
@@ -1440,11 +1436,10 @@ PCIe 提供多种调试功能，包括：
 <a id="sec-11-5"></a>
 ## 11.5 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 This scheme is backward‐compatible with the 2.5 and 5.0 GT/s model that only uses de‐emphasis, because pre‐shoot and de‐emphasis can be
 defined indepen‐ dently. The voltages both with and without de‐emphasis are the same as they have been for the lower data rates, except that
@@ -1484,7 +1479,7 @@ the voltage values are equal to the max value and the ratios are all 1.000.
 
 _Table 13‐1: Tx Preset Encodings with Coefficients and Voltage Ratios_ 
 
-|**Preset**<br>**Number**|**Preshoot**<br>**(dB)**|**De-emphasis**<br>**(dB)**|**C-1**|**C+1**|**Va/Vd**|**Vb/Vd**|**Vc/Vd**|
+|**Preset** **Number**|**Preshoot** **(dB)**|**De-emphasis** **(dB)**|**C-1**|**C+1**|**Va/Vd**|**Vb/Vd**|**Vc/Vd**|
 |---|---|---|---|---|---|---|---|
 |P4|0.0.|0.0|0.000|0.000|1.000|1.000|1.000|
 |P1|0.0.|-3.5 +/- 1 dB|0.000|-0.167|1.000|0.668|0.668|
@@ -1530,13 +1525,13 @@ for full‐swing signaling only.
 
 _Table 13‐2: Tx Coefficient Table_ 
 
-|**PS DE**<br>**Boost**|**PS DE**<br>**Boost**|**C+1**|**C+1**|**C+1**|**C+1**|**C+1**|**C+1**|**C+1**|
+|**PS DE** **Boost**|**PS DE** **Boost**|**C+1**|**C+1**|**C+1**|**C+1**|**C+1**|**C+1**|**C+1**|
 |---|---|---|---|---|---|---|---|---|
 |||0/24|1/24|2/24|3/24|4/24|5/24|6/24|
-|**C-1**|0/24|0.0 0.0<br>0.0|0.0 -0.8<br>0.8|0.0 -1.8<br>1.6|0.0 -2.5<br>2.5|0.0 -3.5<br>3.5|0.0 -4.7<br>4.7|0.0 -6.0-<br>6.0|
-||1/24|0.8 0.0<br>0.8|0.8 -0.8<br>1.6|0.9 -1.7<br>2.5|1.0 -2.8<br>3.5|1.2 -3.9<br>4.7|1.3 -5.3<br>6.0|1.6 -6.8<br>7.6|
-||2/24|1.6 0.0<br>1.6|1.7 -0.9<br>2.5|1.9 -1.9<br>3.5|2.2 -3.1<br>4.7|2.5 -4.4<br>6.0|2.9 -6.0<br>7.6|3.5 -8.0<br>9.5|
-||3/24|2.5 0.0<br>2.5|2.8 -1.0<br>3.5|3.1 -2.2<br>4.7|3.5 -3.5<br>6.0|4.1 -5.1<br>7.6|4.9 -7.0<br>9.5|-|
+|**C-1**|0/24|0.0 0.0 0.0|0.0 -0.8 0.8|0.0 -1.8 1.6|0.0 -2.5 2.5|0.0 -3.5 3.5|0.0 -4.7 4.7|0.0 -6.0- 6.0|
+|1/24|0.8 0.0 0.8|0.8 -0.8 1.6|0.9 -1.7 2.5|1.0 -2.8 3.5|1.2 -3.9 4.7|1.3 -5.3 6.0|1.6 -6.8 7.6|
+|2/24|1.6 0.0 1.6|1.7 -0.9 2.5|1.9 -1.9 3.5|2.2 -3.1 4.7|2.5 -4.4 6.0|2.9 -6.0 7.6|3.5 -8.0 9.5|
+|3/24|2.5 0.0 2.5|2.8 -1.0 3.5|3.1 -2.2 4.7|3.5 -3.5 6.0|4.1 -5.1 7.6|4.9 -7.0 9.5|-|
 ||4/24|3.5 0.0<br>3.5|3.9 -1.2<br>4.7|4.4 -2.5<br>6.0|5.1 -4.1<br>7.6|6.0 -6.0<br>9.5|-|-|
 ||5/24|4.7 0.0<br>4.7|5.3 -1.3<br>6.0|6.0 -2.9<br>7.6|7.0 -4.9<br>9.5|-|-|-|
 ||6/24|6.0 0.0<br>6.0|6.8 -1.6<br>7.6|8.0 -3.5<br>9.5|-|-|-|-|
@@ -1604,7 +1599,7 @@ The coefficient presets are exchanged before the Link changes to 8.0 GT/s, and t
 (see “Recovery.Equalization” on page 587 for more details).
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 该方案向后兼容仅使用去加重 (de‐emphasis) 的 2.5 和 5.0 GT/s 模型，因为预冲 (pre‐shoot) 和去加重可以独立定义。无论是否使用去加重，电压都与较低数据速率下的电压相同，只是现在去加重值的选项更多，范围从 0 到 ‐6
 dB。预冲是一项新特性，旨在通过在当前位时间内提升电压来改善下一位时间的信号。最后，最大值简单地表示当 C‐1 和 C+1 都为零（且 C0 为 1.0）时的信号。如图顶部所示的位流所示，我们可以将这些电压的策略总结如下：
@@ -1636,7 +1631,7 @@ Layer" width="700">
 
 _表 13‐1：发送器预设编码与系数及电压比率_
 
-|**预设**<br>**编号**|**预冲**<br>**(dB)**|**去加重**<br>**(dB)**|**C-1**|**C+1**|**Va/Vd**|**Vb/Vd**|**Vc/Vd**|
+|**预设** **编号**|**预冲** **(dB)**|**去加重** **(dB)**|**C-1**|**C+1**|**Va/Vd**|**Vb/Vd**|**Vc/Vd**|
 |---|---|---|---|---|---|---|---|
 |P4|0.0.|0.0|0.000|0.000|1.000|1.000|1.000|
 |P1|0.0.|-3.5 +/- 1 dB|0.000|-0.167|1.000|0.668|0.668|
@@ -1675,13 +1670,13 @@ dB。结果在满摆幅情况下形成一条对角边界，提升已达到 9.5 d
 
 _表 13‐2：发送器系数表_
 
-|**PS DE**<br>**Boost**|**PS DE**<br>**Boost**|**C+1**|**C+1**|**C+1**|**C+1**|**C+1**|**C+1**|**C+1**|
+|**PS DE** **Boost**|**PS DE** **Boost**|**C+1**|**C+1**|**C+1**|**C+1**|**C+1**|**C+1**|**C+1**|
 |---|---|---|---|---|---|---|---|---|
 |||0/24|1/24|2/24|3/24|4/24|5/24|6/24|
-|**C-1**|0/24|0.0 0.0<br>0.0|0.0 -0.8<br>0.8|0.0 -1.8<br>1.6|0.0 -2.5<br>2.5|0.0 -3.5<br>3.5|0.0 -4.7<br>4.7|0.0 -6.0-<br>6.0|
-||1/24|0.8 0.0<br>0.8|0.8 -0.8<br>1.6|0.9 -1.7<br>2.5|1.0 -2.8<br>3.5|1.2 -3.9<br>4.7|1.3 -5.3<br>6.0|1.6 -6.8<br>7.6|
-||2/24|1.6 0.0<br>1.6|1.7 -0.9<br>2.5|1.9 -1.9<br>3.5|2.2 -3.1<br>4.7|2.5 -4.4<br>6.0|2.9 -6.0<br>7.6|3.5 -8.0<br>9.5|
-||3/24|2.5 0.0<br>2.5|2.8 -1.0<br>3.5|3.1 -2.2<br>4.7|3.5 -3.5<br>6.0|4.1 -5.1<br>7.6|4.9 -7.0<br>9.5|-|
+|**C-1**|0/24|0.0 0.0 0.0|0.0 -0.8 0.8|0.0 -1.8 1.6|0.0 -2.5 2.5|0.0 -3.5 3.5|0.0 -4.7 4.7|0.0 -6.0- 6.0|
+|1/24|0.8 0.0 0.8|0.8 -0.8 1.6|0.9 -1.7 2.5|1.0 -2.8 3.5|1.2 -3.9 4.7|1.3 -5.3 6.0|1.6 -6.8 7.6|
+|2/24|1.6 0.0 1.6|1.7 -0.9 2.5|1.9 -1.9 3.5|2.2 -3.1 4.7|2.5 -4.4 6.0|2.9 -6.0 7.6|3.5 -8.0 9.5|
+|3/24|2.5 0.0 2.5|2.8 -1.0 3.5|3.1 -2.2 4.7|3.5 -3.5 6.0|4.1 -5.1 7.6|4.9 -7.0 9.5|-|
 ||4/24|3.5 0.0<br>3.5|3.9 -1.2<br>4.7|4.4 -2.5<br>6.0|5.1 -4.1<br>7.6|6.0 -6.0<br>9.5|-|-|
 ||5/24|4.7 0.0<br>4.7|5.3 -1.3<br>6.0|6.0 -2.9<br>7.6|7.0 -4.9<br>9.5|-|-|-|
 ||6/24|6.0 0.0<br>6.0|6.8 -1.6<br>7.6|8.0 -3.5<br>9.5|-|-|-|-|
@@ -1740,11 +1735,10 @@ Layer" width="700">
 <a id="sec-11-6"></a>
 ## 11.6 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 **EIEOS Pattern.** At 8.0 GT/s, some voltages are measured when the signal has a low frequency because the high‐frequency changes won’t
 reach the levels we want to measure. The EIEOS sequence contains 8 consecutive ones followed by 8 consecutive zeros in a pattern that
@@ -1903,11 +1897,11 @@ time)|
 are specified sep‐<br>arately.|
 |TTX‐RF‐MIS‐<br>MATCH|Not<br>Specified|0.1 (max)|Not<br>Specified|UI|Rise and Fall time differ‐<br>ence measured from 20%<br>to 80%
 differentially.|
-|VTX‐DIFFp‐p|0.8 (min)<br>1.2 (max)|0.8 (min)<br>1.2 (max)|See Table<br>13‐4|mV|Peak‐to‐peak differential<br>voltage.|
-|VTX‐DIFFp‐p<br>LOW|0.4 (min)<br>1.2 (max)|0.4 (min)<br>1.2 (max)|See Table<br>13‐4|mV|Low‐power voltage.|
+|VTX‐DIFFp‐p|0.8 (min) 1.2 (max)|0.8 (min) 1.2 (max)|See Table 13‐4|mV|Peak‐to‐peak differential voltage.|
+|VTX‐DIFFp‐p LOW|0.4 (min) 1.2 (max)|0.4 (min) 1.2 (max)|See Table 13‐4|mV|Low‐power voltage.|
 |VTX‐DC‐CM|0 to 3.6|0 to 3.6|0 to 3.6|V|DC common mode volt‐<br>age at Tx pins.|
-|VTX‐DE‐<br>RATIO‐3.5dB|3 (min)<br>4 (max)|3 (min)<br>4 (max)|See Table<br>13‐4|mV|Ratio for 3.5 dB de‐<br>emphasized bits.|
-|VTX‐DE‐<br>RATIO‐6dB|n/a|5.5 (min)<br>6.5 (max)|See Table<br>13‐4|mV|Ratio for 6 dB de‐empha‐<br>sized bits.|
+|VTX‐DE‐ RATIO‐3.5dB|3 (min) 4 (max)|3 (min) 4 (max)|See Table 13‐4|mV|Ratio for 3.5 dB de‐ emphasized bits.|
+|VTX‐DE‐ RATIO‐6dB|n/a|5.5 (min) 6.5 (max)|See Table 13‐4|mV|Ratio for 6 dB de‐empha‐ sized bits.|
 
 
 ## **PCI Express Technology** 
@@ -1916,12 +1910,12 @@ _Table 13‐3: Transmitter Specs (Continued)_
 
 |**Item**|**2.5 GT/s.**|**5.0 GT/s**|**8.0 GT/s**|**Units**|**Notes**|
 |---|---|---|---|---|---|
-|ITX‐SHORT|90|90|90|mA|Total single‐ended cur‐<br>rent Tx can supply when<br>shorted to ground.|
+|ITX‐SHORT|90|90|90|mA|Total single‐ended cur‐ rent Tx can s...|
 |VTX‐IDLE‐<br>DIFF‐AC‐P|0 (min)<br>20 (max)|0 (min)<br>20 (max)|0 (min)<br>20 (max)|mV|Peak differential voltage<br>under Electrical Idle
 state<br>of Link. Must include a<br>bandpass filter passing<br>frequencies from 10 KHz<br>to 1.25 GHz.|
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 **EIEOS 模式。** 在 8.0 GT/s 时，由于高频变化无法达到我们想要测量的电平，因此在信号为低频时测量一些电压。EIEOS 序列包含 8 个连续的 1 后跟 8 个连续的 0，以在 128 位时间内重复的模式。其主要目的是用作发送器退出电气空闲
 (Electrical Idle) 的明确指示，而加扰数据无法保证这一点。其启动电压对满摆幅定义为 VTX‐EIEOS‐FS，对缩减摆幅信号定义为 VTX‐EIEOS‐RS。
@@ -2043,7 +2037,7 @@ _表 13‐3：发送器规格_
 
 |**项目**|**2.5 GT/s**|**5.0 GT/s**|**8.0 GT/s**|**单位**|**备注**|
 |---|---|---|---|---|---|
-|UI|399.88<br>（最小）<br>400.12<br>（最大）|199.94<br>（最小）<br>200.06<br>（最大）|124.9625<br>（最小）<br>125.0375<br>（最大）|ps|单位间隔（位时间）|
+|UI|399.88 （最小） 400.12 （最大）|199.94 （最小） 200.06 （最大）|124.9625 （最小） 125.0375 （最大）|ps|单位间隔（位时间）|
 |TTX‐EYE|0.75<br>（最小）|0.75（最小）|见备注|UI|发送器眼图，包括所有抖动源。对于 8.0 GT/s，五个抖动源单独指定。|
 |TTX‐RF‐MISMATCH|未指定|0.1（最大）|未指定|UI|从 20% 到 80% 测得的上升和下降时间差异（差分）。|
 |VTX‐DIFFp‐p|0.8（最小）<br>1.2（最大）|0.8（最小）<br>1.2（最大）|见表 13‐4|mV|峰峰值差分电压。|
@@ -2060,7 +2054,7 @@ _表 13‐3：发送器规格（续）_
 |**项目**|**2.5 GT/s**|**5.0 GT/s**|**8.0 GT/s**|**单位**|**备注**|
 |---|---|---|---|---|---|
 |ITX‐SHORT|90|90|90|mA|当接地短路时发送器可提供的总单端电流。|
-|VTX‐IDLE‐DIFF‐AC‐P|0（最小）<br>20（最大）|0（最小）<br>20（最大）|0（最小）<br>20（最大）|mV|链路处于电气空闲状态下的峰值差分电压。必须包括通过 10 KHz 到 1.25 GHz 频率的带通滤波器。|
+|VTX‐IDLE‐DIFF‐AC‐P|0（最小） 20（最大）|0（最小） 20（最大）|0（最小） 20（最大）|mV|链路处于电气空闲状态下的峰值差分电压。必须包括通过 10 KHz 到 1....|
 
 </td>
 </tr></tbody></table>
@@ -2072,16 +2066,15 @@ _表 13‐3：发送器规格（续）_
 <a id="sec-11-7"></a>
 ## 11.7 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
-|TTX‐IDLE‐MIN|20 (min)|20 (min)|20 (min)|ns|Minimum time a Trans‐<br>mitter must be in Electri‐<br>cal Idle.|
+|TTX‐IDLE‐MIN|20 (min)|20 (min)|20 (min)|ns|Minimum time a Trans‐ mitter must be ...|
 |TTX‐IDLE‐SET‐<br>TO‐IDLE|8 (max)|8 (max)|8 (max)|ns|Time allowed for Tx to<br>meet Electrical Idle spec<br>after last bit of
 required<br>EIOSs.|
-|TTX‐IDLE‐TO‐<br>DIFF‐DATA|8|8|8|ns|Max time for Tx to meet<br>differential transmission<br>spec after Electrical Idle<br>exit.|
+|TTX‐IDLE‐TO‐ DIFF‐DATA|8|8|8|ns|Max time for Tx to meet differential ...|
 |ZTX‐DIFF‐DC|80 (min)<br>120 (max)|120 (max)|120 (max)||DC differential Tx imped‐<br>ance. Typical value is 100<br>. Min value for 5.0
 and<br>8.0 GT/s is bounded by<br>RLTX‐DIFF|
 
@@ -2103,10 +2096,10 @@ _Table 13‐4: Parameters Specific to 8.0 GT/s_
 
 |**Symbol**<br>VTX‐FS‐NO‐EQ|**Value**|**Units**|**Notes**|
 |---|---|---|---|
-||1300 (max)<br>800 (min)|mvPP|No EQ is applied; measured using 64<br>zeros followed by 64 ones.|
-|VTX‐RS‐NO‐EQ|1300 (max)|mvPP|No EQ is applied; measured using 64<br>zeros followed by 64 ones.|
-|VTX‐BOOST‐FS|8.0 (min)|dB|Tx boost ratio for full swing.<br>(Assumes +/‐ 1.5 dB tolerance)|
-|VTX‐BOOST‐RS|2.5 (min)|dB|Tx boost ratio for reduced swing.<br>(Assumes +/‐ 1.0 dB tolerance)|
+|1300 (max) 800 (min)|mvPP|No EQ is applied; measured using 64 z...|
+|VTX‐RS‐NO‐EQ|1300 (max)|mvPP|No EQ is applied; measured using 64 z...|
+|VTX‐BOOST‐FS|8.0 (min)|dB|Tx boost ratio for full swing. (Assum...|
+|VTX‐BOOST‐RS|2.5 (min)|dB|Tx boost ratio for reduced swing. (As...|
 |EQTX‐COEFF‐<br>RES|1/24 (max)<br>1/63 (min)|n/a|Tx coefficient resolution|
 
 
@@ -2256,15 +2249,15 @@ _Table 13‐5: Common Receiver Characteristics_
 time.|
 |TRX‐EYE|0.4<br>(min)|Indirectly<br>specified||UI|Minimum eye width for a BER<br>or 10‐12. At higher rates and long<br>channels the eye is
 effectively<br>closed, making external mea‐<br>surement impractical.|
-|VRX‐EYE|300|120 (CC)<br>100 (DC)|Not<br>specified|mVpp<br>diff|CC = common clocked, DC =<br>data clocked|
+|VRX‐EYE|300|120 (CC) 100 (DC)|Not specified|mVpp diff|CC = common clocked, DC = data clocked|
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 |TTX‐IDLE‐MIN|20（最小）|20（最小）|20（最小）|ns|发送器必须处于电气空闲的最短时间。|
 |TTX‐IDLE‐SET‐TO‐IDLE|8（最大）|8（最大）|8（最大）|ns|在所需 EIOS 的最后一位之后允许 Tx 满足电气空闲规格的时间。|
 |TTX‐IDLE‐TO‐DIFF‐DATA|8|8|8|ns|Tx 在电气空闲退出后满足差分传输规格的最长时间。|
-|ZTX‐DIFF‐DC|80（最小）<br>120（最大）|120（最大）|120（最大）|Ω|直流差分 Tx 阻抗。典型值为 100Ω。5.0 和 8.0 GT/s 的最小值由 RLTX‐DIFF 限定。|
+|ZTX‐DIFF‐DC|80（最小） 120（最大）|120（最大）|120（最大）|Ω|直流差分 Tx 阻抗。典型值为 100Ω。5.0 和 8.0 GT/s 的...|
 
 
 **第 13 章：物理层 - 电气**
@@ -2275,8 +2268,8 @@ _表 13‐3：发送器规格（续）_
 |---|---|---|---|---|---|
 |RLTX‐DIFF|10（最小）|10（最小）<br>，频率 0.5‐1.25<br>GHz<br>8（最小），频率<br>>1.25‐2.5<br>GHz|10（最小）<br>，频率 0.5‐1.25<br>GHz<br>8（最小），频率<br>>1.25 ‐
 2.5<br>GHz<br>4（最小），频率<br>>2.5 至 4<br>GHz|dB|Tx 封装回波损耗。请注意，频率是线路上的信号。请注意，在较高速率下，有必要为不同频率指定不同参数。|
-|CTX|75（最小）<br>265（最大）|75（最小）<br>265（最大）|176（最小）<br>265（最大）|nF|每个 Lane 所需的 AC 耦合电容，放置在介质或组件本身中。|
-|LTX‐SKEW|500 ps +<br>2 UI<br>（最大）|500 ps +<br>4 UI<br>（最大）|500 ps +<br>6 UI|ps|同一发送器中任意两个 Lane 之间的偏移。|
+|CTX|75（最小） 265（最大）|75（最小） 265（最大）|176（最小） 265（最大）|nF|每个 Lane 所需的 AC 耦合电容，放置在介质或组件本身中。|
+|LTX‐SKEW|500 ps + 2 UI （最大）|500 ps + 4 UI （最大）|500 ps + 6 UI|ps|同一发送器中任意两个 Lane 之间的偏移。|
 
 
 _表 13‐4：8.0 GT/s 特定参数_
@@ -2403,7 +2396,7 @@ _表 13‐5：通用接收器特性_
 
 |**项目**|**2.5 GT/s**|**5.0 GT/s**|**8.0 GT/s**|**单位**|**备注**|
 |---|---|---|---|---|---|
-|UI|399.88<br>（最小）<br>400.12<br>（最大）|199.94<br>（最小）<br>200.06<br>（最大）|124.9625<br>（最小）<br>125.0375<br>（最大）|ps|单位间隔 = 位时间。|
+|UI|399.88 （最小） 400.12 （最大）|199.94 （最小） 200.06 （最大）|124.9625 （最小） 125.0375 （最大）|ps|单位间隔 = 位时间。|
 |TRX‐EYE|0.4<br>（最小）|间接指定||UI|10‐12 BER 的最小眼图宽度。在更高的速率和长通道下，眼图实际上是关闭的，使得外部测量不切实际。|
 |VRX‐EYE|300|120（CC）<br>100（DC）|未指定|mVpp<br>差分|CC = 公共时钟，DC = 数据时钟|
 

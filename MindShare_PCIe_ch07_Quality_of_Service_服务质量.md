@@ -9,17 +9,16 @@
 
 ## 📑 本章目录 (Table of Contents)
 
-- [7.1 Simplified Ordering Rules — 服务质量](#sec-7-1)
-- [7.2 ID Based Ordering (IDO) — 服务质量](#sec-7-2)
+- [7.1 Quality of Service — 服务质量](#sec-7-1)
+- [7.2 Quality of Service — 服务质量](#sec-7-2)
 
 <a id="sec-7-1"></a>
 ## 7.1 Quality of Service | 服务质量
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 There are three general models for ordering transactions in a traffic flow: 
 
@@ -93,12 +92,12 @@ transaction in the column to avoid a deadlock. A ‘Yes/No’ entry means a tran
 column but is not required to do so. The entries in the following have the meaning.
 _Table 8‐1: Simplified Ordering Rules Table_ 
 
-|**Row pass**<br>**Column?**<br>(Col 1)|**Row pass**<br>**Column?**<br>(Col 1)|**Posted**<br>**Request**<br>(Col 2)|**Non-Posted
+|**Row pass**<br>**Column?**<br>(Col 1)|**Row pass**<br>**Column?**<br>(Col 1)|**Posted Request**<br>(Col 2)|**Non-Posted
 Request**|**Non-Posted Request**|**Completion**<br>(Col 5)|
 |---|---|---|---|---|---|
-||||**Read**<br>**Request**<br>(Col 3)|**NPR with**<br>**Data**<br>(Col 4)||
-|**Posted**<br>**Request**<br>(Row A)||a) No<br>b) Y/N|Yes|Yes|a) Y/N<br>b) Yes|
-|**Non-Posted**<br>**Request**|**Read**<br>**Request**<br>(Row B)|a) No<br>b) Y/N|Y/N|Y/N|Y/N|
+||||**Read Request**<br>(Col 3)|**NPR with**<br>**Data**<br>(Col 4)||
+|**Posted Request**<br>(Row A)||a) No<br>b) Y/N|Yes|Yes|a) Y/N<br>b) Yes|
+|**Non-Posted** **Request**|**Read** **Request** (Row B)|a) No b) Y/N|Y/N|Y/N|Y/N|
 ||**NPR with**<br>**Data**<br>(Row C)|a) No<br>b) Y/N|Y/N|Y/N|Y/N|
 |**Completion**<br>(Row D)||a) No<br>b) Y/N|Yes|Yes|a) Y/N<br>b) No|
 
@@ -361,7 +360,7 @@ _Figure 8‐6: Strongly Ordered Example Results in Temporary Stall_
 ## **VC Buffers Offer an Advantage**
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 **PCI Exress 3.0 Technology**
 
@@ -513,11 +512,10 @@ Completions<br>8 6 3<br>Tx Rx<br>Rx Tx<br>Posted<br>Full<br>**----- 图片文字
 <a id="sec-7-2"></a>
 ## 7.2 Quality of Service | 服务质量
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 Transaction ordering is managed within Virtual Channel buffers. These buffers are grouped into Posted, Non‐Posted, and Completion
 transactions, and flow control is managed independently for each group. That makes weak ordering more useful because, as in our example,
@@ -687,9 +685,8 @@ _Figure 9‐2: Generic Data Link Layer Packet Format_
 
 <img src="figures/chapter_07_Quality_of_Service/page/page0315.png" alt="Figure 8‐1: Example Producer/Consumer Topology" width="700">
 
-
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 事务排序在虚通道缓冲区中进行管理。这些缓冲区被分组为 Posted、Non-Posted 和 Completion 事务，并且每个组独立管理流控。这使得弱排序更有用，因为与我们的示例一样，即使一个缓冲区已满，其他缓冲区仍可能有可用空间。
 

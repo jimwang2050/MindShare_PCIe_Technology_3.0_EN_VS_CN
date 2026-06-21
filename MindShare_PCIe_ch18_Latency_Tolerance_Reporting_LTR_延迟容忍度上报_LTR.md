@@ -9,26 +9,25 @@
 
 ## 📑 本章目录 (Table of Contents)
 
-- [18.1 Add-in Card Capabilities — 延迟容忍度上报 (LTR)](#sec-18-1)
-- [18.2 _20_ — 延迟容忍度上报 (LTR)](#sec-18-2)
+- [18.1 Latency Tolerance Reporting (LTR) — 延迟容忍度上报 (LTR)](#sec-18-1)
+- [18.2 Latency Tolerance Reporting (LTR) — 延迟容忍度上报 (LTR)](#sec-18-2)
 
 <a id="sec-18-1"></a>
 ## 18.1 Latency Tolerance Reporting (LTR) | 延迟容忍度上报 (LTR)
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 |2|**MRL Sensor Changed**— If an MRL Sensor is implemented, this is<br>set when a MRL Sensor state change is detected. If no sensor
 is<br>present this bit will always be zero.|
-|3|**Presence Detect Changed**— set when a change has been detected in<br>the Presence Detect State bit.|
+|3|**Presence Detect Changed**— set when...|
 |4|**Command Completed**— If the No Command Completed Support<br>bit in the Slot Capabilities register is 0b, then this bit is set when
 a<br>hot plug command has completed and the Hot Plug Controller is<br>ready to accept another command. Technically, only this last
 mean‐<br>ing is guaranteed: the controller is ready to accept another com‐<br>mand, regardless of whether the previous one has
 actually<br>completed.|
-|5|**MRL Sensor State**— when set, indicates the current state of the<br>MRL sensor, if implemented: 0b = MRL Closed, 1b = MRL Open|
+|5|**MRL Sensor State**— when set, indic...|
 |6|**Presence Detect State**— this bit indicates the presence of a card in a<br>slot and is required for all Downstream Ports that implement
 a slot.<br>Its value is the logical “OR” of Physical Layer’s Detection logic and<br>any other side‐band detect mechanism implemented for the
 slot<br>(such as PRSNT1# and PRSNT2#). The big difference between them<br>is that the pins require no power to physically detect the card
@@ -37,7 +36,7 @@ and<br>can thus report on it without needing the power restored, while<br>using 
 
 _Table 19‐7: Slot Status Register Fields and Descriptions (Continued)_ 
 
-|**Bit**<br>**Location**|**Register Name and Description**|
+|**Bit Location**|**Register Name and Description**|
 |---|---|
 |7|**Electromechanical Interlock Status**—If an Electromechanical Inter‐<br>lock is implemented, this bit indicates whether it is engaged
 (1b) or<br>disengaged (0b).|
@@ -268,7 +267,7 @@ _Table 19‐9: Maximum Power Consumption for System Board Expansion Slots_
 
 ||**X1 Link**|**X1 Link**|**X4/X8 Link**|**X16 Link**|**X16 Link**|
 |---|---|---|---|---|---|
-|Standard Height|10W<br>(max ‐<br>desktop)|25W<br>(max ‐<br>server)|25W (max)|25W<br>(max ‐<br>server)|75W<br>(max ‐<br>graph‐<br>ics card)|
+|Standard Height|10W (max ‐ desktop)|25W (max ‐ server)|25W (max)|25W (max ‐ server)|75W (max ‐ graph‐ ics card)|
 |Low Profile Card|10W (max)||25W (max)|25W (max)||
 
 
@@ -350,7 +349,7 @@ These registers are not required for devices implemented on the system board or 
 for accessing the power budget information.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 端点和根端口都可选地允许充当 AtomicOp 请求者和完成者，这可能看起来出乎意料，因为至少在 PC 中，这种事务通常仅由中央处理器发起。但是现代系统可以包括充当协处理器的端点，在这种情况下，它需要能够使用 AtomicOps 来正确处理协议。所有三个命令都支持 32 位和
 64 位操作数，而 CAS 还支持 128 位操作数。实际使用的大小将在头部的 Length 字段中给出。具有对等访问功能的路由元素（如交换机端口和根端口）将需要支持 AtomicOp 路由功能，以便能够识别和路由这些请求。
@@ -506,11 +505,10 @@ Tag（有关更多详细信息，请参阅第 908 页上的"TLP Prefixes"）。
 <a id="sec-18-2"></a>
 ## 18.2 Latency Tolerance Reporting (LTR) | 延迟容忍度上报 (LTR)
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 The power budget information is maintained within a table that consists of one or more 32‐bit entries. Each table entry contains power
 budget information for the different operating modes supported by the device. Each table entry is selected via the data select field, and
@@ -592,7 +590,7 @@ _Figure 20‐2: Multicast Capability Registers_
 
 |20<br>31|19|19|16|15||0||||
 |---|---|---|---|---|---|---|---|---|---|
-|Next Extended<br>Capability Offset||Version<br>(1h)||PCIe Extended Capability ID<br>(0012h for Multicast)||||||
+|Next Extended Capability Offset||Version (1h)||PCIe Extended Capability ID (0012h fo...|
 ||||31|||||0|Offset|
 |||||PCIe Enhanced Capability Header|||||00h|
 |||||Multicast Control||Multicast Capability|||04h|
@@ -679,7 +677,7 @@ _Figure 20‐6: Position of Multicast Group Number_
 ## **MC Receive**
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 这些值由软件编程到表中以在正常操作期间使用。规范建议该表位于 TPH Requester Capability 结构中，如图 20-16 所示（在第 906 页），但它也可以构建到 MSI-X 表中。对于给定的功能，只能使用这些表位置中的一个或另一个。位置在 Requester
 Capability 寄存器的 ST Table Location 字段 [10:9] 中给出，如图 20-17 所示（在第 907 页）。这 2 位的编码在第 907 页的表 20-2 中显示。

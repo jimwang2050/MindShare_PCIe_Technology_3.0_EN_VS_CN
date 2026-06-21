@@ -9,37 +9,36 @@
 
 ## 📑 本章目录 (Table of Contents)
 
-- [1.1 Part One: — 背景](#sec-1-1)
-- [1.2 This Chapter — 背景](#sec-1-2)
-- [1.3 The Next Chapter — 背景](#sec-1-3)
-- [1.4 Introduction — 背景](#sec-1-4)
-- [1.5 PCI and PCI-X — 背景](#sec-1-5)
-- [1.6 PCI Basics — 背景](#sec-1-6)
-- [1.7 Basics of a PCI-Based System — 背景](#sec-1-7)
-- [1.8 PCI Express Technology — 背景](#sec-1-8)
-- [1.9 PCI Bus Initiator and Target — 背景](#sec-1-9)
-- [1.10 Typical PCI Bus Cycle — 背景](#sec-1-10)
-- [1.11 PCI Express Technology — 背景](#sec-1-11)
-- [1.12 Reflected-Wave Signaling — 背景](#sec-1-12)
-- [1.13 PCI Bus Architecture Perspective — 背景](#sec-1-13)
-- [1.14 PCI Transaction Models — 背景](#sec-1-14)
-- [1.15 Programmed I/O — 背景](#sec-1-15)
-- [1.16 Direct Memory Access (DMA) — 背景](#sec-1-16)
-- [1.17 Peer-to-Peer — 背景](#sec-1-17)
-- [1.18 PCI Bus Arbitration — 背景](#sec-1-18)
-- [1.19 PCI Inefficiencies — 背景](#sec-1-19)
-- [1.20 PCI Retry Protocol — 背景](#sec-1-20)
-- [1.21 PCI Express Technology — 背景](#sec-1-21)
-- [1.22 PCI Disconnect Protocol — 背景](#sec-1-22)
+- [1.1 Background — 背景](#sec-1-1)
+- [1.2 Background — 背景](#sec-1-2)
+- [1.3 Background — 背景](#sec-1-3)
+- [1.4 Background — 背景](#sec-1-4)
+- [1.5 Background — 背景](#sec-1-5)
+- [1.6 Background — 背景](#sec-1-6)
+- [1.7 Background — 背景](#sec-1-7)
+- [1.8 Background — 背景](#sec-1-8)
+- [1.9 Background — 背景](#sec-1-9)
+- [1.10 Background — 背景](#sec-1-10)
+- [1.11 Background — 背景](#sec-1-11)
+- [1.12 Background — 背景](#sec-1-12)
+- [1.13 Background — 背景](#sec-1-13)
+- [1.14 Background — 背景](#sec-1-14)
+- [1.15 Background — 背景](#sec-1-15)
+- [1.16 Background — 背景](#sec-1-16)
+- [1.17 Background — 背景](#sec-1-17)
+- [1.18 Background — 背景](#sec-1-18)
+- [1.19 Background — 背景](#sec-1-19)
+- [1.20 Background — 背景](#sec-1-20)
+- [1.21 Background — 背景](#sec-1-21)
+- [1.22 Background — 背景](#sec-1-22)
 
 <a id="sec-1-1"></a>
 ## 1.1 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## Part One: 
 
@@ -48,7 +47,7 @@ The Big Picture
 _**1 Background**_
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## 第一部分：
 
@@ -69,11 +68,10 @@ _**1 背景**_
 <a id="sec-1-2"></a>
 ## 1.2 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **This Chapter** 
 
@@ -83,7 +81,7 @@ described, followed by a discussion of the motivation for migrating from those e
 PCIe.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **本章** 
 
@@ -103,11 +101,10 @@ PCI-X（PCI-eXtended），并描述它们的基本特性和特点，随后讨论
 <a id="sec-1-3"></a>
 ## 1.3 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **The Next Chapter** 
 
@@ -116,7 +113,7 @@ covering all the basics of the architecture at a high level. It introduces the l
 describes the responsibilities of each layer.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **下一章**
 
@@ -132,11 +129,10 @@ describes the responsibilities of each layer.
 <a id="sec-1-4"></a>
 ## 1.4 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **Introduction** 
 
@@ -153,7 +149,7 @@ operation. For this reason and others, under‐ standing PCI and its models of o
 **9** 
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **简介** 
 
@@ -175,11 +171,10 @@ operation. For this reason and others, under‐ standing PCI and its models of o
 <a id="sec-1-5"></a>
 ## 1.5 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **PCI and PCI-X** 
 
@@ -216,7 +211,7 @@ on the shared bus decreases. When PCI‐X 2.0 was introduced, its high speed man
 
 _Table 1‐1: Comparison of Bus Frequency, Bandwidth and Number of Slots_ 
 
-|**Bus Type**|**Clock Frequency**|**Peak Bandwidth**<br>**32‐bit ‐ 64‐bit bus**|**Number of Card**<br>**Slots per Bus**|
+|**Bus Type**|**Clock Frequency**|**Peak Bandwidth** **32‐bit ‐ 64‐bit ...|**Number of Card** **Slots per Bus**|
 |---|---|---|---|
 |PCI|33 MHz|133 ‐ 266 MB/s|4‐5|
 |PCI|66 MHz|266 ‐ 533 MB/s|1‐2|
@@ -226,7 +221,7 @@ _Table 1‐1: Comparison of Bus Frequency, Bandwidth and Number of Slots_
 |PCI‐X 2.0 (QDR)|133 MHz|2132 ‐ 4262 MB/s|1 (point‐to‐point bus)|
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **PCI 与 PCI-X**
 
@@ -246,7 +241,7 @@ Special Interest Group，PCI 特殊兴趣小组）的组织。全新开发的总
 
 **表 1-1：总线频率、带宽与插槽数量对比**
 
-|**总线类型**|**时钟频率**|**峰值带宽**<br>**32 位 ‐ 64 位总线**|**每条总线的卡**<br>**插槽数量**|
+|**总线类型**|**时钟频率**|**峰值带宽**<br>**32 位 ‐ 64 位总线**|**每条总线的卡 插槽数量**|
 |---|---|---|---|
 |PCI|33 MHz|133 ‐ 266 MB/s|4‐5|
 |PCI|66 MHz|266 ‐ 533 MB/s|1‐2|
@@ -267,16 +262,15 @@ Special Interest Group，PCI 特殊兴趣小组）的组织。全新开发的总
 <a id="sec-1-6"></a>
 ## 1.6 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **PCI Basics**
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **PCI 基础知识**
 
@@ -290,11 +284,10 @@ Special Interest Group，PCI 特殊兴趣小组）的组织。全新开发的总
 <a id="sec-1-7"></a>
 ## 1.7 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **Basics of a PCI-Based System** 
 
@@ -306,7 +299,7 @@ bus where legacy peripherals were carried forward for a few years. The South Bri
 pro‐ vided system signals like reset, reference clock, and error reporting.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **基于 PCI 的系统基础** 
 
@@ -323,11 +316,10 @@ pro‐ vided system signals like reset, reference clock, and error reporting.
 <a id="sec-1-8"></a>
 ## 1.8 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **PCI Express Technology** 
 
@@ -338,7 +330,7 @@ _Figure 1‐1: Legacy PCI Bus‐Based Platform_
 <br>
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **PCI Express 技术** 
 
@@ -360,11 +352,10 @@ _图 1‐1：传统 PCI 总线架构平台_
 <a id="sec-1-9"></a>
 ## 1.9 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **PCI Bus Initiator and Target** 
 
@@ -385,7 +376,7 @@ _Figure 1‐2: PCI Bus Arbitration_
 <br>
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **PCI 总线发起方与目标方**
 
@@ -412,11 +403,10 @@ _图 1-2:PCI 总线仲裁_
 <a id="sec-1-10"></a>
 ## 1.10 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **Typical PCI Bus Cycle** 
 
@@ -432,7 +422,7 @@ address and com‐ mand for this transaction. All of the other devices on the bu
 decoding the address to see whether it’s a match for them.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **典型 PCI 总线周期**
 
@@ -452,11 +442,10 @@ decoding the address to see whether it’s a match for them.
 <a id="sec-1-11"></a>
 ## 1.11 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **PCI Express Technology** 
 
@@ -504,7 +493,7 @@ _Figure 1‐3: Simple PCI Bus Transfer_
 <br>
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **PCI Express Technology**
 
@@ -545,11 +534,10 @@ _**图 1‐3:简单的 PCI 总线传输**_
 <a id="sec-1-12"></a>
 ## 1.12 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **Reflected-Wave Signaling** 
 
@@ -592,7 +580,7 @@ _Figure 1‐5: 33 MHz PCI System, Including a PCI‐to‐PCI Bridge_
 <br>
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **反射波信号（Reflected-Wave Signaling）** 
 
@@ -661,16 +649,15 @@ COM2 编解码器（CODEC）编解码器（CODEC）以太网（Ethernet） ROM<b
 <a id="sec-1-13"></a>
 ## 1.13 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **PCI Bus Architecture Perspective**
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **PCI 总线架构视角 (PCI Bus Architecture Perspective)**
 
@@ -684,11 +671,10 @@ COM2 编解码器（CODEC）编解码器（CODEC）以太网（Ethernet） ROM<b
 <a id="sec-1-14"></a>
 ## 1.14 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **PCI Transaction Models** 
 
@@ -696,7 +682,7 @@ PCI uses three models for data transfer just as previous bus models did: Pro‐ 
 illustrated in Figure 1‐6 on page 19 and described in the following sections.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **PCI 事务模型** 
 
@@ -712,11 +698,10 @@ illustrated in Figure 1‐6 on page 19 and described in the following sections.
 <a id="sec-1-15"></a>
 ## 1.15 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **Programmed I/O** 
 
@@ -741,7 +726,7 @@ _Figure 1‐6: PCI Transaction Models_
 <br>
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **程序化 I/O** 
 
@@ -774,11 +759,10 @@ HDD<br>USB 南桥 逻辑错误 以太网 SCSI<br>ISA<br>启动 调制解调器 �
 <a id="sec-1-16"></a>
 ## 1.16 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **Direct Memory Access (DMA)** 
 
@@ -797,7 +781,7 @@ completed, the PCI peripheral might generate an interrupt to inform the system. 
 the CPU is not involved in the data movement, and a single bus cycle may be sufficient to move a block of data.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **直接内存访问 (DMA)**
 
@@ -819,11 +803,10 @@ the CPU is not involved in the data movement, and a single bus cycle may be suff
 <a id="sec-1-17"></a>
 ## 1.17 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **Peer-to-Peer** 
 
@@ -836,7 +819,7 @@ same vendor. Consequently, the data usually must first be sent to memory where t
 the target, defeating the goal of a peer‐to‐peer transfer.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **对等传输 (Peer-to-Peer)**
 
@@ -855,11 +838,10 @@ the target, defeating the goal of a peer‐to‐peer transfer.
 <a id="sec-1-18"></a>
 ## 1.18 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **PCI Bus Arbitration** 
 
@@ -874,7 +856,7 @@ no clocks are used on the bus to sort out the next owner. As a result, the arbit
 to as “hidden” bus arbitration, which was a design improvement over earlier bus protocols.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **PCI 总线仲裁**
 
@@ -896,16 +878,15 @@ to as “hidden” bus arbitration, which was a design improvement over earlier 
 <a id="sec-1-19"></a>
 ## 1.19 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **PCI Inefficiencies**
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **PCI 的不足之处 (PCI Inefficiencies)**
 
@@ -919,11 +900,10 @@ to as “hidden” bus arbitration, which was a design improvement over earlier 
 <a id="sec-1-20"></a>
 ## 1.20 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **PCI Retry Protocol** 
 
@@ -941,7 +921,7 @@ Ethernet target claims the bus cycle. However, the Ethernet target does not imme
 The Ethernet device has two choices by which to delay the data transfer. The first is to insert wait‐states in
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **PCI 重试协议** 
 
@@ -967,11 +947,10 @@ _图 1-7:PCI 交易重试机制_
 <a id="sec-1-21"></a>
 ## 1.21 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **PCI Express Technology** 
 
@@ -986,7 +965,7 @@ transfer data. The bus cycle goes to completion with data transfer. Otherwise, i
 cycle again and the process is repeated until the master successfully transfers data.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **PCI Express Technology**
 
@@ -1005,11 +984,10 @@ cycle again and the process is repeated until the master successfully transfers 
 <a id="sec-1-22"></a>
 ## 1.22 Background | 背景
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 ## **PCI Disconnect Protocol** 
 
@@ -1037,7 +1015,7 @@ _Figure 1-8: PCI Transaction Disconnect Mechanism_
 <br>
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 1 ## **PCI 断开连接协议** 
 

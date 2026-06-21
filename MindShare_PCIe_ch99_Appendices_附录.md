@@ -9,24 +9,23 @@
 
 ## 📑 本章目录 (Table of Contents)
 
-- [99.1 Viewing Traffic Using the PETracer Application — 附录](#sec-99-1)
-- [99.2 PTC card — 附录](#sec-99-2)
-- [99.3 PCIe in SSD Modules for Servers — 附录](#sec-99-3)
-- [99.4 Example: Implementing Intelligent Adapters in a PCI Expre... — 附录](#sec-99-4)
-- [99.5 Summary — 附录](#sec-99-5)
-- [99.6 The Memory Read Lock Operation — 附录](#sec-99-6)
-- [99.7 Rules Related To PCI Express Endpoints — 附录](#sec-99-7)
-- [99.8 PCI Express Technology — 附录](#sec-99-8)
-- [99.9 _E_ — 附录](#sec-99-9)
+- [99.1 Appendices — 附录](#sec-99-1)
+- [99.2 Appendices — 附录](#sec-99-2)
+- [99.3 Appendices — 附录](#sec-99-3)
+- [99.4 Appendices — 附录](#sec-99-4)
+- [99.5 Appendices — 附录](#sec-99-5)
+- [99.6 Appendices — 附录](#sec-99-6)
+- [99.7 Appendices — 附录](#sec-99-7)
+- [99.8 Appendices — 附录](#sec-99-8)
+- [99.9 Appendices — 附录](#sec-99-9)
 
 <a id="sec-99-1"></a>
 ## 99.1 Appendices | 附录
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 Care should be taken when selecting an interposer as the probe circuitry varies by vendor and by requirements imposed by the max PCIe link
 speed. For exam‐ ple, a Gen3 slot interposer should contain probe circuitry which allows the dynamic link training process to pass properly
@@ -193,7 +192,7 @@ traffic generation tool such as the LeCroy PETrainer or LeCroy PTC card.
 ## **Exerciser Card**
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 在选择插接板 (interposer) 时需要谨慎,因为不同厂商以及最大 PCIe 链路速度所施加的不同要求会导致探针电路有所差异。例如,Gen3 插槽插接板应包含允许动态链路训练过程正确通过探针的探针电路。LeCroy Gen3
 插槽插接板使用线性电路来保持波形在通过探针时的形状。这允许在链路训练期间动态改变发送端的预加重,同时允许接收端量化新设置的影响(无论是正面影响还是负面影响)。
@@ -327,11 +326,10 @@ _Figure A‐12: BitTracer View of Gen2 Traffic_
 <a id="sec-99-2"></a>
 ## 99.2 Appendices | 附录
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 To thoroughly test the PCIe compliance and overall robustness of a PCIe design post‐silicon, a dedicated Exerciser card such as the LeCroy
 PETrainer shown in Figure 13 on page 932 is used. This card allows the user to generate a wide range of compliant and non‐compliant traffic.
@@ -494,7 +492,7 @@ _Figure 0‐3: PCIe in a Data Center for HPC Applications_
 ## **SSD/Storage IO Expansion Boxes**
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 为了彻底测试 PCIe 设计的 PCIe 合规性和整体稳健性，使用了专用 Exerciser 卡，如图 13 所示（在第 932 页）的 LeCroy PETrainer。该卡允许用户生成各种合规和不合规的流量。例如，如果将 PCIe 卡放在标准主板中，则可能会限制它将看到的
 TLP 数据包的大小。专用 Exerciser 卡可以跨数据包大小的整个合法范围生成 TLP 数据包。
@@ -612,11 +610,10 @@ _图 0-3：用于 HPC 应用程序的数据中心中的 PCIe_
 <a id="sec-99-3"></a>
 ## 99.3 Appendices | 附录
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 Recently, the industry has converged towards PCIe as the unified interconnect technology for enterprise storage and solid state drive (SSD)
 applications. The NVM HCI, an industry consortium, has released a specification called NVM Express (NVMe) that uses PCIe to provide the
@@ -771,7 +768,7 @@ non‐functional system.[1]
 ## **PCI Express 3.0 Technology**
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 最近，业界已融合到 PCIe 作为企业存储和固态驱动器 (SSD) 应用程序的统一互连技术。NVM HCI（一个行业联盟）发布了一个名为 NVM Express (NVMe) 的规范，该规范使用 PCIe 提供 SSD 应用程序所需的带宽。此外，T10 委员会已开始定义 SCSI
 over PCIe (SOP) 协议，以利用 PCIe 技术能力实现高性能存储应用程序。此外，SATA 联盟最近宣布将 PCIe 用作其下一代 SATA 规范（称为 SATA Express (SATAe)）的互连。
@@ -879,11 +876,10 @@ _图 0-1：使用透明桥的枚举_
 <a id="sec-99-4"></a>
 ## 99.4 Appendices | 附录
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 To get around this, architects designed non‐transparent bridges. A non‐trans‐ parent PCI‐to‐PCI Bridge, or PCI Express‐to‐PCI Express
 Bridge, is a bridge that exposes a Type 0 CSR header on both sides and forwards transactions from one side to the other with address
@@ -1024,7 +1020,7 @@ endpoint and, using the data in the EEPROM, allocate resources. Both systems wil
 communicate with each other.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 为了解决这个问题,架构师设计了非透明桥 (non-transparent bridge)。非透明 PCI-PCI 桥或 PCI Express-PCI Express 桥是一种在两侧都暴露 Type 0 CSR 头部的桥,并通过这些 CSR 头部的 BAR
 创建的孔径将事务从一侧转发到另一侧,并进行地址转换。因为它暴露了 Type 0 CSR 头部,所以该桥在发现和配置软件看来是一个端点,从而消除了潜在的发现软件冲突。桥每一侧的每个 BAR
@@ -1122,11 +1118,10 @@ _Figure 0‐6: Dual Host in PCI and PCI Express System_
 <a id="sec-99-5"></a>
 ## 99.5 Appendices | 附录
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 2 The dual‐host system model may be extended to a fully redundant dual star system by using additional switches to dual‐port the hosts and
 line cards into a redundant fabric as shown in Figure C‐0‐7 on page 957. This is particularly attractive to vendors who employ chassis based
@@ -1309,7 +1304,7 @@ This section explains the PCI Express lock protocol by example. The example incl
 - The target PCI device who’s Device Driver initiated the locked RMW.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **双主机系统模型**
 
@@ -1462,11 +1457,10 @@ PCI Express 定义以下事务,它们共同充当虚拟连线并替代 LOCK# 信
 <a id="sec-99-6"></a>
 ## 99.6 Appendices | 附录
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 - A PCI Express endpoint is included to describe Switch behavior during lock. 
 
@@ -1645,7 +1639,7 @@ access with a Suc‐ cessful Completion status:
  - Once locked, the legacy Endpoint must remain locked until it receives the Unlock Message.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 - 包括一个 PCI Express 端点来描述锁定期间的交换机行为。
 
@@ -1786,8 +1780,7 @@ PCI Express/PCI 桥的要求类似于对交换机的要求,只是因为这些桥
 <p align="center"><img src="figures/chapter_99_Appendices/embedded/page0962_img1.png" width="700"></p>
 <p align="center"><sub>📄 <a href="figures/chapter_99_Appendices/embedded/page0962_img1.png">Page 962</a></sub></p>
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 
@@ -1803,11 +1796,10 @@ PCI Express/PCI 桥的要求类似于对交换机的要求,只是因为这些桥
 <a id="sec-99-7"></a>
 ## 99.7 Appendices | 附录
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 - While locked, a legacy Endpoint must not issue any Requests using Traffic Classes which map to the default Virtual Channel (VC0). Note
 that this requirement applies to all possible sources of Requests within the Endpoint, in the case where there is more than one possible
@@ -1831,7 +1823,7 @@ This scheme is used with the earlier<br>versions of PCIe: Gen1 and Gen2.|
 |ACK/NAK Protocol|The Acknowledge/Negative Acknowledge mechanism<br>by which the Data Link Layer reports whether TLPs<br>have experienced
 any errors during transmission. If so, a<br>NAK is returned to the sender to request a replay of the<br>failed TLPs. If not, an ACK is
 returned to indicate that<br>one or more TLPs have arrived safely.|
-|ACPI|Advanced Configuration and Power Interface. Specifies<br>the various system and device power states.|
+|ACPI|Advanced Configuration and Power Inte...|
 |ACS|Access Control Services.|
 
 
@@ -1845,14 +1837,14 @@ normally.|
 or both.|
 |AtomicOps|Atomic Operations; three new Requests added with the<br>2.1 spec revision. These carry out multiple operations<br>that are
 guaranteed to take place without interruption<br>within the target device.|
-|Bandwidth Management|Hardware‐initiated changes to Link speed or width for<br>the purpose of power conservation or reliability.|
-|BAR|Base Address Register. Used by Functions to indicate the<br>type and size of their local memory and IO space.|
+|Bandwidth Management|Hardware‐initiated changes to Link sp...|
+|BAR|Base Address Register. Used by Functi...|
 |Beacon|Low‐frequency in‐band signal used by Devices whose<br>main power has been shut off to signal that an event has<br>occurred for which
 they need to have the power<br>restored. This can be sent across the Link when the Link<br>is in the L2 state.|
-|BER|Bit Error Rate or Ratio; a measure of signal integrity<br>based on the number of transmission bit errors seen<br>within a time period|
+|BER|Bit Error Rate or Ratio; a measure of...|
 |Bit Lock|The process of acquiring the transmitter’s precise clock<br>frequency at the receiver. This is done in the CDR logic<br>and is one
 of the first steps in Link Training.|
-|Block|The 130‐bit unit sent by a Gen3 transmitter, made up of a<br>2‐bit Sync Field followed by a group of 16 bytes.|
+|Block|The 130‐bit unit sent by a Gen3 trans...|
 
 
 **Glossar y** 
@@ -1865,8 +1857,8 @@ boundary to<br>match it. Next, search for the SDS (Start Data Stream)<br>Ordered
 boundary.|
 |Bridge|A Function that acts as the interface between two buses.<br>Switches and the Root Complex will implement bridges<br>on their Ports
 to enable packet routing, and a bridge can<br>also be made to connect between different protocols,<br>such as between PCIe and PCI.|
-|Byte Striping|Spreading the output byte stream across all available<br>Lanes. All available Lanes are used whenever sending<br>bytes.|
-|CC|Credits Consumed: Number of credits already used by<br>the transmitter when calculating Flow Control.|
+|Byte Striping|Spreading the output byte stream acro...|
+|CC|Credits Consumed: Number of credits a...|
 |CDR|Clock and Data Recovery logic used to recover the<br>Transmitter clock from the incoming bit stream and then<br>sample the bits to
 recognize patterns. For 8b/10b, that<br>pattern, found in the COM, FTS, and EIEOS symbols,<br>allows the logic to acquire Symbol Lock. For
 128b/130b<br>the EIEOS sequence is used to acquire Block Lock by<br>going through the three phases of locking.|
@@ -1883,7 +1875,7 @@ characters because 8b/10b<br>encoding is no longer used. In that case, the chara
 are available to send a TLP.|
 |Control Character|These are special characters (labeled as “K” characters)<br>used in 8b/10b encoding that facilitate Link training
 and<br>Ordered Sets. They are not used in Gen3, where there is<br>no distinction between characters.|
-|Correctable Errors|Errors that are corrected automatically by hardware and<br>don’t require software attention.|
+|Correctable Errors|Errors that are corrected automatical...|
 |CR|Credits Required ‐ this is the sum of CC and PTLP.|
 |CRC|Cyclic Redundancy Code; added to TLPs and DLLPs to<br>allow verifying error‐free transmission. The name means<br>that the patterns are
 cyclic in nature and are redundant<br>(they don’t add any extra information). The codes don’t<br>contain enough information to permit
@@ -1932,7 +1924,7 @@ reliable packet transport from source to<br>destination, regardless of how many 
 receiver clocks.|
 |EMI|Electro‐Magnetic Interference: the emitted electrical<br>noise from a system. For PCIe, both SSC and scrambling<br>are used to attack
 it.|
-|Endpoint|PCIe Function that is at the bottom of the PCI Inverted‐<br>Tree structure.|
+|Endpoint|PCIe Function that is at the bottom o...|
 |Enumeration|The process of system discovery in which software reads<br>all of the expected configuration locations to learn
 which<br>PCI‐configurable Functions are visible and thus present<br>in the system.|
 |Equalization|The process of adjusting Tx and Rx values to compen‐<br>sate for actual or expected signal distortion through
@@ -1948,20 +1940,20 @@ attempting to send a packet.|
 
 |**Term**|**Definition**|
 |---|---|
-|Framing Symbols|The “start” and “end” control characters used in 8b/10b<br>encoding that indicate the boundaries of a TLP or DLLP.|
-|Gen1|Generation 1, meaning designs created to be compliant<br>with the 1.x version of the PCIe spec.|
-|Gen1, Gen2, Gen3|Abbreviations for the revisions of the PCIe spec. Gen1 =<br>rev 1.x, Gen2 = rev 2.x, and Gen3 = rev 3.0|
-|Gen2|Generation 2, meaning designs created to be compliant<br>with the 2.x version of the PCIe spec.|
-|Gen3|Generation 3, meaning designs created to be compliant<br>with the 3.x version of the PCIe spec.|
+|Framing Symbols|The “start” and “end” control charact...|
+|Gen1|Generation 1, meaning designs created...|
+|Gen1, Gen2, Gen3|Abbreviations for the revisions of th...|
+|Gen2|Generation 2, meaning designs created...|
+|Gen3|Generation 3, meaning designs created...|
 |IDO|ID‐based Ordering; when enabled, this allows TLPs<br>from different Requesters to be forwarded out of order<br>with respect to each
 other. The goal is to improve latency<br>and performance.|
 |Implicit Routing|TLPs whose routing is understood without reference to<br>an address or ID. Only Message requests have the option<br>to use
 this type of routing.|
 |Ingress Port|Port that has incoming traffic.|
-|ISI|Inter‐Symbol Interference; the effect on one bit time that<br>is caused by the recent bits that preceded it.|
+|ISI|Inter‐Symbol Interference; the effect...|
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 ## **PCI Express 端点相关规则**
 
@@ -1973,7 +1965,7 @@ this type of routing.|
 |---|---|
 |128b/130b Encoding|这与 8b/10b 意义上的编码不同。相反,发送端以块 (Block) 形式发送信息,每个块由一行的 16 个原始字节组成,前面有一个 2 位的同步 (Sync) 字段,用于指示该块应被视为数据块 (Data Block) 还是有序集块
 (Ordered Set Block)。该方案从 Gen3 开始引入,主要是为了在不使时钟频率翻倍的情况下使链路带宽翻倍。它提供了更好的带宽利用率,但牺牲了 8b/10b 为接收器提供的一些优势。|
-|8b/10b Encoding|多年前开发的编码方案,如今仍用于许多串行传输。它旨在帮助接收器从输入信号中恢复时钟和数据,但也会使接收器可用带宽减少 20%。该方案用于早期版本的 PCIe:Gen1 和 Gen2。|
+|8b/10b Encoding|多年前开发的编码方案,如今仍用于许多串行传输。它旨在帮助接收器从输入信号中...|
 |ACK/NAK Protocol|确认/否定确认 (Acknowledge/Negative Acknowledge) 机制,数据链路层通过该机制报告 TLP 在传输过程中是否发生任何错误。如果发生错误,则向发送方返回 NAK 以请求重传失败的 TLP。否则,返回 ACK
 以表明一个或多个 TLP 已安全到达。|
 |ACPI|高级配置与电源接口 (Advanced Configuration and Power Interface)。规定各种系统和设备电源状态。|
@@ -1983,8 +1975,8 @@ this type of routing.|
 
 |**术语 (Term)**|**定义 (Definition)**|
 |---|---|
-|ARI|替代路由 ID 解释 (Alternative Routing-ID Interpretation);可选功能,允许端点具有比通常允许的 8 个更多的功能 (Function)。|
-|ASPM|活跃状态电源管理 (Active State Power Management):启用后,允许硬件将链路电源状态从 L0 更改为 L0s 或 L1,或两者兼有。|
+|ARI|替代路由 ID 解释 (Alternative Routing-ID In...|
+|ASPM|活跃状态电源管理 (Active State Power Manageme...|
 |AtomicOps|原子操作 (Atomic Operations);在 2.1 规范修订版中添加的三个新请求。它们执行多个保证在目标设备内不间断进行的操作。|
 |Bandwidth Management|硬件发起的链路速度或宽度更改,目的是节约电力或提高可靠性。|
 |BAR|基地址寄存器 (Base Address Register)。由功能 (Function) 用于指示其本地内存和 IO 空间的类型和大小。|
@@ -1999,7 +1991,7 @@ this type of routing.|
 |---|---|
 |Block Lock|在使用 128b/130b 编码时,在接收器处找到块 (Block) 边界以便识别传入的块。该过程涉及三个阶段。首先,在输入流中搜索 EIEOS (电气空闲退出有序集,Electrical Idle Exit Ordered Set)
 并调整内部块边界以匹配它。接下来,搜索 SDS (开始数据流,Start Data Stream) 有序集。之后,接收器被锁定到块边界。|
-|Bridge|充当两个总线之间接口的 Function (功能)。交换机 (Switch) 和根复合体 (Root Complex) 将在其端口上实现桥接器以实现数据包路由,也可以创建桥接器以连接不同协议,例如 PCIe 和 PCI 之间。|
+|Bridge|充当两个总线之间接口的 Function (功能)。交换机 (Switch...|
 |Byte Striping|将输出字节流分布到所有可用 Lane 上。每当发送字节时,都使用所有可用的 Lane。|
 |CC|已消耗信用 (Credits Consumed):发送方在计算流控制时已使用的信用数。|
 |CDR|时钟数据恢复 (Clock and Data Recovery) 逻辑,用于从输入比特流中恢复发送器时钟,然后对比特进行采样以识别模式。对于 8b/10b,在 COM、FTS 和 EIEOS 符号中找到的模式允许逻辑获取符号锁定 (Symbol Lock)。对于
@@ -2012,10 +2004,10 @@ this type of routing.|
 |**术语 (Term)**|**定义 (Definition)**|
 |---|---|
 |CL|信用限制 (Credit Limit):从发送方角度看,流控制信用被视为可用。检查以验证是否有足够信用可用于发送 TLP。|
-|Control Character|这些是在 8b/10b 编码中使用的特殊字符 (标记为 "K" 字符),有助于链路训练 (Link Training) 和有序集 (Ordered Sets)。它们不用于 Gen3,在 Gen3 中字符之间没有区别。|
+|Control Character|这些是在 8b/10b 编码中使用的特殊字符 (标记为 "K" 字符),有...|
 |Correctable Errors|由硬件自动更正且不需要软件关注的错误。|
 |CR|所需信用 (Credits Required) - 这是 CC 和 PTLP 的总和。|
-|CRC|循环冗余校验 (Cyclic Redundancy Code);添加到 TLP 和 DLLP 中以允许验证无错传输。名称意味着这些模式本质上是循环的且是冗余的 (它们不添加任何额外信息)。这些代码不包含足够的信息以允许自动纠错,但提供强大的错误检测。|
+|CRC|循环冗余校验 (Cyclic Redundancy Code);添加到 T...|
 |Cut-Through Mode|交换机 (Switch) 允许 TLP 通过的机制,从入口端口转发到出口端口,无需先存储以检查错误。这涉及风险,因为在部分内容已转发到出口端口后,TLP 可能被发现存在错误。在这种情况下,在数据链路层中修改数据包末尾,使其具有与应有的 LCRC
 值相反的值,并在物理层中修改以在 8b/10b 编码中具有 End Bad (EDB) 帧符号,或在 128b/130b 编码中具有 EDB 令牌。该组合告诉接收器该数据包已作废 (nullified),应在不发送 ACK/NAK 响应的情况下丢弃。|
 |Data Characters|表示普通数据的字符 (标记为 "D" 字符),在 8b/10b 中与控制字符区分开。对于 Gen3,字符之间没有区别。|
@@ -2027,25 +2019,25 @@ this type of routing.|
 |Data Stream|Gen3 操作的数据块流。该流由 SDS (数据流开始有序集) 进入,并以 EDS (数据流结束令牌) 退出。在数据流期间,只期望数据块或 SOS。当需要任何其他有序集时,必须退出数据流,仅在有更多数据块准备好发送时重新进入。启动数据流等同于进入 L0
 链路状态,因为有序集仅在其他 LTSSM 状态 (如 Recovery) 中发送。|
 |De-emphasis|降低流中重复比特的发送器电压的过程。这具有去加重信号中已知会在传输介质中引起问题的低频分量的效果,从而改善接收器处的信号完整性。|
-|Digest|ECRC (端到端 CRC,End-to-End CRC) 值的另一个名称,可在 TLP 在事务层 (Transaction Layer) 中创建时附加到 TLP。|
-|DLCMSM|数据链路控制和管理状态机 (Data Link Control and Management State Machine);管理链路层训练过程 (主要是流控制初始化)。|
+|Digest|ECRC (端到端 CRC,End-to-End CRC) 值的另一个名称...|
+|DLCMSM|数据链路控制和管理状态机 (Data Link Control and M...|
 |DLLP|数据链路层数据包 (Data Link Layer Packet)。这些在数据链路层中创建并转发到物理层,但事务层不可见。|
-|DPA|动态功率分配 (Dynamic Power Allocation);2.1 规范修订版中引入的一组新配置寄存器,定义 D0 设备电源状态下的 32 个电源子状态,从而使软件更容易控制设备电源选项。|
-|DSP (Downstream Port)|面向下游的端口,如根端口 (Root Port) 或交换机下游端口 (Switch Downstream Port)。这种区别在 LTSSM 中有意义,因为端口在某些状态下具有分配的角色。|
+|DPA|动态功率分配 (Dynamic Power Allocation);2.1...|
+|DSP (Downstream Port)|面向下游的端口,如根端口 (Root Port) 或交换机下游端口 (Sw...|
 
 ## **PCI Express Technology**
 
 |**术语 (Term)**|**定义 (Definition)**|
 |---|---|
-|ECRC|端到端 CRC (End-to-End CRC) 值,可在 TLP 在事务层 (Transaction Layer) 中创建时附加到 TLP。这使接收器能够验证从源到目的地的可靠数据包传输,无论穿越了多少个链路 (Link)。|
+|ECRC|端到端 CRC (End-to-End CRC) 值,可在 TLP 在事务...|
 |Egress Port|具有传出流量的端口。|
 |Elastic Buffer|CDR 逻辑的一部分,该缓冲区使接收器能够补偿发送器和接收器时钟之间的差异。|
-|EMI|电磁干扰 (Electro-Magnetic Interference):系统发射的电噪声。对于 PCIe,使用 SSC 和加扰 (scrambling) 来应对它。|
+|EMI|电磁干扰 (Electro-Magnetic Interference):...|
 |Endpoint|位于 PCI 倒置树 (Inverted-Tree) 结构底部的 PCIe Function。|
 |Enumeration|系统发现过程,其中软件读取所有预期的配置位置以了解哪些 PCI 可配置 Function 可见并因此存在于系统中。|
 |Equalization|调整 Tx 和 Rx 值以补偿通过传输介质的实际或预期信号失真的过程。对于 Gen1 和 Gen2,这采用 Tx 去加重 (De-emphasis) 的形式。对于 Gen3,引入主动评估过程来测试信令环境并相应地调整 Tx 设置,并提及可选的 Rx
 均衡。|
-|Flow Control|发送器避免由于接收器缓冲区空间不足而导致数据包被拒绝的风险的机制。接收器定期发送有关可用缓冲区空间的更新,发送器在尝试发送数据包之前验证是否有足够空间可用。|
+|Flow Control|发送器避免由于接收器缓冲区空间不足而导致数据包被拒绝的风险的机制。接收器定...|
 |FLR|功能级复位 (Function-Level Reset)|
 
 ## _**术语表 (Glossary)**_
@@ -2075,11 +2067,10 @@ this type of routing.|
 <a id="sec-99-8"></a>
 ## 99.8 Appendices | 附录
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 |Lane|The two differential pairs that allow a transmit and<br>receive path of one bit between two Ports. A Link can<br>consist of just one
 Lane or it may contain as many as 32<br>Lanes.|
@@ -2093,12 +2084,12 @@ inter‐<br>nally.|
 
 |**Term**|**Definition**|
 |---|---|
-|LFSR|Linear‐Feedback Shift Register; creates a pseudo‐ran‐<br>dom pattern used to facilitate scrambling.|
+|LFSR|Linear‐Feedback Shift Register; creat...|
 |Link|Interface between two Ports, made up of one or more<br>Lanes.|
 |LTR|Latency‐Tolerance Reporting; mechanism that allows<br>devices to report to the system how quickly they need to<br>get service when they
 send a Request. Longer latencies<br>afford more power management options to the system.|
-|LTSSM|Link Training and Status State Machine; manages the<br>training process for the Physical Layer.|
-|Non‐posted Request|A Request that expects to receive a Completion in<br>response. For example, any read request would be non‐<br>posted.|
+|LTSSM|Link Training and Status State Machin...|
+|Non‐posted Request|A Request that expects to receive a C...|
 |Non‐prefetchable<br>Memory|Memory that exhibits side effects when read. For exam‐<br>ple, a status register that automatically self‐clears
 when<br>read. Such data is not safe to prefetch since, if the<br>requester never requested the data and it was discarded,<br>it would be
 lost to the system. This was an important<br>distinction for PCI bridges, which had to guess about the<br>data size on reads. If they knew
@@ -2119,9 +2110,9 @@ devices send requests during optimal times<br>and not during other times system 
 |Ordered Sets|Groups of Symbols sent as Physical Layer communica‐<br>tion for Lane management. These often consist of just<br>control
 characters for 8b/10b encoding. They are created<br>in the Physical Layer of the sender and consumed in the<br>Physical Layer of the
 receiver without being visible to<br>the other layers at all.|
-|PCI|Peripheral Component Interface. Designed to replace<br>earlier bus designs used in PCs, such as ISA.|
-|PCI‐X|PCI eXtended. Designed to correct the shortcomings of<br>PCI and enable higher speeds.|
-|PME|Power Management Event; message from a device indi‐<br>cating that power‐related service is needed.|
+|PCI|Peripheral Component Interface. Desig...|
+|PCI‐X|PCI eXtended. Designed to correct the...|
+|PME|Power Management Event; message from ...|
 |Poisoned TLP|Packet whose data payload was known to be bad when<br>it was created. Sending the packet with bad data can be<br>helpful as an
 aid to diagnosing the problem and deter‐<br>mining a solution for it.|
 |Polarity Inversion|The receiver’s signal polarity is permitted to be con‐<br>nected backwards to support cases when doing so<br>would
@@ -2161,29 +2152,29 @@ there is no defined limit, but the modified<br>scrambling scheme it uses is inte
 |Scrambling|The process of randomizing the output bit stream to<br>avoid repeated patterns on the Link and thus reduce<br>EMI. Scrambling
 can be turned off for Gen1 and Gen2 to<br>allow specifying patterns on the Link, but it cannot be<br>turned off for Gen3 because it does
 other work at that<br>speed and the Link is not expected to be able to work<br>reliably without it.|
-|SOS|Skip Ordered Set ‐ used to compensate for the slight fre‐<br>quency difference between Tx and Rx.|
+|SOS|Skip Ordered Set ‐ used to compensate...|
 |SSC|Spread‐Spectrum Clocking. This is a method of reducing<br>EMI in a system by allowing the clock frequency to vary<br>back and forth
 across an allowed range. This spreads the<br>emitted energy across a wider range of frequencies and<br>thus avoids the problem of having too
 much EMI energy<br>concentrated in one particular frequency.|
 |Sticky Bits|Status bits whose value survives a reset. This characteris‐<br>tic is useful for maintaining status information when<br>errors
 are detected by a Function downstream of a Link<br>that is no longer operating correctly. The failed Link<br>must be reset to gain access to
 the downstream Func‐<br>tions, and the error status information in its registers<br>must survive that reset to be available to software.|
-|Switch|A device containing multiple Downstream Ports and<br>one Upstream Port that is able to route traffic between its<br>Ports.|
+|Switch|A device containing multiple Downstre...|
 |Symbol|Encoded unit sent across the Link. For 8b/10b these are<br>the 10‐bit values that result from encoding, while for<br>128b/130b
 they’re 8‐bit values.|
 |Symbol Lock|Finding the Symbol boundaries at the Receiver when<br>using 8b/10b encoding so as to recognize incoming Sym‐<br>bols and thus
 the contents of packets.|
-|Symbol time|The time it takes to send one symbol across the Link ‐<br>4ns for Gen1, 2ns for Gen2, and 1ns for Gen3.|
+|Symbol time|The time it takes to send one symbol ...|
 
 
 ## **PCI Express Technology** 
 
 |**Term**|**Definition**|
 |---|---|
-|TLP|Transaction Layer Packet. These are created in the Trans‐<br>action Layer and passed through the other layers.|
-|Token|Identifier of the type of information being delivered dur‐<br>ing a Data Stream when operating at Gen3 speed.|
-|TPH|TLP Processing Hints; these help system routing agents<br>make choices to improve latency and traffic congestion.|
-|UI|Unit Interval; the time it takes to send one bit across the<br>Link ‐ 0.4ns for Gen1, 0.2ns for Gen2, 0.125ns for Gen3|
+|TLP|Transaction Layer Packet. These are c...|
+|Token|Identifier of the type of information...|
+|TPH|TLP Processing Hints; these help syst...|
+|UI|Unit Interval; the time it takes to s...|
 |Uncorrectable Errors|Errors that can’t be corrected by hardware and thus will<br>ordinarily require software attention to resolve.
 These<br>are divided into Fatal errors ‐ those that render further<br>Link operation unreliable, and Non‐fatal errors ‐ those<br>that do not
 affect the Link operation in spite of the prob‐<br>lem that was detected.|
@@ -2226,11 +2217,11 @@ AtomicOp 150 AtomicOps 897, 974 Attention Button 854, 862 Attention Indicator 85
 ## _**B**_
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 |Lane|允许两个端口之间一位的发送和接收路径的两对差分线。链路 (Link) 可以仅由一条 Lane 组成,也可以包含多达 32 条 Lane。|
 |Lane-to-Lane Skew|不同 Lane 上比特到达时间的差异。要求接收器检测到这种差异并在内部进行纠正。|
-|Legacy Endpoint|携带以下三种遗留项目之一的端点:支持 IO 事务、支持本地仅 32 位可预取内存空间,或支持锁定事务 (locked transactions)。|
+|Legacy Endpoint|携带以下三种遗留项目之一的端点:支持 IO 事务、支持本地仅 32 位可预...|
 
 ## **PCI Express Technology**
 
@@ -2238,8 +2229,8 @@ AtomicOp 150 AtomicOps 897, 974 Attention Button 854, 862 Attention Indicator 85
 |---|---|
 |LFSR|线性反馈移位寄存器 (Linear-Feedback Shift Register);创建用于加扰 (scrambling) 的伪随机模式。|
 |Link|两个端口之间的接口,由一条或多条 Lane 组成。|
-|LTR|延迟容忍报告 (Latency-Tolerance Reporting);允许设备在发送请求时向系统报告其需要多快地获得服务的机制。较长的延迟为系统提供更多电源管理选项。|
-|LTSSM|链路训练和状态状态机 (Link Training and Status State Machine);管理物理层 (Physical Layer) 的训练过程。|
+|LTR|延迟容忍报告 (Latency-Tolerance Reporting);...|
+|LTSSM|链路训练和状态状态机 (Link Training and Status ...|
 |Non-posted Request|期望接收完成包 (Completion) 作为响应的请求。例如,任何读请求都是非发布 (non-posted) 的。|
 |Non-prefetchable Memory|读取时具有副作用的内存。例如,读取时自动自清的状态寄存器。这种数据不能安全地预取 (prefetch),因为如果请求者从未请求该数据并且该数据被丢弃,它将对系统丢失。这对于 PCI
 桥很重要,它们必须猜测读取的数据大小。如果它们知道可以推测性地预先读取内存空间,它们可以猜测一个较大的数字并实现更好的效率。这种区别对于 PCIe 来说不那么重要,因为传输的确切字节数包含在 TLP 中,但保持它允许向后兼容性。|
@@ -2250,13 +2241,13 @@ AtomicOp 150 AtomicOps 897, 974 Attention Button 854, 862 Attention Indicator 85
 
 |**术语 (Term)**|**定义 (Definition)**|
 |---|---|
-|OBFF|优化缓冲区刷新和填充 (Optimized Buffer Flush and Fill);允许系统告诉设备启动流量的最佳时间的机制。如果设备在最佳时间发送请求而不是在其他时间发送请求,系统电源管理将得到改善。|
-|Ordered Sets|作为物理层 (Physical Layer) 通信发送的符号组,用于 Lane 管理。对于 8b/10b 编码,这些通常仅由控制字符组成。它们在发送方的物理层中创建,并在接收方的物理层中使用,其他层完全看不到它们。|
+|OBFF|优化缓冲区刷新和填充 (Optimized Buffer Flush an...|
+|Ordered Sets|作为物理层 (Physical Layer) 通信发送的符号组,用于 La...|
 |PCI|外设组件互连 (Peripheral Component Interface)。旨在取代 PC 中早期使用的总线设计,如 ISA。|
 |PCI-X|PCI 扩展 (PCI eXtended)。旨在纠正 PCI 的缺点并实现更高的速度。|
 |PME|电源管理事件 (Power Management Event);来自设备的指示需要电源相关服务的消息。|
 |Poisoned TLP|数据负载在创建时已知为坏的数据包。在数据包中发送错误数据可能有助于诊断问题并确定解决方案。|
-|Polarity Inversion|允许接收器的信号极性反向连接,以支持简化板布局的情况。要求接收器在链路训练 (Link Training) 期间检测此情况并在内部反转信号以进行纠正。|
+|Polarity Inversion|允许接收器的信号极性反向连接,以支持简化板布局的情况。要求接收器在链路训练...|
 |Port|PCIe 链路的输入/输出接口。|
 |Posted Request|不期望完成包的数据包请求。规范中只定义了两种这样的请求:内存写 (Memory Writes) 和消息 (Messages)。|
 
@@ -2267,19 +2258,19 @@ AtomicOp 150 AtomicOps 897, 974 Attention Button 854, 862 Attention Indicator 85
 |Prefetchable Memory|读取时没有副作用的内存。该属性使其可以安全地预取 (prefetch),因为如果它被中间缓冲区丢弃,以后需要时始终可以再次读取。这对于 PCI 桥很重要,它们必须猜测读取的数据大小。可预取 (Prefetchable)
 空间允许推测性地读取更多数据并提供更好效率的机会。对于 PCIe 来说,这种区别不那么重要,因为传输的确切字节数包含在 TLP 中,但保持它允许向后兼容性。|
 |PTLP|挂起的 TLP (Pending TLP) - 发送当前 TLP 所需的流控制 (Flow Control) 信用。|
-|QoS|服务质量 (Quality of Service);PCIe 拓扑为不同数据包分配不同优先级的能力。这可能仅意味着在仲裁点优先处理数据包,但在更复杂的系统中,它允许为数据包提供带宽和延迟保证。|
-|Requester ID|事务的请求者的配置地址,意思是与请求者对应的 BDF(总线、设备和功能号)。完成者 (Completer) 将使用它作为结果完成包的返回地址。|
-|Root Complex|充当系统中 CPU 内核和 PCIe 拓扑之间接口的组件。这可以由一个或多个芯片组成,可以是简单的或复杂的。从 PCIe 的角度来看,它充当倒置树 (Inverted-Tree) 结构的根,与 PCI 的向后兼容性要求该结构。|
-|Run Length|连续 1 或 0 的数量。对于 8b/10b 编码,游程长度限制为 5 位。对于 128b/130b,没有定义限制,但它使用的修改加扰 (scrambling) 方案旨在补偿这一点。|
+|QoS|服务质量 (Quality of Service);PCIe 拓扑为不同数...|
+|Requester ID|事务的请求者的配置地址,意思是与请求者对应的 BDF(总线、设备和功能号)...|
+|Root Complex|充当系统中 CPU 内核和 PCIe 拓扑之间接口的组件。这可以由一个或多...|
+|Run Length|连续 1 或 0 的数量。对于 8b/10b 编码,游程长度限制为 5 位...|
 
 ## _**术语表 (Glossary)**_
 
 |**术语 (Term)**|**定义 (Definition)**|
 |---|---|
-|Scrambling|随机化输出比特流以避免链路上重复模式从而减少 EMI 的过程。对于 Gen1 和 Gen2 可以关闭加扰以允许在链路上指定模式,但 Gen3 不能关闭,因为它在该速度下执行其他工作,并且链路预期无法在没有它的情况下可靠工作。|
+|Scrambling|随机化输出比特流以避免链路上重复模式从而减少 EMI 的过程。对于 Gen...|
 |SOS|跳过有序集 (Skip Ordered Set) - 用于补偿 Tx 和 Rx 之间的轻微频率差异。|
-|SSC|扩频时钟 (Spread-Spectrum Clocking)。这是一种通过允许时钟频率在允许范围内来回变化来减少系统中的 EMI 的方法。这将发射能量扩展到更宽的频率范围,因此避免了在一个特定频率集中太多 EMI 能量的问题。|
-|Sticky Bits|其值在复位后仍然保留的状态位。当错误由链路下游的 Function (功能) 检测到时,该特性对于维护状态信息很有用,这些功能不再正常工作。必须复位失败的链路才能访问下游功能,并且其寄存器中的错误状态信息必须在该复位后保留以供软件使用。|
+|SSC|扩频时钟 (Spread-Spectrum Clocking)。这是一种通...|
+|Sticky Bits|其值在复位后仍然保留的状态位。当错误由链路下游的 Function (功能...|
 |Switch|包含多个下游端口 (Downstream Ports) 和一个上游端口 (Upstream Port) 的设备,能够在端口之间路由流量。|
 |Symbol|跨链路发送的编码单位。对于 8b/10b,这些是编码产生的 10 位值,对于 128b/130b,它们是 8 位值。|
 |Symbol Lock|在使用 8b/10b 编码时,在接收器处查找符号边界以识别传入符号,从而识别数据包的内容。|
@@ -2293,7 +2284,7 @@ AtomicOp 150 AtomicOps 897, 974 Attention Button 854, 862 Attention Indicator 85
 |Token|在 Gen3 速度下运行时,数据流期间传递的信息类型的标识符。|
 |TPH|TLP 处理提示 (TLP Processing Hints);这些帮助系统路由代理做出选择以改善延迟和流量拥塞。|
 |UI|单位间隔 (Unit Interval);在链路上发送一位所花的时间 - Gen1 为 0.4ns,Gen2 为 0.2ns,Gen3 为 0.125ns。|
-|Uncorrectable Errors|无法由硬件纠正的错误,因此通常需要软件关注才能解决。这些分为致命错误 (Fatal Errors) - 使进一步链路操作不可靠的错误,以及非致命错误 (Non-Fatal Errors) - 尽管检测到问题但不影响链路操作的错误。|
+|Uncorrectable Errors|无法由硬件纠正的错误,因此通常需要软件关注才能解决。这些分为致命错误 (F...|
 |USP|上游端口 (Upstream Port),即面向上游的端口,例如端点 (Endpoint) 或交换机上游端口 (Switch Upstream Port)。这种区别在 LTSSM 中是有意义的,因为端口在配置 (Configuration) 和恢复 (Recovery)
 期间具有分配的角色。|
 
@@ -2340,11 +2331,10 @@ AtomicOp 150 AtomicOps 897, 974 Attention Button 854, 862 Attention Indicator 85
 <a id="sec-99-9"></a>
 ## 99.9 Appendices | 附录
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 Bandwidth 42 Bandwidth Congestion 281 Bandwidth Management 974 BAR 126, 960, 974 Base Address Registers 126 Base and Limit Registers 136 BDF
 85 Beacon 483, 772, 974 BER 974 BIOS 712, 853 Bit Lock 78, 395, 507, 742, 974 Bit Tracer 929 Block 974 Block Alignment 435 Block Encoding
@@ -2472,7 +2462,7 @@ PCI Transaction Model 18 PCI-Based System 11 PCI-Compatible Error Reporting 674 
 924
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 Bandwidth 42 Bandwidth Congestion 281 Bandwidth Management 974 BAR 126, 960, 974 Base Address Registers 126 Base and Limit Registers 136 BDF
 85 Beacon 483, 772, 974 BER 974 BIOS 712, 853 Bit Lock 78, 395, 507, 742, 974 Bit Tracer 929 Block 974 Block Alignment 435 Block Encoding

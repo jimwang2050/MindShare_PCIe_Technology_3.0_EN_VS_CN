@@ -9,22 +9,21 @@
 
 ## 📑 本章目录 (Table of Contents)
 
-- [17.1 INTx Message Format — 中断支持](#sec-17-1)
-- [17.2 Capability ID — 中断支持](#sec-17-2)
-- [17.3 Hot Reset (In-band Reset) — 中断支持](#sec-17-3)
-- [17.4 Time Allowed — 中断支持](#sec-17-4)
-- [17.5 Differences between PCI and PCIe Hot Plug — 中断支持](#sec-17-5)
-- [17.6 Standardized Usage Model — 中断支持](#sec-17-6)
-- [17.7 The Hot-Plug Controller Programming Interface — 中断支持](#sec-17-7)
+- [17.1 Interrupt Support — 中断支持](#sec-17-1)
+- [17.2 Interrupt Support — 中断支持](#sec-17-2)
+- [17.3 Interrupt Support — 中断支持](#sec-17-3)
+- [17.4 Interrupt Support — 中断支持](#sec-17-4)
+- [17.5 Interrupt Support — 中断支持](#sec-17-5)
+- [17.6 Interrupt Support — 中断支持](#sec-17-6)
+- [17.7 Interrupt Support — 中断支持](#sec-17-7)
 
 <a id="sec-17-1"></a>
 ## 17.1 Interrupt Support | 中断支持
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 CPU<br>Root Complex<br>Memory<br>Interrupt Controller<br>Switch<br>Assert_INTA Assert_INTB<br>Deassert_INTA Deassert_INTB<br>INTA#<br>PCIe
 PCIe- INTB#<br>Endpoint PCI(X) INTC#INTD#<br>Bridge<br>PCI(X)<br>**Chapter 17: Interrupt Support**
@@ -47,7 +46,7 @@ _Figure 17‐10: INTx Message Format and Type_
 |||||+0|+0|||||||||+1|+1|||||||||+2|+2|+3|+3|||||
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 ||7|6|5|4|3|2|1|0||7||6|5|4|3|2||1|0|7|6||5|4|3|7 6 5 4 <br> 2 1 0|3|2|1|0||
-|Byte 0|Fmt<br>0 0 1|||Type<br>1 0**1 0**||||**0**||R||TC|||R|At<br>tr||R|T<br>H|T<br>D|E<br>P||Attr||Length<br>AT|||||||
+|Byte 0|Fmt 0 0 1|||Type 1 0**1 0**||||**0**||R||TC|||R|At tr||R|T H|T D|E P||Attr||Length AT|
 |Byte 4|||||Requester||||||||ID|||||||||||Tag||**Message**||**Code**||||
 |Byte 8|||||||||||Reserved for INTx|||||||||||Messages||||||||||
 |Byte 12|||||||||||Reserved for INTx|||||||||||Messages||||||||||
@@ -91,7 +90,7 @@ INTA) across all four INTx virtual wires because each INTx virtual wire can be m
 
 _Table 17‐1: INTx Message Mapping Across Virtual PCI‐to‐PCI Bridges_ 
 
-|**Device Number of**<br>**Delivering INTx**|**INTx Message**<br>**Type at Input**|**INTx Message**<br>**Type at Output**|
+|**Device Number of** **Delivering INTx**|**INTx Message** **Type at Input**|**INTx Message** **Type at Output**|
 |---|---|---|
 |0, 4, 8, 12 etc.|INTA|INTA|
 ||INTB|INTB|
@@ -218,7 +217,7 @@ _Figure 17‐13: MSI Capability Structure Variations_
 |||Mask Bits||||DW4|
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 CPU<br>
 Root Complex<br>
@@ -248,7 +247,7 @@ _Figure 17-10: INTx Message Format and Type_
 |||||+0|+0|||||||||+1|+1|||||||||+2|+2|+3|+3|||||
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 ||7|6|5|4|3|2|1|0||7||6|5|4|3|2||1|0|7|6||5|4|3|7 6 5 4 <br> 2 1 0|3|2|1|0||
-|Byte 0|Fmt<br>0 0 1|||Type<br>1 0**1 0**||||**0**||R||TC|||R|At<br>tr||R|T<br>H|T<br>D|E<br>P||Attr||Length<br>AT|||||||
+|Byte 0|Fmt 0 0 1|||Type 1 0**1 0**||||**0**||R||TC|||R|At tr||R|T H|T D|E P||Attr||Length AT|
 |Byte 4|||||Requester||||||||ID|||||||||||Tag||**Message**||**Code**||||
 |Byte 8|||||||||||Reserved for INTx|||||||||||Messages||||||||||
 |Byte 12|||||||||||Reserved for INTx|||||||||||Messages||||||||||
@@ -282,7 +281,7 @@ Function 断言 INTA 时，必须检查所有 Function。这将导致列表末�
 
 _Table 17-1: INTx Message Mapping Across Virtual PCI-to-PCI Bridges_
 
-|**Device Number of**<br>**Delivering INTx**|**INTx Message**<br>**Type at Input**|**INTx Message**<br>**Type at Output**|
+|**Device Number of** **Delivering INTx**|**INTx Message** **Type at Input**|**INTx Message** **Type at Output**|
 |---|---|---|
 |0, 4, 8, 12 etc.|INTA|INTA|
 ||INTB|INTB|
@@ -396,8 +395,7 @@ _Figure 17-13: MSI Capability Structure Variations_
 <p align="center"><img src="figures/chapter_17_Interrupt_Support/embedded/page0826_img1.png" width="700"></p>
 <p align="center"><sub>📄 <a href="figures/chapter_17_Interrupt_Support/embedded/page0826_img1.png">Page 826</a></sub></p>
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 
@@ -409,11 +407,10 @@ _Figure 17-13: MSI Capability Structure Variations_
 <a id="sec-17-2"></a>
 ## 17.2 Interrupt Support | 中断支持
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 |||Pending Bits||||DW5|
 ||||||||
@@ -734,7 +731,6 @@ _Figure 18-1: PERST# Generation_
 
 <br>
 
-
 </td>
 </tr></tbody></table>
 
@@ -744,11 +740,10 @@ _Figure 18-1: PERST# Generation_
 <a id="sec-17-3"></a>
 ## 17.3 Interrupt Support | 中断支持
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 **Cha ter 18: S stem Reset p y** 
 
@@ -767,11 +762,11 @@ Ordered‐Set Showing the Hot Reset Bit_|
 |**TS1**<br>TS ID<br>TS ID<br>TS ID<br>Train Ctl<br>Rate ID<br># FTS<br>Lane #<br>Link
 #<br>COM<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>14<br>15<br>13|K28.5<br>D0.0-D31.7, K23.7 (0-255)<br>D0.0-D31.0, K23.7 (0-31)<br># of FTS
 ordered sets required by<br>receiver to obtain bit and symbol lock<br>D10.2 for TS1 Identifier<br>D10.2 for TS1 Identifier<br>D10.2 for TS1
-Identifier|**0** **=** **De-assert** **Disable** **Scrambling**<br>**1** **=** **Assert** **Disable** **Scrambling**<br>**Bit**
-**3**<br>**Reserved**<br>**Bit** **5:7**<br>**0** **=** **De-assert** **Compliance** **Receive**<br>**1** **=** **Assert** **Compliance**
-**Receive**<br>**Bit** **4**<br>**0** **=** **De-assert** **Loopback**<br>**1** **=** **Assert** **Loopback**<br>**Bit** **2**<br>**0**
-**=** **De-assert** **Disable** **Link**<br>**1** **=** **Assert** **Disable** **Link**<br>**Bit** **1**<br>**0** **=** **De-assert**
-**Hot** **Reset**<br>**1** **=** **Assert** **Hot** **Reset**<br>**Bit** **0**<br>**Training Control**|
+Identifier|**0** **=** **De-assert** **Disable** **Scrambling 1** **=** **Assert** **Disable** **Scrambling Bit**
+**3 Reserved**<br>**Bit** **5:7**<br>**0** **=** **De-assert** **Compliance** **Receive 1** **=** **Assert** **Compliance**
+**Receive Bit** **4 0** **=** **De-assert** **Loopback 1** **=** **Assert** **Loopback Bit** **2 0**
+**=** **De-assert** **Disable** **Link 1** **=** **Assert** **Disable** **Link Bit** **1 0** **=** **De-assert**
+**Hot** **Reset 1** **=** **Assert** **Hot** **Reset Bit** **0**<br>**Training Control**|
 ||||
 
 
@@ -904,7 +899,7 @@ necessi‐ tates a reset of that Function, but if other Functions within that de
 reset just the one having trouble.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 **Cha ter 18: S stem Reset p y**
 
@@ -922,11 +917,11 @@ Ordered-Set Showing the Hot Reset Bit_|
 |**TS1**<br>TS ID<br>TS ID<br>TS ID<br>Train Ctl<br>Rate ID<br># FTS<br>Lane #<br>Link
 #<br>COM<br>0<br>1<br>2<br>3<br>4<br>5<br>6<br>14<br>15<br>13|K28.5<br>D0.0-D31.7, K23.7 (0-255)<br>D0.0-D31.0, K23.7 (0-31)<br># of FTS
 ordered sets required by<br>receiver to obtain bit and symbol lock<br>D10.2 for TS1 Identifier<br>D10.2 for TS1 Identifier<br>D10.2 for TS1
-Identifier|**0** **=** **De-assert** **Disable** **Scrambling**<br>**1** **=** **Assert** **Disable** **Scrambling**<br>**Bit**
-**3**<br>**Reserved**<br>**Bit** **5:7**<br>**0** **=** **De-assert** **Compliance** **Receive**<br>**1** **=** **Assert** **Compliance**
-**Receive**<br>**Bit** **4**<br>**0** **=** **De-assert** **Loopback**<br>**1** **=** **Assert** **Loopback**<br>**Bit** **2**<br>**0**
-**=** **De-assert** **Disable** **Link**<br>**1** **=** **Assert** **Disable** **Link**<br>**Bit** **1**<br>**0** **=** **De-assert**
-**Hot** **Reset**<br>**1** **=** **Assert** **Hot** **Reset**<br>**Bit** **0**<br>Training Control|
+Identifier|**0** **=** **De-assert** **Disable** **Scrambling 1** **=** **Assert** **Disable** **Scrambling Bit**
+**3 Reserved**<br>**Bit** **5:7**<br>**0** **=** **De-assert** **Compliance** **Receive 1** **=** **Assert** **Compliance**
+**Receive Bit** **4 0** **=** **De-assert** **Loopback 1** **=** **Assert** **Loopback Bit** **2 0**
+**=** **De-assert** **Disable** **Link 1** **=** **Assert** **Disable** **Link Bit** **1 0** **=** **De-assert**
+**Hot** **Reset 1** **=** **Assert** **Hot** **Reset Bit** **0**<br>Training Control|
 ||||
 
 热复位由软件通过设置桥的 Bridge Control 配置寄存器中的 Secondary Bus Reset 位来发起，如图 18-5（第 840
@@ -1024,8 +1019,7 @@ _Figure 18-8: Function-Level Reset Capability_
 <p align="center"><img src="figures/chapter_17_Interrupt_Support/embedded/page0826_img1.png" width="700"></p>
 <p align="center"><sub>📄 <a href="figures/chapter_17_Interrupt_Support/embedded/page0826_img1.png">Page 826</a></sub></p>
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 
@@ -1038,11 +1032,10 @@ _Figure 18-8: Function-Level Reset Capability_
 <a id="sec-17-4"></a>
 ## 17.4 Interrupt Support | 中断支持
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 2. In a virtualized environment, where applications can migrate from one piece of hardware to another, it’s important that when an
 application is moved off a Function that the Function doesn’t retain any information about what it was doing. This prevents information used
@@ -1209,7 +1202,7 @@ to the operator the status of the hot plug process and notification that install
 ## **Surprise Removal Notification**
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 2. 在虚拟化环境中，应用程序可以从一个硬件迁移到另一个硬件，重要的是当应用程序从某个 Function 上移开时，该 Function 不会保留有关其正在执行的操作的任何信息。这可以防止一个应用程序使用的可能被视为机密的信息对在该 Function
 上运行的新应用程序可见。在迁移先前的应用程序之后进行清理的最简单方法就是复位该 Function。
@@ -1340,11 +1333,10 @@ PCI Express 热插拔（如 PCI）被设计为"无意外"的热插拔方法。�
 <a id="sec-17-5"></a>
 ## 17.5 Interrupt Support | 中断支持
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 Cards designed to the PCIe Card ElectroMechanical spec (CEM) implement card presence detect pins (PRSNT1# and PRSNT2#) on the connector.
 These pins are shorter than the others so that they break contact first (when the card is removed from the slot). This can be used to give
@@ -1429,12 +1421,12 @@ _Table 19‐2: Major Hot‐Plug Hardware Elements (Continued)_
 |---|---|
 |Card Slot Power Switching<br>Logic|Allows power to a slot to be turned on or off under<br>program control. Controlled by the Hot Plug
 con‐<br>troller under the direction of the Hot‐Plug System<br>Driver.|
-|Card Reset Logic|Hot Plug Controller drives the PERST# signal to a<br>specific slot as directed by the Hot‐Plug System<br>Driver.|
+|Card Reset Logic|Hot Plug Controller drives the PERST#...|
 |Power Indicator|Indicates whether power is currently active on the<br>connector. Controlled by the Hot Plug logic associ‐<br>ated with each
 port and directed by the Hot Plug<br>System Driver.|
 |Attention Indicator|Draws operator attention to a connector that needs<br>service. Controlled by the Hot Plug logic and<br>directed by the
 Hot‐Plug System Driver.|
-|Attention Button|Pressed by the operator to notify Hot Plug soft‐<br>ware of a request to change a card.|
+|Attention Button|Pressed by the operator to notify Hot...|
 |Card Present Detect Pins|There are two of these: PRSNT1# is located at one<br>end of the card slot and PRSNT2# at the opposite<br>end.
 These pins are shorter than the others so that<br>they disconnect first when a card is removed. The<br>system board ties PRSNT1# to ground
 and con‐<br>nects PRSNT2# as an input to the Hot‐Plug Con‐<br>troller with a pull‐up resistor. Additional PRSNT2#<br>pins are defined for
@@ -1558,7 +1550,7 @@ closed, causing switched auxiliary signals and Vaux to be connected to the slot.
 Utility pro‐ gram to select the slot.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 符合 PCIe 卡电气机械规范 (CEM) 的卡在连接器上实现了卡存在检测引脚 (PRSNT1# 和 PRSNT2#)。这些引脚比其他引脚短，以便它们在卡从插槽中拔出时首先断开。这可以用于提前向软件通知"意外"移除，从而在信号断开之前有足够的时间断电。
 
@@ -1620,7 +1612,7 @@ _表 19-2：主要热插拔硬件元素_
 
 |**硬件元素**|**描述**|
 |---|---|
-|热插拔控制器|接收和处理由热插拔系统驱动程序发出的命令。每个支持热插拔操作的根端口或交换机端口都关联一个控制器。PCIe 规范为热插拔控制器定义了标准化的软件接口。|
+|热插拔控制器|接收和处理由热插拔系统驱动程序发出的命令。每个支持热插拔操作的根端口或交换...|
 
 
 ## **PCI Express Technology**
@@ -1745,11 +1737,10 @@ _表 19-2：主要热插拔硬件元素（续）_
 <a id="sec-17-6"></a>
 ## 17.6 Interrupt Support | 中断支持
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 3. If the button was pressed, it signals the Hot Plug controller of the event, resulting in status register bits being set and causing a
 system interrupt to be sent to the Root Complex. Subsequently, Hot Plug software reads slot status from the port and recognizes the request.
@@ -1856,7 +1847,7 @@ _Table 19‐4: Behavior and Meaning of the Power Indicator_
 |---|---|
 |Off|Power Off — it is safe to remove or insert a card. All power<br>has been removed as required for hot plug operation. Vaux is<br>only
 removed when the Manual Retention Latch is released.|
-|On|Power On — removal or insertion of a card is not allowed.<br>Power is currently applied to the slot.|
+|On|Power On — removal or insertion of a ...|
 |Blinking|Power Transition — card removal or insertion is not allowed.<br>This state notifies the operator that software is
 currently<br>removing or applying slot power in response to a hot plug<br>request.|
 
@@ -1921,7 +1912,7 @@ the Port. The importance of the standardized Hot Plug Controller is the common s
 integrated into operating systems.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 4. 热插拔服务向热插拔系统驱动程序发出请求，命令热插拔控制器使插槽的电源指示灯闪烁，以通知操作员不得移除卡。从指示灯开始闪烁之时起，操作员有 5 秒钟的中止时间窗口，可以通过再次按下按钮来中止请求。
 
@@ -2056,11 +2047,10 @@ MRL 传感器是一个开关、光学设备或其他类型的传感器，用于�
 <a id="sec-17-7"></a>
 ## 17.7 Interrupt Support | 中断支持
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 The PCIe spec, together with the Card ElectroMechanical (CEM) spec, defines the slot signals and the support required for Hot Plug PCI
 Express. Following is a list of required and optional port interface signals needed to support the Stan‐ dard Usage Model:
@@ -2121,11 +2111,11 @@ Present<br>Power Controller Present<br>MRL Sensor Present<br>Attention Indicator
 Slot Number<br>Slot Power Limit Value<br>Hot Plug Capable<br>Power Indicator Present<br>No Command Completed Support|
 |---|---|---|
 ||**Bit(s)**|**Register Name and Description**|
-||0|**Attention Button Present**— indicates the presence of an attention button<br>on the chassis adjacent to the slot.|
-||1|**Power Controller Present**— indicates the presence of a power controller<br>for this slot.|
+|0|**Attention Button Present**— indicat...|
+|1|**Power Controller Present**— indicat...|
 ||2|**MRL Sensor Present**— indicates the presence of a MRL Sensor on the<br>slot.|
-||3|**Attention Indicator Present**— indicates the presence of an attention indi‐<br>cator on the chassis adjacent to the slot.|
-||4|**Power Indicator Present**— indicates the presence of a power indicator on<br>the chassis adjacent to the slot.|
+|3|**Attention Indicator Present**— indi...|
+|4|**Power Indicator Present**— indicate...|
 
 
 _Table 19‐5: Slot Capability Register Fields and Descriptions (Continued)_ 
@@ -2137,8 +2127,8 @@ tells the OS to allow<br>for such removal without affecting continued software o
 |6|**Hot‐Plug Capable**— indicates that this slot supports hot plug operation.|
 |14:7|**Slot Power Limit Value**— specifies the maximum power that can be sup‐<br>plied by this slot. This limit value is multiplied by the
 scale specified in the<br>next field.|
-|16:15|**Slot Power Limit Scale**— specifies the scaling factor for the Slot Power<br>Limit Value.|
-|17|**ElectroMechanical Interlock Present**— indicates that this is implemented<br>for this slot|
+|16:15|**Slot Power Limit Scale**— specifies...|
+|17|**ElectroMechanical Interlock Present...|
 |18|No Command Completed Support— indicates that this slot doesn’t gener‐<br>ate software notification when a command has been completed.
 Earlier<br>versions sometimes took a long time to execute hot‐plug commands (for<br>example, sometimes taking a second or more to
 communicate across an<br>I2C bus to turn the power on or off), and generated an interrupt when they<br>were finally done. When set this bit
@@ -2180,7 +2170,7 @@ MRL<br>sensor changed event.|
 presence<br>detect changed bit in the Slot Status register is set.|
 |4|**Command Completed Interrupt Enable.**When set, enables a Hot‐ Plug<br>interrupt to be generated that informs software that the hot‐plug
 control‐<br>ler is ready to receive the next command.|
-|5|**Hot‐Plug Interrupt Enable.**When set, enables the generation of Hot‐Plug<br>interrupts.|
+|5|**Hot‐Plug Interrupt Enable.**When se...|
 |7:6|**Attention Indicator Control.**Writes to the field control the state of the<br>attention indicator and reads return the current state,
 as follows:<br>• 00b = Reserved<br>• 01b = On<br>• 10b = Blink<br>• 11b = Off|
 |9:8|**Power Indicator Control.**Writes to the field control the state of the power<br>indicator and reads return the current state, as
@@ -2215,15 +2205,15 @@ _Figure 19‐7: Slot Status Register_
 
 _Table 19‐7: Slot Status Register Fields and Descriptions_ 
 
-|**Bit**<br>**Location**|**Register Name and Description**|
+|**Bit Location**|**Register Name and Description**|
 |---|---|
-|0|**Attention Button Pressed**— If the button is implemented, this bit is<br>set when the Attention Button is pressed.|
+|0|**Attention Button Pressed**— If the ...|
 |1|**Power Fault Detected**— If a Power Controller that supports power<br>fault detection is implemented, this bit is set when it detects a
 power<br>fault at this slot. The spec notes that it’s possible for a power fault to<br>be detected at any time, regardless of the Power
 Control setting or<br>whether the slot is occupied.|
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 PCIe 规范与卡电气机械 (CEM) 规范一起定义了插槽信号和支持热插拔 PCI Express 所需的支持。以下是支持标准化使用模型所需和可选的端口接口信号列表：
 
@@ -2305,7 +2295,7 @@ _表 19-5：Slot Capability 寄存器字段和描述（续）_
 |17|**ElectroMechanical Interlock Present（电气机械互锁存在）**— 指示此插槽实现了电气机械互锁|
 |18|**No Command Completed Support（无命令完成支持）**— 指示此插槽在命令完成时不生成软件通知。早期版本有时需要很长时间来执行热插拔命令（例如，有时需要一秒钟或更长时间通过 I2C
 总线通信以打开或关闭电源），并在最终完成时生成中断。当设置此位时，意味着此端口可以无延迟地接受对 Slot Control 寄存器中所有字段的写入，因此不需要通知。|
-|31:19|**Physical Slot Number（物理插槽号）**— 指示与此端口关联的物理插槽号。必须由硬件初始化为机箱内唯一的数字。请注意，软件将需要此编号以将物理插槽与逻辑插槽 ID（设备的总线、设备和功能号）相关联。|
+|31:19|**Physical Slot Number（物理插槽号）**— 指示与此...|
 
 
 ## **Slot Power Limit Control（插槽功率限制控制）**
@@ -2333,23 +2323,23 @@ _表 19-6：Slot Control 寄存器字段和描述_
 
 |**位**|**寄存器名称和描述**|
 |---|---|
-|0|**Attention Button Pressed Enable（注意按钮按下启用）**。当设置时，此位在按下注意按钮时启用热插拔中断的生成（如果已启用）或 Wake# 消息的断言。|
-|1|**Power Fault Detected Enable（电源故障检测启用）**。当设置时，启用在检测到电源故障时生成热插拔中断（如果已启用）或 Wake# 消息。|
-|2|**MRL Sensor Changed Enable（MRL 传感器变化启用）**。当设置时，在检测到 MRL 传感器变化事件时启用生成热插拔中断或 Wake#（如果已启用）消息。|
-|3|**Presence Detect Changed Enable（存在检测变化启用）**。当设置此位时，在 Slot Status 寄存器中的存在检测变化位置位时启用热插拔中断或 Wake 消息的生成。|
-|4|**Command Completed Interrupt Enable（命令完成中断启用）**。当设置时，启用生成热插拔中断，通知软件热插拔控制器已准备好接收下一个命令。|
+|0|**Attention Button Pressed Enable（注意按...|
+|1|**Power Fault Detected Enable（电源故障检测启...|
+|2|**MRL Sensor Changed Enable（MRL 传感器变化...|
+|3|**Presence Detect Changed Enable（存在检测...|
+|4|**Command Completed Interrupt Enable（...|
 |5|**Hot-Plug Interrupt Enable（热插拔中断启用）**。当设置时，启用热插拔中断的生成。|
-|7:6|**Attention Indicator Control（注意指示灯控制）**。写入该字段控制注意指示灯的状态，读取返回当前状态，如下：<br>• 00b = 保留<br>• 01b = 开启<br>• 10b = 闪烁<br>• 11b = 关闭|
-|9:8|**Power Indicator Control（电源指示灯控制）**。写入该字段控制电源指示灯的状态，读取返回当前状态，如下：<br>• 00b = 保留<br>• 01b = 开启<br>• 10b = 闪烁<br>• 11b = 关闭|
-|10|**Power Controller Control（电源控制器控制）**。写入该字段切换插槽的主电源，读取返回当前状态：0b = 电源开启，1b = 电源关闭|
+|7:6|**Attention Indicator Control（注意指示灯控制...|
+|9:8|**Power Indicator Control（电源指示灯控制）**。...|
+|10|**Power Controller Control（电源控制器控制）**...|
 
 
 _表 19-6：Slot Control 寄存器字段和描述（续）_
 
 |**位**|**寄存器名称和描述**|
 |---|---|
-|11|**Electromechanical Interlock Control（电气机械互锁控制）**- 如果实现了互锁，写入 1b 切换其状态，写入 0b 没有效果。读取此位始终返回 0b。|
-|12|**Data Link Layer State Changed Enable（数据链路层状态变化启用）**- 如果数据链路层链路有效报告能力为 1b，则设置此位启用数据链路层链路有效位变化时的软件通知。如果数据链路层链路有效报告能力为 0b，则此位变为只读且值为 0b。|
+|11|**Electromechanical Interlock Control...|
+|12|**Data Link Layer State Changed Enabl...|
 
 
 ## **Slot Status and Events Management（插槽状态和事件管理）**
@@ -2373,17 +2363,17 @@ _表 19-7：Slot Status 寄存器字段和描述_
 |**位位置**|**寄存器名称和描述**|
 |---|---|
 |0|**Attention Button Pressed（注意按钮按下）**— 如果实现了按钮，则在按下注意按钮时设置此位。|
-|1|**Power Fault Detected（电源故障检测）**— 如果实现了支持电源故障检测的电源控制器，则当它检测到此插槽的电源故障时设置此位。规范指出，无论电源控制设置如何或插槽是否被占用，都可能随时检测到电源故障。|
+|1|**Power Fault Detected（电源故障检测）**— 如果实...|
 
 _表 19-7：Slot Status 寄存器字段和描述（续）_
 
 |**位位置**|**寄存器名称和描述**|
 |---|---|
-|2|**MRL Sensor Changed（MRL 传感器变化）**— 如果实现了 MRL 传感器，则在检测到 MRL 传感器状态变化时设置此位。如果不存在传感器，则此位始终为零。|
+|2|**MRL Sensor Changed（MRL 传感器变化）**— 如果...|
 |3|**Presence Detect Changed（存在检测变化）**— 在 Presence Detect State 位中检测到变化时设置。|
 |4|**Command Completed（命令完成）**— 如果 Slot Capabilities 寄存器中的 No Command Completed Support 位为
 0b，则在热插拔命令完成且热插拔控制器准备好接受另一个命令时设置此位。从技术上讲，仅保证最后一个含义：控制器准备好接受另一个命令，无论前一个命令是否实际完成。|
-|5|**MRL Sensor State（MRL 传感器状态）**— 当设置时，指示 MRL 传感器的当前状态（如果实现）：0b = MRL 关闭，1b = MRL 打开|
+|5|**MRL Sensor State（MRL 传感器状态）**— 当设置时...|
 |6|**Presence Detect State（存在检测状态）**— 此位指示插槽中存在卡，并且对于实现插槽的所有下游端口都是必需的。其值是物理层检测逻辑和为此插槽实现的任何其他边带检测机制（例如 PRSNT1# 和
 PRSNT2#）的逻辑"或"。它们之间的最大区别在于，引脚无需电源即可物理检测卡，因此可以在不恢复电源的情况下对其进行报告，而使用物理层检测逻辑则需要电源。|
 
@@ -2453,8 +2443,8 @@ _表 19-8：原语_
 ||**返回**：此驱动程序控制的插槽的逻辑插槽 ID 集合。||
 |Set Slot Status（设置插槽状态）|**输入**：<br>• 逻辑插槽 ID<br>• 新插槽状态（开或关）。<br>• 新的注意指示灯状态。<br>• 新的电源指示灯状态。|此请求用于控制插槽和与每个插槽关联的注意指示灯。通过返回 Status Change
 Successful 参数来指示请求成功完成。如果在尝试状态更改期间发生故障，则热插拔系统驱动程序应返回适当的故障消息（请参见中间列）。除非另有规定，否则卡应保持关闭状态。|
-||**返回**：请求完成状态：<br>• 状态更改成功<br>• 故障—频率错误<br>• 故障—功率不足<br>• 故障—配置资源不足<br>• 故障—电源故障<br>• 故障—一般故障||
-|Query Slot Status（查询插槽状态）|**输入**：逻辑插槽 ID|此请求返回所指示插槽的状态（如果存在卡）。热插拔系统驱动程序必须返回插槽电源状态信息。|
+|**返回**：请求完成状态： • 状态更改成功 • 故障—频率错误 • 故...|
+|Query Slot Status（查询插槽状态）|**输入**：逻辑插槽 ID|此请求返回所指示插槽的状态（如果存在卡）。热插拔系统驱动程序必须返回插槽电...|
 ||**返回**：<br>• 插槽状态（开或关）<br>• 卡功率要求。||
 
 
@@ -2583,7 +2573,7 @@ _表 19-9：系统板扩展插槽的最大功耗_
 
 ||**X1 链路**|**X1 链路**|**X4/X8 链路**|**X16 链路**|**X16 链路**|
 |---|---|---|---|---|---|
-|标准高度|10W<br>（最大 -<br>桌面）|25W<br>（最大 -<br>服务器）|25W（最大）|25W<br>（最大 -<br>服务器）|75W<br>（最大 -<br>显卡）|
+|标准高度|10W （最大 - 桌面）|25W （最大 - 服务器）|25W（最大）|25W （最大 - 服务器）|75W （最大 - 显卡）|
 |低剖面卡|10W（最大）||25W（最大）|25W（最大）||
 
 除了基本 CEM 规范之外，还为更高功率设备定义了两个规范。首先是 PCIe x16 Graphics 150W-ATX Spec 1.0，它定义了一个能够从卡连接器汲取 75W 以及从单独的 3 针 ATX 电源连接器汲取另外 75W 的视频卡。第二个是 PCIe

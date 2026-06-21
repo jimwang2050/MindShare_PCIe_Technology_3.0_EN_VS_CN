@@ -9,21 +9,20 @@
 
 ## 📑 本章目录 (Table of Contents)
 
-- [9.1 Background — DLLP 元素](#sec-9-1)
-- [9.2 Receive Logic Overview — DLLP 元素](#sec-9-2)
-- [9.3 8b/10b Encoding — DLLP 元素](#sec-9-3)
-- [9.4 Control Characters — DLLP 元素](#sec-9-4)
-- [9.5 Receive Logic Details (Gen1 and Gen2 Only) — DLLP 元素](#sec-9-5)
-- [9.6 Ordered sets Help De-Skewing — DLLP 元素](#sec-9-6)
+- [9.1 DLLP Elements — DLLP 元素](#sec-9-1)
+- [9.2 DLLP Elements — DLLP 元素](#sec-9-2)
+- [9.3 DLLP Elements — DLLP 元素](#sec-9-3)
+- [9.4 DLLP Elements — DLLP 元素](#sec-9-4)
+- [9.5 DLLP Elements — DLLP 元素](#sec-9-5)
+- [9.6 DLLP Elements — DLLP 元素](#sec-9-6)
 
 <a id="sec-9-1"></a>
 ## 9.1 DLLP Elements | DLLP 元素
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 Now that we’ve described how the protocol works, this is a good time to explain an exception to its general operation. PCIe supports a
 Switch feature, called ‘cut‐through mode’, that can be used to improve the transfer latency for large TLPs through a Switch.
@@ -193,7 +192,7 @@ To differentiate between these two types of characters, a D/K# bit (Data or “K
 take on based on the source of the character.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 'D' Character<br>Transaction Layer Packet (TLP)<br>STP Sequence Header Data Payload ECRC LCRC END<br>'D' Character<br>'K' Character 'K'
 Character<br>Data Link Layer Packet (DLLP)<br>SDP DLLP Type Misc. CRC END<br>'K' Character 'K' Character<br>**----- 图片文字结束 -----**<br>
@@ -370,11 +369,10 @@ LFSR 中的值与发送方 LFSR 值失去同步。
 <a id="sec-9-2"></a>
 ## 9.2 DLLP Elements | DLLP 元素
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 Gen3 mode of operation, doesn’t use control characters, so data patterns are used to make up the ordered sets that identify if transmitted
 bytes are associ‐ ated with TLPs / DLLPs or Ordered Sets. A 2‐bit Sync Header is inserted at the beginning of a 128 bit (16 byte) block of
@@ -694,7 +692,7 @@ force a specific pattern. No specific software mechanism is defined by which to 
 has to be a design‐specific implementation.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 'D' Character<br>Transaction Layer Packet (TLP)<br>STP Sequence Header Data Payload ECRC LCRC END<br>'D' Character<br>'K' Character 'K'
 Character<br>Data Link Layer Packet (DLLP)<br>SDP DLLP Type Misc. CRC END<br>'K' Character 'K' Character<br>## **字节条带化（用于宽链路）**
@@ -856,11 +854,10 @@ LFSR 中的值与发送器 LFSR 值失去同步。
 <a id="sec-9-3"></a>
 ## 9.3 DLLP Elements | DLLP 元素
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 If scrambling is disabled by a device, this gets communicated to the neighbor‐ ing device by sending at least two TS1s and TS2s that have
 the appropriate bit set in the control field as described in “Configuration State” on page 539. In response, the neighboring device also
@@ -1019,7 +1016,7 @@ _Figure 11‐19: Example 8b/10b Transmission_
 
 ## **Use these two characters in the example below:** 
 
-|**D/K#**|**Hex**<br>**Byte**|**Binary Bits**<br>**HGF EDCBA**|**Byte**<br>**Name**|**CRD –**<br>**abcdei fghj**|**CRD +**<br>**abcdei
+|**D/K#**|**Hex Byte**|**Binary Bits**<br>**HGF EDCBA**|**Byte Name**|**CRD –**<br>**abcdei fghj**|**CRD +**<br>**abcdei
 fghj**|
 |---|---|---|---|---|---|
 |**Control(K)**|**BC**|**101 11100**|**K28.5**|**001111 1010**|**110000 0101**|
@@ -1030,10 +1027,10 @@ fghj**|
 
 ||**CRD**|**Character**|**CRD**|**Character**|**CRD**|**Character**|**CRD**|
 |---|---|---|---|---|---|---|---|
-|**Character to**<br>**be transmitted**|**-**|**K28.5 (BCh)**|**+**|**K28.5 (BCh)**|**-**|**D10.3 (6Ah)**|**-**|
+|**Character to** **be transmitted**|**-**|**K28.5 (BCh)**|**+**|**K28.5 (BCh)**|**-**|**D10.3 (6Ah)**|**-**|
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 **'D' Character**
 Transaction Layer Packet (TLP)
@@ -1336,7 +1333,7 @@ _图 11-19：示例 8b/10b 传输_
 
 ## **在以下示例中使用这两个字符：**
 
-|**D/K#**|**十六进制**<br>**字节**|**二进制位**<br>**HGF EDCBA**|**字节**<br>**名称**|**CRD –**<br>**abcdei fghj**|**CRD +**<br>**abcdei fghj**|
+|**D/K#**|**十六进制** **字节**|**二进制位** **HGF EDCBA**|**字节** **名称**|**CRD –** **abcdei fghj**|**CRD +** **abcdei fghj**|
 |---|---|---|---|---|---|
 |**控制(K)**|**BC**|**101 11100**|**K28.5**|**001111 1010**|**110000 0101**|
 |**数据(D)**|**6A**|**011 01010**|**D10.3**|**010101 1100**|**010101 0011**|
@@ -1346,7 +1343,7 @@ _图 11-19：示例 8b/10b 传输_
 
 ||**CRD**|**字符**|**CRD**|**字符**|**CRD**|**字符**|**CRD**|
 |---|---|---|---|---|---|---|---|
-|**要传输的**<br>**字符**|**-**|**K28.5 (BCh)**|**+**|**K28.5 (BCh)**|**-**|**D10.3 (6Ah)**|**-**|
+|**要传输的** **字符**|**-**|**K28.5 (BCh)**|**+**|**K28.5 (BCh)**|**-**|**D10.3 (6Ah)**|**-**|
 
 </td>
 </tr></tbody></table>
@@ -1358,15 +1355,14 @@ _图 11-19：示例 8b/10b 传输_
 <a id="sec-9-4"></a>
 ## 9.4 DLLP Elements | DLLP 元素
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 |**Bit stream**<br>**transmitted**||**Yields**<br>**001111 1010**<br>**CRD is +**||**Yields**<br>**110000 0101**<br>**CRD is
 -**||**Yields**<br>**010101 1100**<br>**CRD is neutral**||
-|Initialized value of CRD is don’t care. Receiver can determine from incoming bit stream||||||||
+|Initialized value of CRD is don’t car...|
 
 
 ## **Control Characters** 
@@ -1377,14 +1373,14 @@ _Table 11‐1: Control Character Encoding and Definition_
 
 |**8b/10b**<br>**Name**|**Description**|
 |---|---|
-|K28.5|First character in any ordered set. Also used by Rx<br>to achieve Symbol lock during training.|
+|K28.5|First character in any ordered set. A...|
 |K23.7|Packet filler|
 |K28.0|Used in SKIP ordered set for Clock Tolerance Com‐<br>pensation|
 
 
 _Table 11‐1: Control Character Encoding and Definition (Continued)_ 
 
-|**Character**<br>**Name**|**8b/10b**<br>**Name**|**Description**|
+|**Character Name**|**8b/10b**<br>**Name**|**Description**|
 |---|---|---|
 |STP|K27.7|Start of a TLP|
 |SDP|K28.2|Start of a DLLP|
@@ -1537,9 +1533,9 @@ apply:
 Symbol and is 10 bit times, so at 2.5 GT/s, a Symbol time is 4ns and at 5.0 GT/s, it’s 2ns).
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
-|**传输的位流**||**产生**<br>**001111 1010**<br>**CRD 为 +**||**产生**<br>**110000 0101**<br>**CRD 为 -**||**产生**<br>**010101 1100**<br>**CRD 为中性**||
+|**传输的位流**||**产生** **001111 1010** **CRD 为 +**||**产生** **110000 0101** **CRD 为 -**||**产生** **010101 1100** **CRD 为中性**|
 |CRD 的初始值为无关项 (don't care)。接收器可以从输入位流中确定||||||||
 ## **控制字符 (Control Characters)**
 
@@ -1565,7 +1561,7 @@ _表 11-1：控制字符编码及定义（续）_
 |EDB|K30.7|错误的或"作废" TLP 的结束|
 |FTS|K28.1|用于从 L0s 低功耗状态退出到 L0|
 |IDL|K28.3|用于将链路置于电气空闲 (Electrical Idle) 状态|
-|EIE|K28.7|电气空闲退出有序集合 (Electrical Idle Exit Ordered Set) 的一部分，在链路恢复到高于 2.5 GT/s 的全功耗状态之前发送|
+|EIE|K28.7|电气空闲退出有序集合 (Electrical Idle Exit Orde...|
 
 - **COM**（逗号，Comma）：其主要功能之一是作为物理层通信中称为有序集合（参见第 388 页"有序集合"）的第一个字符。它有一个有趣的特性，使其两种字符编码都容易被接收器识别：它们以两个相同极性的位开始，后跟五个相反极性的位（001111 1010 或 110000
 0101）。这个特性在初始训练时特别有用，因为接收器试图理解输入的位串时，这有助于接收器锁定输入的字符流。有关其工作原理的更多内容，请参见第 405 页的"链路训练与初始化 (Link Training and Initialization)"。
@@ -1679,11 +1675,10 @@ PCIe，这些可以删除的字符采用 SKIP 有序集合的形式，由一个 
 <a id="sec-9-5"></a>
 ## 9.5 DLLP Elements | DLLP 元素
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 - They are only inserted on packet boundaries (nothing is allowed to interrupt a packet) and must go simultaneously on all Lanes. If a
 packet is already in progress the SKP Ordered Set will have to wait. The maxi‐ mum possible packet size would require more than 4096 Symbol
@@ -1844,7 +1839,7 @@ Sources of Lane‐to‐Lane skew include:
 - Differences between electrical drivers and receivers
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 - 它们仅在数据包边界插入（不允许中断数据包），并且必须同时在所有通道上进行。如果数据包已在进行中，SKIP 有序集合将必须等待。最大可能的数据包大小将需要超过 4096 字符时间，尽管在那期间应已发送了几个 SKIP 有序集合。
 
@@ -2021,11 +2016,10 @@ ppm（百万分之一）以内。由于在最坏的情况下一个可以是 +300
 <a id="sec-9-6"></a>
 ## 9.6 DLLP Elements | DLLP 元素
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 - Printed wiring board impedance variations 
 
@@ -2130,10 +2124,10 @@ _Figure 11‐25: Example of Delayed Disparity Error Detection_
 
 ||**CRD**|**Character**|**Character**|**CRD**|**Character**|**CRD**|**Character**|**CRD**|
 |---|---|---|---|---|---|---|---|---|
-|**Transmitted**<br>**Character Stream**|**-**|**D21.1**||**-**|**D10.2**|**-**|**D23.5**|**+**|
-|**Transmitted Bit**<br>**Stream**|**-**|**101010 1001**||**-**|**010101 0101**|**-**|**111010 1010**|**+**|
-|**Bit Stream After**<br>**Error**|**-**|**101010 101**<br>**1**||**+**|**010101 0101**|**+**|**111010 1010**|**+**|
-|**Decoded**<br>**Character Stream**|**-**|**D21.0**||**+**|**D10.2**|**+**|**Invalid**|**+**|
+|**Transmitted** **Character Stream**|**-**|**D21.1**||**-**|**D10.2**|**-**|**D23.5**|**+**|
+|**Transmitted Bit** **Stream**|**-**|**101010 1001**||**-**|**010101 0101**|**-**|**111010 1010**|**+**|
+|**Bit Stream After** **Error**|**-**|**101010 101** **1**||**+**|**010101 0101**|**+**|**111010 1010**|**+**|
+|**Decoded** **Character Stream**|**-**|**D21.0**||**+**|**D10.2**|**+**|**Invalid**|**+**|
 |Error occurs here<br>Error detected here|||||||||
 
 
@@ -2228,7 +2222,7 @@ in the Correctable Error Status register. If enabled, the device can send an ERR
 ## **Active State Power Management**
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 - 印刷电路板阻抗变化
 
@@ -2347,10 +2341,10 @@ _图 11-25：延迟不一致性错误检测示例_
 
 ||**CRD**|**字符**|**字符**|**CRD**|**字符**|**CRD**|**字符**|**CRD**|
 |---|---|---|---|---|---|---|---|---|
-|**已传输**<br>**字符流**|**-**|**D21.1**||**-**|**D10.2**|**-**|**D23.5**|**+**|
-|**已传输位**<br>**流**|**-**|**101010 1001**||**-**|**010101 0101**|**-**|**111010 1010**|**+**|
-|**错误之后**<br>**的位流**|**-**|**101010 101**<br>**1**||**+**|**010101 0101**|**+**|**111010 1010**|**+**|
-|**解码后**<br>**的字符流**|**-**|**D21.0**||**+**|**D10.2**|**+**|**无效**|**+**|
+|**已传输 字符流**|**-**|**D21.1**||**-**|**D10.2**|**-**|**D23.5**|**+**|
+|**已传输位** **流**|**-**|**101010 1001**||**-**|**010101 0101**|**-**|**111010 1010**|**+**|
+|**错误之后** **的位流**|**-**|**101010 101** **1**||**+**|**010101 0101**|**+**|**111010 1010**|**+**|
+|**解码后 的字符流**|**-**|**D21.0**||**+**|**D10.2**|**+**|**无效**|**+**|
 |错误发生在此处<br>错误检测到在此处|||||||||
 
 

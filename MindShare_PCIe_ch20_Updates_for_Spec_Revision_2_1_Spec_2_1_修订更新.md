@@ -9,16 +9,15 @@
 
 ## 📑 本章目录 (Table of Contents)
 
-- [20.1 _Appendix A:_ — Spec 2.1 修订更新](#sec-20-1)
+- [20.1 Updates for Spec Revision 2.1 — Spec 2.1 修订更新](#sec-20-1)
 
 <a id="sec-20-1"></a>
 ## 20.1 Updates for Spec Revision 2.1 | Spec 2.1 修订更新
 
-<table style="width:100%;table-layout:fixed">
-<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
-<td>
+<td width="50%">
 
 This change simplifies the Transaction Ordering Table by reducing the number of entries in the table. Essentially, it no longer
 distinguishes between comple‐ tions for reads or completions for non‐posted writes. The motivation for this was to reduce the number of
@@ -174,7 +173,7 @@ and electrical environments for which they are placed. The most common inter‐ 
 922. This inter‐ poser is used for probing standard CEM compliant PCIe add‐in cards.
 
 </td>
-<td style="background-color:#e8e8e8">
+<td width="50%">
 
 最近，业界已融合到 PCIe 作为企业存储和固态驱动器 (SSD) 应用程序的统一互连技术。NVM HCI（一个行业联盟）发布了一个名为 NVM Express (NVMe) 的规范，该规范使用 PCIe 提供 SSD 应用程序所需的带宽。此外，T10 委员会已开始定义 SCSI
 over PCIe (SOP) 协议，以利用 PCIe 技术能力实现高性能存储应用程序。此外，SATA 联盟最近宣布将 PCIe 用作其下一代 SATA 规范（称为 SATA Express (SATAe)）的互连。
