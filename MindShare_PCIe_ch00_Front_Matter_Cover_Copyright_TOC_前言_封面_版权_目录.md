@@ -120,7 +120,7 @@
 For training, visit **mindshare.com**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -137,7 +137,7 @@ PCI Express Technology Comprehensive Guide to Generations 1.x, 2.x and 3.0
 **Mike Jackson, Ravi Budruk** MindShare, Inc.
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -150,7 +150,7 @@ PCI Express Technology Comprehensive Guide to Generations 1.x, 2.x and 3.0
 ## _PCI Express Technology Comprehensive Guide to Generations 1.x, 2.x, 3.0_
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -163,7 +163,7 @@ PCI Express Technology Comprehensive Guide to Generations 1.x, 2.x and 3.0
 ## _MINDSHARE, INC._
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -178,7 +178,7 @@ PCI Express Technology Comprehensive Guide to Generations 1.x, 2.x and 3.0
 _Technical Edit by Joe Winkles and Don Anderson_
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -211,7 +211,7 @@ MindShare offers numerous courses in a self‐paced training format (eLearning).
 **www.mindshare.com**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -228,7 +228,7 @@ MindShare offers numerous courses in a self‐paced training format (eLearning).
 <br>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -245,7 +245,7 @@ MindShare offers numerous courses in a self‐paced training format (eLearning).
 <br>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -282,7 +282,7 @@ MindShare offers numerous courses in a self‐paced training format (eLearning).
 - All decode files and saved system scans are XML-based and open-format
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -299,7 +299,7 @@ Decoded view of x86 structures (MSRs, ACPI, Paging, Virtualization, etc.)
 **mindshare.com | 800.633.1440 | training@mindshare.com**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -313,7 +313,7 @@ BY
 MindShare Arbor is a computer system debug, validation, analysis and learning tool that allows the user to read and write any memory, IO or configuration space address. The data from these address spaces can be viewed in a clean and informative style as well as checked for configuration errors and non-optimal settings.
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -325,7 +325,7 @@ MindShare Arbor is a computer system debug, validation, analysis and learning to
 MindShare Arbor is an excellent reference tool to quickly look at standard PCI, PCI-X and PCIe structures. All the register and field definitions are up-to-date with the PCI Express 3.0. x86, ACPI and USB reference info will be coming soon as well.
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -337,7 +337,7 @@ MindShare Arbor is an excellent reference tool to quickly look at standard PCI, 
 MindShare Arbor can perform a scan of the system it is running on to record the config space from all PCI-visible functions and show it in a clean and intuitive decoded format. In addition to scanning PCI config space, MindShare Arbor can also be directed to read any memory address space and IO address space and display the collected data in the same decoded fashion.
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -349,7 +349,7 @@ MindShare Arbor can perform a scan of the system it is running on to record the 
 In addition to capturing and displaying headers and capability structures from PCI config space, Arbor can also check the settings of each field for errors (e.g. violates the spec) and non-optimal values (e.g. a PCIe link trained to something less than its max capability). MindShare Arbor has scores of these checks built in and can be run on any system scan (live or saved). Any errors or warnings are flagged and displayed for easy evaluation and debugging. MindShare Arbor allows users to create their own rule checks to be applied to system scans. These rule checks can be for any structure, or set of structures, in PCI config space, memory space or IO space. The rule checks are written in JavaScript. (Python support coming soon.)
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -361,7 +361,7 @@ In addition to capturing and displaying headers and capability structures from P
 MindShare Arbor provides a very simple interface to directly edit a register in PCI config space, memory address space or IO address space. This can be done in the decoded view so you see what the meaning of each bit, or by simply writing a hex value to the target location.
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -373,7 +373,7 @@ MindShare Arbor provides a very simple interface to directly edit a register in 
 After a system scan has been performed, MindShare Arbor allows saving of that system's scanned data (PCI config space, memory space and IO space) all in a single file to be looked at later or sent to a colleague. The scanned data in these Arbor system scan files (.ARBSYS files) are XML-based and can be looked at with any text editor or web browser. Even scans performed with other tools can be easily converted to the Arbor XML format and evaluated with MindShare Arbor.
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -383,7 +383,7 @@ After a system scan has been performed, MindShare Arbor allows saving of that sy
 ## _PCI Express Technology Comprehensive Guide to Generations 1.x, 2.x, 3.0_
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -393,7 +393,7 @@ After a system scan has been performed, MindShare Arbor allows saving of that sy
 ## _MINDSHARE, INC._
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -409,7 +409,7 @@ Many of the designations used by manufacturers and sellers to distinguish their 
 The authors and publishers have taken care in preparation of this book, but make no expressed or implied warranty of any kind and assume no responsibility for errors or omissions. No liability is assumed for incidental or consequential damages in connection with or arising out of the use of the information or programs contained herein.
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -437,7 +437,7 @@ First Edition, First Printing, September, 2012
 “This book is dedicated to my sons, Jeremy and Bryan – I love you guys deeply. Creating a book takes a long time and a team effort, but it’s finally done and now you hold the results in your hand. It’s a picture of the way life is sometimes: investing over a long time with your team before you see the result. You were a gift to us when you were born and we’ve invested in you for many years, along with a number of people who have helped us. Now you’ve become fine young men in your own right and it’s been a joy to become your friend as grown men. What will you invest in that will become the big achievements in your lives? I can hardly wait to find out.”
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -465,7 +465,7 @@ Special thanks to PLX Technology for contributing two appendices: Appendix B: _M
 Thanks also to the PCI SIG for giving permission to use some of the mechanical drawings from the specification.
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -477,7 +477,7 @@ Thanks also to the PCI SIG for giving permission to use some of the mechanical d
 1.0 - Initial eBook release 
 
 1.01 - Fixed Revision ID field in Figures 1-12, 1-13, 4-2, 4-4, 4-5, 4-6, 4-8, 4-9, 4-10, 4-17, 4-20, 4-21 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -489,7 +489,7 @@ Thanks also to the PCI SIG for giving permission to use some of the mechanical d
 **The MindShare Technology Series ........................................................................................ 1 Cautionary Note ......................................................................................................................... 2 Intended Audience .................................................................................................................... 2 Prerequisite Knowledge ........................................................................................................... 2 Book Topics and Organization................................................................................................ 3 Documentation Conventions................................................................................................... 3** PCI Express™....................................................................................................................... 3 Hexadecimal Notation ........................................................................................................ 4 Binary Notation.................................................................................................................... 4 Decimal Notation................................................................................................................. 4 Bits, Bytes and Transfers Notation .................................................................................... 4 Bit Fields................................................................................................................................ 4 Active Signal States.............................................................................................................. 5 **Visit Our Web Site..................................................................................................................... 5 We Want Your Feedback........................................................................................................... 5**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -499,7 +499,7 @@ Thanks also to the PCI SIG for giving permission to use some of the mechanical d
 ## **Part One: The Big Picture**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -511,7 +511,7 @@ Thanks also to the PCI SIG for giving permission to use some of the mechanical d
 **Introduction................................................................................................................................. 9 PCI and PCI-X........................................................................................................................... 10 PCI Basics .................................................................................................................................. 11** Basics of a PCI-Based System........................................................................................... 11 PCI Bus Initiator and Target............................................................................................. 12 Typical PCI Bus Cycle ....................................................................................................... 13 Reflected-Wave Signaling................................................................................................. 16 **PCI Bus Architecture Perspective ......................................................................................... 18** PCI Transaction Models.................................................................................................... 18 Programmed I/O........................................................................................................ 18 Direct Memory Access (DMA).................................................................................. 19 Peer-to-Peer ................................................................................................................. 20 PCI Bus Arbitration ........................................................................................................... 20 PCI Inefficiencies................................................................................................................ 21 PCI Retry Protocol ...................................................................................................... 21 PCI Disconnect Protocol ............................................................................................ 22 PCI Interrupt Handling..................................................................................................... 23 PCI Error Handling............................................................................................................ 24 PCI Address Space Map.................................................................................................... 25 PCI Configuration Cycle Generation .............................................................................. 26 <br><small>p. vii</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -523,7 +523,7 @@ Thanks also to the PCI SIG for giving permission to use some of the mechanical d
 PCI Function Configuration Register Space .................................................................. 27 Higher-bandwidth PCI ..................................................................................................... 29 Limitations of 66 MHz PCI bus ................................................................................ 30 Signal Timing Problems with the Parallel PCI Bus Model beyond 66 MHz...... 31 **Introducing PCI-X.................................................................................................................... 31** PCI-X System Example...................................................................................................... 31 PCI-X Transactions ............................................................................................................ 32 PCI-X Features.................................................................................................................... 33 Split-Transaction Model............................................................................................. 33 Message Signaled Interrupts..................................................................................... 34 Transaction Attributes ............................................................................................... 35 No Snoop (NS): .................................................................................................... 35 Relaxed Ordering (RO):...................................................................................... 35 Higher Bandwidth PCI-X.................................................................................................. 36 Problems with the Common Clock Approach of PCI and PCI-X 1.0 Parallel Bus Model .................................................................................................. 36 PCI-X 2.0 Source-Synchronous Model..................................................................... 37
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -538,7 +538,7 @@ PCI Function Configuration Register Space ......................................
 TLP Packet Assembly.......................................................................................... 62 TLP Packet Disassembly..................................................................................... 64 Non-Posted Transactions........................................................................................... 65 Ordinary Reads.................................................................................................... 65 Locked Reads ....................................................................................................... 66 IO and Configuration Writes ............................................................................. 68 Posted Writes............................................................................................................... 69 Memory Writes .................................................................................................... 69 Message Writes .................................................................................................... 70 Transaction Ordering................................................................................................. 71 Data Link Layer.................................................................................................................. 72 DLLPs (Data Link Layer Packets) ............................................................................ 73 DLLP Assembly ................................................................................................... 73 DLLP Disassembly .............................................................................................. 73 Ack/Nak Protocol ...................................................................................................... 74 Flow Control................................................................................................................ 76 Power Management.................................................................................................... 76 Physical Layer..................................................................................................................... 76 General ......................................................................................................................... 76 Physical Layer - Logical............................................................................................. 77 Link Training and Initialization ............................................................................... 78 Physical Layer - Electrical.......................................................................................... 78 Ordered Sets ................................................................................................................ 79 **Protocol Review Example....................................................................................................... 81** Memory Read Request............................................................................................... 81 Completion with Data................................................................................................ 83
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -550,7 +550,7 @@ TLP Packet Assembly.............................................................
 **Definition of Bus, Device and Function.............................................................................. 85** PCIe Buses........................................................................................................................... 86 PCIe Devices ....................................................................................................................... 86 PCIe Functions.................................................................................................................... 86 **Configuration Address Space................................................................................................ 88** PCI-Compatible Space....................................................................................................... 88 Extended Configuration Space ........................................................................................ 89 **Host-to-PCI Bridge Configuration Registers...................................................................... 90** General................................................................................................................................. 90 Only the Root Sends Configuration Requests ............................................................... 91 **Generating Configuration Transactions.............................................................................. 91** Legacy PCI Mechanism..................................................................................................... 91 Configuration Address Port...................................................................................... 92 Bus Compare and Data Port Usage.......................................................................... 93 <br><small>p. ix</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -562,7 +562,7 @@ TLP Packet Assembly.............................................................
 Single Host System ..................................................................................................... 94 Multi-Host System...................................................................................................... 96 Enhanced Configuration Access Mechanism ................................................................ 96 General ......................................................................................................................... 96 Some Rules................................................................................................................... 98 **Configuration Requests.......................................................................................................... 99** Type 0 Configuration Request ......................................................................................... 99 Type 1 Configuration Request ....................................................................................... 100 **Example PCI-Compatible Configuration Access............................................................. 102 Example Enhanced Configuration Access......................................................................... 103 Enumeration - Discovering the Topology......................................................................... 104** Discovering the Presence or Absence of a Function................................................... 105 Device not Present .................................................................................................... 105 Device not Ready...................................................................................................... 106 Determining if a Function is an Endpoint or Bridge .................................................. 108 **Single Root Enumeration Example..................................................................................... 109 Multi-Root Enumeration Example...................................................................................... 114** General............................................................................................................................... 114 Multi-Root Enumeration Process................................................................................... 114 **Hot-Plug Considerations ...................................................................................................... 116 MindShare Arbor: Debug/Validation/Analysis and Learning Software Tool........... 117** General............................................................................................................................... 117 MindShare Arbor Feature List ....................................................................................... 119
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -577,7 +577,7 @@ Single Host System .............................................................
 Unused Base and Limit Registers.................................................................................. 144 **Sanity Check: Registers Used For Address Routing ....................................................... 144 TLP Routing Basics................................................................................................................ 145** Receivers Check For Three Types of Traffic ................................................................ 147 Routing Elements............................................................................................................. 147 Three Methods of TLP Routing...................................................................................... 147 General ....................................................................................................................... 147 Purpose of Implicit Routing and Messages .......................................................... 148 Why Messages?.................................................................................................. 148 How Implicit Routing Helps............................................................................ 148 Split Transaction Protocol............................................................................................... 149 Posted versus Non-Posted.............................................................................................. 150 Header Fields Define Packet Format and Type........................................................... 151 General ....................................................................................................................... 151 Header Format/Type Field Encodings ................................................................. 153 TLP Header Overview .................................................................................................... 154 **Applying Routing Mechanisms .......................................................................................... 155** ID Routing......................................................................................................................... 155 Bus Number, Device Number, Function Number Limits................................... 155 Key TLP Header Fields in ID Routing................................................................... 155 Endpoints: One Check.............................................................................................. 156 Switches (Bridges): Two Checks Per Port ............................................................. 157 Address Routing .............................................................................................................. 158 Key TLP Header Fields in Address Routing ........................................................ 159 TLPs with 32-Bit Address................................................................................. 159 TLPs with 64-Bit Address................................................................................. 159 Endpoint Address Checking................................................................................... 160 Switch Routing.......................................................................................................... 161 Downstream Traveling TLPs (Received on Primary Interface).................. 162 Upstream Traveling TLPs (Received on Secondary Interface) ................... 163 Multicast Capabilities............................................................................................... 163 Implicit Routing ............................................................................................................... 163 Only for Messages .................................................................................................... 163 Key TLP Header Fields in Implicit Routing ......................................................... 164 Message Type Field Summary................................................................................ 164 Endpoint Handling................................................................................................... 165 Switch Handling ....................................................................................................... 165 **DLLPs and Ordered Sets Are Not Routed......................................................................... 166** 
 
 **xi** 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -587,7 +587,7 @@ Unused Base and Limit Registers.................................................
 ## **Part Two: Transaction Layer**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -602,7 +602,7 @@ Unused Base and Limit Registers.................................................
 Completions............................................................................................................... 196 Definitions Of Completion Header Fields ..................................................... 197 Summary of Completion Status Codes .......................................................... 200 Calculating The Lower Address Field............................................................ 200 Using The Byte Count Modified Bit................................................................ 201 Data Returned For Read Requests: ................................................................. 201 Receiver Completion Handling Rules:........................................................... 202 Message Requests ..................................................................................................... 203 Message Request Header Fields...................................................................... 204 Message Notes: .................................................................................................. 206 INTx Interrupt Messages.................................................................................. 206 Power Management Messages ........................................................................ 208 Error Messages................................................................................................... 209 Locked Transaction Support............................................................................ 209 Set Slot Power Limit Message.......................................................................... 210 Vendor-Defined Message 0 and 1 ................................................................... 210 Ignored Messages .............................................................................................. 211 Latency Tolerance Reporting Message........................................................... 212 Optimized Buffer Flush and Fill Messages.................................................... 213
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -614,7 +614,7 @@ Completions.....................................................................
 **Flow Control Concept ........................................................................................................... 215 Flow Control Buffers and Credits....................................................................................... 217** VC Flow Control Buffer Organization.......................................................................... 218 Flow Control Credits....................................................................................................... 219 **Initial Flow Control Advertisement ................................................................................... 219** Minimum and Maximum Flow Control Advertisement ........................................... 219 Infinite Credits.................................................................................................................. 221 Special Use for Infinite Credit Advertisements........................................................... 221 **Flow Control Initialization................................................................................................... 222** General............................................................................................................................... 222 The FC Initialization Sequence....................................................................................... 223 FC_Init1 Details................................................................................................................ 224 FC_Init2 Details................................................................................................................ 225 Rate of FC_INIT1 and FC_INIT2 Transmission .......................................................... 226 Violations of the Flow Control Initialization Protocol ............................................... 227 **Introduction to the Flow Control Mechanism.................................................................. 227** General............................................................................................................................... 227 The Flow Control Elements............................................................................................ 227 Transmitter Elements ............................................................................................... 228 Receiver Elements..................................................................................................... 229 <br><small>p. xiii</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -626,7 +626,7 @@ Completions.....................................................................
 **Flow Control Example........................................................................................................... 230** Stage 1 — Flow Control Following Initialization........................................................ 230 Stage 2 — Flow Control Buffer Fills Up........................................................................ 233 Stage 3 — Counters Roll Over........................................................................................ 234 Stage 4 — FC Buffer Overflow Error Check ................................................................ 235 **Flow Control Updates ........................................................................................................... 237** FC_Update DLLP Format and Content........................................................................ 238 Flow Control Update Frequency ................................................................................... 239 Immediate Notification of Credits Allocated ....................................................... 239 Maximum Latency Between Update Flow Control DLLPs................................ 240 Calculating Update Frequency Based on Payload Size and Link Width ......... 240 Error Detection Timer — A Pseudo Requirement ...................................................... 243
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -641,7 +641,7 @@ Completions.....................................................................
 Software Support ............................................................................................................. 275 Device Drivers........................................................................................................... 276 Isochronous Broker................................................................................................... 276 Bringing it all together .................................................................................................... 276 Endpoints................................................................................................................... 276 Switches...................................................................................................................... 278 Arbitration Issues .............................................................................................. 278 Timing Issues ..................................................................................................... 278 Bandwidth Allocation Problems ..................................................................... 280 Latency Issues .................................................................................................... 281 Root Complex............................................................................................................ 281 Problem: Snooping ............................................................................................ 281 Snooping Solutions............................................................................................ 282 Power Management.................................................................................................. 282 Error Handling.......................................................................................................... 282
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -653,7 +653,7 @@ Software Support ...............................................................
 **Introduction............................................................................................................................. 285 Definitions............................................................................................................................... 286 Simplified Ordering Rules................................................................................................... 287** Ordering Rules and Traffic Classes (TCs) .................................................................... 287 Ordering Rules Based On Packet Type......................................................................... 288 The Simplified Ordering Rules Table ........................................................................... 288 **Producer/Consumer Model .................................................................................................. 290** Producer/Consumer Sequence — No Errors.............................................................. 291 Producer/Consumer Sequence — Errors..................................................................... 295 **Relaxed Ordering ................................................................................................................... 296** RO Effects on Memory Writes and Messages.............................................................. 297 RO Effects on Memory Read Transactions................................................................... 298 **Weak Ordering ....................................................................................................................... 299** Transaction Ordering and Flow Control...................................................................... 299 Transaction Stalls ............................................................................................................. 300 VC Buffers Offer an Advantage..................................................................................... 301 **ID Based Ordering (IDO) ..................................................................................................... 301** The Solution...................................................................................................................... 301 When to use IDO.............................................................................................................. 302 Software Control .............................................................................................................. 303 **Deadlock Avoidance.............................................................................................................. 303** 
 
 **xv** 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -663,7 +663,7 @@ Software Support ...............................................................
 ## **Part Three: Data Link Layer**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -680,7 +680,7 @@ Software Support ...............................................................
 Transmitter’s Response to an Ack DLLP .............................................................. 331 Ack/Nak Examples.................................................................................................. 331 Example 1............................................................................................................ 331 Example 2............................................................................................................ 332 Transmitter’s Response to a Nak............................................................................ 333 TLP Replay................................................................................................................. 333 Efficient TLP Replay................................................................................................. 334 Example of a Nak...................................................................................................... 334 Repeated Replay of TLPs......................................................................................... 335 General ................................................................................................................ 335 Replay Number Rollover.................................................................................. 336 Replay Timer ............................................................................................................. 336 REPLAY_TIMER Equation............................................................................... 337 REPLAY_TIMER Summary Table .................................................................. 338 Transmitter DLLP Handling................................................................................... 340 Receiver Protocol Details ................................................................................................ 340 Physical Layer ........................................................................................................... 340 TLP LCRC Check...................................................................................................... 341 Next Received TLP’s Sequence Number............................................................... 341 Duplicate TLP..................................................................................................... 342 Out of Sequence TLP......................................................................................... 342 Receiver Schedules An Ack DLLP ......................................................................... 342 Receiver Schedules a Nak........................................................................................ 343 AckNak_LATENCY_TIMER.................................................................................. 343 AckNak_LATENCY_TIMER Equation .......................................................... 344 AckNak_LATENCY_TIMER Summary Table .............................................. 345 **More Examples ....................................................................................................................... 345** Lost TLPs........................................................................................................................... 345 Bad Ack ............................................................................................................................. 347 Bad Nak............................................................................................................................. 348 **Error Situations Handled by Ack/Nak............................................................................... 349 Recommended Priority To Schedule Packets................................................................... 350 Timing Differences for Newer Spec Versions ................................................................. 350** Ack Transmission Latency (AckNak Latency) ............................................................ 351 2.5 GT/s Operation................................................................................................... 351 5.0 GT/s Operation................................................................................................... 352 8.0 GT/s Operation................................................................................................... 352 Replay Timer .................................................................................................................... 353 2.5 GT/s Operation................................................................................................... 353 5.0 GT/s Operation................................................................................................... 354 8.0 GT/s Operation................................................................................................... 354 <br><small>p. xvii</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -692,7 +692,7 @@ Transmitter’s Response to an Ack DLLP ........................................
 **Switch Cut-Through Mode .................................................................................................. 354** Background....................................................................................................................... 355 A Latency Improvement Option.................................................................................... 355 Cut-Through Operation.................................................................................................. 356 Example of Cut-Through Operation............................................................................. 356
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -702,7 +702,7 @@ Transmitter’s Response to an Ack DLLP ........................................
 ## **Part Four: Physical Layer**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -717,7 +717,7 @@ Transmitter’s Response to an Ack DLLP ........................................
 TS1 and TS2 Ordered Set (TS1OS/TS2OS) .................................................... 388 Electrical Idle Ordered Set (EIOS)................................................................... 388 FTS Ordered Set (FTSOS) ................................................................................. 388 SKP Ordered Set (SOS) ..................................................................................... 389 Electrical Idle Exit Ordered Set (EIEOS) ........................................................ 389 Serializer............................................................................................................................ 389 Differential Driver............................................................................................................ 389 Transmit Clock (Tx Clock).............................................................................................. 390 Miscellaneous Transmit Topics...................................................................................... 390 Logical Idle ................................................................................................................ 390 Tx Signal Skew .......................................................................................................... 390 Clock Compensation ................................................................................................ 391 Background ........................................................................................................ 391 SKIP ordered set Insertion Rules..................................................................... 391 **Receive Logic Details (Gen1 and Gen2 Only).................................................................. 392** Differential Receiver........................................................................................................ 393 Rx Clock Recovery........................................................................................................... 394 General ....................................................................................................................... 394 Achieving Bit Lock ................................................................................................... 395 Losing Bit Lock.......................................................................................................... 395 Regaining Bit Lock.................................................................................................... 395 Deserializer ....................................................................................................................... 395 General ....................................................................................................................... 395 Achieving Symbol Lock........................................................................................... 396 Receiver Clock Compensation Logic ............................................................................ 396 Background................................................................................................................ 396 Elastic Buffer’s Role.................................................................................................. 397 Lane-to-Lane Skew .......................................................................................................... 398 Flight Time Will Vary Between Lanes................................................................... 398 Ordered sets Help De-Skewing .............................................................................. 398 Receiver Lane-to-Lane De-Skew Capability ......................................................... 398 De-Skew Opportunities ........................................................................................... 399 8b/10b Decoder................................................................................................................ 400 General ....................................................................................................................... 400 Disparity Calculator ................................................................................................. 400 Code Violation and Disparity Error Detection..................................................... 400 General ................................................................................................................ 400 Code Violations.................................................................................................. 400 Disparity Errors ................................................................................................. 400 Descrambler...................................................................................................................... 402 Some Descrambler Implementation Rules:........................................................... 402 Disabling Descrambling........................................................................................... 402 <br><small>p. xix</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -729,7 +729,7 @@ TS1 and TS2 Ordered Set (TS1OS/TS2OS) ..........................................
 Byte Un-Striping............................................................................................................... 402 Filter and Packet Alignment Check............................................................................... 403 Receive Buffer (Rx Buffer) .............................................................................................. 403 **Physical Layer Error Handling ............................................................................................ 404** General............................................................................................................................... 404 Response of Data Link Layer to Receiver Error .......................................................... 404 **Active State Power Management ........................................................................................ 405 Link Training and Initialization ......................................................................................... 405**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -744,7 +744,7 @@ Byte Un-Striping................................................................
 Rx Clock Recovery.................................................................................................... 437 Deserializer................................................................................................................ 438 Achieving Block Alignment .................................................................................... 438 Unaligned Phase................................................................................................ 439 Aligned Phase .................................................................................................... 439 Locked Phase...................................................................................................... 439 Special Case: Loopback..................................................................................... 439 Block Type Detection................................................................................................ 439 Receiver Clock Compensation Logic ............................................................................ 440 Background................................................................................................................ 440 Elastic Buffer’s Role.................................................................................................. 440 Lane-to-Lane Skew .......................................................................................................... 442 Flight Time Variance Between Lanes..................................................................... 442 De-skew Opportunities............................................................................................ 442 Receiver Lane-to-Lane De-skew Capability.......................................................... 443 Descrambler...................................................................................................................... 444 General ....................................................................................................................... 444 Disabling Descrambling........................................................................................... 444 Byte Un-Striping............................................................................................................... 445 Packet Filtering................................................................................................................. 446 Receive Buffer (Rx Buffer) .............................................................................................. 446 **Notes Regarding Loopback with 128b/130b ..................................................................... 446**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -756,7 +756,7 @@ Rx Clock Recovery...............................................................
 **Backward Compatibility....................................................................................................... 448 Component Interfaces ........................................................................................................... 449 Physical Layer Electrical Overview .................................................................................... 449 High Speed Signaling ........................................................................................................... 451 Clock Requirements .............................................................................................................. 452** General............................................................................................................................... 452 SSC (Spread Spectrum Clocking) .................................................................................. 453 Refclk Overview............................................................................................................... 455 2.5 GT/s...................................................................................................................... 455 5.0 GT/s...................................................................................................................... 455 Common Refclk ................................................................................................. 456 Data Clocked Rx Architecture ......................................................................... 456 Separate Refclks................................................................................................. 457 8.0 GT/s...................................................................................................................... 457 **Transmitter (Tx) Specs .......................................................................................................... 458** Measuring Tx Signals ...................................................................................................... 458 Tx Impedance Requirements.......................................................................................... 459 ESD and Short Circuit Requirements............................................................................ 459 <br><small>p. xxi</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -771,7 +771,7 @@ Receiver Detection .............................................................
 Receiver (Rx) Equalization ............................................................................................. 493 Continuous-Time Linear Equalization (CTLE) .................................................... 493 Decision Feedback Equalization (DFE) ................................................................. 495 **Receiver Characteristics........................................................................................................ 497 Link Power Management States.......................................................................................... 500**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -783,7 +783,7 @@ Receiver (Rx) Equalization .....................................................
 **Overview.................................................................................................................................. 506 Ordered Sets in Link Training ............................................................................................ 509** General............................................................................................................................... 509 TS1 and TS2 Ordered Sets............................................................................................... 510 **Link Training and Status State Machine (LTSSM)......................................................... 518** General............................................................................................................................... 518 Overview of LTSSM States ............................................................................................. 519 Introductions, Examples and State/Substates............................................................. 521 **Detect State.............................................................................................................................. 522** Introduction ...................................................................................................................... 522 Detailed Detect Substate ................................................................................................. 523 Detect.Quiet............................................................................................................... 523 Detect.Active ............................................................................................................. 524 **Polling State ............................................................................................................................ 525** Introduction ...................................................................................................................... 525 Detailed Polling Substates .............................................................................................. 526 Polling.Active ............................................................................................................ 526 Polling.Configuration............................................................................................... 527 Polling.Compliance .................................................................................................. 529 Compliance Pattern for 8b/10b....................................................................... 529 Compliance Pattern for 128b/130b................................................................. 530 Modified Compliance Pattern for 8b/10b...................................................... 532 Modified Compliance Pattern for 128b/130b................................................ 533 Compliance Pattern........................................................................................... 537 Modified Compliance Pattern ......................................................................... 537 **Configuration State................................................................................................................ 539** Configuration State — General...................................................................................... 540 Designing Devices with Links that can be Merged .................................................... 541 Configuration State — Training Examples .................................................................. 542 Introduction............................................................................................................... 542 Link Configuration Example 1................................................................................ 542 Link Number Negotiation................................................................................ 542 Lane Number Negotiation ............................................................................... 543 Confirming Link and Lane Numbers ............................................................. 544 <br><small>p. xxiii</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -798,7 +798,7 @@ Link Configuration Example 2....................................................
 Phase 2 Upstream .............................................................................................. 593 Phase 3 Upstream .............................................................................................. 594 Recovery.Speed......................................................................................................... 595 Recovery.RcvrCfg..................................................................................................... 598 Recovery.Idle............................................................................................................. 601 L0s State............................................................................................................................. 603 L0s Transmitter State Machine ............................................................................... 603 Tx_L0s.Entry....................................................................................................... 604 Tx_L0s.Idle.......................................................................................................... 604 Tx_L0s.FTS.......................................................................................................... 604 L0s Receiver State Machine..................................................................................... 605 Rx_L0s.Entry ...................................................................................................... 606 Rx_L0s.Idle ......................................................................................................... 606 Rx_L0s.FTS ......................................................................................................... 606 L1 State .............................................................................................................................. 607 L1.Entry...................................................................................................................... 608 L1.Idle......................................................................................................................... 609 L2 State .............................................................................................................................. 609 L2.Idle......................................................................................................................... 611 L2.TransmitWake...................................................................................................... 612 Hot Reset State.................................................................................................................. 612 Disable State...................................................................................................................... 613 Loopback State ................................................................................................................. 613 Loopback.Entry......................................................................................................... 614 Loopback.Active ....................................................................................................... 617 Loopback.Exit............................................................................................................ 618 **Dynamic Bandwidth Changes............................................................................................. 618** Dynamic Link Speed Changes....................................................................................... 619 Upstream Port Initiates Speed Change......................................................................... 622 Speed Change Example................................................................................................... 622 Software Control of Speed Changes.............................................................................. 627 Dynamic Link Width Changes....................................................................................... 629 Link Width Change Example......................................................................................... 630 **Related Configuration Registers......................................................................................... 638** Link Capabilities Register............................................................................................... 638 Max Link Speed [3:0]................................................................................................ 639 Maximum Link Width[9:4]...................................................................................... 640 Link Capabilities 2 Register............................................................................................ 640 Link Status Register......................................................................................................... 641 Current Link Speed[3:0]:.......................................................................................... 641 Negotiated Link Width[9:4] .................................................................................... 641 Undefined[10]............................................................................................................ 642 <br><small>p. xxv</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -810,7 +810,7 @@ Phase 2 Upstream ...............................................................
 Link Training[11] ...................................................................................................... 642 Link Control Register ...................................................................................................... 642 Link Disable............................................................................................................... 643 Retrain Link ............................................................................................................... 643 Extended Synch......................................................................................................... 643
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -820,7 +820,7 @@ Link Training[11] ..............................................................
 ## **Part Five: Additional System Topics**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -835,7 +835,7 @@ Link Training[11] ..............................................................
 **How Errors are Reported ...................................................................................................... 668** Introduction ...................................................................................................................... 668 Error Messages ................................................................................................................. 668 Advisory Non-Fatal Errors...................................................................................... 670 Advisory Non-Fatal Cases....................................................................................... 671 **Baseline Error Detection and Handling............................................................................. 674** PCI-Compatible Error Reporting Mechanisms ........................................................... 674 General ....................................................................................................................... 674 Legacy Command and Status Registers................................................................ 675 Baseline Error Handling.................................................................................................. 677 Enabling/Disabling Error Reporting..................................................................... 678 Device Control Register.................................................................................... 680 Device Status Register....................................................................................... 681 Root’s Response to Error Message ......................................................................... 682 Link Errors................................................................................................................. 683 **Advanced Error Reporting (AER) ....................................................................................... 685** Advanced Error Capability and Control...................................................................... 686 Handling Sticky Bits ........................................................................................................ 688 Advanced Correctable Error Handling ........................................................................ 688 Advanced Correctable Error Status ....................................................................... 689 Advanced Correctable Error Masking................................................................... 690 Advanced Uncorrectable Error Handling.................................................................... 691 Advanced Uncorrectable Error Status................................................................... 691 Selecting Uncorrectable Error Severity.................................................................. 693 Uncorrectable Error Masking.................................................................................. 694 Header Logging................................................................................................................ 695 Root Complex Error Tracking and Reporting ............................................................. 696 Root Complex Error Status Registers .................................................................... 696 Advanced Source ID Register ................................................................................. 697 Root Error Command Register ............................................................................... 698 **Summary of Error Logging and Reporting ....................................................................... 698 Example Flow of Software Error Investigation................................................................ 699**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -847,7 +847,7 @@ Link Training[11] ..............................................................
 **Introduction............................................................................................................................. 704 Power Management Primer.................................................................................................. 705** Basics of PCI PM .............................................................................................................. 705 ACPI Spec Defines Overall PM...................................................................................... 707 System PM States...................................................................................................... 708 Device PM States....................................................................................................... 709 Definition of Device Context................................................................................... 709 General ................................................................................................................ 709 <br><small>p. xxvii</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -862,7 +862,7 @@ PME Context ....................................................................
 Inferring Electrical Idle ..................................................................................... 741 Receiver Exit from Electrical Idle ........................................................................... 742 L0s State............................................................................................................................. 744 Entry into L0s ............................................................................................................ 745 Entry into L0s..................................................................................................... 745 Flow Control Credits Must be Delivered....................................................... 746 Transmitter Initiates Entry to L0s ................................................................... 746 Exit from L0s State.................................................................................................... 746 Transmitter Initiates L0s Exit........................................................................... 746 Actions Taken by Switches that Receive L0s Exit......................................... 746 L1 ASPM State.................................................................................................................. 747 Downstream Component Decides to Enter L1 ASPM ........................................ 748 Negotiation Required to Enter L1 ASPM.............................................................. 748 Scenario 1: Both Ports Ready to Enter L1 ASPM State........................................ 748 Downstream Component Requests L1 State ................................................. 748 Upstream Component Response to L1 ASPM Request ............................... 749 Upstream Component Acknowledges Request to Enter L1........................ 749 Downstream Component Sees Acknowledgement...................................... 749 Upstream Component Receives Electrical Idle............................................. 749 Scenario 2: Upstream Component Transmits TLP Just Prior to Receiving L1 Request............................................................................................. 750 TLP Must Be Accepted by Downstream Component .................................. 751 Upstream Component Receives Request to Enter L1................................... 751 Scenario 3: Downstream Component Receives TLP During Negotiation........ 751 Scenario 4: Upstream Component Receives TLP During Negotiation ............. 751 Scenario 5: Upstream Component Rejects L1 Request........................................ 752 Exit from L1 ASPM State ......................................................................................... 753 L1 ASPM Exit Signaling.................................................................................... 753 Switch Receives L1 Exit from Downstream Component............................. 753 Switch Receives L1 Exit from Upstream Component .................................. 754 ASPM Exit Latency .......................................................................................................... 756 Reporting a Valid ASPM Exit Latency .................................................................. 756 L0s Exit Latency Update................................................................................... 756 L1 Exit Latency Update .................................................................................... 757 Calculating Latency from Endpoint to Root Complex........................................ 758 **Software Initiated Link Power Management ................................................................... 760** D1/D2/D3Hot and the L1 State .................................................................................... 760 Entering the L1 State ................................................................................................ 760 Exiting the L1 State................................................................................................... 762 Upstream Component Initiates ....................................................................... 762 Downstream Component Initiates L1 to L0 Transition ............................... 763 The L1 Exit Protocol .......................................................................................... 763 <br><small>p. xxix</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -874,7 +874,7 @@ Inferring Electrical Idle ......................................................
 L2/L3 Ready — Removing Power from the Link....................................................... 763 L2/L3 Ready Handshake Sequence....................................................................... 764 Exiting the L2/L3 Ready State — Clock and Power Removed.......................... 767 The L2 State................................................................................................................ 767 The L3 State................................................................................................................ 767 **Link Wake Protocol and PME Generation........................................................................ 768** The PME Message............................................................................................................ 769 The PME Sequence........................................................................................................... 770 PME Message Back Pressure Deadlock Avoidance.................................................... 770 Background................................................................................................................ 770 The Problem............................................................................................................... 771 The Solution............................................................................................................... 771 The PME Context ............................................................................................................. 771 Waking Non-Communicating Links............................................................................. 772 Beacon......................................................................................................................... 772 WAKE#....................................................................................................................... 773 Auxiliary Power ............................................................................................................... 775 **Improving PM Efficiency ..................................................................................................... 776** Background....................................................................................................................... 776 OBFF (Optimized Buffer Flush and Fill) ...................................................................... 776 The Problem............................................................................................................... 776 The Solution............................................................................................................... 778 Using the WAKE# Pin....................................................................................... 779 Using the OBFF Message.................................................................................. 780 LTR (Latency Tolerance Reporting) .............................................................................. 784 LTR Registers............................................................................................................. 784 LTR Messages............................................................................................................ 786 Guidelines Regarding LTR Use .............................................................................. 786 LTR Example ............................................................................................................. 789
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -889,7 +889,7 @@ L2/L3 Ready — Removing Power from the Link....................................
 INTx# Signaling ........................................................................................................ 803 Interrupt Disable................................................................................................ 803 Interrupt Status.................................................................................................. 804 Virtual INTx Signaling.................................................................................................... 805 General ....................................................................................................................... 805 Virtual INTx Wire Delivery..................................................................................... 806 INTx Message Format.............................................................................................. 807 Mapping and Collapsing INTx Messages .................................................................... 808 INTx Mapping........................................................................................................... 808 INTx Collapsing........................................................................................................ 810 INTx Delivery Rules................................................................................................. 812 **The MSI Model....................................................................................................................... 812** The MSI Capability Structure......................................................................................... 812 Capability ID ............................................................................................................. 814 Next Capability Pointer ........................................................................................... 814 Message Control Register........................................................................................ 814 Message Address Register....................................................................................... 816 Message Data Register ............................................................................................. 817 Mask Bits Register and Pending Bits Register...................................................... 817 Basics of MSI Configuration........................................................................................... 817 Basics of Generating an MSI Interrupt Request .......................................................... 820 Multiple Messages ........................................................................................................... 820 **The MSI-X Model................................................................................................................... 821** General............................................................................................................................... 821 MSI-X Capability Structure ............................................................................................ 822 MSI-X Table....................................................................................................................... 824 Pending Bit Array ............................................................................................................ 825 **Memory Synchronization When Interrupt Handler Entered........................................ 826** The Problem...................................................................................................................... 826 One Solution ..................................................................................................................... 827 An MSI Solution............................................................................................................... 827 Traffic Classes Must Match ............................................................................................ 828 **Interrupt Latency.................................................................................................................... 829 MSI May Result In Errors..................................................................................................... 829 Some MSI Rules and Recommendations .......................................................................... 830 Special Consideration for Base System Peripherals ....................................................... 830** Example Legacy System.................................................................................................. 831 **Chapter 18: System Reset Two Categories of System Reset......................................................................................... 833 Conventional Reset................................................................................................................ 834** Fundamental Reset .......................................................................................................... 834 <br><small>p. xxxi</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -901,7 +901,7 @@ INTx# Signaling ................................................................
 PERST# Fundamental Reset Generation ............................................................... 835 Autonomous Reset Generation............................................................................... 835 Link Wakeup from L2 Low Power State............................................................... 836 Hot Reset (In-band Reset)............................................................................................... 837 Response to Receiving Hot Reset ........................................................................... 837 Switches Generate Hot Reset on Downstream Ports........................................... 838 Bridges Forward Hot Reset to the Secondary Bus............................................... 838 Software Generation of Hot Reset.......................................................................... 838 Software Can Disable the Link ............................................................................... 840 **Function Level Reset (FLR) .................................................................................................. 842** Time Allowed ................................................................................................................... 844 Behavior During FLR ...................................................................................................... 845 **Reset Exit.................................................................................................................................. 846**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -916,7 +916,7 @@ PERST# Fundamental Reset Generation ............................................
 Slot Control ....................................................................................................................... 868 Slot Status and Events Management............................................................................. 870 Add-in Card Capabilities................................................................................................ 872 **Quiescing Card and Driver .................................................................................................. 873** General............................................................................................................................... 873 Pausing a Driver (Optional) ........................................................................................... 874 Quiescing a Driver That Controls Multiple Devices ........................................... 874 Quiescing a Failed Card........................................................................................... 874 **The Primitives......................................................................................................................... 874 Introduction to Power Budgeting ....................................................................................... 876 The Power Budgeting Elements.......................................................................................... 877** System Firmware ............................................................................................................. 877 The Power Budget Manager........................................................................................... 878 Expansion Ports................................................................................................................ 878 Add-in Devices................................................................................................................. 879 **Slot Power Limit Control...................................................................................................... 881** Expansion Port Delivers Slot Power Limit................................................................... 881 Expansion Device Limits Power Consumption........................................................... 883 **The Power Budget Capabilities Register Set.................................................................... 883**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -928,7 +928,7 @@ Slot Control ...................................................................
 **Changes for PCIe Spec Rev 2.1............................................................................................ 887 System Redundancy Improvement: Multi-casting.......................................................... 888** Multicast Capability Registers ....................................................................................... 889 Multicast Capability ................................................................................................. 889 Multicast Control...................................................................................................... 890 Multicast Base Address............................................................................................ 891 MC Receive................................................................................................................ 892 MC Block All ............................................................................................................. 892 MC Block Untranslated............................................................................................ 892 Multicast Example ........................................................................................................... 893 MC Overlay BAR ............................................................................................................. 894 Overlay Example.............................................................................................................. 895 Routing Multicast TLPs................................................................................................... 896 Congestion Avoidance .................................................................................................... 897 **Performance Improvements................................................................................................. 897** AtomicOps ........................................................................................................................ 897 TPH (TLP Processing Hints)........................................................................................... 899 TPH Examples........................................................................................................... 900 Device Write to Host Read............................................................................... 900 Host Write to Device Read............................................................................... 902 Device to Device ................................................................................................ 903 <br><small>p. xxxiii</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -940,7 +940,7 @@ Slot Control ...................................................................
 TPH Header Bits ....................................................................................................... 904 Steering Tags ............................................................................................................. 906 TLP Prefixes............................................................................................................... 908 IDO (ID-based Ordering)................................................................................................ 909 ARI (Alternative Routing-ID Interpretation)............................................................... 909 **Power Management Improvements ................................................................................... 910** DPA (Dynamic Power Allocation.................................................................................. 910 LTR (Latency Tolerance Reporting) .............................................................................. 910 OBFF (Optimized Buffer Flush and Fill) ...................................................................... 910 ASPM Options.................................................................................................................. 910 **Configuration Improvements.............................................................................................. 911** Internal Error Reporting ................................................................................................. 911 Resizable BARs................................................................................................................. 911 Capability Register ................................................................................................... 912 Control Register ........................................................................................................ 912 Simplified Ordering Table.............................................................................................. 914
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -950,7 +950,7 @@ TPH Header Bits ................................................................
 ## **Appendices**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -965,7 +965,7 @@ TPH Header Bits ................................................................
 **Conclusion............................................................................................................................... 933**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -977,7 +977,7 @@ TPH Header Bits ................................................................
 **Introduction............................................................................................................................. 935 PCI Express IO Virtualization Solutions........................................................................... 937 Multi-Root (MR) PCIe Switch Solution ............................................................................ 938 PCIe Beyond Chip-to-Chip Interconnect .......................................................................... 939 SSD/Storage IO Expansion Boxes....................................................................................... 940 PCIe in SSD Modules for Servers....................................................................................... 940 Conclusion............................................................................................................................... 942**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -989,7 +989,7 @@ TPH Header Bits ................................................................
 **Introduction............................................................................................................................. 943 Usage Models.......................................................................................................................... 944** Intelligent Adapters......................................................................................................... 944 Host Failover .................................................................................................................... 944 Multiprocessor Systems ................................................................................................. 945 **The History Multi-Processor Implementations Using PCI ........................................... 945 Implementing Multi-host/Intelligent Adapters in PCI Express Base Systems.......... 947** Example: Implementing Intelligent Adapters in a PCI Express Base System ....... 950 Example: Implementing Host Failover in a PCI Express System ............................ 952 Example: Implementing Dual Host in a PCI Express Base System.......................... 955 **Summary.................................................................................................................................. 957 Address Translation .............................................................................................................. 958** Direct Address Translation............................................................................................. 959 Lookup Table Based Address Translation ................................................................... 959 Downstream BAR Limit Registers................................................................................. 960 Forwarding 64bit Address Memory Transactions ...................................................... 961
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1001,7 +1001,7 @@ TPH Header Bits ................................................................
 **Introduction............................................................................................................................. 963 Background ............................................................................................................................. 963 The PCI Express Lock Protocol............................................................................................ 964** Lock Messages — The Virtual Lock Signal.................................................................. 964 The Lock Protocol Sequence — an Example................................................................ 965 The Memory Read Lock Operation........................................................................ 965 Read Data Modified and Written to Target and Lock Completes..................... 967 Notification of an Unsuccessful Lock ........................................................................... 970 <br><small>p. xxxv</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1013,7 +1013,7 @@ TPH Header Bits ................................................................
 **Summary of Locking Rules.................................................................................................. 970** Rules Related To the Initiation and Propagation of Locked Transactions .............. 970 Rules Related to Switches ............................................................................................... 971 Rules Related To PCI Express/PCI Bridges................................................................. 972 Rules Related To the Root Complex.............................................................................. 972 Rules Related To Legacy Endpoints.............................................................................. 972 Rules Related To PCI Express Endpoints..................................................................... 972
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1071,7 +1071,7 @@ TPH Header Bits ................................................................
 |2-23|Flow Control Basics.................................................................................................... 72|<br><small>p. xxxvii</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1173,7 +1173,7 @@ TPH Header Bits ................................................................
 |7-7|Strict Priority Arbitration......................................................................................... 254|<br><small>p. xxxix</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1275,7 +1275,7 @@ TPH Header Bits ................................................................
 |12-8|Gen3 Frame Token Examples ................................................................................. 417|<br><small>p. xli</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1377,7 +1377,7 @@ TPH Header Bits ................................................................
 |14-30|Equalization Process: Starting Point ...................................................................... 581|<br><small>p. xliii</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1479,7 +1479,7 @@ TPH Header Bits ................................................................
 |16-10|Gen3 Mode EIOS Pattern......................................................................................... 737|<br><small>p. xlv</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1581,7 +1581,7 @@ TPH Header Bits ................................................................
 |20-2|Multicast Capability Registers................................................................................ 889|<br><small>p. xlvii</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1705,7 +1705,7 @@ TPH Header Bits ................................................................
 |9-2|Ack/Nak DLLP Fields ............................................................................................. 313|<br><small>p. li</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1798,7 +1798,7 @@ TPH Header Bits ................................................................
 **Tables** <br><small>p. liv</small>
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1847,7 +1847,7 @@ _Table 1: PC Architecture Book Series (Continued)_
 ||SATA Storage Technology|1st|978‐0‐9770878‐1‐5|
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1859,7 +1859,7 @@ _Table 1: PC Architecture Book Series (Continued)_
 Please keep in mind that MindShare’s books often describe rapidly changing technologies, and that’s true for PCI Express as well. This book is a “snapshot” of the state of the technology at the time the book was completed. We make every effort to produce the books on a timely basis, but the next revision of the spec doesn’t always arrive in time to be included in a book. This PCI Express book comprehends revision 3.0 of the _PCI Express™ Base Specification_ released and trademarked by the PCISIG (PCI Special Interest Group).
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1871,7 +1871,7 @@ Please keep in mind that MindShare’s books often describe rapidly changing tec
 The intended audience for this book is hardware and software design, verifica‐ tion, and other support personnel. The tutorial approach taken may also make it useful to technical people who aren’t directly involved.
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1887,7 +1887,7 @@ To get the full benefit of this material, it’s recommended that the reader hav
 **About This Book**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1909,7 +1909,7 @@ Topics covered in this book and chapter flow are as follows:
 **Part 5: Additional System Topics.** Discusses additional system topics of PCI Express, including error detection and handling, power management, interrupt handling, Hot Plug and Power Budgeting details. Additional changes made in the PCI Express 2.1 spec not described in earlier chapters are covered here.
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1929,7 +1929,7 @@ Topics covered in this book and chapter flow are as follows:
 - Glossary
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1941,7 +1941,7 @@ Topics covered in this book and chapter flow are as follows:
 This section defines the typographical convention used throughout this book.
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1954,7 +1954,7 @@ PCI Express™ is a trademark of the PCI SIG, commonly abbreviated as “PCIe”
 
 **3** 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1968,7 +1968,7 @@ All hex numbers are followed by a lower case “h.” For example:
 89F2BD02h 0111h
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1982,7 +1982,7 @@ All binary numbers are followed by a lower case “b.” For example:
 1000 1001 1111 0010b 01b
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1996,7 +1996,7 @@ Number without any suffix are decimal. When required for clarity, decimal number
 9 15 512d
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -2014,7 +2014,7 @@ Megabytes/second = MB/s
 Megatransfers/second = MT/s
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -2032,7 +2032,7 @@ Groups bits are represented with the high‐order bits first followed by the low
 **About This Book**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -2044,7 +2044,7 @@ Groups bits are represented with the high‐order bits first followed by the low
 Signals that are active low are followed by #, as in PERST# and WAKE#. Active high signals have no suffix, such as POWERGOOD.
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -2072,7 +2072,7 @@ In addition, other items are available on our site:
 Our books can be ordered in hard copy or eBook versions.
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -2084,7 +2084,7 @@ Our books can be ordered in hard copy or eBook versions.
 MindShare values your comments and suggestions. Contact us at:
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -2098,7 +2098,7 @@ MindShare values your comments and suggestions. Contact us at:
 **General information:** training@mindshare.com
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -2114,7 +2114,7 @@ MindShare, Inc. 481 Highway 105 Suite B, # 246 Monument, CO 80132 USA
 **6**
 
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 

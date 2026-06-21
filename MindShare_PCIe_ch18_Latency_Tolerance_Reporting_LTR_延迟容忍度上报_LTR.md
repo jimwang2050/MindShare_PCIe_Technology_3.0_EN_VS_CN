@@ -10,7 +10,7 @@
 ## 📑 本章目录 (Table of Contents)
 
 - [18.1 Add-in Card Capabilities — 延迟容忍度上报 (LTR)](#sec-18-1)
-- [18.3 _20_ — 延迟容忍度上报 (LTR)](#sec-18-3)
+- [18.2 _20_ — 延迟容忍度上报 (LTR)](#sec-18-2)
 
 <a id="sec-18-1"></a>
 ## 18.1 Latency Tolerance Reporting (LTR) | 延迟容忍度上报 (LTR)
@@ -387,15 +387,15 @@ _表 20-1：PH 编码表_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
 <img src="figures/embedded/page0902_img2_tight.png" alt="Figure from page 902" width="700">
 
-<a id="sec-18-3"></a>
-## 18.3 Latency Tolerance Reporting (LTR) | 延迟容忍度上报 (LTR)
+<a id="sec-18-2"></a>
+## 18.2 Latency Tolerance Reporting (LTR) | 延迟容忍度上报 (LTR)
 
 <table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
@@ -716,7 +716,7 @@ _图 20-22：Resizable BAR Control 寄存器_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 

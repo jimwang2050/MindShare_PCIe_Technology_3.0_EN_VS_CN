@@ -218,7 +218,7 @@ _图 A-1：带 ProtoSync 软件选项的 LeCroy 示波器_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -453,7 +453,7 @@ _图 A-12：Gen2 流量的 BitTracer 视图_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -824,7 +824,7 @@ _图 20‐22：可调整大小的 BAR Control 寄存器_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 

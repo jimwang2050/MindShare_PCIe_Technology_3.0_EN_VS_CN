@@ -56,10 +56,9 @@ Flow control logic is actually a shared responsibility between two layers: the T
 
 _Figure 6‐1: Location of Flow Control Logic_ 
 
-**==> picture [371 x 310] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0276.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIe-Core PCIe-Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>Transaction Layer Transaction Layer<br>FC Counters FC Buffers FC Counters FC Buffers<br>Data Link Layer Data Link Layer<br>Physical Layer Physical Layer<br>(TX) (RX) (TX) (RX)<br>Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Flow Control Buffers and Credits** 
@@ -82,10 +81,9 @@ Some transactions, like read requests, consist of a header only while others, li
 
 _Figure 6‐2: Flow Control Buffer Organization_ 
 
-**==> picture [379 x 224] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0277.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-PCIe Device A PCIe Device B<br>Flow Control Buffers (Receiver)<br>Device Core Device Core<br>(PH) (PD) (NPH) (NPD) (CPLH) (CPLD)<br>PCIe-Core PCIe-Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>Transaction Layer Transaction Layer<br>FC Counters RCV Buffers P Posted Request<br>P NP CPL P NP CPL<br>NP Non-Posted Request<br>Data Link Layer Data Link Layer CPL Completion<br>Physical Layer Physical Layer<br>(TX) (RX) (TX) (RX)<br>Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 **Chapter 6: Flow Control** 
@@ -195,10 +193,9 @@ Flow Control 机制使用基于信用的机制，允许发送端口知道接收�
 
 *Figure 6‐1: Location of Flow Control Logic*
 
-**==> picture [371 x 310] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0278.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIe-Core PCIe-Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>Transaction Layer Transaction Layer<br>FC Counters FC Buffers FC Counters FC Buffers<br>Data Link Layer Data Link Layer<br>Physical Layer Physical Layer<br>(TX) (RX) (TX) (RX)<br>Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Flow Control Buffers and Credits**
@@ -221,10 +218,9 @@ PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIe-Core PCIe-Core<br
 
 *Figure 6‐2: Flow Control Buffer Organization*
 
-**==> picture [379 x 224] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0279.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-PCIe Device A PCIe Device B<br>Flow Control Buffers (Receiver)<br>Device Core Device Core<br>(PH) (PD) (NPH) (NPD) (CPLH) (CPLD)<br>PCIe-Core PCIe-Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>Transaction Layer Transaction Layer<br>FC Counters RCV Buffers P Posted Request<br>P NP CPL P NP CPL<br>NP Non-Posted Request<br>Data Link Layer Data Link Layer CPL Completion<br>Physical Layer Physical Layer<br>(TX) (RX) (TX) (RX)<br>Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 **Chapter 6: Flow Control**
@@ -309,10 +305,9 @@ Flow Control DLLPs 传达此信息，并且本身不需要 Flow Control credits�
 
 *Figure 6‐3: Physical Layer Reports That It's Ready*
 
-**==> picture [338 x 258] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0280.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIe Core PCIe Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>Transaction Layer Transaction Layer<br>DLL DLCMSM DLL DLCMSM DLCMSM<br>LinkUp LinkUp<br>Phy Phy<br>LTSSM LTSSM<br>Layer Layer<br>(RX) (TX) (RX) (TX)<br>Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 一旦启动，Flow Control 初始化过程对于所有 Virtual Channels 基本上是相同的，并且一旦 VC 启用就由硬件控制。VC0 始终默认启用，因此其初始化是自动的。
@@ -327,10 +322,9 @@ PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIe Core PCIe Core<br
 
 *Figure 6‐4: The Data Link Control & Management State Machine*
 
-**==> picture [251 x 287] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0281.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Reset<br>DL_Inactive Report DL_Down to Link<br>and Transaction Layers<br>Physical LinkUp=1<br>Physical LinkUp=0 &<br>Link Enabled andr<br>DL_Init<br>Report DL_Down<br>FC_Init1<br>(during FC_Init1)<br>Report DL_Up to remaining<br>FC_Init2<br>Link and Transaction Layers<br>(during FC_Init2)<br>FC_Init Complete<br>&<br>Physical LinkUp=1<br>DL_Active Report DL_Up<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **FC_Init1 Details**
@@ -339,20 +333,18 @@ Reset<br>DL_Inactive Report DL_Down to Link<br>and Transaction Layers<br>Physica
 
 *Figure 6‐5: INIT1 Flow Control DLLP Format and Contents*
 
-**==> picture [373 x 200] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0282.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-+0 +1 +2 +3<br>7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>V[2:0]<br>Byte 0 x x x x 0 VC ID R DataHdr FC R DataFCDataFC<br>Byte 4 16 Bit CRC<br>0100 Init 1 Posted<br>0101 Init 1 Non Posted<br>0110 Init 1 Completion<br>1100 Init 2 Posted<br>1101 Init 2 Non Posted<br>1110 Init 2 Completion<br>**----- End of picture text -----**<br>
+<br>
 
 
 **Chapter 6: Flow Control**
 
 *Figure 6‐6: Devices Send InitFC1 in the DL_Init State*
 
-**==> picture [366 x 338] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0283.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIeX-Core PCIe-Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>Transaction Layer Transaction Layer<br>FC Counters RCV Buffers FC Counters RCV Buffers<br>P NP CPL P NP CPL P NP CPL P NP CPL<br>Data Link Layer Data Link Layer<br>Physical Layer Physical Layer<br>(TX) (RX) (TX) (RX)<br>InitFC1-P InitFC1-NP InitFC1-Cpl<br>InitFC1-Cpl InitFC1-NP InitFC1-P<br>- Note required order of InitFC transmission<br>InitFC1 P<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **FC_Init2 Details**
@@ -363,10 +355,9 @@ PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIeX-Core PCIe-Core<b
 
 *Figure 6‐7: FC Values Registered ‐ Send InitFC2s, Report DL_Up_*
 
-**==> picture [346 x 229] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0284.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIe Core PCIe Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>Transaction Layer Transaction Layer<br>DL_Up<br>DLL DLCMSM DLL DLCMSMDLCMSM<br>Phy Phy<br>LTSSM LTSSM<br>Layer Layer<br>(RX) (TX) (RX) (TX)<br>InitFC2-Cpl InitFC2-NP InitFC2-P<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Rate of FC_INIT1 and FC_INIT2 Transmission**
@@ -397,10 +388,9 @@ PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIe Core PCIe Core<br
 
 *Figure 6‐8: Flow Control Elements*
 
-**==> picture [380 x 251] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0285.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Device A Device B<br>FC Gating Logic<br>PTLP<br>Transactions CC+PTLP =CR<br>Pending<br>Send<br>Buffer CL-CR < 2 [8] /2<br>(VC0) Error<br>Credits<br>Consumed Credit Limit VC0<br>Incr Check FC<br>Buffer<br>Link Packet optional incr<br>Control<br>incr Credits Rcv CredAlloc (NP Hdr)<br>optional<br>Link Packet<br>Control<br>transmit receive transmit receive<br>FC DLLPs<br>TLP Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Transmitter Elements**
@@ -428,7 +418,7 @@ _CL_ – (_CC_ + _PTLP_) _mod_ 2^[_FieldSize_] ≤ 2^[_FieldSize_] / 2
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -450,10 +440,9 @@ Prior to sending any transactions, flow control initialization is needed. In fac
 
 _Figure 6‐3: Physical Layer Reports That It’s Ready_ 
 
-**==> picture [338 x 258] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0286.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIe Core PCIe Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>Transaction Layer Transaction Layer<br>DLL DLCMSM DLL DLCMSM DLCMSM<br>LinkUp LinkUp<br>Phy Phy<br>LTSSM LTSSM<br>Layer Layer<br>(RX) (TX) (RX) (TX)<br>Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 Once started, the Flow Control initialization process is fundamentally the same for all Virtual Channels and is controlled by hardware once a VC has been enabled. VC0 is always enabled by default, so its initialization is automatic. 
@@ -468,10 +457,9 @@ The flow control initialization process involves the Link Layer’s DLCMSM (Data
 
 _Figure 6‐4: The Data Link Control & Management State Machine_ 
 
-**==> picture [251 x 287] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0287.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Reset<br>DL_Inactive Report DL_Down to Link<br>and Transaction Layers<br>Physical LinkUp=1<br>Physical LinkUp=0 &<br>Link Enabled andr<br>DL_Init<br>Report DL_Down<br>FC_Init1<br>(during FC_Init1)<br>Report DL_Up to remaining<br>FC_Init2<br>Link and Transaction Layers<br>(during FC_Init2)<br>FC_Init Complete<br>&<br>Physical LinkUp=1<br>DL_Active Report DL_Up<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **FC_Init1 Details** 
@@ -480,20 +468,18 @@ During the FC_INIT1 state, devices continuously send a sequence of 3 InitFC1 Flo
 
 _Figure 6‐5: INIT1 Flow Control DLLP Format and Contents_ 
 
-**==> picture [373 x 200] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0288.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-+0 +1 +2 +3<br>7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>V[2:0]<br>Byte 0 x x x x 0 VC ID R DataHdr FC R DataFCDataFC<br>Byte 4 16 Bit CRC<br>0100 Init 1 Posted<br>0101 Init 1 Non Posted<br>0110 Init 1 Completion<br>1100 Init 2 Posted<br>1101 Init 2 Non Posted<br>1110 Init 2 Completion<br>**----- End of picture text -----**<br>
+<br>
 
 
 **Chapter 6: Flow Control** 
 
 _Figure 6‐6: Devices Send InitFC1 in the DL_Init State_ 
 
-**==> picture [366 x 338] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0289.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIeX-Core PCIe-Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>Transaction Layer Transaction Layer<br>FC Counters RCV Buffers FC Counters RCV Buffers<br>P NP CPL P NP CPL P NP CPL P NP CPL<br>Data Link Layer Data Link Layer<br>Physical Layer Physical Layer<br>(TX) (RX) (TX) (RX)<br>InitFC1-P InitFC1-NP InitFC1-Cpl<br>InitFC1-Cpl InitFC1-NP InitFC1-P<br>- Note required order of InitFC transmission<br>InitFC1 P<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **FC_Init2 Details** 
@@ -506,10 +492,9 @@ Why is this second initialization step needed? The simple answer is that neigh�
 
 _Figure 6‐7: FC Values Registered ‐ Send InitFC2s, Report DL_Up_ 
 
-**==> picture [346 x 229] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0290.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIe Core PCIe Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>Transaction Layer Transaction Layer<br>DL_Up<br>DLL DLCMSM DLL DLCMSMDLCMSM<br>Phy Phy<br>LTSSM LTSSM<br>Layer Layer<br>(RX) (TX) (RX) (TX)<br>InitFC2-Cpl InitFC2-NP InitFC2-P<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Rate of FC_INIT1 and FC_INIT2 Transmission** 
@@ -540,10 +525,9 @@ One final element associated with managing flow control is the Flow Control Upda
 
 _Figure 6‐8: Flow Control Elements_ 
 
-**==> picture [380 x 251] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0291.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Device A Device B<br>FC Gating Logic<br>PTLP<br>Transactions CC+PTLP =CR<br>Pending<br>Send<br>Buffer CL-CR < 2 [8] /2<br>(VC0) Error<br>Credits<br>Consumed Credit Limit VC0<br>Incr Check FC<br>Buffer<br>Link Packet optional incr<br>Control<br>incr Credits Rcv CredAlloc (NP Hdr)<br>optional<br>Link Packet<br>Control<br>transmit receive transmit receive<br>FC DLLPs<br>TLP Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Transmitter Elements** 
@@ -575,10 +559,9 @@ For an example application of this equation, See “Stage 1 — Flow Control Fol
 
 *Figure 6‐9: Types and Format of Flow Control DLLPs*
 
-**==> picture [374 x 125] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0292.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-+0 +1 +2 +3<br>7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>V[2:0]<br>Byte 0 x x x x 0 VC ID R DataFCHdrFC R DataFCDataFC<br>Byte 4 16 Bit CRC<br>1000 Update Posted<br>1001 Update Non Posted<br>1010 Update Completion<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Flow Control Example**
@@ -601,7 +584,8 @@ For an example application of this equation, See “Stage 1 — Flow Control Fol
 
 使用无符号算术（2 的补码）进行 header 信用检查，并且必须满足以下公式：
 
-**==> picture [193 x 13] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0293.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
+
 
 将图 6‐10 中的值代入：
 
@@ -611,10 +595,9 @@ For an example application of this equation, See “Stage 1 — Flow Control Fol
 
 *Figure 6‐10: Flow Control Elements Following Initialization*
 
-**==> picture [376 x 294] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0294.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-PTLP<br>Transactions CC+PTLP=CR<br>Pending<br>Send<br>Buffer CL-CR < 2 [8] /2<br>(VC0) Error<br>VC0<br>CC = 00h CL = 66h<br>FC<br>Incr Check<br>Buffer<br>Link Packet optional incr<br>Control<br>incr CrRcv=00h CrAl=66h<br>(NP Hdr)<br>optional<br>Link Packet<br>Control<br>transmit receive transmit receive<br>FC Packets<br>Transaction Link<br>CrAl = Credits Allocated<br>CC = Credits Consumed<br>CrRcv = Credits Received<br>CL = Credit Limit<br>PTLP = Pending TLP<br>**----- End of picture text -----**<br>
+<br>
 
 
 在这种情况下，将当前 CREDITS_CONSUMED 计数 (CC) 与 PTLP 所需信用相加，以确定 CREDITS_REQUIRED (CR)，即 00h + 01h = 01h。从 CREDIT_LIMIT 计数 (CL) 中减去 CREDITS_REQUIRED 计数以确定是否有足够的信用。
@@ -643,10 +626,9 @@ CR 转换为 2 的补码：
 
 *Figure 6‐11: Flow Control Elements After First TLP Sent*
 
-**==> picture [370 x 225] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0295.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Device A Device B<br>PTLP<br>Transactions CC+PTLP=CR<br>Pending Send<br>Buffer CL-CR < 2 [8] /2<br>(VC0) Error<br>VC0<br>CC = 01h CL = 66h FC<br>Incr Check Buffer<br>Link Packet optional incr<br>Control (NP Hdr)<br>incr CrRcv=01h CrAl=66h<br>optional<br>Link Packet<br>Control<br>transmit receive transmit receive<br>FC Packets<br>Transaction Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 **Chapter 6: Flow Control**
@@ -673,10 +655,9 @@ Credit Limit (CL)= 66h Credits Required (CR) = 67h
 
 *Figure 6‐12: Flow Control Elements with Flow Control Buffer Filled*
 
-**==> picture [376 x 278] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0296.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Device A Device B<br>PTLP<br>Transactions CC+PTLP=CR<br>Pending<br>Send<br>Buffer CL-CR < 2 [8] /2<br>(VC0) Error<br>CC = 66h CL = 66h<br>Incr Check<br>Link Packet optional incr<br>Control<br>incr CrRcv=66h CrAl=66h<br>optional<br>Link Packet<br>Control<br>transmit receive transmit receive<br>FC Packets<br>Transaction Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Stage 3 — Counters Roll Over**
@@ -687,10 +668,9 @@ Device A Device B<br>PTLP<br>Transactions CC+PTLP=CR<br>Pending<br>Send<br>Buffe
 
 ## *Figure 6‐13: Flow Control Rollover Problem*
 
-**==> picture [368 x 241] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0297.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Before CL Rollover After CL Rollover<br>FFh<br>NTS = FF8h (4088d)CL = F8h AS = FE8h (4072d)CR = F8h<br>Available<br>Credit Available<br>NTS<br>Credit is the<br>AS = FE8h (4072d)CR = E8h Rollover<br>sum of these<br>two parts<br>NTS = FF8h (4088d)CL = 08h<br>00h<br>Using 2's complement: Using 2's complement:<br> CL 11111000 (F8h) CL 00001000 (08h)<br>+ CR 00011000 (E8h 2's complement) + CR 00001000 (F8h 2's complement)<br> = 00010000 (0Fh) = 00010000 (0Fh)<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Stage 4 — FC Buffer Overflow Error Check**
@@ -707,16 +687,16 @@ Before CL Rollover After CL Rollover<br>FFh<br>NTS = FF8h (4088d)CL = F8h AS = F
 
 如果以下公式评估为 true，则检测到溢出情况。请注意，字段大小为 8（headers）或 12（data）：
 
-**==> picture [161 x 12] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0298.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
+
 
 如果它确实评估为 true，则表示发送到 FC 缓冲区的信用超过了可用信用，因此发生了溢出。请注意，规范的 1.0a 版本将等式定义为 ≥ 而不是如上所示的 >。这似乎是一个错误，因为当 CA = CR 时不存在溢出情况。
 
 *Figure 6‐14: Buffer Overflow Error Check*
 
-**==> picture [350 x 241] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0299.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Device A Device B<br>PTLP<br>Transactions CC+PTLP=CR<br>Pending<br>Buffer Send CL-CR < 2 [8] /2 xxxxxxxxxxxxxxxxxxxxxxxxxx<br>(VC0) Error xxxxxxxxxxxxx<br>CC = 66h CL = 69h<br>Incr Check<br>Link Packet optional incr<br>Control<br>incr CrRcv=67h CrAl=66h<br>optional<br>Link Packet<br>Control<br>transmit receive transmit receive<br>FC Update<br>Transaction Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 **Chapter 6: Flow Control**
@@ -731,10 +711,9 @@ Device A Device B<br>PTLP<br>Transactions CC+PTLP=CR<br>Pending<br>Buffer Send C
 
 *Figure 6‐15: Flow Control Update Example*
 
-**==> picture [368 x 248] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0300.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Device A Device B<br>PTLP<br>Transactions CC+PTLP=CR<br>Pending<br>Buffer Send CL-CR < 2 [8] /2 xxxxxxxxxxxxxxxxxxxxxxxxxx<br>(VC0) Error xxxxxxxxxxxxx<br>CC = 66h CL = 69h<br>Incr Check<br>Link Packet optional incr<br>Control<br>incr CrRcv=66h CrAl=69h<br>optional<br>Link Packet<br>Control<br>transmit receive transmit receive<br>FC Update<br>Transaction Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **FC_Update DLLP Format and Content**
@@ -880,7 +859,7 @@ _**7**_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -896,10 +875,9 @@ _**7**_
 
 _Figure 6‐9: Types and Format of Flow Control DLLPs_ 
 
-**==> picture [374 x 125] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0301.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-+0 +1 +2 +3<br>7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>V[2:0]<br>Byte 0 x x x x 0 VC ID R DataFCHdrFC R DataFCDataFC<br>Byte 4 16 Bit CRC<br>1000 Update Posted<br>1001 Update Non Posted<br>1010 Update Completion<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Flow Control Example** 
@@ -922,7 +900,8 @@ When the transmitter is ready to send a TLP, it must first check Flow Control cr
 
 The header credit check is made using unsigned arithmetic (2’s complement), and must satisfy the following formula: 
 
-**==> picture [193 x 13] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0302.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
+
 
 Substituting values from Figure 6‐10 yields: 
 
@@ -932,10 +911,9 @@ Substituting values from Figure 6‐10 yields:
 
 _Figure 6‐10: Flow Control Elements Following Initialization_ 
 
-**==> picture [376 x 294] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0303.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-PTLP<br>Transactions CC+PTLP=CR<br>Pending<br>Send<br>Buffer CL-CR < 2 [8] /2<br>(VC0) Error<br>VC0<br>CC = 00h CL = 66h<br>FC<br>Incr Check<br>Buffer<br>Link Packet optional incr<br>Control<br>incr CrRcv=00h CrAl=66h<br>(NP Hdr)<br>optional<br>Link Packet<br>Control<br>transmit receive transmit receive<br>FC Packets<br>Transaction Link<br>CrAl = Credits Allocated<br>CC = Credits Consumed<br>CrRcv = Credits Received<br>CL = Credit Limit<br>PTLP = Pending TLP<br>**----- End of picture text -----**<br>
+<br>
 
 
 In this case, the current CREDITS_CONSUMED count (CC) is added to the PTLP credits required, to determine the CREDITS_REQUIRED (CR), and that gives 00h + 01h = 01h. The CREDITS_REQUIRED count is subtracted from the CREDIT_LIMIT count (CL) to determine whether or not sufficient credits are available. 
@@ -964,10 +942,9 @@ Is result <= 80h? Yes. If the subtraction result is equal to or less than half t
 
 _Figure 6‐11: Flow Control Elements After First TLP Sent_ 
 
-**==> picture [370 x 225] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0304.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Device A Device B<br>PTLP<br>Transactions CC+PTLP=CR<br>Pending Send<br>Buffer CL-CR < 2 [8] /2<br>(VC0) Error<br>VC0<br>CC = 01h CL = 66h FC<br>Incr Check Buffer<br>Link Packet optional incr<br>Control (NP Hdr)<br>incr CrRcv=01h CrAl=66h<br>optional<br>Link Packet<br>Control<br>transmit receive transmit receive<br>FC Packets<br>Transaction Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 **Chapter 6: Flow Control** 
@@ -994,10 +971,9 @@ This channel is blocked until an Update Flow Control DLLP is received with a new
 
 _Figure 6‐12: Flow Control Elements with Flow Control Buffer Filled_ 
 
-**==> picture [376 x 278] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0305.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Device A Device B<br>PTLP<br>Transactions CC+PTLP=CR<br>Pending<br>Send<br>Buffer CL-CR < 2 [8] /2<br>(VC0) Error<br>CC = 66h CL = 66h<br>Incr Check<br>Link Packet optional incr<br>Control<br>incr CrRcv=66h CrAl=66h<br>optional<br>Link Packet<br>Control<br>transmit receive transmit receive<br>FC Packets<br>Transaction Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Stage 3 — Counters Roll Over** 
@@ -1008,10 +984,9 @@ Since the Credit Limit (CL) and Credits Required (CR) counts only increment upwa
 
 ## _Figure 6‐13: Flow Control Rollover Problem_ 
 
-**==> picture [368 x 241] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0276.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Before CL Rollover After CL Rollover<br>FFh<br>NTS = FF8h (4088d)CL = F8h AS = FE8h (4072d)CR = F8h<br>Available<br>Credit Available<br>NTS<br>Credit is the<br>AS = FE8h (4072d)CR = E8h Rollover<br>sum of these<br>two parts<br>NTS = FF8h (4088d)CL = 08h<br>00h<br>Using 2's complement: Using 2's complement:<br> CL 11111000 (F8h) CL 00001000 (08h)<br>+ CR 00011000 (E8h 2’s complement) + CR 00001000 (F8h 2’s complement)<br> = 00010000 (0Fh) = 00010000 (0Fh)<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Stage 4 — FC Buffer Overflow Error Check** 
@@ -1028,16 +1003,16 @@ This permits the receiver to track Flow Control credits in the same manner as th
 
 An overflow condition is detected if the following formula evaluates true. Note that the field size is either 8 (headers) or 12 (data): 
 
-**==> picture [161 x 12] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0277.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
+
 
 If it does evaluate true, then more credits have been sent to the FC buffer than were available and an overflow has occurred. Note that the 1.0a version of the specification defines the equation as  rather than > as shown above. That appears to be an error, because when CA = CR no overflow condition exists. 
 
 _Figure 6‐14: Buffer Overflow Error Check_ 
 
-**==> picture [350 x 241] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0278.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Device A Device B<br>PTLP<br>Transactions CC+PTLP=CR<br>Pending<br>Buffer Send CL-CR < 2 [8] /2 xxxxxxxxxxxxxxxxxxxxxxxxxx<br>(VC0) Error xxxxxxxxxxxxx<br>CC = 66h CL = 69h<br>Incr Check<br>Link Packet optional incr<br>Control<br>incr CrRcv=67h CrAl=66h<br>optional<br>Link Packet<br>Control<br>transmit receive transmit receive<br>FC Update<br>Transaction Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 **Chapter 6: Flow Control** 
@@ -1059,10 +1034,9 @@ _Figure 6‐15: Flow Control Update Example_
 
 *Figure 6‐9: Types and Format of Flow Control DLLPs*
 
-**==> picture [374 x 125] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0279.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-+0 +1 +2 +3<br>7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>V[2:0]<br>Byte 0 x x x x 0 VC ID R DataFCHdrFC R DataFCDataFC<br>Byte 4 16 Bit CRC<br>1000 Update Posted<br>1001 Update Non Posted<br>1010 Update Completion<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Flow Control Example**
@@ -1085,7 +1059,8 @@ _Figure 6‐15: Flow Control Update Example_
 
 使用无符号算术（2 的补码）进行 header 信用检查，并且必须满足以下公式：
 
-**==> picture [193 x 13] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0280.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
+
 
 将图 6‐10 中的值代入：
 
@@ -1095,10 +1070,9 @@ _Figure 6‐15: Flow Control Update Example_
 
 *Figure 6‐10: Flow Control Elements Following Initialization*
 
-**==> picture [376 x 294] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0281.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-PTLP<br>Transactions CC+PTLP=CR<br>Pending<br>Send<br>Buffer CL-CR < 2 [8] /2<br>(VC0) Error<br>VC0<br>CC = 00h CL = 66h<br>FC<br>Incr Check<br>Buffer<br>Link Packet optional incr<br>Control<br>incr CrRcv=00h CrAl=66h<br>(NP Hdr)<br>optional<br>Link Packet<br>Control<br>transmit receive transmit receive<br>FC Packets<br>Transaction Link<br>CrAl = Credits Allocated<br>CC = Credits Consumed<br>CrRcv = Credits Received<br>CL = Credit Limit<br>PTLP = Pending TLP<br>**----- End of picture text -----**<br>
+<br>
 
 
 在这种情况下，将当前 CREDITS_CONSUMED 计数 (CC) 与 PTLP 所需信用相加，以确定 CREDITS_REQUIRED (CR)，即 00h + 01h = 01h。从 CREDIT_LIMIT 计数 (CL) 中减去 CREDITS_REQUIRED 计数以确定是否有足够的信用。
@@ -1127,10 +1101,9 @@ CR 转换为 2 的补码：
 
 *Figure 6‐11: Flow Control Elements After First TLP Sent*
 
-**==> picture [370 x 225] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0282.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Device A Device B<br>PTLP<br>Transactions CC+PTLP=CR<br>Pending Send<br>Buffer CL-CR < 2 [8] /2<br>(VC0) Error<br>VC0<br>CC = 01h CL = 66h FC<br>Incr Check Buffer<br>Link Packet optional incr<br>Control (NP Hdr)<br>incr CrRcv=01h CrAl=66h<br>optional<br>Link Packet<br>Control<br>transmit receive transmit receive<br>FC Packets<br>Transaction Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 **Chapter 6: Flow Control**
@@ -1157,10 +1130,9 @@ Credit Limit (CL)= 66h Credits Required (CR) = 67h
 
 *Figure 6‐12: Flow Control Elements with Flow Control Buffer Filled*
 
-**==> picture [376 x 278] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0283.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Device A Device B<br>PTLP<br>Transactions CC+PTLP=CR<br>Pending<br>Send<br>Buffer CL-CR < 2 [8] /2<br>(VC0) Error<br>CC = 66h CL = 66h<br>Incr Check<br>Link Packet optional incr<br>Control<br>incr CrRcv=66h CrAl=66h<br>optional<br>Link Packet<br>Control<br>transmit receive transmit receive<br>FC Packets<br>Transaction Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Stage 3 — Counters Roll Over**
@@ -1171,10 +1143,9 @@ Device A Device B<br>PTLP<br>Transactions CC+PTLP=CR<br>Pending<br>Send<br>Buffe
 
 ## *Figure 6‐13: Flow Control Rollover Problem*
 
-**==> picture [368 x 241] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0284.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Before CL Rollover After CL Rollover<br>FFh<br>NTS = FF8h (4088d)CL = F8h AS = FE8h (4072d)CR = F8h<br>Available<br>Credit Available<br>NTS<br>Credit is the<br>AS = FE8h (4072d)CR = E8h Rollover<br>sum of these<br>two parts<br>NTS = FF8h (4088d)CL = 08h<br>00h<br>Using 2's complement: Using 2's complement:<br> CL 11111000 (F8h) CL 00001000 (08h)<br>+ CR 00011000 (E8h 2's complement) + CR 00001000 (F8h 2's complement)<br> = 00010000 (0Fh) = 00010000 (0Fh)<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Stage 4 — FC Buffer Overflow Error Check**
@@ -1191,16 +1162,16 @@ Before CL Rollover After CL Rollover<br>FFh<br>NTS = FF8h (4088d)CL = F8h AS = F
 
 如果以下公式评估为 true，则检测到溢出情况。请注意，字段大小为 8（headers）或 12（data）：
 
-**==> picture [161 x 12] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0285.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
+
 
 如果它确实评估为 true，则表示发送到 FC 缓冲区的信用超过了可用信用，因此发生了溢出。请注意，规范的 1.0a 版本将等式定义为 ≥ 而不是如上所示的 >。这似乎是一个错误，因为当 CA = CR 时不存在溢出情况。
 
 *Figure 6‐14: Buffer Overflow Error Check*
 
-**==> picture [350 x 241] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0286.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Device A Device B<br>PTLP<br>Transactions CC+PTLP=CR<br>Pending<br>Buffer Send CL-CR < 2 [8] /2 xxxxxxxxxxxxxxxxxxxxxxxxxx<br>(VC0) Error xxxxxxxxxxxxx<br>CC = 66h CL = 69h<br>Incr Check<br>Link Packet optional incr<br>Control<br>incr CrRcv=67h CrAl=66h<br>optional<br>Link Packet<br>Control<br>transmit receive transmit receive<br>FC Update<br>Transaction Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 **Chapter 6: Flow Control**
@@ -1218,7 +1189,7 @@ Device A Device B<br>PTLP<br>Transactions CC+PTLP=CR<br>Pending<br>Buffer Send C
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1230,10 +1201,9 @@ Device A Device B<br>PTLP<br>Transactions CC+PTLP=CR<br>Pending<br>Buffer Send C
 <tbody><tr>
 <td>
 
-**==> picture [368 x 248] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0287.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Device A Device B<br>PTLP<br>Transactions CC+PTLP=CR<br>Pending<br>Buffer Send CL-CR < 2 [8] /2 xxxxxxxxxxxxxxxxxxxxxxxxxx<br>(VC0) Error xxxxxxxxxxxxx<br>CC = 66h CL = 69h<br>Incr Check<br>Link Packet optional incr<br>Control<br>incr CrRcv=66h CrAl=69h<br>optional<br>Link Packet<br>Control<br>transmit receive transmit receive<br>FC Update<br>Transaction Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **FC_Update DLLP Format and Content** 
@@ -1408,16 +1378,14 @@ Many computer systems today don’t include mechanisms to manage band‐ width f
 到系统内存的连接是一条有趣的路径。可能会有来自多个 ingress ports 的包同时尝试访问此端口，因此它需要支持端口仲裁。但是，它不使用 PCIe 端口，因此没有我们在此描述的支持仲裁的 PCIe 寄存器集。相反，根将需要提供一组称为根复合体寄存器块 (Root Complex Register Block, RCRB) 的供应商特定寄存器，以提供相同的功能。
 由于端口仲裁为 egress port 的每个 VC 独立管理，因此需要为每个支持可编程端口仲裁的 VC 提供单独的表，如第 263 页的图 7‐15 所示。端口仲裁表仅由交换机和根端口支持，端点中不允许。
 *Figure 7‐14: Port Arbitration Concept*
-**==> picture [368 x 213] intentionally omitted <==**
-**----- Start of picture text -----**<br>
-CPU<br>Port Arbitration<br>(configured via RCRB)<br>Root Complex<br>Memory<br>1 2 3<br>VC0<br>Port Arbitration<br>Switch<br>(configured via PPB)<br>VC0 VC0<br>VC0 VC0<br>Endpoint Endpoint Endpoint Endpoint<br>A B C D<br>**----- End of picture text -----**<br>
+<img src="figures/chapter_06_Flow_Control/page/page0288.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
+
+<br>
 *Figure 7‐15: Port Arbitration Tables for Each VC*
 
-**==> picture [320 x 233] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0289.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-
-Extended Capability Header<br>Port VC Capability 1 Ext. VC Count<br>VAT Offset Port VC Capability 2<br>Port VC Status Port VC Control<br>PAT0 Offset VC Resource Cap (0)<br>VC Resource Control (0)<br>VC Resource Status (0) RsvdP<br>PATn Offset VC Resource Cap (n)<br>VC Resource Control (n)<br>VC Resource Status (n) RsvdP<br>VC Arbitration Table (VAT)<br>Port Arbitration Table 0 (PAT0)<br>Port Arbitration Table n (PATn)<br>**----- End of picture text -----**<br>
+<br>
 
 
 虽然规范中没有说明，但仲裁不同数据包流的过程还意味着使用额外的缓冲区来累积来自 egress port 中每个端口的流量，如图 7‐16（第 264 页）所示。本示例说明了两个 ingress ports（1 和 2），其事务被路由到 egress port (3)。交换机执行的操作包括以下内容：
@@ -1434,11 +1402,9 @@ Extended Capability Header<br>Port VC Capability 1 Ext. VC Count<br>VAT Offset P
 
 *Figure 7‐16: Port Arbitration Buffering*
 
-**==> picture [356 x 245] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0290.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-
-Ingress Ports Egress Port<br>Port Arbiter<br>Port 2<br>Port 1<br>TC0:TC3 1 VC0 VC0<br>Port 2 VC0 VC Arbiter<br>Port 3 VC0<br>3<br>Port 1<br>VC0<br>TC0:TC1 2 Port 1<br>TC2:TC4 VC7<br>VC5<br>Port 3 Port 2 VC7<br>VC7<br>Port Arbiter<br>TC/VC Mapping Routing Logic<br>TC/VC Mapping<br>TC/VC Mapping Routing Logic<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Port Arbitration Mechanisms**
@@ -1446,11 +1412,9 @@ Ingress Ports Egress Port<br>Port Arbiter<br>Port 2<br>Port 1<br>TC0:TC3 1 VC0 V
 定义的实际端口仲裁机制类似于用于 VC 仲裁的模型。配置软件通过读取第 265 页的图 7‐17 中所示的寄存器来确定端口的能力，并为每个 VC 选择要使用的端口仲裁方案。
 *Figure 7‐17: Software Selects Port Arbitration Scheme*
 
-**==> picture [276 x 325] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0291.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-
-VCn Resource Capability Register<br>31 24 23 22 16 15 14 13 8 7 0<br>Port Arbitration Maximum Time Port Arbitration<br>RsvdP<br>Table Offset Slots Capability<br>RsvdP<br>Reject Snoop Transactions<br>Undefined<br>7 6 5 4 3 2 1 0<br>Rsvd<br>WRR with 256 Phases (101b)<br>Time-based WRR with 128 Phases (100b)<br>WRR with 128 Phases (011b)<br>WRR with 64 Phases (010b)<br>WRR with 32 Phases (001b)<br>Hardware Fixed Arbitration Scheme (000b)<br>VCn Resource Control Register<br>31 26 24 19 17 16 15 8 7 0<br>VC<br>RsvdP ID RsvdP RsvdP TC/VC Map<br>Load Port Arbitration Table<br>Port Arbitration Select<br>VC Enable<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Hardware-Fixed Arbitration**
@@ -1474,11 +1438,9 @@ VCn Resource Capability Register<br>31 24 23 22 16 15 14 13 8 7 0<br>Port Arbitr
 基于时间的 WRR 仲裁支持最大表长度为 128 phase，但给定 VC 的实际可用表条目数可能少于该值。该值由硬件初始化，并在每个支持 TBWRR 的虚拟通道的 _Maximum Time Slots_ 字段中报告，如图 7‐18（第 267 页）所示。
 *Figure 7‐18: Maximum Time Slots Register*
 
-**==> picture [331 x 95] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0292.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-
-31 24 23 22 16 15 14 13 8 7 0<br>Port Arbitration Maximum Time Port Arbitration<br>RsvdP<br>Table Offset Slots Capability<br>RsvdP<br>Reject Snoop Transactions<br>Undefined<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Loading the Port Arbitration Tables**
@@ -1491,11 +1453,9 @@ Port Arbitration Tables 的实际大小和格式是 phase 数量和支持 peer�
 
 *Figure 7‐19: Format of Port Arbitration Tables*
 
-**==> picture [339 x 413] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0293.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-
-32-Phase Port Arbitration Table<br>with 4-bit entries<br>31 28 27 24 23 20 19 16 15 12 11 8 7 4 3 0<br>Phase[7] Phase[6] Phase[5] Phase[4] Phase[3] Phase[2] Phase[1] Phase[0] 00h<br>Phase[15] Phase[14] Phase[13] Phase[12] Phase[11] Phase[10] Phase[9] Phase[8] 04h<br>Phase[23] Phase[22] Phase[21] Phase[20] Phase[19] Phase[18] Phase[17] Phase[16] 08h<br>Phase[31] Phase[30] Phase[29] Phase[28] Phase[27] Phase[26] Phase[25] Phase[24] 0Bh<br>1. Configuration Software loads the Port Arbitration Table.<br>2. Changes to the table automatically set the Port Arbitration 00b PAT entry is 1 bit (2 ports)<br>Table Status bit.<br>01b PAT entry is 2 bits (4 ports)<br>3. Software sets the Load Port Arbitration Table bit to<br>10b PAT entry is 4 bits (16 ports)<br> apply the table contents to the hardware.<br>4. Hardware loads table contents into the Port Arbiter, then 11b PAT entry is 8 bits (256 ports)<br> automatically clears the Port Arbitration Table<br> status bit when the table has been loaded.<br>VC Resource Status Register Port VC Capability Register 1<br>15 2 1 0 31 12 11 10 9 8 7 6 4 3 2 0<br>RsvdP RsvdP<br>VC Negotiation Pending Port Arbitration Table Entry Size<br> Port Arbitration Table Status Reference Clock<br>RsvdP<br>Low Priority Extended VC Count<br>RsvdP<br>Extended VC Count<br>VC Resource Capability Register<br>31 26 24 19 17 16 15 8 7 0<br>RsvdP VCID RsvdP RsvdP TC/VC Map<br>Load Port Arbitration Table<br>Port Arbitration Select<br>VC Enable<br>**----- End of picture text -----**<br>
+<br>
 
 ## **Switch Arbitration Example**
 
@@ -1517,11 +1477,9 @@ Port Arbitration Tables 的实际大小和格式是 phase 数量和支持 peer�
 
 *Figure 7‐20: Arbitration Examples in a Switch*
 
-**==> picture [357 x 208] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0294.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-
-Switch<br>(1)<br>TC0,1TC3,5 VC0VC1 0 Of IngressMappingTC/VCPort 0 TC0,1TC3,5 INRESS EGRESS (5)Port Arbitration: VC0Egress Port 2<br>FC Buffer VC0 FC Buffer VC1<br>TLP1 RoutingTLP2 Routing TCTC TLP4 RoutingTLP3 Routing TCTC (4) PacketsPort 0 VC0VC0 ARB (6)<br>Egress Port 2<br>To Port 1 TC/VC VC Arbitration (7)<br>(2) Determine Egress Port(Using Routing Info) (3) To Port 2To Port 3 Of EgressMappingPort 2 VC0VC1 ARB 2 TC0-2TC3-7 VC0VC1<br>TC2-4TC0 VC0VC3 1 Of IngressMappingTC/VCPort 1 TC2-4TC0 TC0-2=>VC0TC3-7=>VC1 (5)Port Arbitration: VC1Egress Port 2<br>FC Buffers VC0 FC Buffers VC3 PacketsPort 1 VC1 ARB<br>TLP3 Routing TLP4 Routing VC1<br>TLP1 Routing TLP2 Routing<br>Determine Egress Port(Using Routing Info) (3) To Port 0To Port 2To Port 3 This logic replicated for each egress port<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Arbitration in Multi-Function Endpoints**
@@ -1531,11 +1489,9 @@ Switch<br>(1)<br>TC0,1TC3,5 VC0VC1 0 Of IngressMappingTC/VCPort 0 TC0,1TC3,5 INR
 规范中为此仲裁描述了两种情况。在第一种情况下（如图 7‐21（第 271 页）所示），有两个 Function，但只有 Function 0 包括 VC Capability registers，在那里进行的分配对于所有 Function 隐式相同。对于此选项，Function 之间的仲裁将以某种供应商特定的方式处理。这是最简单的方法，但不包含用于定义来自不同 Function 的请求之间优先级的标准结构，因此不支持 QoS。
 *Figure 7‐21: Simple Multi‐Function Arbitration*
 
-**==> picture [252 x 146] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0295.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-
-Function 0 Vendor-Specific<br>Arbitration<br>VC Internal Link<br>Capability<br>0002h<br>Egress Port<br>Function 1<br>Internal Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 如果需要 QoS 支持，则在 VC0 中实现 MFVC，每个 function 都有自己唯一的 VC Capability registers 集。为了保持软件向后兼容性，规范规定 _不_ 使用 MFVC 的设备的 VC Capability ID 必须为 0002h，而 _实现_ MFVC 结构的设备的 VC Capability ID 必须为 0009h。
@@ -1546,11 +1502,9 @@ Function 0 Vendor-Specific<br>Arbitration<br>VC Internal Link<br>Capability<br>0
 
 *Figure 7‐22: QoS Support in Multi‐Function Arbitration*
 
-**==> picture [330 x 336] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0296.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-
-Extended Capability Header Cnt<br>Port VC Capability 1 Ext. VC Count<br>VAT Offset Port VC Capability 2<br>Port VC Status Port VC Control<br>Func 0 Offset VC Resource Cap (0)<br>VC Resource Control (0)<br>VC Resource Status (0) RsvdP<br>Func n Offset VC Resource Cap (n)<br>VC Resource Control (n)<br>VC Resource Status (n) RsvdP<br>VC Arbitration Table (VAT)<br>Function Arbitration Table 0<br>Function Arbitration Table n<br>Function<br>Function 0 Arbiter<br>MFVC Port 1<br>Capability VC0<br>0008h Internal Link<br>Port 2 VC0 VC Arbiter<br>VC<br>Capability VC0<br>0009h<br>Egress<br>Port<br>Function 1<br>Port 1<br>VC7<br>Internal Link<br>VC Port 2 VC7<br>Capability VC7<br>0009h<br>TC/VC Mapping<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Isochronous Support**
@@ -1570,11 +1524,9 @@ Extended Capability Header Cnt<br>Port VC Capability 1 Ext. VC Count<br>VAT Offs
 
 *Figure 7‐23: Example Application of Isochronous Transaction*
 
-**==> picture [298 x 281] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0297.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-
-Camera<br>SI 1 Data accumulated<br>in Buffer A<br>SI 2 Data from Buffer A<br>delivered while<br>next data accumulates<br>in Buffer B<br>SI 3 Data from Buffer B<br>delivered while next<br>data accumulates in<br>Buffer A<br>PCI Express<br>Interface<br>SI 1 SI 2 SI 3<br>Service Interval (SI)<br>SI 2 Data received into<br>Buffer A<br>SI 3 Data from Buffer A<br>delivered to Storage<br>while data received<br>into Buffer B<br>Storage (e.g.: tape)<br>Buffer A Buffer B<br>Buffer A Buffer B<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **How Timing is Defined**
@@ -1582,7 +1534,7 @@ Camera<br>SI 1 Data accumulated<br>in Buffer A<br>SI 2 Data from Buffer A<br>del
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 <a id="sec-6-5"></a>
@@ -1601,10 +1553,9 @@ Supporting high levels of service places requirements on system performance. For
 
 _Figure 7‐1: Virtual Channel Capability Registers_ 
 
-**==> picture [368 x 197] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0298.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-0d<br>63d CapPtr Header<br>PCI Compatible<br>PCIeCapabilityBlock Space<br>PCIe Enhanced Capability Register<br>Port VC Cap Register 1 Ext VC Cnt 255d<br>VATOffset PortVCCapRegister2 VirtualChannel<br>PortVCStatusReg PortVCControlReg<br>PAT0Offset VCResourceCap(0) CapabilityStructure<br>VCResourceControlReg(0)<br>VCResourceStatus(0) Reserved PCIe Extended<br>PATnOffset VCResourceCap(n) CapabilitySpace<br>VCResourceControlReg(n)<br>VCResourceStatus(n) Reserved<br>VCArbitrationTable(VAT)<br>PortArbitrationTable0(PAT0) 4095d<br>PortArbitrationTablen(PATn)<br>**----- End of picture text -----**<br>
+<br>
 
 ## **Traffic Class (TC)** 
 
@@ -1612,10 +1563,9 @@ The first thing we need is a way to differentiate traffic; something to distingu
 
 _Figure 7‐2: Traffic Class Field in TLP Header_ 
 
-**==> picture [372 x 128] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0299.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-+0 +1 +2 +3<br>7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>At T T E<br>Byte 0 Fmt Type R TC R R Attr AT Length<br>tr H D P<br>Last DW 1st DW<br>Byte 4 Requester ID Tag<br>BE BE<br>Byte 8 Address [31:2] R<br>**----- End of picture text -----**<br>
+<br>
 
 
 Configuration software that’s unaware of PCIe won’t recognize the new regis‐ ters and will use the default TC0/VC0 combination for all transactions. In addi‐ tion, there are some packets that are always required to use TC0/VC0, including Configuration, I/O, and Message transactions. If these packets are thought of as maintenance‐level traffic, then it makes sense that they would need to be con‐ fined to VC0 and kept out of the path of high‐priority packets. 
@@ -1643,10 +1593,9 @@ Software has a great deal of flexibility in assigning VC IDs and mapping the TCs
 The number of virtual channels used depends on the greatest capability shared by the two devices attached to a given link. Software assigns an ID for each VC and maps one or more TCs to the VCs. 
 _Figure 7‐3: TC to VC Mapping Example_ 
 
-**==> picture [348 x 407] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0300.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
- 31 24 23 16 15 0<br>PCI Express Extended Capability Header<br>Port VC Capability Register 1<br>Port VC Capability Register 2<br>Port VC Status Register Port VC Control Register<br>PAT Offset VC0 Resource Capability Register<br>VC0 Resource Control Register<br>VC0 Resource Status Reg Reserved<br>PAT Offset VC3 Resource Capability Register<br>VC3 Resource Control Register<br>VC3 Resource Status Reg Reserved<br>31 26 24 19 17 16 15 8 7 0<br>C0 VCID TC/VC Map<br>2 0 7 0<br>0 0 0 0 0 0 0 0 0 1 1<br>31 26 24 19 17 16 15 8 7 0<br>VC3 VCID TC/VC Map<br>2 0 7 0<br>0 1 1 0 0 0 1 1 1 0 0<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Determining the Number of VCs to be Used** 
@@ -1659,19 +1608,17 @@ Here, the switch supports all 8 VCs on each of its ports, while Device A sup‐ 
 
 _Figure 7‐4: Multiple VCs Supported by a Device_ 
 
-**==> picture [369 x 286] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0301.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Root Complex<br>8 VCs supported<br>on each switch port<br>Switch<br>1 VC A C<br>B<br>8 VCs<br>4 VCs<br>Device<br>1 VC supported 8 VCs supported<br>B<br>4 VCs supported<br>A<br>Device<br>C<br>Device<br>**----- End of picture text -----**<br>
+<br>
 
 
 Configuration software determines the maximum number of VCs supported by each port interface by reading the _Extended VC Count_ field in the Virtual Chan‐ nel Capability registers, as shown in Figure 7‐5 on page 251. Software checks the Extended VC Count at both ends of the Link and selects the highest common count. Using all the available VCs is not mandatory, though. Software may choose to enable fewer VCs as well. 
 _Figure 7‐5: Extended VCs Supported Field_ 
 
-**==> picture [297 x 304] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0302.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
- 31 24 23 16 15 0<br>PCI Express Extended Capability Header<br>Port VC Capability Register 1<br>Port VC Capability Register 2<br>Port VC Status Register Port VC Control Register<br>PAT Offset VC0 Resource Capability Register<br>VC0 Resource Control Register<br>VC0 Resource Status Reg Reserved<br>PAT Offset VCn Resource Capability Register<br>VCn Resource Control Register<br>VCn Resource Status Reg Reserved<br>2 0<br>Extended VC Count<br>0 = only VC0 supported<br>1-7 = number of additional<br> VCs supported<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Assigning VC Numbers (IDs)** 
@@ -1731,11 +1678,9 @@ Isochronous timing 在 PCIe 中由 Time‐Based Weighted Round Robin 端口仲�
 从底部开始，视频端点设备本身的 PCIe 接口需要什么？在硬件中，如果我们要区分包，则需要多个 VC。为简单起见，我们假设单 function 设备。设备驱动程序将需要向 OS 级 Isochronous broker 报告设备功能和 isochronous 时序要求，后者将评估系统然后报告 isochronous contract 是否可行以及软件应使用哪些 TC。
 *Figure 7‐24: Example Isochronous System*
 
-**==> picture [308 x 273] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0303.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-
-Processor<br>GFX Root Complex<br>System<br>Memory<br>Switch 2<br>Switch 1<br>Slot<br>Video SCSI<br>Camera<br>Lower<br>Time-<br>priority<br>sensitive<br>data<br>data<br>**----- End of picture text -----**<br>
+<br>
 
 
 然后，驱动程序将对 VC 编号进行编程并将适当的 TC 映射到每个 VC。它还很可能将 VC 仲裁编程为 Strict Priority 用于高优先级通道。这里的一个警告是仲裁仍然必须"公平"，这意味着低优先级通道不会因为访问而被饿死。这意味着高优先级 VC 不能持续有流量挂起，而必须在一段时间内分散包注入。
@@ -1755,16 +1700,15 @@ isochronous egress port 的 VC 仲裁很可能需要出于与端点相同的原�
 
 *Figure 7‐25: Injection of Isochronous Packets*
 
-**==> picture [269 x 103] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0304.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-
-SI = Service Interval<br>SI 1 SI 2 SI 3<br>time<br>**----- End of picture text -----**<br>
+<br>
 
 
 首先，让我们通过考虑一个简单的示例来回顾涉及的参数。回想一下，PCIe 基于参考时钟周期的时间槽由 Port Capability Register 1 字段 Reference Clock 给出。目前该字段的唯一选项是 100ns，并且 TBWRR 表除了 128 个条目之外没有其他选项。Service Interval 的长度是这些的倍数，使其为 12.8μs。给定设备的带宽可以由下面的等式表示，其中 Y 是在一个时隙中传递的数据（规范规定必须将在配置期间编程的 Max Payload Size 用于此带宽计算），M 是时隙数，T 是整个 Service Interval。如果我们选择 128 字节作为有效负载，并且我们知道 SI 是 12.8μs，则对于分配的每个时隙 BW = 10 MB/s。
 
-**==> picture [79 x 28] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0305.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
+
 
 现在让我们考虑一个更现实的示例。假设我们的链路以 Gen2 速度运行，视频设备需要具有 100MB/s 的保证带宽，并且它将发送 512 字节的包。填充等式显示需要 2.5 个 512 字节的实例。但实际可以在一个时隙中发送多少数据？答案当然取决于速度和链路宽度。在 5.0 Gb/s 时，发送每个 10 位 symbol 需要 2ns，因此每 100ns 每 Lane 可以传递 50 个 symbol。如果包大小为 512 字节的数据加上另外 28 字节左右的 header，则需要 11 个时隙来使用 x1 链路传递一个包的 550 个 symbol。如果需要，可以为一个端口分配多个连续的
 
@@ -1778,21 +1722,17 @@ slots，因此这是一种解决方案。由于将发送的包大小始终相同
 
 *Figure 7‐26: Over‐Subscribing the Bandwidth*
 
-**==> picture [263 x 94] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0276.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-
-SI = Service Interval<br>SI 1 SI 2 SI 3<br>time<br>**----- End of picture text -----**<br>
+<br>
 
 第二个时序问题称为"congestion"（拥塞），发生在给定时间窗口内发送了太多 isochronous 请求时，如图 7‐27（第 281 页）所示。这是一个类似的问题，但现在没有简单的解决方案。与前一种情况不同，将高优先级包推迟到另一个时隙不是一种选择，因此系统必须努力处理它们全部。结果是某些请求可能会经历过多的服务延迟。为了纠正此问题，软件需要更改包的分布，以便它们可以由可用的硬件带宽支持。
 
 *Figure 7‐27: Bandwidth Congestion*
 
-**==> picture [263 x 102] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0277.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-
-SI = Service Interval<br>SI 1 SI 2 SI 3<br>time<br>**----- End of picture text -----**<br>
+<br>
 
 
 **Latency Issues.** 管理包传递的延迟是 isochrony 的重要组成部分，并且涉及 fabric 延迟和 Completer 延迟的组合。Fabric 延迟取决于系统中各个组件之间链路的所有特征，尤其是链路宽度和工作频率。最小化此值的一种简单方法是约束 isochronous paths 的 PCIe 拓扑的复杂性。Completer 延迟取决于目标端点的内部特征，例如内存速度和内部仲裁。
@@ -1865,7 +1805,7 @@ RC 具有与交换机相同的仲裁和时序要求。它在多个下游端口�
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 <a id="sec-6-6"></a>
@@ -1881,10 +1821,9 @@ RC 具有与交换机相同的仲裁和时序要求。它在多个下游端口�
 3. Hardware Fixed arbitration — scheme built into the hardware. 
 _Figure 7‐6: VC Arbitration Example_ 
 
-**==> picture [246 x 330] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0278.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-CPU<br>VC1 VC0<br>Root Complex<br>Memory<br>TC/VC Mapping<br>VC arbitration in this<br>example yields a 3 to 1<br>ratio for transmitting<br>VC1 and VC0.<br>Arbiter<br>VC1 VC0<br>TC/VC Mapping<br>Device<br>Core<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Strict Priority VC Arbitration** 
@@ -1921,10 +1860,9 @@ Figure 7‐8 illustrates the _Low Priority Extended VC Count_ field within VC Ca
 
 _Figure 7‐8: Low‐Priority Extended VCs_ 
 
-**==> picture [333 x 339] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0279.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
- 31 24 23 16 15 0<br>PCI Express Extended Capability Header 00h<br>Port VC Capability Register 1 04h<br>Port VC Capability Register 2 08h<br>Port VC Status Register Port VC Control Register 0Ch<br>PAT Offset VC0 Resource Capability Register 10h<br>VC0 Resource Control Register 14h<br>VC0 Resource Status Reg Reserved 18h<br>PAT Offset VCn Resource Capability Register 10h+(n*0Ch)<br>VCn Resource Control Register 14h+(n*0Ch)<br>VCn Resource Status Reg Reserved 18h+(n*0Ch)<br>n = one of the extended VCs<br>31 12 11 10 9 8 7 6 4 3 2 0<br>RsvdP<br>Port Arbitration Table Entry Size<br>Reference Clock<br>RsvdP<br>Low Priority Extended VC Count<br>RsvdP<br>Extended VC Count<br>**----- End of picture text -----**<br>
+<br>
 
 
 As depicted in Figure 7‐10 on page 257, the high‐priority VCs continue to use strict priority arbitration, while the low‐priority arbitration group uses one of the other arbitration methods supported by the device. VC Capability Register 2 reports which alternate methods are supported for this group, as shown in Fig‐ ure 7‐9, and the VC Control Register permits selection of the method to be used. The low‐priority arbitration schemes include: 
@@ -1935,16 +1873,14 @@ As depicted in Figure 7‐10 on page 257, the high‐priority VCs continue to us
 
 _Figure 7‐9: VC Arbitration Capabilities_ 
 
-**==> picture [304 x 162] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0280.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-31 24 23 8 7 0<br>VC Arbitration RsvdP VC Arbitration<br>Table Offset Capability<br>7 4 3 2 1 0<br>RsvdP<br>WRR with 128 Phases (011b)<br>WRR with 64 Phases (010b)<br>WRR with 32 Phases (001b)<br>Hardware Fixed Arbitration Scheme (000b)<br>**----- End of picture text -----**<br>
+<br>
 
 
-**==> picture [193 x 86] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0281.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Port VC Control Register<br>15 4 3 1 0<br>RsvdP<br>VC Arbitration Select (000b-111b)<br>Load VC Arbitration Table<br>**----- End of picture text -----**<br>
+<br>
 
 _Figure 7‐10: VC Arbitration Priorities_ 
 
@@ -1973,10 +1909,9 @@ arbiter immediately proceeds to the next phase. Figure 7‐11 on page 258 shows 
 
 _Figure 7‐11: WRR VC Arbitration Table_ 
 
-**==> picture [165 x 259] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0282.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Phase VC ID<br>0 VC 4<br>1 VC 3<br>2 255 (16KB)VC 2<br>3 VC 1<br>4 VC 4<br>5 VC 3<br>6 VC 0<br>7 64 (4KB)VC 4<br>8 VC 3<br>9 128 (8KB)VC 2<br>10 VC 1<br>1111 VC 4<br>621 VC 3<br>632 VC 0<br>Arbitration Logic Scans Table Entries<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Setting up the Virtual Channel Arbitration Table** 
@@ -1986,10 +1921,9 @@ The location of the VC Arbitration Table (VAT) in configuration space is given a
 As shown in Figure 7‐13 on page 260, each entry in the VAT is a 4‐bit field that identifies the VC number of the buffer that is scheduled to deliver data during that phase. The table length is selected by the arbitration option shown in Figure 7‐9 on page 256. 
 _Figure 7‐12: VC Arbitration Table Offset and Load VC Arbitration Table Fields_ 
 
-**==> picture [331 x 385] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0283.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Port VC Capability Register 2<br>31 24 23 8 7 0<br>VC Arbitration RsvdP VC Arbitration<br>Table Offset Capability<br>0d<br>Header<br>CapPtr<br>63d<br>PCICompatible<br>PCIe Cap Structure (CapID=10h) Space<br>255d<br>PCIEXEnhancedCapabilityRegister<br>PortVCCapRegister1 ExtVCCnt<br>VATOffset PortVCCapRegister2<br>PortVCStatusReg PortVCControlReg<br>PAT0Offset VC0 Resource Cap Reg<br>VC Resource Control Register PCIEXExtended<br>VC Resource Status Reg Reserved CapabilitySpace<br>PATnOffset VCn Resource Cap Reg<br>VC Resource Control Register<br>VC Resource Status Reg Reserved<br>VC Arbitration Table (VAT)<br>4095d<br>**----- End of picture text -----**<br>
+<br>
 
 
 The table is loaded by configuration software to achieve the desired priority order for the virtual channels. Hardware sets the _VC Arbitration Table Status_ bit whenever any changes are made to the table, giving software a way to verify whether changes have been made but not yet applied to the hard‐ ware. Once the table is loaded, software sets the _Load VC Arbitration Table_ bit 
@@ -2024,10 +1958,9 @@ _Figure 7‐13: Loading the VC Arbitration Table Entries_
 
 _Figure 7‐6: VC 仲裁示例_
 
-**==> picture [246 x 330] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0284.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-CPU<br>VC1 VC0<br>根复合体 (Root Complex)<br>内存<br>TC/VC 映射<br>本例中的 VC 仲裁<br>产生 3:1 的比例<br>用于传输 VC1 和 VC0<br>仲裁器 (Arbiter)<br>VC1 VC0<br>TC/VC 映射<br>设备<br>核心<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **严格优先级 VC 仲裁 (Strict Priority VC Arbitration)**
@@ -2067,10 +2000,9 @@ _Figure 7‐7: 严格优先级仲裁_
 
 _Figure 7‐8: 低优先级扩展 VC_
 
-**==> picture [333 x 339] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0285.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
- 31 24 23 16 15 0<br>PCI Express Extended Capability Header 00h<br>Port VC Capability Register 1 04h<br>Port VC Capability Register 2 08h<br>Port VC Status Register Port VC Control Register 0Ch<br>PAT Offset VC0 Resource Capability Register 10h<br>VC0 Resource Control Register 14h<br>VC0 Resource Status Reg Reserved 18h<br>PAT Offset VCn Resource Capability Register 10h+(n*0Ch)<br>VCn Resource Control Register 14h+(n*0Ch)<br>VCn Resource Status Reg Reserved 18h+(n*0Ch)<br>n = one of the extended VCs<br>31 12 11 10 9 8 7 6 4 3 2 0<br>RsvdP<br>Port Arbitration Table Entry Size<br>Reference Clock<br>RsvdP<br>Low Priority Extended VC Count<br>RsvdP<br>Extended VC Count<br>**----- End of picture text -----**<br>
+<br>
 
 
 如图 7-10 (第 257 页) 所示,高优先级 VC 继续使用严格优先级仲裁,而低优先级仲裁组使用该设备支持的其他仲裁方法之一。VC Capability Register 2 报告了该组支持哪些替代方法,如图 7-9 所示,VC Control Register 允许选择要使用的方法。低优先级仲裁方案包括:
@@ -2081,16 +2013,14 @@ _Figure 7‐8: 低优先级扩展 VC_
 
 _Figure 7‐9: VC 仲裁能力_
 
-**==> picture [304 x 162] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0286.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-31 24 23 8 7 0<br>VC Arbitration RsvdP VC Arbitration<br>Table Offset Capability<br>7 4 3 2 1 0<br>RsvdP<br>WRR with 128 Phases (011b)<br>WRR with 64 Phases (010b)<br>WRR with 32 Phases (001b)<br>Hardware Fixed Arbitration Scheme (000b)<br>**----- End of picture text -----**<br>
+<br>
 
 
-**==> picture [193 x 86] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0287.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Port VC Control Register<br>15 4 3 1 0<br>RsvdP<br>VC Arbitration Select (000b-111b)<br>Load VC Arbitration Table<br>**----- End of picture text -----**<br>
+<br>
 
 
 **第 7 章:服务质量**
@@ -2121,10 +2051,9 @@ _Figure 7‐10: VC 仲裁优先级_
 
 _Figure 7‐11: WRR VC 仲裁表_
 
-**==> picture [165 x 259] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0288.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Phase VC ID<br>0 VC 4<br>1 VC 3<br>2 255 (16KB)VC 2<br>3 VC 1<br>4 VC 4<br>5 VC 3<br>6 VC 0<br>7 64 (4KB)VC 4<br>8 VC 3<br>9 128 (8KB)VC 2<br>10 VC 1<br>1111 VC 4<br>621 VC 3<br>632 VC 0<br>Arbitration Logic Scans Table Entries<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **设置虚拟通道仲裁表 (Setting up the Virtual Channel Arbitration Table)**
@@ -2137,10 +2066,9 @@ VC 仲裁表 (VAT) 在配置空间中的位置以 VC Capability Structure 的基
 
 _Figure 7‐12: VC 仲裁表偏移和加载 VC 仲裁表字段_
 
-**==> picture [331 x 385] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0289.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Port VC Capability Register 2<br>31 24 23 8 7 0<br>VC Arbitration RsvdP VC Arbitration<br>Table Offset Capability<br>0d<br>Header<br>CapPtr<br>63d<br>PCICompatible<br>PCIe Cap Structure (CapID=10h) Space<br>255d<br>PCIEXEnhancedCapabilityRegister<br>PortVCCapRegister1 ExtVCCnt<br>VATOffset PortVCCapRegister2<br>PortVCStatusReg PortVCControlReg<br>PAT0Offset VC0 Resource Cap Reg<br>VC Resource Control Register PCIEXExtended<br>VC Resource Status Reg Reserved CapabilitySpace<br>PATnOffset VCn Resource Cap Reg<br>VC Resource Control Register<br>VC Resource Status Reg Reserved<br>VC Arbitration Table (VAT)<br>4095d<br>**----- End of picture text -----**<br>
+<br>
 
 
 表由配置软件加载,以实现虚拟通道所需的优先级顺序。每当对表进行任何更改时,硬件都会设置 _VC Arbitration Table Status_ 位,为软件提供一种方法来验证是否已进行更改但尚未应用于硬件。表加载完成后,软件设置 _Load VC Arbitration Table_ 位
@@ -2167,7 +2095,7 @@ _Figure 7‐13: 加载 VC 仲裁表条目_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -2215,17 +2143,15 @@ Because port arbitration is managed independently for each VC of the egress port
 
 _Figure 7‐14: Port Arbitration Concept_ 
 
-**==> picture [368 x 213] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0290.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-CPU<br>Port Arbitration<br>(configured via RCRB)<br>Root Complex<br>Memory<br>1 2 3<br>VC0<br>Port Arbitration<br>Switch<br>(configured via PPB)<br>VC0 VC0<br>VC0 VC0<br>Endpoint Endpoint Endpoint Endpoint<br>A B C D<br>**----- End of picture text -----**<br>
+<br>
 
 _Figure 7‐15: Port Arbitration Tables for Each VC_ 
 
-**==> picture [320 x 233] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0291.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Extended Capability Header<br>Port VC Capability 1 Ext. VC Count<br>VAT Offset Port VC Capability 2<br>Port VC Status Port VC Control<br>PAT0 Offset VC Resource Cap (0)<br>VC Resource Control (0)<br>VC Resource Status (0) RsvdP<br>PATn Offset VC Resource Cap (n)<br>VC Resource Control (n)<br>VC Resource Status (n) RsvdP<br>VC Arbitration Table (VAT)<br>Port Arbitration Table 0 (PAT0)<br>Port Arbitration Table n (PATn)<br>**----- End of picture text -----**<br>
+<br>
 
 
 Although it isn’t stated in the spec, the process of arbitrating between different packet streams also implies the use of additional buffers to accumulate traffic from each port in the egress port as illustrated in Figure 7‐16 on page 264. This example illustrates two ingress ports (1 and 2) whose transactions are routed to an egress port (3). The actions taken by the switch include the following: 
@@ -2242,10 +2168,9 @@ Although it isn’t stated in the spec, the process of arbitrating between diffe
 
 _Figure 7‐16: Port Arbitration Buffering_ 
 
-**==> picture [356 x 245] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0292.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Ingress Ports Egress Port<br>Port Arbiter<br>Port 2<br>Port 1<br>TC0:TC3 1 VC0 VC0<br>Port 2 VC0 VC Arbiter<br>Port 3 VC0<br>3<br>Port 1<br>VC0<br>TC0:TC1 2 Port 1<br>TC2:TC4 VC7<br>VC5<br>Port 3 Port 2 VC7<br>VC7<br>Port Arbiter<br>TC/VC Mapping Routing Logic<br>TC/VC Mapping<br>TC/VC Mapping Routing Logic<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Port Arbitration Mechanisms** 
@@ -2253,10 +2178,9 @@ Ingress Ports Egress Port<br>Port Arbiter<br>Port 2<br>Port 1<br>TC0:TC3 1 VC0 V
 The actual port arbitration mechanisms defined are similar to the models used for VC arbitration. Configuration software determines the capability for a port by reading the registers shown in Figure 7‐17 on page 265 and selects the port arbitration scheme to use for each VC. 
 _Figure 7‐17: Software Selects Port Arbitration Scheme_ 
 
-**==> picture [276 x 325] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0293.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-VCn Resource Capability Register<br>31 24 23 22 16 15 14 13 8 7 0<br>Port Arbitration Maximum Time Port Arbitration<br>RsvdP<br>Table Offset Slots Capability<br>RsvdP<br>Reject Snoop Transactions<br>Undefined<br>7 6 5 4 3 2 1 0<br>Rsvd<br>WRR with 256 Phases (101b)<br>Time-based WRR with 128 Phases (100b)<br>WRR with 128 Phases (011b)<br>WRR with 64 Phases (010b)<br>WRR with 32 Phases (001b)<br>Hardware Fixed Arbitration Scheme (000b)<br>VCn Resource Control Register<br>31 26 24 19 17 16 15 8 7 0<br>VC<br>RsvdP ID RsvdP RsvdP TC/VC Map<br>Load Port Arbitration Table<br>Port Arbitration Select<br>VC Enable<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Hardware-Fixed Arbitration** 
@@ -2280,10 +2204,9 @@ This mechanism is required for isochronous support. As the name implies, time‐
 Time‐based WRR arbitration supports a maximum table length of 128 phases, but the actual number of table entries available for a given VC may be less than that. The value is hardware initialized and reported in the _Max‐ imum Time Slots_ field of each virtual channel that supports TBWRR, as shown in Figure 7‐18 on page 267. 
 _Figure 7‐18: Maximum Time Slots Register_ 
 
-**==> picture [331 x 95] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0294.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-31 24 23 22 16 15 14 13 8 7 0<br>Port Arbitration Maximum Time Port Arbitration<br>RsvdP<br>Table Offset Slots Capability<br>RsvdP<br>Reject Snoop Transactions<br>Undefined<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Loading the Port Arbitration Tables** 
@@ -2335,20 +2258,18 @@ The actual size and format of the Port Arbitration Tables are a function of the 
 
 _Figure 7‐14: 端口仲裁概念_
 
-**==> picture [368 x 213] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0295.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-CPU<br>Port Arbitration<br>(通过 RCRB 配置)<br>根复合体 (Root Complex)<br>内存<br>1 2 3<br>VC0<br>Port Arbitration<br>交换机 (Switch)<br>(通过 PPB 配置)<br>VC0 VC0<br>VC0 VC0<br>端点 端点 端点 端点<br>A B C D<br>**----- End of picture text -----**<br>
+<br>
 
 
 **第 7 章:服务质量**
 
 _Figure 7‐15: 每个 VC 的端口仲裁表_
 
-**==> picture [320 x 233] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0296.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Extended Capability Header<br>Port VC Capability 1 Ext. VC Count<br>VAT Offset Port VC Capability 2<br>Port VC Status Port VC Control<br>PAT0 Offset VC Resource Cap (0)<br>VC Resource Control (0)<br>VC Resource Status (0) RsvdP<br>PATn Offset VC Resource Cap (n)<br>VC Resource Control (n)<br>VC Resource Status (n) RsvdP<br>VC Arbitration Table (VAT)<br>Port Arbitration Table 0 (PAT0)<br>Port Arbitration Table n (PATn)<br>**----- End of picture text -----**<br>
+<br>
 
 
 尽管规范中没有说明,但在不同数据包流之间进行仲裁的过程也意味着使用额外的缓冲区来在出口端口累积来自每个端口的流量,如图 7-16 (第 264 页) 所示。本示例说明了两个入口端口(1 和 2),它们的事务被路由到出口端口(3)。交换机所采取的操作包括:
@@ -2365,10 +2286,9 @@ Extended Capability Header<br>Port VC Capability 1 Ext. VC Count<br>VAT Offset P
 
 _Figure 7‐16: 端口仲裁缓冲_
 
-**==> picture [356 x 245] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0297.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Ingress Ports Egress Port<br>Port Arbiter<br>Port 2<br>Port 1<br>TC0:TC3 1 VC0 VC0<br>Port 2 VC0 VC Arbiter<br>Port 3 VC0<br>3<br>Port 1<br>VC0<br>TC0:TC1 2 Port 1<br>TC2:TC4 VC7<br>VC5<br>Port 3 Port 2 VC7<br>VC7<br>Port Arbiter<br>TC/VC Mapping Routing Logic<br>TC/VC Mapping<br>TC/VC Mapping Routing Logic<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **端口仲裁机制 (Port Arbitration Mechanisms)**
@@ -2379,10 +2299,9 @@ Ingress Ports Egress Port<br>Port Arbiter<br>Port 2<br>Port 1<br>TC0:TC3 1 VC0 V
 
 _Figure 7‐17: 软件选择端口仲裁方案_
 
-**==> picture [276 x 325] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0298.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-VCn Resource Capability Register<br>31 24 23 22 16 15 14 13 8 7 0<br>Port Arbitration Maximum Time Port Arbitration<br>RsvdP<br>Table Offset Slots Capability<br>RsvdP<br>Reject Snoop Transactions<br>Undefined<br>7 6 5 4 3 2 1 0<br>Rsvd<br>WRR with 256 Phases (101b)<br>Time-based WRR with 128 Phases (100b)<br>WRR with 128 Phases (011b)<br>WRR with 64 Phases (010b)<br>WRR with 32 Phases (001b)<br>Hardware Fixed Arbitration Scheme (000b)<br>VCn Resource Control Register<br>31 26 24 19 17 16 15 8 7 0<br>VC<br>RsvdP ID RsvdP RsvdP TC/VC Map<br>Load Port Arbitration Table<br>Port Arbitration Select<br>VC Enable<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **硬件固定仲裁 (Hardware-Fixed Arbitration)**
@@ -2407,10 +2326,9 @@ WRR 端口仲裁给出了四种表长度,由表使用的阶段数决定。可以
 
 _Figure 7‐18: 最大时间片寄存器_
 
-**==> picture [331 x 95] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0299.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-31 24 23 22 16 15 14 13 8 7 0<br>Port Arbitration Maximum Time Port Arbitration<br>RsvdP<br>Table Offset Slots Capability<br>RsvdP<br>Reject Snoop Transactions<br>Undefined<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **加载端口仲裁表 (Loading the Port Arbitration Tables)**
@@ -2424,7 +2342,7 @@ _Figure 7‐18: 最大时间片寄存器_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -2444,10 +2362,9 @@ Configuration software loads each table with port numbers to accomplish the desi
 
 _Figure 7‐19: Format of Port Arbitration Tables_ 
 
-**==> picture [339 x 413] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0300.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-32-Phase Port Arbitration Table<br>with 4-bit entries<br>31 28 27 24 23 20 19 16 15 12 11 8 7 4 3 0<br>Phase[7] Phase[6] Phase[5] Phase[4] Phase[3] Phase[2] Phase[1] Phase[0] 00h<br>Phase[15] Phase[14] Phase[13] Phase[12] Phase[11] Phase[10] Phase[9] Phase[8] 04h<br>Phase[23] Phase[22] Phase[21] Phase[20] Phase[19] Phase[18] Phase[17] Phase[16] 08h<br>Phase[31] Phase[30] Phase[29] Phase[28] Phase[27] Phase[26] Phase[25] Phase[24] 0Bh<br>1. Configuration Software loads the Port Arbitration Table.<br>2. Changes to the table automatically set the Port Arbitration 00b PAT entry is 1 bit (2 ports)<br>Table Status bit.<br>01b PAT entry is 2 bits (4 ports)<br>3. Software sets the Load Port Arbitration Table bit to<br>10b PAT entry is 4 bits (16 ports)<br> apply the table contents to the hardware.<br>4. Hardware loads table contents into the Port Arbiter, then 11b PAT entry is 8 bits (256 ports)<br> automatically clears the Port Arbitration Table<br> status bit when the table has been loaded.<br>VC Resource Status Register Port VC Capability Register 1<br>15 2 1 0 31 12 11 10 9 8 7 6 4 3 2 0<br>RsvdP RsvdP<br>VC Negotiation Pending Port Arbitration Table Entry Size<br> Port Arbitration Table Status Reference Clock<br>RsvdP<br>Low Priority Extended VC Count<br>RsvdP<br>Extended VC Count<br>VC Resource Capability Register<br>31 26 24 19 17 16 15 8 7 0<br>RsvdP VCID RsvdP RsvdP TC/VC Map<br>Load Port Arbitration Table<br>Port Arbitration Select<br>VC Enable<br>**----- End of picture text -----**<br>
+<br>
 
 ## **Switch Arbitration Example** 
 
@@ -2469,10 +2386,9 @@ Let’s consider an example of a three‐port switch to illustrate both Port and
 
 _Figure 7‐20: Arbitration Examples in a Switch_ 
 
-**==> picture [357 x 208] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0301.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Switch<br>(1)<br>TC0,1TC3,5 VC0VC1 0 Of IngressMappingTC/VCPort 0 TC0,1TC3,5 INRESS EGRESS (5)Port Arbitration: VC0Egress Port 2<br>FC Buffer VC0 FC Buffer VC1<br>TLP1 RoutingTLP2 Routing TCTC TLP4 RoutingTLP3 Routing TCTC (4) PacketsPort 0 VC0VC0 ARB (6)<br>Egress Port 2<br>To Port 1 TC/VC VC Arbitration (7)<br>(2) Determine Egress Port(Using Routing Info) (3) To Port 2To Port 3 Of EgressMappingPort 2 VC0VC1 ARB 2 TC0-2TC3-7 VC0VC1<br>TC2-4TC0 VC0VC3 1 Of IngressMappingTC/VCPort 1 TC2-4TC0 TC0-2=>VC0TC3-7=>VC1 (5)Port Arbitration: VC1Egress Port 2<br>FC Buffers VC0 FC Buffers VC3 PacketsPort 1 VC1 ARB<br>TLP3 Routing TLP4 Routing VC1<br>TLP1 Routing TLP2 Routing<br>Determine Egress Port(Using Routing Info) (3) To Port 0To Port 2To Port 3 This logic replicated for each egress port<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Arbitration in Multi-Function Endpoints** 
@@ -2482,10 +2398,9 @@ Another set of registers called Multi‐Function Virtual Channel (MFVC) capabil�
 There are two cases described in the spec for this arbitration. In the first case, shown in Figure 7‐21 on page 271, there are two Functions but only Function 0 includes VC Capability registers and the assignments made there are implicitly the same for all functions. For this option, arbitration between the functions will be handled in some vendor‐specific manner. That’s the simplest approach, but doesn’t include a standard structure to define priority between requests from different functions and so it doesn’t support QoS. 
 _Figure 7‐21: Simple Multi‐Function Arbitration_ 
 
-**==> picture [252 x 146] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0302.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Function 0 Vendor-Specific<br>Arbitration<br>VC Internal Link<br>Capability<br>0002h<br>Egress Port<br>Function 1<br>Internal Link<br>**----- End of picture text -----**<br>
+<br>
 
 
 If QoS support is desired, then an MFVC is implemented in VC0 and each func‐ tion has its own unique set of VC Capability registers. To preserve software backward compatibility, the spec states that the VC Capability ID for a device that _does not_ use MFVC must be 0002h, while the VC Capability ID for a device that _does_ implement an MFVC structure must be 0009h. 
@@ -2496,10 +2411,9 @@ As can be seen in the figure, the MFVC registers reside in Function 0 only and d
 
 _Figure 7‐22: QoS Support in Multi‐Function Arbitration_ 
 
-**==> picture [330 x 336] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0303.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Extended Capability Header Cnt<br>Port VC Capability 1 Ext. VC Count<br>VAT Offset Port VC Capability 2<br>Port VC Status Port VC Control<br>Func 0 Offset VC Resource Cap (0)<br>VC Resource Control (0)<br>VC Resource Status (0) RsvdP<br>Func n Offset VC Resource Cap (n)<br>VC Resource Control (n)<br>VC Resource Status (n) RsvdP<br>VC Arbitration Table (VAT)<br>Function Arbitration Table 0<br>Function Arbitration Table n<br>Function<br>Function 0 Arbiter<br>MFVC Port 1<br>Capability VC0<br>0008h Internal Link<br>Port 2 VC0 VC Arbiter<br>VC<br>Capability VC0<br>0009h<br>Egress<br>Port<br>Function 1<br>Port 1<br>VC7<br>Internal Link<br>VC Port 2 VC7<br>Capability VC7<br>0009h<br>TC/VC Mapping<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Isochronous Support** 
@@ -2519,10 +2433,9 @@ Consider the example shown in Figure 7‐23 on page 274, where a synchronous con
 
 _Figure 7‐23: Example Application of Isochronous Transaction_ 
 
-**==> picture [298 x 281] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0304.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Camera<br>SI 1 Data accumulated<br>in Buffer A<br>SI 2 Data from Buffer A<br>delivered while<br>next data accumulates<br>in Buffer B<br>SI 3 Data from Buffer B<br>delivered while next<br>data accumulates in<br>Buffer A<br>PCI Express<br>Interface<br>SI 1 SI 2 SI 3<br>Service Interval (SI)<br>SI 2 Data received into<br>Buffer A<br>SI 3 Data from Buffer A<br>delivered to Storage<br>while data received<br>into Buffer B<br>Storage (e.g.: tape)<br>Buffer A Buffer B<br>Buffer A Buffer B<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **How Timing is Defined**
@@ -2538,10 +2451,9 @@ Camera<br>SI 1 Data accumulated<br>in Buffer A<br>SI 2 Data from Buffer A<br>del
 
 _Figure 7‐19: 端口仲裁表的格式_
 
-**==> picture [339 x 413] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0305.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-32 阶段端口仲裁表<br>具有 4 位条目<br>31 28 27 24 23 20 19 16 15 12 11 8 7 4 3 0<br>Phase[7] Phase[6] Phase[5] Phase[4] Phase[3] Phase[2] Phase[1] Phase[0] 00h<br>Phase[15] Phase[14] Phase[13] Phase[12] Phase[11] Phase[10] Phase[9] Phase[8] 04h<br>Phase[23] Phase[22] Phase[21] Phase[20] Phase[19] Phase[18] Phase[17] Phase[16] 08h<br>Phase[31] Phase[30] Phase[29] Phase[28] Phase[27] Phase[26] Phase[25] Phase[24] 0Bh<br>1. 配置软件加载端口仲裁表。<br>2. 对表的更改自动设置端口仲裁 00b PAT 条目为 1 位(2 个端口)<br>表状态位。<br>01b PAT 条目为 2 位(4 个端口)<br>3. 软件设置 Load Port Arbitration Table 位以<br>10b PAT 条目为 4 位(16 个端口)<br> 将表内容应用于硬件。<br>4. 硬件将表内容加载到端口仲裁器,然后 11b PAT 条目为 8 位(256 个端口)<br> 在表加载完成时自动清除端口仲裁表<br> 状态位。<br>VC Resource Status Register Port VC Capability Register 1<br>15 2 1 0 31 12 11 10 9 8 7 6 4 3 2 0<br>RsvdP RsvdP<br>VC Negotiation Pending Port Arbitration Table Entry Size<br> Port Arbitration Table Status Reference Clock<br>RsvdP<br>Low Priority Extended VC Count<br>RsvdP<br>Extended VC Count<br>VC Resource Capability Register<br>31 26 24 19 17 16 15 8 7 0<br>RsvdP VCID RsvdP RsvdP TC/VC Map<br>Load Port Arbitration Table<br>Port Arbitration Select<br>VC Enable<br>**----- End of picture text -----**<br>
+<br>
 
 
 **第 7 章:服务质量**
@@ -2566,10 +2478,9 @@ _Figure 7‐19: 端口仲裁表的格式_
 
 _Figure 7‐20: 交换机中的仲裁示例_
 
-**==> picture [357 x 208] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0276.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-交换机 (Switch)<br>(1)<br>TC0,1TC3,5 VC0VC1 0 入口的 IngressMappingTC/VCPort 0 TC0,1TC3,5 INRESS EGRESS (5)端口仲裁:VC0出口端口 2<br>FC Buffer VC0 FC Buffer VC1<br>TLP1 RoutingTLP2 Routing TCTC TLP4 RoutingTLP3 Routing TCTC (4) 数据包Port 0 VC0VC0 ARB (6)<br>出口端口 2<br>到 端口 1 TC/VC VC 仲裁 (7)<br>(2) 确定出口端口(使用路由信息) (3) 到 端口 2到 端口 3 出口的 EgressMappingTC/VCPort 2 VC0VC1 ARB 2 TC0-2TC3-7 VC0VC1<br>TC2-4TC0 VC0VC3 1 入口的 IngressMappingTC/VCPort 1 TC2-4TC0 TC0-2=>VC0TC3-7=>VC1 (5)端口仲裁:VC1出口端口 2<br>FC Buffers VC0 FC Buffers VC3 数据包Port 1 VC1 ARB<br>TLP3 Routing TLP4 Routing VC1<br>TLP1 Routing TLP2 Routing<br>确定出口端口(使用路由信息) (3) 到 端口 0到 端口 2到 端口 3 此逻辑为每个出口端口复制<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **多功能端点中的仲裁 (Arbitration in Multi-Function Endpoints)**
@@ -2582,10 +2493,9 @@ _Figure 7‐20: 交换机中的仲裁示例_
 
 _Figure 7‐21: 简单的多功能仲裁_
 
-**==> picture [252 x 146] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0277.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Function 0 厂商特定 (Vendor-Specific)<br>仲裁<br>VC 内部链路<br>功能 (Capability)<br>0002h<br>出口端口<br>Function 1<br>内部链路<br>**----- End of picture text -----**<br>
+<br>
 
 
 如果需要 QoS 支持,则在 VC0 中实现 MFVC,并且每个功能都有其自己唯一的一组 VC Capability 寄存器。为保持软件向后兼容性,规范规定 _不使用_ MFVC 的设备的 VC Capability ID 必须为 0002h,而 _使用_ MFVC 结构的设备的 VC Capability ID 必须为 0009h。
@@ -2596,10 +2506,9 @@ Function 0 厂商特定 (Vendor-Specific)<br>仲裁<br>VC 内部链路<br>功能
 
 _Figure 7‐22: 多功能仲裁中的 QoS 支持_
 
-**==> picture [330 x 336] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0278.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Extended Capability Header Cnt<br>Port VC Capability 1 Ext. VC Count<br>VAT Offset Port VC Capability 2<br>Port VC Status Port VC Control<br>Func 0 Offset VC Resource Cap (0)<br>VC Resource Control (0)<br>VC Resource Status (0) RsvdP<br>Func n Offset VC Resource Cap (n)<br>VC Resource Control (n)<br>VC Resource Status (n) RsvdP<br>VC Arbitration Table (VAT)<br>Function Arbitration Table 0<br>Function Arbitration Table n<br>Function<br>Function 0 仲裁器<br>MFVC 端口 1<br>功能 VC0<br>0008h 内部链路<br>端口 2 VC0 VC 仲裁器<br>VC<br>功能 VC0<br>0009h<br>出口<br>端口<br>Function 1<br>端口 1<br>VC7<br>内部链路<br>VC 端口 2 VC7<br>功能 VC7<br>0009h<br>TC/VC 映射<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **等时支持 (Isochronous Support)**
@@ -2622,10 +2531,9 @@ Extended Capability Header Cnt<br>Port VC Capability 1 Ext. VC Count<br>VAT Offs
 
 _Figure 7‐23: 等时事务的示例应用_
 
-**==> picture [298 x 281] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0279.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-摄像机 (Camera)<br>SI 1 数据累积<br>在缓冲区 A 中<br>SI 2 从缓冲区 A 传送数据<br>同时下一批数据<br>在缓冲区 B 中累积<br>SI 3 从缓冲区 B 传送数据<br>同时下一批数据<br>在缓冲区 A 中累积<br>PCI Express<br>接口<br>SI 1 SI 2 SI 3<br>服务间隔 (SI)<br>SI 2 数据接收到<br>缓冲区 A<br>SI 3 从缓冲区 A 传送数据<br>到存储器<br>同时数据接收到<br>缓冲区 B<br>存储器 (例如:磁带)<br>缓冲区 A 缓冲区 B<br>缓冲区 A 缓冲区 B<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **时序如何定义 (How Timing is Defined)**
@@ -2633,7 +2541,7 @@ _Figure 7‐23: 等时事务的示例应用_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -2675,10 +2583,9 @@ By now it should be reasonably clear what needs to be done to support isochro‐
 Starting at the bottom, what will be needed in the PCIe interface for the video endpoint device itself? In hardware, more than one VC will be required if we’re going to differentiate packets. Let’s assume a single‐function device for simplic‐ ity. The device driver would need to report the device capabilities and isochro‐ nous timing requirements to the OS‐level Isochronous broker, which would evaluate the system and then report back whether an isochronous contract was possible and which TCs the software should use. 
 _Figure 7‐24: Example Isochronous System_ 
 
-**==> picture [308 x 273] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0280.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-Processor<br>GFX Root Complex<br>System<br>Memory<br>Switch 2<br>Switch 1<br>Slot<br>Video SCSI<br>Camera<br>Lower<br>Time-<br>priority<br>sensitive<br>data<br>data<br>**----- End of picture text -----**<br>
+<br>
 
 
 The driver would then program VC numbers and map the appropriate TCs to each VC. It would also most likely program the VC arbitration to be Strict Prior‐ ity for the high‐priority channels. The one caveat here is that the arbitration must still be “fair”, meaning the low‐priority channels won’t get starved for access. That means the high‐priority VCs can’t have traffic pending constantly but instead must spread out packet injection over time. 
@@ -2698,19 +2605,20 @@ quency of the isochronous packets allows software to properly arrange the timing
 
 _Figure 7‐25: Injection of Isochronous Packets_ 
 
-**==> picture [269 x 103] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0281.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-SI = Service Interval<br>SI 1 SI 2 SI 3<br>time<br>**----- End of picture text -----**<br>
+<br>
 
 
 First, let’s review the parameters involved by considering a simple example. Recall that PCIe bases a time slot on the reference clock period is given by the Port Capability Register 1 field called Reference Clock. At present the only option for that field is 100ns, and the TBWRR table has no options besides 128 entries. The length of the Service Interval is the multiple of those, making it 12.8  s. The bandwidth for a given device can be expressed by the equation below, where Y is the data to be delivered in one time slot (the spec states that the Max Payload Size programmed during configuration must be used for this bandwidth calculation), M is the number of time slots, and T is the overall Ser‐ vice Interval. If we choose 128 bytes as the payload, and we know that SI is 12.8  s, then the BW = 10 MB/s for each time slot allocated. 
 
-**==> picture [79 x 28] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0282.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
+
 
 Now let’s consider a more realistic example. Let’s say that our Links are running at the Gen2 speed, that the video device needs to have a guaranteed bandwidth of 100MB/s, and that it will send 512 byte packets. Filling in the equation shows M = 2.5 instances of 512 bytes are needed. But how much data can actually be 
 
-**==> picture [324 x 41] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0283.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
+
 
 </td>
 <td style="background-color:#e8e8e8">
@@ -2751,10 +2659,9 @@ Now let’s consider a more realistic example. Let’s say that our Links are ru
 
 _Figure 7‐24: 等时系统示例_
 
-**==> picture [308 x 273] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0284.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-处理器 (Processor)<br>GFX 根复合体 (Root Complex)<br>系统<br>内存<br>交换机 2<br>交换机 1<br>插槽<br>视频 SCSI<br>摄像机<br>较低<br>时间<br>优先级<br>敏感<br>数据<br>数据<br>**----- End of picture text -----**<br>
+<br>
 
 
 然后驱动程序将编程 VC 编号并将适当的 TC 映射到每个 VC。它还很可能对高优先级通道的 VC 仲裁编程为严格优先级。这里的一个警告是仲裁仍必须"公平",这意味着低优先级通道不会因访问而被饿死。这意味着高优先级 VC 不能始终有挂起的流量,而是必须在一段时间内分散数据包的注入。
@@ -2775,24 +2682,25 @@ _Figure 7‐24: 等时系统示例_
 
 _Figure 7‐25: 等时数据包的注入_
 
-**==> picture [269 x 103] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0285.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-SI = 服务间隔 (Service Interval)<br>SI 1 SI 2 SI 3<br>时间<br>**----- End of picture text -----**<br>
+<br>
 
 
 首先,让我们通过考虑一个简单的示例来回顾所涉及的参数。回想一下,PCIe 基于由 Port Capability Register 1 字段 Reference Clock 给出的参考时钟周期来计算时间片。目前该字段的唯一选项是 100ns,TBWRR 表除 128 个条目外没有其他选项。服务间隔的长度是这些的倍数,因此为 12.8μs。给定设备的带宽可以由下面的等式表示,其中 Y 是要在一个时间片中传送的数据(规范规定必须使用在配置期间编程的最大有效负载大小进行此带宽计算),M 是时间片数,T 是整个服务间隔。如果我们选择 128 字节作为有效负载,并且我们知道 SI 为 12.8μs,则对于分配的每个时间片,BW = 10 MB/s。
 
-**==> picture [79 x 28] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0286.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
+
 
 现在让我们考虑一个更现实的示例。假设我们的链路以 Gen2 速度运行,视频设备需要保证 100MB/s 的带宽,并且它将发送 512 字节的数据包。代入等式显示 M = 2.5 个 512 字节的实例是必需的。但实际上在
 
-**==> picture [324 x 41] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0287.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
+
 
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -2818,19 +2726,17 @@ Now let’s say the SCSI controller attempts to inject more packets than it has 
 
 _Figure 7‐26: Over‐Subscribing the Bandwidth_ 
 
-**==> picture [263 x 94] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0288.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-SI = Service Interval<br>SI 1 SI 2 SI 3<br>time<br>**----- End of picture text -----**<br>
+<br>
 
 The second timing problem is called “congestion” and happens when too many isochronous requests are sent within a given time window, as shown in Figure 7‐27 on page 281. This is a similar problem but now there is no simple solution. Unlike the previous case, postponing high‐priority packets until another time slot is not an option, so the system must make an effort to handle them all. The result is that some requests may experience excessive service latencies. To correct this, software would need to change the distri‐ bution of packets so that they can be supported by the available hardware bandwidth. 
 
 _Figure 7‐27: Bandwidth Congestion_ 
 
-**==> picture [263 x 102] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0289.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-SI = Service Interval<br>SI 1 SI 2 SI 3<br>time<br>**----- End of picture text -----**<br>
+<br>
 
 
 **Latency Issues .** Managing latency for packet delivery is an important part of isochrony, and involves the combination of the fabric latency and the Completer latency. Fabric latency depends on all the characteristics of the Link between the various components in the system, especially the Link width and frequency of operation. A simple way to minimize this value is to constrain the complexity of the PCIe topology for isochronous paths. Completer latency depends on the target endpoint internal characteristics, such as memory speed and internal arbitration. 
@@ -2917,10 +2823,9 @@ Implementation of the specific PCI/PCIe transaction ordering is based on the fol
 
 _Figure 7‐26: 过度订阅带宽_
 
-**==> picture [263 x 94] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0290.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-SI = 服务间隔 (Service Interval)<br>SI 1 SI 2 SI 3<br>时间<br>**----- End of picture text -----**<br>
+<br>
 
 
 **第 7 章:服务质量**
@@ -2929,10 +2834,9 @@ SI = 服务间隔 (Service Interval)<br>SI 1 SI 2 SI 3<br>时间<br>**----- End 
 
 _Figure 7‐27: 带宽拥塞_
 
-**==> picture [263 x 102] intentionally omitted <==**
+<img src="figures/chapter_06_Flow_Control/page/page0291.png" alt="Figure 6‐1: Location of Flow Control Logic" width="700">
 
-**----- Start of picture text -----**<br>
-SI = 服务间隔 (Service Interval)<br>SI 1 SI 2 SI 3<br>时间<br>**----- End of picture text -----**<br>
+<br>
 
 
 **延迟问题 (Latency Issues)。** 管理数据包传送的延迟是等时性的重要组成部分,涉及架构延迟和完成者延迟的组合。架构延迟取决于系统中各个组件之间链路的所有特性,尤其是链路宽度和工作频率。最小化此值的一种简单方法是限制等时路径的 PCIe 拓扑的复杂性。完成者延迟取决于目标端点内部特性,例如内存速度和内部仲裁。
@@ -3008,7 +2912,7 @@ SI = 服务间隔 (Service Interval)<br>SI 1 SI 2 SI 3<br>时间<br>**----- End 
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 

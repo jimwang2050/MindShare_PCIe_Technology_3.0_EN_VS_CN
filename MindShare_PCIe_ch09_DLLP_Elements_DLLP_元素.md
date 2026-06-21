@@ -11,11 +11,10 @@
 
 - [9.1 Background — DLLP 元素](#sec-9-1)
 - [9.2 PCI Express Technology — DLLP 元素](#sec-9-2)
-- [9.3 Byte Striping (for Wide Links) — DLLP 元素](#sec-9-3)
-- [9.4 8b/10b Encoding — DLLP 元素](#sec-9-4)
-- [9.5 Control Characters — DLLP 元素](#sec-9-5)
-- [9.6 Receive Logic Details (Gen1 and Gen2 Only) — DLLP 元素](#sec-9-6)
-- [9.7 Ordered sets Help De-Skewing — DLLP 元素](#sec-9-7)
+- [9.3 8b/10b Encoding — DLLP 元素](#sec-9-3)
+- [9.4 Control Characters — DLLP 元素](#sec-9-4)
+- [9.5 Receive Logic Details (Gen1 and Gen2 Only) — DLLP 元素](#sec-9-5)
+- [9.6 Ordered sets Help De-Skewing — DLLP 元素](#sec-9-6)
 
 <a id="sec-9-1"></a>
 ## 9.1 DLLP Elements | DLLP 元素
@@ -69,10 +68,9 @@ the rest of the TLP arrives at the Switch, there is no error, so an Ack is retur
 
 _Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling_ 
 
-**==> picture [378 x 107] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0368.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Error occurs<br>1) 2) 4)<br>END TLP STP END TLP STP EDB TLP STP<br>EDB TLP STP<br>Switch Endpoint<br>5) Discard Packet<br>NAK 6) No ACK or NAK<br>3)<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## Part Four: 
@@ -101,10 +99,9 @@ The Physical Layer resides at the bottom of the interface between the external p
 
 _Figure 11‐1: PCIe Port Layers_ 
 
-**==> picture [307 x 307] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0369.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Software layer sends and receives address and transaction information<br>Software layer<br>Transmit Receive<br>Transaction Layer Packet (TLP) Transaction Layer Packet (TLP)<br>Header Data Payload ECRC Header Data Payload ECRC<br>Transaction layer<br>Flow Control<br>Transmit Receive<br>Virtual Channel<br>Buffers Buffers<br>Management<br>per VC per VC<br>Ordering<br>Link Packet DLLPs e.g. DLLPs Link Packet<br>Sequence TLP LCRC Ack/Nak CRC Ack/Nak CRC Sequence TLP LCRC<br>Data Link layer TLP Retry De-mux<br>Buffer<br>TLP Error<br>Mux Check<br>Physical Packet Physical Packet<br>Start Link Packet End Start Link Packet End<br>Physical layer Encode Decode<br>Parallel-to-Serial Serial-to-Parallel<br>Link<br>Differential Driver Training Differential Receiver<br>Port<br>Link<br>**----- End of picture text -----**<br>
+<br>
 
 The contents of the layers are conceptual and don’t define precise logic blocks, but to the extent that designers do partition them to match the spec their imple‐ mentations can benefit because of the constantly increasing data rates affect the Physical Layer more than the others. Partitioning a design by layered responsi‐ bilities allows the Physical Layer to be adapted to the higher clock rates while changing as little as possible in the other layers. 
 
@@ -120,10 +117,9 @@ The Physical Layer is made up of two sub‐blocks: the Logical part and the Elec
 
 _Figure 11‐2: Logical and Electrical Sub‐Blocks of the Physical Layer_ 
 
-**==> picture [366 x 241] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0370.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Physical Layer Physical Layer<br>Tx Rx Tx Rx<br>Logical Logical<br>Tx Rx Tx Rx<br>Electrical Electrical<br>Link<br>Tx+ Tx- Rx+ Rx- CTX Tx- Tx+ Rx- Rx+<br>CTX<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Observation** 
@@ -289,7 +285,7 @@ LFSR 以馈送数据字节的时钟频率的 8 倍频率进行计时，其输出
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -304,10 +300,9 @@ LFSR 以馈送数据字节的时钟频率的 8 倍频率进行计时，其输出
 Gen3 mode of operation, doesn’t use control characters, so data patterns are used to make up the ordered sets that identify if transmitted bytes are associ‐ ated with TLPs / DLLPs or Ordered Sets. A 2‐bit Sync Header is inserted at the beginning of a 128 bit (16 byte) block of data. The Sync Header informs the receiver whether the received block is a Data Block (TLP or DLLP related bytes) or an Ordered Set Block. Since there are no control characters in Gen3 mode, the D/K# bit is not needed. 
 _Figure 11‐3: Physical Layer Transmit Details_ 
 
-**==> picture [252 x 355] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0371.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-From Data Link Layer<br>Packet Boundary Indicator<br>Throttle N*8<br>Tx<br>Buffer Control/ Ordered<br>Token Logical Sets<br>Characters Idle<br>N*8 8 8 8<br>Mux<br>N*8 D/K#<br>Lane 0 Byte Striping Lane N<br>8 D/K# 8 D/K#<br>Gen3 Scrambler Lane 1, ... ,N-1 Gen3 Scrambler<br>Scrambler Scrambler<br>8 8<br>D/K# Tx Local D/K#<br>PLL<br>8b/10b 8b/10b<br>Encoder Encoder<br>8 10 Tx Clk 8 10<br>Mux Mux<br>Gen3 Sync<br>Serializer Bits Generator Serializer<br>Mux Mux<br>Tx Tx<br>Lane 0 Lane 1, ... ,N-1 Lane N<br>**----- End of picture text -----**<br>
+<br>
 
 
 Next, the parallel data bytes coming from the upper layers are sent to Byte Striping logic where they are spread out, or striped, onto all the lanes of this link. One byte of the packet is transferred per lane, and all active lanes are used for each packet going out. The Lanes of the Link are all transmitting at the same time, so the bytes must come into this logic fast enough to accommodate that. For example, if there are eight Lanes, eight bytes of parallel from the upper lay‐ ers may arrive at the byte‐striping logic allowing data to be clocked onto all lanes simultaneously. 
@@ -331,10 +326,9 @@ Logic controlling the Elastic Buffer adjusts for minor clock variations between 
 
 _Figure 11‐4: Physical Layer Receive Logic Details_ 
 
-**==> picture [262 x 336] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0372.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-To Data Link Layer<br>eceiTLP/DLLPIndicator<br>N*8<br>Rx<br>Buffer<br>TLP/DLLP<br>N*8 Indicator<br>Packet<br>Filtering<br>Block<br>N*8 D/K# Type<br>Lane 0 Byte Un-Striping Lane N<br>8 8<br>Mux Mux<br>8 8 8 8<br>D/K# D/K#<br>Gen3 De-Scrambler Gen3 De-Scrambler<br>De-Scrambler De-Scrambler<br>8 8 D/K# 8 8 D/K#<br>8b/10b 8b/10b<br>Decoder Decoder<br>Gen3 Gen3<br>10 Block 10 Block<br>Type Type<br>CDR Logic CDR Logic<br>Rx Rx<br>Lane 0 Lane 1, ..,N-1 Lane N<br>**----- End of picture text -----**<br>
+<br>
 
 
 Using the 8b/10b Decoder, Gen1/Gen2 Symbols are decoded thus converting the 10‐bit symbols to 8‐bit characters. The descrambler applies the same scrambling method used at the transmitter to recover the original data. Finally, the bytes from each Lane are un‐striped to form a byte stream that will be forwarded up to the Data Link Layer. Only TLPs and DLLPs are loaded into the receive buffer and sent to the Data Link Layer. 
@@ -356,10 +350,9 @@ The multiplexer, shown in Figure 11‐6 on page 370, is used to insert special c
 - **Start and End characters.** These Control characters are added to the start and end of every TLP and DLLP (see Figure 11‐7 on page 371) and allow a receiver to readily detect the boundaries of a packet. There are two Start characters: STP indicates the start of a TLP, while SDP indicates the start of a DLLP. An indicator from the Data Link Layer, along with the packet type, determines what type of framing character to insert. There are also two end characters, the End Good character (END) for normal transmission, and the End Bad character (EDB) to handle some error cases. Start and End charac‐ ters are K characters, so the D/K# signal is driven low when the Start and End characters are inserted (see Table 11‐1 on page 386 for a list of Control characters). 
 _Figure 11‐5: Physical Layer Transmit Logic Details (Gen1 and Gen2 Only)_ 
 
-**==> picture [190 x 285] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0373.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-From Data Link Layer<br>Packet Boundary Indicator<br>Throttle N*8<br>Tx<br>Buffer Control/ Ordered<br>Token Logical Sets<br>Characters Idle<br>N*8 8 8 8<br>Mux<br>N*8 D/K#<br>Lane 0 Byte Striping Lane N<br>8 D/K# 8 D/K#<br>Scrambler Lane 1, ... ,N-1 Scrambler<br>8 8<br>D/K# Tx Local D/K#<br>PLL<br>8b/10b 8b/10b<br>Encoder Encoder<br>10 Tx Clk 10<br>Serializer Serializer<br>Tx Tx<br>Lane 0 Lane 1, ... ,N-1 Lane N<br>**----- End of picture text -----**<br>
+<br>
 
 
 - **Ordered Sets** . As mentioned earlier, control characters are only used by the Physical Layer and are not seen by the higher layers. Some communication across the Link is necessary to initiate and maintain Link operation, and that is accomplished by exchanging Ordered Sets. Every ordered set starts with a K character called a comma (COM), and contains other K or D char‐ acters depending on the type of Order Set be delivered. Ordered Sets are always aligned on four byte boundaries and are transmitted during a vari‐ ety of circumstances including: 
@@ -378,162 +371,15 @@ From Data Link Layer<br>Packet Boundary Indicator<br>Throttle N*8<br>Tx<br>Buffe
 
 _Figure 11‐6: Transmit Logic Multiplexer_ 
 
-**==> picture [380 x 260] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0374.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-From Data Link Layer<br>Packet Boundary Indicator<br>Throttle<br>N*8<br>Tx<br>Buffer Control/ Ordered<br>CharactersToken LogicalIdle Sets<br>N*8<br>N*8 8 8 8 N*8 Ordered Sets:<br>Mux Tx TS1, TS2,<br>Buffer<br>N*8 D/K# STP, SDP SKIP Logical<br>END, EDB Electrical Idle Idle<br>Lane 0 Byte Striping Lane N<br>N*8<br>8 D/K# 8 D/K#<br>D K K/D D<br>Scrambler Lane 1, ... ,N-1 Scrambler Mux<br>8 8<br>D/K# Tx Local D/K# N*8 D/K#<br>PLL<br>8b/10b 8b/10b<br>Encoder Encoder<br>10 Tx Clk 10<br>Serializer Serializer<br>Tx Tx<br>Lane 0 Lane N<br>Lane 1, ... ,N-1<br>**----- End of picture text -----**<br>
+<br>
 
 _Figure 11‐7: TLP and DLLP Packet Framing with Start and End Control Characters_ 
 
-**==> picture [289 x 161] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0375.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-
-</td>
-<td style="background-color:#e8e8e8">
-
-如果设备禁用了加扰，则通过在控制字段中设置适当的位来发送至少两个 TS1 和 TS2 与相邻设备通信，如第 539 页的"配置状态"所述。作为响应，相邻设备也禁用其加扰。
-
-## **8b/10b 编码**
-
-## **概述**
-
-PCIe 的前两代使用 8b/10b 编码。每个 Lane 实现一个 8b/10b 编码器，将 8 位字符转换为 10 位符号。此编码方案由 IBM 于 1984 年获得专利，今天广泛用于许多串行传输，例如千兆以太网和光纤通道。
-
-## **动机**
-
-编码为串行传输实现了几个理想的目标。其中最重要的三个列在此处：
-
-- **将时钟嵌入数据中。** 编码可确保数据流中具有足够的跳变以在接收方恢复时钟，结果是不需要分布式时钟。这避免了并行总线设计的一些限制，例如飞行时间和时钟偏移。它还消除了分配高频时钟的需要，否则会导致其他问题，例如增加的 EMI 和困难的布线。
-
- - 作为此过程的示例，第 381 页的图 11-15 显示了数据字节 00h 的编码结果。可以看到，这个原本没有跳变的 8 位字符转换为具有 5 个跳变的 10 位符号。8b/10b 保证足够的跳变以确保比特流中的"游程长度"（连续 1 或 0 的序列）在任何条件下不超过 5 个连续位。
-
-- **维持直流平衡。** PCIe 使用交流耦合链路，将电容器串联放置在路径中，以将信号的直流部分与链路的另一端隔离。这允许发送方和接收方使用不同的共模电压，并且对于它们之间的路径足够长以至于它们不太可能具有完全相同的参考电压的情况，使电气设计更容易。该直流值或共模电压可以在运行时发生变化，因为当信号被驱动时线路会充电。通常，信号变化得如此之快，以至于没有时间让这引起问题，但是，如果信号平均值主要是一个电平或另一个电平，则共模值将出现漂移。称为"直流漂移"，这种漂移电压会降低接收方的信号完整性。为了进行补偿，8b/10b 编码器跟踪发送的最后一个符号的"差异 (disparity)"。差异或不平等只是简单地表示前一个符号是否有更多的 1（称为正差异），更多的 0（负差异），或者 1 和 0 平衡
-
-**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
-
- - （中性差异）。例如，如果前一个符号具有负差异，则下一个符号应通过使用更多的 1 来平衡。
-
-- **增强错误检测。** 编码方案还有助于检测传输错误。对于 10 位值，可能有 1024 个代码，但待编码的字符只有 256 个唯一代码。为了维持直流平衡，设计为每个字符使用两个代码，并根据发送的最后一个符号的差异选择其中一个，因此将需要 512 个代码。但是，许多中性差异编码具有相同的值（D28.5 就是一个示例），因此并非所有 512 个都被使用。因此，超过一半的可能编码未被使用，如果在接收方看到，则将被视为非法。如果传输错误确实更改了符号的位模式，那么结果很可能是这些可立即识别的非法模式之一。有关更多信息，请参见第 383 页的标题为"差异"的部分。
-
-8b/10b 编码的主要缺点是它所需的开销。从接收方的角度来看，实际传输性能降低了 20%，因为每个字节发送 10 位，但仅在接收方恢复 8 个有效位。这是一个不小的代价，但考虑到前面提到的好处，它仍然被认为是可以接受的。
-
-_图 11-15：8 位字符 00h 编码示例_
-
-**==> 图片 [224 x 112] 已省略 <==**
-
-**----- 图片文字开始 -----**<br>
-8b Value<br>0 0 0 0 0 0 0 0<br>Data 00h<br>10b Encoded<br>0 11 0 0 0 1 0 1 1<br>Value<br>**----- 图片文字结束 -----**<br>
-
-
-## **10 位符号的属性**
-
-如 8b/10b 编码文献中所述，设计并非严格的 8 位到 10 位。相反，它实际上是一个 5 位到 6 位的编码，然后是 3 位到 4 位的编码。子块是设计内部的，但它们的存在有助于解释合法符号的一些属性，如下所列。不遵循这些属性的符号被视为无效。
-
-- 比特流从不包含超过五个连续的 1 或 0，即使从一个符号的末尾到下一个符号的开头也是如此。
-
-- 每个 10 位符号包含：
-
- - 四个 0 和六个 1（不一定连续），或
-
- - 六个 0 和四个 1（不一定连续），或
-
- - 五个 0 和五个 1（不一定连续）。
-
-- 每个 10 位符号被细分为两个子块：第一个是六位宽，第二个是四位宽。
-
- - 6 位子块包含不超过四个 1 或四个 0。
-
- - 4 位子块包含不超过三个 1 或三个 0。
-
-## **字符表示法**
-
-8b/10b 使用一种特殊的简写符号表示法，第 382 页的图 11-16 说明了为给定字符得出简写符号的步骤：
-
-1. 将字符划分为其 3 位和 5 位子块。
-
-2. 转置子块的位置。
-
-3. 为每个子块创建十进制等效值。
-
-4. 字符采用 Dxx.y（数据字符）或 Kxx.y（控制字符）的形式。在此表示法中，xx 是 5 位字段的十进制等效值，y 是 3 位字段的十进制等效值。
-
-_图 11-16：8b/10b 命名法_
-
-**==> 图片 [348 x 211] 已省略 <==**
-
-**----- 图片文字开始 -----**<br>
-8b Designation Example Data (6Ah)<br>D/<br>8b Character 7 6 5 4 3 2 1 0 D 01101010<br>K#<br>Partition into D/ H G F E D C B A<br>D 011 01010<br>sub-blocks K#<br>Flip sub-blocks K#D/ E D C B A H G F D 01010 011<br>Convert sub-blocks<br>to decimal notation D/K xx . y D 10 . 3<br>Final Notation D/Kxx.y D10.3<br>**----- 图片文字结束 -----**<br>
-
-
-**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
-
-## **差异**
-
-**定义。** 差异是指 10 位符号内 1 和 0 的数量之间的不等式，并用于帮助维持链路上的直流平衡。具有更多 0 的符号称为具有负 (-) 差异，而具有更多 1 的符号具有正 (+) 差异。当符号具有相等数量的 1 和 0 时，称为具有中性差异。有趣的是，大多数字符编码为具有 + 或 – 差异的符号，但有些仅编码为具有中性差异的符号。
-
-**CRD (当前运行差异)。** CRD 是关于链路上差异的当前状态的信息。由于它只是一个位，因此它只能为正或负，并且并不总是在发送下一个符号时更改。要查看它的工作原理，请记住下一个解码的符号可能具有负、中性或正差异，然后考虑以下示例。如果 CRD 为正，则具有负差异的传出符号将把它更改为负，中性差异将保持为正，正差异将是错误，因为 CRD 仅一位，不能变得更正。
-
-CRD 的初始状态（在传输任何字符之前）可能与发送方和接收方之间不匹配，但事实证明这并不重要。当接收方在训练完成后看到第一个符号时，它将检查差异错误，如果发现，则只需更改 CRD。这不会被视为错误，而只是 CRD 调整以匹配接收方和发送方。之后，只有两种合法的 CRD 情况：如果新符号具有中性差异，则它可以保持不变；如果新符号具有相反的差异，则它可以翻转为相反极性。新符号的差异与 CRD 相同是不合法的。这样的事件将是差异错误，除非发生错误，否则在初始调整之后永远不会发生。
-
-## **编码过程**
-
-可以通过不同方式完成 8b/10b 编码。最简单的方法可能是实现一个包含所有可能输出值的查找表。但是，此表可能需要相对大量的门。另一种方法是将解码器实现为逻辑块，这通常是首选，因为它通常会产生更小且更便宜的解决方案。编码逻辑的细节在所引用的文献中有详细描述，因此我们将重点放在其工作原理的更大图景上。
-
-## **PCI Exress Technology**
-
-示例 8b/10b 框图如图 11-17（第 384 页）所示。新的传出符号基于以下三件事创建：传入字符、该字符的 D/K# 指示以及 CRD。基于传出符号计算新的 CRD 值，并反馈用于编码下一个字符。编码后，生成的符号被馈送到串行器，该串行器将各个位计时输出。图 11-18（第 385 页）显示了一些示例 8b/10b 编码，这些编码对后续示例很有用。
-
-_图 11-17：8 位到 10 位 (8b/10b) 编码器_
-
-**==> 图片 [343 x 244] 已省略 <==**
-
-**----- 图片文字开始 -----**<br>
-Bytes from Scrambler D/K#<br>8b Character 7 6 5 4 3 2 1 0<br>H G F E D C B A<br>8b/10b Encoding Logic<br>Current<br>Running<br>Disparity<br>(CRD)<br>CRD Calculator j h g f i e d c b a<br>Serial Stream<br>Serializer j h g f i e d c b a to Transmitter<br>using Tx Clock<br>**----- 图片文字结束 -----**<br>
-
-
-**第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
-
-_图 11-18：示例 8b/10b 编码_
-
-## **示例传输**
-
-图 11-19 说明了三个字符的编码和传输：第一个和第二个是控制字符 K28.5，第三个字符是数据字符 D10.3。
-
-在此示例中，初始 CRD 为负，因此 K28.5 编码为 001111 1010b。此符号具有正差异（1 多于 0），并导致 CRD 极性翻转为正。下一个 K28.5 编码为 110000 0101b，具有负差异。这导致 CRD 这次翻转为负。最后，D10.3 编码为 010101 1100b。由于其差异为中性，因此 CRD 在此情况下不会更改，但保持为负，以供下一个字符使用。
-
-_图 11-19：示例 8b/10b 传输_
-
-## **在以下示例中使用这两个字符：**
-
-|**D/K#**|**十六进制**<br>**字节**|**二进制位**<br>**HGF EDCBA**|**字节**<br>**名称**|**CRD –**<br>**abcdei fghj**|**CRD +**<br>**abcdei fghj**|
-|---|---|---|---|---|---|
-|**控制(K)**|**BC**|**101 11100**|**K28.5**|**001111 1010**|**110000 0101**|
-|**数据(D)**|**6A**|**011 01010**|**D10.3**|**010101 1100**|**010101 0011**|
-
-
-## **示例传输**
-
-||**CRD**|**字符**|**CRD**|**字符**|**CRD**|**字符**|**CRD**|
-|---|---|---|---|---|---|---|---|
-|**要传输的**<br>**字符**|**-**|**K28.5 (BCh)**|**+**|**K28.5 (BCh)**|**-**|**D10.3 (6Ah)**|**-**|
-
-</td>
-</tr></tbody></table>
-
-[⬆️ 返回目录](#-本章目录-table-of-contents)
-
----
-
-<a id="sec-9-3"></a>
-## 9.3 DLLP Elements | DLLP 元素
-
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
-<tbody><tr>
-<td>
-
-‘D’ Character<br>Transaction Layer Packet (TLP)<br>STP Sequence Header Data Payload ECRC LCRC END<br>‘D’ Character<br>‘K’ Character ‘K’ Character<br>Data Link Layer Packet (DLLP)<br>SDP DLLP Type Misc. CRC END<br>‘K’ Character ‘K’ Character<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Byte Striping (for Wide Links)** 
@@ -548,25 +394,22 @@ Figure 11‐9 on page 372 shows the incoming Dword packets from the muti‐ plex
 
 _Figure 11‐8: x1 Byte Striping_ 
 
-**==> picture [154 x 220] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0376.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Packet byte stream from Mux block<br>8 D/K#<br>Character 7<br>Character 6<br>Character 5<br>Character 4<br>Character 3<br>Character 2<br>Character 1<br>Character 0<br>x1 Byte Striping 8 D/K#<br>Character 2<br>Character 1<br>Character 0<br>8 D/K#<br>To Scrambler<br>**----- End of picture text -----**<br>
+<br>
 
 
 _Figure 11‐9: x4 Byte Striping_ 
 
-**==> picture [338 x 205] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0377.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Packet Dword Stream from Mux Block<br>D/K# D/K# D/K# D/K#<br>8 8 8 8<br>Character 12 Character 13 Character 14 Character 15<br>Character 8 Character 9 Character 10 Character 11<br>Character 4 Character 5 Character 6 Character 7<br>Character 0 Character 1 Character 2 Character 3<br>Character 12 Character 13 Character 14 Character 15<br>Character 16 Character 17 Character 11 Character 11<br>Character 8 Character 9 Character 7 Character 7<br>Character 0 Character 1 Character 3 Character 3<br>8 D/K# 8 D/K# 8 D/K# 8 D/K#<br>To Lane 0 To Lane 1 To Lane 2 To Lane 3<br>Scrambler Scrambler Scrambler Scrambler<br>**----- End of picture text -----**<br>
+<br>
 
 _Figure 11‐10: x8 Byte Striping with DWord Parallel Data_ 
 
-**==> picture [368 x 240] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0368.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-D/K# D/K# D/K# D/K#<br>8 8 8 8<br>Character 20 Character 21 Character 22 Character 23<br>Character 16 Character 17 Character 18 Character 19<br>Character 12 Character 13 Character 14 Character 15<br>Character 8 Character 9 Character 10 Character 11<br>Character 4 Character 5 Character 6 Character 7<br>Character 0 Character 1 Character 2 Character 3<br>x8 Byte Striping<br>Character 16 Character 17 Character 23<br>Character 8 Character 9 Character 15<br>Character 0 Character 1 Character 7<br>8 D/K# 8 D/K# 8<br>To Lane 0 To Lane 1 To Lane 7<br>Scrambler Scrambler Scrambler<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Packet Format Rules** 
@@ -589,10 +432,9 @@ The example shown in Figure 11‐11 on page 374 illustrates the format of packet
 
 _Figure 11‐11: x1 Packet Format_ 
 
-**==> picture [351 x 220] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0369.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Lane<br>0<br>STP COM STP STP<br>SKP<br>TLP SKP TLP<br>SKP<br>STP<br>TLP<br>END END<br>SDP SDP<br>DLLP TLP DLLP<br>END<br>Idle (00h)<br>Idle (00h)<br>Idle (00h)<br>END END END<br>Time<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **x4 Format Rules** 
@@ -671,10 +513,7 @@ Scrambling is enabled by default, but the spec allows it to be disabled for test
 </td>
 <td style="background-color:#e8e8e8">
 
-'D' Character<br>Transaction Layer Packet (TLP)<br>STP Sequence Header Data Payload ECRC LCRC END<br>'D' Character<br>'K' Character 'K' Character<br>Data Link Layer Packet (DLLP)<br>SDP DLLP Type Misc. CRC END<br>'K' Character 'K' Character<br>**----- End of picture text -----**
-
-
-## **字节条带化（用于宽链路）**
+'D' Character<br>Transaction Layer Packet (TLP)<br>STP Sequence Header Data Payload ECRC LCRC END<br>'D' Character<br>'K' Character 'K' Character<br>Data Link Layer Packet (DLLP)<br>SDP DLLP Type Misc. CRC END<br>'K' Character 'K' Character<br>## **字节条带化（用于宽链路）**
 
 我们示例中显示的下一步是字节条带化 (Byte Striping)，尽管仅当端口实现多个 Lane（称为宽链路 (wide Link)）时才需要此步骤。条带化意味着字符流中的每个连续输出字符被路由到连续的 Lane 上。使用的 Lane 数在链路训练 (Link training) 过程中根据共享链路的两台设备所支持的 Lane 数进行配置。
 
@@ -686,28 +525,19 @@ Scrambling is enabled by default, but the spec allows it to be disabled for test
 
 _图 11-8：x1 字节条带化_
 
-**==> picture [154 x 220] intentionally omitted <==**
-
-**----- Start of picture text -----**<br>
-Packet byte stream from Mux block<br>8 D/K#<br>Character 7<br>Character 6<br>Character 5<br>Character 4<br>Character 3<br>Character 2<br>Character 1<br>Character 0<br>x1 Byte Striping 8 D/K#<br>Character 2<br>Character 1<br>Character 0<br>8 D/K#<br>To Scrambler<br>**----- End of picture text -----**
+<img src="figures/chapter_09_DLLP_Elements/page/page0370.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
 
 _图 11-9：x4 字节条带化_
 
-**==> picture [338 x 205] intentionally omitted <==**
-
-**----- Start of picture text -----**<br>
-Packet Dword Stream from Mux Block<br>D/K# D/K# D/K# D/K#<br>8 8 8 8<br>Character 12 Character 13 Character 14 Character 15<br>Character 8 Character 9 Character 10 Character 11<br>Character 4 Character 5 Character 6 Character 7<br>Character 0 Character 1 Character 2 Character 3<br>Character 12 Character 13 Character 14 Character 15<br>Character 16 Character 17 Character 11 Character 11<br>Character 8 Character 9 Character 7 Character 7<br>Character 0 Character 1 Character 3 Character 3<br>8 D/K# 8 D/K# 8 D/K# 8 D/K#<br>To Lane 0 To Lane 1 To Lane 2 To Lane 3<br>Scrambler Scrambler Scrambler Scrambler<br>**----- End of picture text -----**
+<img src="figures/chapter_09_DLLP_Elements/page/page0371.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
 
 **第 11 章：物理层 - 逻辑 (Gen1 和 Gen2)**
 
 _图 11-10：使用双字并行数据的 x8 字节条带化_
 
-**==> picture [368 x 240] intentionally omitted <==**
-
-**----- Start of picture text -----**<br>
-D/K# D/K# D/K# D/K#<br>8 8 8 8<br>Character 20 Character 21 Character 22 Character 23<br>Character 16 Character 17 Character 18 Character 19<br>Character 12 Character 13 Character 14 Character 15<br>Character 8 Character 9 Character 10 Character 11<br>Character 4 Character 5 Character 6 Character 7<br>Character 0 Character 1 Character 2 Character 3<br>x8 Byte Striping<br>Character 16 Character 17 Character 23<br>Character 8 Character 9 Character 15<br>Character 0 Character 1 Character 7<br>8 D/K# 8 D/K# 8<br>To Lane 0 To Lane 1 To Lane 7<br>Scrambler Scrambler Scrambler<br>**----- End of picture text -----**
+<img src="figures/chapter_09_DLLP_Elements/page/page0372.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
 
 ## **数据包格式规则**
@@ -732,10 +562,7 @@ D/K# D/K# D/K# D/K#<br>8 8 8 8<br>Character 20 Character 21 Character 22 Charact
 
 _图 11-11：x1 数据包格式_
 
-**==> picture [351 x 220] intentionally omitted <==**
-
-**----- Start of picture text -----**<br>
-Lane<br>0<br>STP COM STP STP<br>SKP<br>TLP SKP TLP<br>SKP<br>STP<br>TLP<br>END END<br>SDP SDP<br>DLLP TLP DLLP<br>END<br>Idle (00h)<br>Idle (00h)<br>Idle (00h)<br>END END END<br>Time<br>**----- End of picture text -----**
+<img src="figures/chapter_09_DLLP_Elements/page/page0373.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
 
 ## **x4 格式规则**
@@ -825,12 +652,12 @@ LFSR 以馈送数据字节的时钟频率的 8 倍频率进行计时，其输出
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
-<a id="sec-9-4"></a>
-## 9.4 DLLP Elements | DLLP 元素
+<a id="sec-9-3"></a>
+## 9.3 DLLP Elements | DLLP 元素
 
 <table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
@@ -862,10 +689,9 @@ The major disadvantage of 8b/10b encoding is the overhead it requires. The actua
 
 _Figure 11‐15: Example of 8‐bit Character 00h Encoding_ 
 
-**==> picture [224 x 112] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0374.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-8b Value<br>0 0 0 0 0 0 0 0<br>Data 00h<br>10b Encoded<br>0 11 0 0 0 1 0 1 1<br>Value<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Properties of 10-bit Symbols** 
@@ -902,10 +728,9 @@ The 8b/10b uses a special notation shorthand, and Figure 11‐16 on page 382 ill
 
 _Figure 11‐16: 8b/10b Nomenclature_ 
 
-**==> picture [348 x 211] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0375.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-8b Designation Example Data (6Ah)<br>D/<br>8b Character 7 6 5 4 3 2 1 0 D 01101010<br>K#<br>Partition into D/ H G F E D C B A<br>D 011 01010<br>sub-blocks K#<br>Flip sub-blocks K#D/ E D C B A H G F D 01010 011<br>Convert sub-blocks<br>to decimal notation D/K xx . y D 10 . 3<br>Final Notation D/Kxx.y D10.3<br>**----- End of picture text -----**<br>
+<br>
 
 ## **Disparity** 
 
@@ -925,10 +750,9 @@ An example 8b/10b block diagram is shown in Figure 11‐17 on page 384. A new ou
 
 _Figure 11‐17: 8‐bit to 10‐bit (8b/10b) Encoder_ 
 
-**==> picture [343 x 244] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0376.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Bytes from Scrambler D/K#<br>8b Character 7 6 5 4 3 2 1 0<br>H G F E D C B A<br>8b/10b Encoding Logic<br>Current<br>Running<br>Disparity<br>(CRD)<br>CRD Calculator j h g f i e d c b a<br>Serial Stream<br>Serializer j h g f i e d c b a to Transmitter<br>using Tx Clock<br>**----- End of picture text -----**<br>
+<br>
 
 _Figure 11‐18: Example 8b/10b Encodings_ 
 
@@ -1241,12 +1065,12 @@ _图 11-19：示例 8b/10b 传输_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
-<a id="sec-9-5"></a>
-## 9.5 DLLP Elements | DLLP 元素
+<a id="sec-9-4"></a>
+## 9.4 DLLP Elements | DLLP 元素
 
 <table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
@@ -1490,12 +1314,12 @@ _表 11-2：允许的发送器信号偏斜_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
-<a id="sec-9-6"></a>
-## 9.6 DLLP Elements | DLLP 元素
+<a id="sec-9-5"></a>
+## 9.5 DLLP Elements | DLLP 元素
 
 <table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
@@ -1514,10 +1338,9 @@ been sent. This case is handled by accumulating the SKIPs that should have gone 
 
 _Figure 11‐20: SKIP Ordered Set_ 
 
-**==> picture [128 x 93] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0377.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Encoding<br>COM K28.5<br>SKP K28.0<br>SKP K28.0<br>SKP K28.0<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Receive Logic Details (Gen1 and Gen2 Only)** 
@@ -1525,10 +1348,9 @@ Encoding<br>COM K28.5<br>SKP K28.0<br>SKP K28.0<br>SKP K28.0<br>**----- End of p
 Figure 11‐21 shows the receiver logic of the Logical Physical Layer. This section describes packet processing from the time the data is received serially on each lane until the packet byte stream is clocked into the Data Link Layer. 
 _Figure 11‐21: Physical Layer Receive Logic Details (Gen1 and Gen2 Only)_ 
 
-**==> picture [283 x 367] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0368.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-To Data Link Layer<br>Control<br>Receive<br>8<br>Rx<br>Buffer<br>8 Control<br>Start/End/Idle/Pad Character Removal and<br>Packet Alignment Check<br>8 D/K#<br>Lane 0 Byte Un-Striping Lane N<br>8 D/K# 8 D/K#<br>De-Scrambler De-Scrambler<br>8 D/K# 8 D/K#<br>Error 8b/10b Error 8b/10b<br>Detect Decoder Detect Decoder<br>Rx Local<br>10 PLL 10<br>Serial-to-Parallel Serial-to-Parallel<br>and Elastic Buffer and Elastic Buffer<br>Rx Clk Rx Clk<br>Rx Rx<br>Lane 0 Lane 1, ..,N-1 Lane N<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Differential Receiver** 
@@ -1539,10 +1361,9 @@ For a detailed discussion of receiver characteristics, see section “Receiver C
 
 _Figure 11‐22: Receiver Logic’s Front End Per Lane_ 
 
-**==> picture [372 x 217] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0369.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-10-bit Sym bols<br>Symbol<br>Lock<br>Lane<br>Serial-to-Parallel K28.5 Detection Elastic De-skew<br>Converter (Comma Symbol) Buffer Delay<br>10 Circuit 10<br>Differential<br>Input<br>Rx Local<br>Clock Clock<br>Control<br>D+<br>Rx Clock Local<br>Differential<br>Recovery Clock<br>D- Receiver Serial Bit PLL PLL<br>Stream<br>a b c d e f g h i j<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Rx Clock Recovery** 
@@ -1769,12 +1590,12 @@ COM 字符用于按如下方式实现字符锁定：
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
-<a id="sec-9-7"></a>
-## 9.7 DLLP Elements | DLLP 元素
+<a id="sec-9-6"></a>
+## 9.6 DLLP Elements | DLLP 元素
 
 <table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
@@ -1811,10 +1632,9 @@ An unambiguous pattern is needed on all lanes at the same time to perform de‐ 
 
 _Figure 11‐23: Receiver’s Link De‐Skew Logic_ 
 
-**==> picture [307 x 164] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0370.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-TS1/TS2 TS1/TS2<br>Lane 0 Rx FTS Delay FTS<br>(symbols)<br>TS1/TS2 TS1/TS2<br>Lane 1 Rx FTS Delay FTS<br>(symbols)<br>TS1/TS2 TS1/TS2<br>Lane 2 Rx FTS Delay FTS<br>(symbols)<br>TS1/TS2 TS1/TS2<br>Lane 3 Rx FTS Delay FTS<br>(symbols)<br>COM COM<br>COM COM<br>COM COM<br>COM COM<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **8b/10b Decoder** 
@@ -1850,10 +1670,9 @@ At the receiver a Symbol cannot have a disparity that doesn’t match what it sh
 
 _Figure 11‐24: 8b/10b Decoder per Lane_ 
 
-**==> picture [373 x 232] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0371.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Bytes to De-Scrambler D/K#<br>D/<br>7 6 5 4 3 2 1 0<br>K#<br>8b Character H G F E D C B A<br>To Error Reporting<br>8b/10b Look-Up Table For D Characters<br>8b/10b Look-Up Table For K Characters Current<br>Running<br>Disparity<br>(CRD)<br>CRD Calculator j h g f i e d c b a<br>10b Symbol<br>From Elastic Buffer<br>**----- End of picture text -----**<br>
+<br>
 
 
 _Figure 11‐25: Example of Delayed Disparity Error Detection_ 
@@ -1894,10 +1713,9 @@ By default, descrambling is always enabled, but the spec allows it to be disable
 Figure 11‐26 on page 403 shows eight character streams from the descramblers of a x8 Link being un‐striped into a single byte stream which is fed to the char‐ acter filter logic. 
 _Figure 11‐26: Example of x8 Byte Un‐Striping_ 
 
-**==> picture [354 x 225] intentionally omitted <==**
+<img src="figures/chapter_09_DLLP_Elements/page/page0372.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Packet byte stream from Multiplexer block<br>Data Stream D/K#<br>Character 0<br>Character 1<br>Character 2<br>Character 3<br>Character 4<br>Character 5<br>Character 6<br>Character 7<br>Byte Un-Striping<br>Character 0 Character 1 Character 7<br>Character 8 Character 9 Character 15<br>Character 16 Character 17 Character 23<br>From Lane 0 From Lane 1 From Lane 7<br>De-Scrambler De-Scrambler De-Scrambler<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Filter and Packet Alignment Check** 
@@ -2327,7 +2145,7 @@ UI UI UI<br>
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 

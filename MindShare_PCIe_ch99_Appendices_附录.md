@@ -239,7 +239,7 @@ _Figure A‐12: BitTracer View of Gen2 Traffic_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -458,7 +458,7 @@ _图 0-3：用于 HPC 应用程序的数据中心中的 PCIe_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -655,7 +655,7 @@ _图 0-1：使用透明桥的枚举_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -818,7 +818,7 @@ _Figure 0‐6: Dual Host in PCI and PCI Express System_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1102,7 +1102,7 @@ PCI Express 定义以下事务,它们共同充当虚拟连线并替代 LOCK# 信
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1399,7 +1399,7 @@ PCI Express/PCI 桥的要求类似于对交换机的要求,只是因为这些桥
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1610,7 +1610,7 @@ Native PCI Express Endpoints do not support lock. A PCI Express Endpoint must tr
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1808,7 +1808,7 @@ AtomicOp 150 AtomicOps 897, 974 Attention Button 854, 862 Attention Indicator 85
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1951,7 +1951,7 @@ Packet Format 151 Packet Generation 937 Packet-Based Protocol 169 Packet-based P
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 

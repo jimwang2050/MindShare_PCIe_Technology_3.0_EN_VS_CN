@@ -58,7 +58,7 @@ PCI 设备使用四个边带中断信号（INTA#、INTB#、INTC# 或 INTD#）之
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -76,10 +76,9 @@ PCI devices can optionally detect and report address and data phase parity error
 
 _Figure 1‐9: PCI Error Handling_ 
 
-**==> picture [376 x 229] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0100.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-NMI<br>Processor<br>FSB<br>Graphics<br>NorthNorthBridgBridge<br>(Intel 440(Intel 440 ) S DRAM<br>Address Port Data Port<br>PCI 33 MHz<br>Slots<br>CD HDD IDE PERR#<br>Error<br>South Bridge Logic<br>USB SERR#<br>ISA<br>Ethernet SCSI<br>Boot Modem Audio Super<br>ROM Chip Chip I/O<br>COM1<br>COM2<br>**----- End of picture text -----**<br>
+<br>
 
 However, it’s a different matter if a parity error is detected during the address phase. In this case the address was corrupted and the wrong target may have recognized the address. There’s no way to tell what the corrupted address became or what devices on the bus did in response to it, so there’s also no sim‐ 
 ple recovery. As a result, errors of this type result in the assertion of the SERR# (system error) pin, which typically results in a call to the system error handler. In older machines, this would often halt the system as a precaution, resulting in the “blue screen of death.” 
@@ -128,7 +127,7 @@ COM2<br>
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -150,10 +149,9 @@ Since an x86 CPU cannot access configuration space directly, it must do so indi�
 
 _Figure 1‐10: Address Space Mapping_ 
 
-**==> picture [372 x 258] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0101.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Memory Map<br>4GB / 16 EB<br>PCI PCI<br>Memory Configuration<br>AGP Video Space<br>16MB<br>PCI<br>Memory<br>DRAM Boundary<br>Extended IO Map<br>Memory 64KB<br>1MB<br>Boot ROM<br>PCI IO<br>Expansion ROM Space<br>Legacy Video<br>640KB Data Port CFCh-CFFh<br>Conventional Address Port CF8h-CFBh<br>256B<br>Memory 1KB 256B<br>Legacy IO 256B<br>**----- End of picture text -----**<br>
+<br>
 
 </td>
 <td style="background-color:#e8e8e8">
@@ -172,15 +170,14 @@ Memory Map<br>4GB / 16 EB<br>PCI PCI<br>Memory Configuration<br>AGP Video Space<
 
 7 _Figure 1-10: Address Space Mapping_ 
 
-8 **==> picture [372 x 258] intentionally omitted <==** 
+8 <img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0102.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-9 **----- Start of picture text -----**<br>
-10 内存映射<br>4GB / 16 EB<br>PCI PCI<br>内存 配置<br>AGP 视频 空间<br>16MB<br>PCI<br>内存<br>DRAM 边界<br>扩展 IO 映射<br>内存 64KB<br>1MB<br>引导 ROM<br>PCI IO<br>扩展 ROM 空间<br>遗留视频<br>640KB 数据端口 CFCh-CFFh<br>常规 地址端口 CF8h-CFBh<br>256B<br>内存 1KB 256B<br>遗留 IO 256B<br>**----- End of picture text -----**<br>
+<br>
 
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -201,10 +198,9 @@ Step 2: The CPU generates either an IO read or IO write to the Data Port at loca
 
 _Figure 1‐11: Configuration Address Register_ 
 
-**==> picture [374 x 162] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0103.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-0CFBh 0CFAh 0CF9h 0CF8h<br>31 30 24 23 16 15 11 10 8 7 2 1 0<br>Reserved Bus Device Function Doubleword 0 0<br>Number Number Number<br>Register pointer (64 DW)<br>Should always be zeros<br>Enable Configuration Space Mapping<br>1 = enabled<br>**----- End of picture text -----**<br>
+<br>
 
 </td>
 <td style="background-color:#e8e8e8">
@@ -221,16 +217,14 @@ _Figure 1‐11: Configuration Address Register_
 
 _图 1-11：配置地址寄存器_ 
 
-**==> picture [374 x 162] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0104.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-0CFBh 0CFAh 0CF9h 0CF8h<br>31 30 24 23 16 15 11 10 8 7 2 1 0<br>保留 总线号 设备号 功能号 双字 0 0<br>Number Number Number<br>寄存器指针（64 DW）<br>应始终为零<br>使能配置空间映射<br>1 = 使能<br>
-**----- End of picture text -----**<br>
+<br>
 
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -260,7 +254,7 @@ There are two basic classes of PCI functions as defined by their header types. A
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -276,16 +270,14 @@ There are two basic classes of PCI functions as defined by their header types. A
 
 _Figure 1‐12: PCI Configuration Header Type 1 (Bridge)_ 
 
-**==> picture [362 x 265] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0105.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Type 1 Header<br>Primary Bus 31 23 15 7 0<br>Device ID Vendor ID 00h<br>Configuration Status Command 04h<br>Registers<br>Class Code Rev 08h<br>Header ID<br>BIST Header Latency Cache 0Ch<br>Type Timer Line Size<br>Base Address 0 (BAR0) 10h<br>Base Address 1 (BAR1) 14h<br>Bridge Function Secondary Subordinate Secondary Primary 18h<br>Lat Timer Bus # Bus # Bus #<br>SecondaryStatus LimitIO BaseIO 1Ch<br>Secondary Bus (Non-Prefetchable)Memory Limit (Non-Prefetchable)Memory Base 20h<br>Memory LimitPrefetchable Memory BasePrefetchable 24h<br>Prefetchable Memory Base 28h<br>Upper 32 Bits<br>Prefetchable Memory LimitUpper 32 Bits 2Ch<br>IO Limit IO Base<br>Upper 16 Bits Upper 16 Bits 30h<br>Reserved Capability 34h<br>Pointer<br>Expansion ROM Base Address 38h<br>ControlBridge InterruptPin InterruptLine 3Ch<br>**----- End of picture text -----**<br>
+<br>
 _Figure 1‐13: PCI Configuration Header Type 0 (not a Bridge)_ 
 
-**==> picture [350 x 264] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0106.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Type 0 Header<br>31 23 15 7 0<br>Device ID Vendor ID 00h<br>Configuration Status Command 04h<br>Registers<br>Class Code Rev 08h<br>Header ID<br>BIST Header Latency Cache 0Ch<br>Type Timer Line Size<br>Base Address 0 (BAR0) 10h<br>Base Address 1 (BAR1) 14h<br>Device Base Address 2 (BAR2) 18h<br>Base Address 3 (BAR3) 1Ch<br>Base Address 4 (BAR4) 20h<br>Base Address 5 (BAR5) 24h<br>CardBus CIS Pointer 28h<br>SubsystemDevice ID SubsystemVendor ID 2Ch<br>Expansion ROM Base Address 30h<br>Reserved Capability 34h<br>Pointer<br>Reserved 38h<br>Max Lat Min Gnt InterruptPin InterruptLine 3Ch<br>**----- End of picture text -----**<br>
+<br>
 
 Details of the configuration register space and the enumeration process are described later. For now we simply want you to become familiar with the big picture of how all the parts fit together.
 
@@ -296,26 +288,24 @@ Details of the configuration register space and the enumeration process are desc
 
 _图 1‐12：PCI 配置头类型 1（桥）_
 
-**==> picture [362 x 265] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0107.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-类型 1 头<br>主总线 31 23 15 7 0<br>设备 ID 供应商 ID 00h<br>配置 状态 命令 04h<br>寄存器<br>类代码 修订版 08h<br>头 ID<br>BIST 头 延迟 缓存 0Ch<br>类型 定时器 行大小<br>基址 0 (BAR0) 10h<br>基址 1 (BAR1) 14h<br>桥功能 副总线 从属总线 主总线 18h<br>延迟定时器 编号 # 编号 # 编号 #<br>副状态 限值 基址 1Ch<br>副总线（非预取）内存限值（非预取）内存基址 20h<br>内存限值 可预取内存基址 可预取 24h<br>可预取内存基址 28h<br>上限 32 位<br>可预取内存限值 上限 32 位 2Ch<br>IO 限值 IO 基址<br>上限 16 位 上限 16 位 30h<br>保留 能力 34h<br>指针<br>扩展 ROM 基址 38h<br>控制 桥 中断引脚 中断线 3Ch<br>**----- End of picture text -----**<br>
+<br>
 
 **第 1 章：背景**
 
 _图 1‐13：PCI 配置头类型 0（非桥）_
 
-**==> picture [350 x 264] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0108.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-类型 0 头<br>31 23 15 7 0<br>设备 ID 供应商 ID 00h<br>配置 状态 命令 04h<br>寄存器<br>类代码 修订版 08h<br>头 ID<br>BIST 头 延迟 缓存 0Ch<br>类型 定时器 行大小<br>基址 0 (BAR0) 10h<br>基址 1 (BAR1) 14h<br>设备基址 2 (BAR2) 18h<br>基址 3 (BAR3) 1Ch<br>基址 4 (BAR4) 20h<br>基址 5 (BAR5) 24h<br>CardBus CIS 指针 28h<br>子系统设备 ID 子系统供应商 ID 2Ch<br>扩展 ROM 基址 30h<br>保留 能力 34h<br>指针<br>保留 38h<br>最大延迟 最小授权 中断引脚 中断线 3Ch<br>**----- End of picture text -----**<br>
+<br>
 
 配置寄存器空间的详细内容和枚举过程将在后面描述。现在，我们只是想让你熟悉所有这些部分如何组合在一起的全局概览。
 
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -341,7 +331,7 @@ To support higher bandwidth, the PCI specification was updated to support both w
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -357,10 +347,9 @@ To support higher bandwidth, the PCI specification was updated to support both w
 
 _Figure 1‐14: 66 MHz PCI Bus Based Platform_ 
 
-**==> picture [384 x 260] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0109.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Processor Processor<br>FSB<br>AGP<br>4x<br>GFX<br>RDRAM<br>Memory Controller Hub<br>P64H (Intel 860 MCH)<br>Slot PCI-66MHz Hub Link RDRAM<br>P64H<br>Hub Link Slots<br>IDE<br>PCI-33MHz<br>CD HDD<br>USB 2.0 IO Controller Hub<br>(ICH2) IEEE SCSI<br>LPC 1394<br>Super AC’97<br>IO Link<br>COM1 Modem Audio Boot<br>COM2 Codec Codec Ethernet ROM<br>**----- End of picture text -----**<br>
+<br>
 
 </td>
 <td style="background-color:#e8e8e8">
@@ -377,7 +366,7 @@ _图 1-14：基于 66 MHz PCI 总线的平台_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -404,7 +393,7 @@ While the throughput of the bus was doubled at this speed relative to the 33 MHz
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -434,7 +423,7 @@ The PCI‐X bus introduced in the next section takes the approach of registering
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -464,7 +453,7 @@ To achieve higher speeds without changing the PCI signaling model, PCI‐X added
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -484,10 +473,9 @@ bridge supports two PCI‐X buses that can run at frequencies up to 133MHz. The 
 
 _Figure 1‐15: 66 MHz/133 MHz PCI‐X Bus Based Platform_ 
 
-**==> picture [374 x 250] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0110.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Processor Processor<br>FSB<br>PCI-X<br>P64H2<br>DDR SDRAM<br>Hub Link 2<br>Memory Controller Hub<br>P64H2 (Intel 7500 MCH) DDR SDRAM<br>Hub Link 2<br>P64H2<br>64-bit,<br>66MHz or 100MHz or 133MHz<br>Hub Link 1<br>IDE<br>Slots<br>USB IO Controller Hub PCI-33MHz<br>(ICH3)<br>LPC<br>IEEE<br>SCSI<br>AC’97 1394<br>Link<br>Boot<br>Ethernet ROM<br>**----- End of picture text -----**<br>
+<br>
 
 </td>
 <td style="background-color:#e8e8e8">
@@ -500,15 +488,14 @@ Processor Processor<br>FSB<br>PCI-X<br>P64H2<br>DDR SDRAM<br>Hub Link 2<br>Memor
 
 _图 1-15：基于 66 MHz/133 MHz PCI-X 总线的平台_
 
-**==> picture [374 x 250] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0111.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Processor Processor<br>FSB<br>PCI-X<br>P64H2<br>DDR SDRAM<br>Hub Link 2<br>Memory Controller Hub<br>P64H2 (Intel 7500 MCH) DDR SDRAM<br>Hub Link 2<br>P64H2<br>64-bit,<br>66MHz or 100MHz or 133MHz<br>Hub Link 1<br>IDE<br>Slots<br>USB IO Controller Hub PCI-33MHz<br>(ICH3)<br>LPC<br>IEEE<br>SCSI<br>AC'97 1394<br>Link<br>Boot<br>Ethernet ROM<br>**----- End of picture text -----**<br>
+<br>
 
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -525,10 +512,9 @@ Processor Processor<br>FSB<br>PCI-X<br>P64H2<br>DDR SDRAM<br>Hub Link 2<br>Memor
 Figure 1‐16 on page 33 shows an example of a PCI‐X burst memory read trans‐ action. Note that PCI‐X does not allow Wait States after the first data phase. This is possible because the transfer size is now provided to the target device in the Attribute phase of the transaction, so the target devices knows exactly what is going to be required of him. In addition, most PCI‐X bus cycles are bursts and data is generally transferred in blocks of 128 Bytes. These features allow for more efficient bus utilization and device buffer management. 
 _Figure 1‐16: Example PCI‐X Burst Memory Read Bus Cycle_ 
 
-**==> picture [386 x 221] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0112.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Idle<br>AddressPhase AttributePhase ResponsePhase PhaseData PhaseData PhaseData PhaseData TurnaroundCycle<br>1 2 3 4<br>1 2 3 4 5 6 7 8 9 10<br>CLK<br>FRAME#<br>AD[31:0] Address ATTR Data-0 Data-1 Data-2 Data-3<br>C/BE#[3:0] Cmd ATTR<br>IRDY#<br>TRDY#<br>DEVSEL# DecodeA<br>Next tolast<br>transfer<br>**----- End of picture text -----**<br>
+<br>
 
 </td>
 <td style="background-color:#e8e8e8">
@@ -541,15 +527,14 @@ Idle<br>AddressPhase AttributePhase ResponsePhase PhaseData PhaseData PhaseData 
 
 _图 1‐16：PCI‐X 突发内存读总线周期示例_
 
-**==> picture [386 x 221] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0113.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Idle（空闲）<br>Address Phase（地址相位）Attribute Phase（属性相位）Response Phase（响应相位）Data Phase（数据相位）Data Phase（数据相位）Data Phase（数据相位）Data Phase（数据相位）Turnaround Cycle（转向周期）<br>1 2 3 4<br>1 2 3 4 5 6 7 8 9 10<br>CLK<br>FRAME#<br>AD[31:0] Address（地址） ATTR Data-0 Data-1 Data-2 Data-3<br>C/BE#[3:0] Cmd ATTR<br>IRDY#<br>TRDY#<br>DEVSEL# DecodeA<br>Next to last transfer（倒数第二次传输）<br>**----- End of picture text -----**<br>
+<br>
 
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -571,7 +556,7 @@ Idle（空闲）<br>Address Phase（地址相位）Attribute Phase（属性相�
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -601,7 +586,7 @@ PCI‐X 总线使用分割事务 (Split Transaction) 来处理这些情况,如�
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -623,10 +608,9 @@ These protocol enhancements made to the PCI‐X bus architecture described so fa
 
 _Figure 1‐17: PCI‐X Split Transaction Protocol_ 
 
-**==> picture [364 x 153] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0114.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-1. Requester initiates<br>read transaction 2. Completer unable to<br>return data immediately<br>4. Completer issues 3. Completer<br>split response<br>Requester Completer memorizes<br> transaction<br>5. Later, Completer initiates split completion<br>bus cycle to return read data<br>**----- End of picture text -----**<br>
+<br>
 
 </td>
 <td style="background-color:#e8e8e8">
@@ -641,15 +625,14 @@ These protocol enhancements made to the PCI‐X bus architecture described so fa
 
 _Figure 1‐17: PCI‐X Split Transaction Protocol_ 
 
-**==> picture [364 x 153] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0115.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-1. Requester initiates<br>read transaction 2. Completer unable to<br>return data immediately<br>4. Completer issues 3. Completer<br>split response<br>Requester Completer memorizes<br> transaction<br>5. Later, Completer initiates split completion<br>bus cycle to return read data<br>**----- End of picture text -----**<br>
+<br>
 
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -680,7 +663,7 @@ PCI‐X 设备要求具备 MSI（消息信号中断，Message Signaled Interrupt
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -716,7 +699,7 @@ Finally, PCI‐X also added another phase to the beginning of each transaction c
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -738,7 +721,7 @@ Finally, PCI‐X also added another phase to the beginning of each transaction c
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -756,10 +739,9 @@ An issue that becomes clear when trying to migrate a bus like PCI to higher spee
 
 _Figure 1‐18: Inherent Problems in a Parallel Design_ 
 
-**==> picture [383 x 203] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0116.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Flight Time<br>Transmitter<br>Receiver<br>Incorrect<br>Transmission<br>Media sampling<br>due to skew<br>Common Clock Common Clock<br>**----- End of picture text -----**<br>
+<br>
 
 The first issue to note is signal skew. When multiple data bits are sent at once, they experience slightly different delays and arrive at slightly different times at the receiver. If that difference is too large, incorrect signal sampling with clock may occur at the receiver as shown in the diagram. A second issue is clock skew between multiple devices. The arrival time of the common clock at one device is not precisely the same as the arrival time at the other which further reduces the timing budget. Finally, a third issue relates to the time it takes for the signal to 
 propagate from a transmitter to a receiver, called the flight time. The clock period or timing budget must be greater than the signal flight time. To ensure this, the board design is required to implement signal traces that are short enough such that signal propagation delays are smaller than the clock period. In many board designs, this short signal traces may not be realistic enough to design for. 
@@ -775,18 +757,9 @@ To further improve performance in spite of these limitations, a couple of tech�
 
 _图 1-18:并行设计中的固有问题_
 
-**==> picture [383 x 203] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0117.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-飞行时间<br>
-发送器<br>
-接收器<br>
-错误的<br>
-传输<br>
-由于偏斜导致<br>
-的介质采样<br>
-共同时钟 共同时钟<br>
-**----- End of picture text -----**<br>
+<br>
 
 首先需要注意的问题是信号偏斜(Signal Skew)。当多个数据位同时发送时,它们经历的延迟略有不同,到达接收器的时间也略有差异。如果这种差异过大,如图所示,接收器处可能发生错误的时钟采样。第二个问题是多个设备之间的时钟偏斜。共同时钟到达一个设备的时刻与到达另一个设备的时刻并不精确相同,这进一步减少了时间预算。第三个问题涉及信号从发送器传播到接收器所需的时间,称为飞行时间(Flight Time)。时钟周期或时间预算必须大于信号飞行时间。为确保这一点,板级设计需要实现足够短的信号走线,使信号传播延迟小于时钟周期。在许多板级设计中,这种短信号走线在设计时可能并不现实。
 
@@ -797,7 +770,7 @@ _图 1-18:并行设计中的固有问题_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -831,7 +804,7 @@ PCI‐X 2.0 进一步提升了 PCI‐X 的带宽。与以往一样，设备和�
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -849,10 +822,9 @@ Since it was recognized that this would be an expensive solution that would appe
 
 _Figure 1‐19: Source‐Synchronous Clocking Model_ 
 
-**==> picture [374 x 172] intentionally omitted <==**
+<img src="figures/chapter_02_PCIe_Architecture_Overview/page/page0118.png" alt="Figure 1‐9: PCI Error Handling" width="700">
 
-**----- Start of picture text -----**<br>
-Data<br>D Q<br>Data<br>D Q<br>Data<br>D Q<br>Strobe<br>Source Device Receiving Device<br>**----- End of picture text -----**<br>
+<br>
 
 Despite the improvements in bandwidth, efficiency and reliability that came with PCI‐X (2.0), the parallel bus model was approaching its end of life and a new model was needed to address the relentless demand for higher bandwidth and lower cost. The new model chosen was a serial interface which is a drasti‐ cally different bus from a physical perspective, but was still made to be software backwards compatible. We know this new model as PCI Express. 
 
@@ -876,7 +848,7 @@ _图 1‐19:源同步时钟模型_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -898,7 +870,7 @@ _图 1‐19:源同步时钟模型_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -924,7 +896,7 @@ The previous chapter provided historical background to establish a foundation fo
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -950,7 +922,7 @@ This chapter provides a thorough introduction to the PCI Express architecture an
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -976,7 +948,7 @@ The next chapter provides an introduction to configuration in the PCI Express en
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 

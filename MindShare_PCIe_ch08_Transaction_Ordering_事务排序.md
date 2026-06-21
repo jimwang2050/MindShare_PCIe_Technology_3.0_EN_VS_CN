@@ -24,10 +24,7 @@
 <tbody><tr>
 <td>
 
-Device A Device B<br>Device Core Device Core<br>PCI-XP Core PCI-XP Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>Transaction Layer Transaction Layer<br>Data Link Layer Data Link Layer<br>Physical Layer Physical Layer<br>(RX) (TX) (RX) (TX)<br>Framing C Framing<br>DLLP R<br>(SDP) C (END)<br>+0 +1 +2 +3<br>7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>Byte 0 DLLP Type (Fields Vary With DLLP Type)<br>Byte 4 16 Bit CRC<br>**----- End of picture text -----**<br>
-
-
-## **DLLP Packet Size is Fixed at 8 Bytes** 
+Device A Device B<br>Device Core Device Core<br>PCI-XP Core PCI-XP Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>Transaction Layer Transaction Layer<br>Data Link Layer Data Link Layer<br>Physical Layer Physical Layer<br>(RX) (TX) (RX) (TX)<br>Framing C Framing<br>DLLP R<br>(SDP) C (END)<br>+0 +1 +2 +3<br>7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>Byte 0 DLLP Type (Fields Vary With DLLP Type)<br>Byte 4 16 Bit CRC<br>## **DLLP Packet Size is Fixed at 8 Bytes** 
 
 Data Link Layer Packets are always 8 bytes long for both 8b/10b and 128b/130b and consist of the following components: 
 
@@ -345,7 +342,7 @@ Memory, I/O, Configuration R/W Requests or Message Requests or Completions<br>(S
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -535,7 +532,7 @@ Transaction Layer (TX) Block TLPs; Report<br>DLL protocol error<br>Yes<br>No<br>
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -881,7 +878,7 @@ Receive Buffer 4094 Good TLP<br>Device A Device B<br>Data Link Layer NEXT_TRANSM
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1118,7 +1115,7 @@ Transaction Layer (RX)<br>Increment NRS Good TLPs<br>NEXT_RCV_SEQ (NRS) Seq Num 
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1376,7 +1373,7 @@ _图 10-14：处理错误的 Ack_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1921,7 +1918,7 @@ _图 11-7：使用起始和结束控制字符的 TLP 和 DLLP 报文成帧_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 

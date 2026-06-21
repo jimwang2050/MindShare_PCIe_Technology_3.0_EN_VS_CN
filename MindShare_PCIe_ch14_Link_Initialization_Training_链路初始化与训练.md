@@ -465,7 +465,7 @@ _退出至 "Rx_L0s.Idle"_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -718,7 +718,7 @@ _退出到"Phase 3 上游端口"_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1114,7 +1114,7 @@ _退出到"Rx_L0s.Idle"_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1415,7 +1415,7 @@ _Figure 14-43: L2 状态机_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1687,7 +1687,7 @@ _Figure 14-44: Loopback 状态机_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1982,7 +1982,7 @@ _图 14‐44：回环状态机_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -2223,7 +2223,7 @@ _Figure 14-64: 标记活动 Lane_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -2564,7 +2564,7 @@ Link Control 寄存器如图 14-71(第 644 页)所示,其中有三个字段对�
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -2883,7 +2883,7 @@ PCIe 通过使用旧版配置寄存器中的错误状态位来记录与 PCI 相�
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -3247,7 +3247,7 @@ _Table 15-1: 完成代码和描述_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -3653,7 +3653,7 @@ _Table 15-1: 完成代码和描述_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -3893,7 +3893,7 @@ _表 15‐1：完成代码及其描述_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -4089,9 +4089,6 @@ _图 15-8：Device Control Register 2_
 
 **==> 图片 [152 x 122] 已省略 <==**
 
-**----- Start of picture text -----**<br>
-3 oO 0000b = 50µs - 50ms<br>0001b = 50µs - 100µs<br>A<br>0010b = 1ms - 10ms<br>EK of<br>0101b = 16ms - 55ms<br>B<br>0110b = 65ms - 210ms<br>1001b = 260ms - 900ms<br>C<br>1010b = 1s - 3.5s<br>1100b = 4s - 13s<br>D<br>[ 1110b = 17s - 64s<br>高位<br>选择范围<br>**----- End of picture text -----**<br>
-
 
 如果请求需要多个完成才能返回所请求的数据，单个完成不会停止计时器。相反，计时器会持续运行，直到所有数据都已返回，无论需要多少个完成。如果在超时时仅返回了部分数据，Requester 可以丢弃或保留这些数据。
 
@@ -4215,16 +4212,13 @@ _表 15-2：错误消息代码与描述_
 
 **==> 图片 [389 x 479] 已省略 <==**
 
-**----- Start of picture text -----**<br>
-Message<br>Name Description<br>Code<br>30h ERR_COR 设备检测到可纠正错误。这是由硬件自动<br>纠正的，不需要软件干预。但是，无论如<br>何报告它们都可能会有所帮助，这样软件<br>可以观察趋势，例如越来越多的可纠正错误。<br>31h ERR_NONFATAL 指示不可纠正的 Non-Fatal 错误。没有可<br>用的硬件纠正机制，但链路仍然可靠地工作。<br>将需要软件关注以解决该问题。<br>33h ERR_FATAL 指示不可纠正的 Fatal 错误。没有可用的硬<br>件纠正机制，且链路操作在某些重要方面已<br>失败。将需要软件关注，并且可能需要至少<br>重置一个设备才能解决此问题。<br>图 15-9：错误消息格式<br>+0 +1 +2 +3<br>7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0 7 6 5 4 3 2 1 0<br>Byte 0 Fmt Type R TC R At R T T E Attr AT Length<br>0 0 1 1 0 0 0 0 tr H D P<br>Message Code<br>Byte 4 Requester ID Tag<br>(30h, 31h or 33h)<br>Byte 8 错误消息保留<br>Byte 12 错误消息保留<br>路由到根复合体 30h = ERR_COR<br>31h = ERR_NONFATAL<br>33h = ERR_FATAL<br>**----- End of picture text -----**<br>
-
 
 ## **建议性非致命错误 (Advisory Non-Fatal Errors)**
 
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -4343,16 +4337,10 @@ _图 15-11：基于角色的错误报告示例_
 
 **==> 图片 [230 x 219] 已省略 <==**
 
-**----- Start of picture text -----**<br>
-CPU<br>Root Complex<br>Poisoned<br>Packet<br>ERR_COR<br>PCIe<br>PCIe Switch Endpoint<br>Endpoint<br>PCIe Legacy<br>Endpoint Endpoint<br>**----- End of picture text -----**<br>
-
 
 _图 15-12：Advanced Source ID Register_
 
 **==> 图片 [333 x 77] 已省略 <==**
-
-**----- Start of picture text -----**<br>
-Error Source Identification Register<br>of the AER Capability Structure<br>31 0<br>ERR_FATAL/NONFATAL Source ID ERR_COR Source ID<br>(ROS) (ROS)<br>ROS: Read-Only and Sticky<br>**----- End of picture text -----**<br>
 
 
 **第 15 章：错误检测与处理**
@@ -4403,9 +4391,6 @@ _图 15-13：配置头中的 Command 寄存器_
 
 **==> 图片 [390 x 396] 已省略 <==**
 
-**----- Start of picture text -----**<br>
-15 11 10 9 8 7 6 5 4 3 2 1 0<br>Reserved 0 0 0 0 0<br>Interrupt Disable<br>Fast Back-to-back Enable *<br>SERR# Enable<br>Stepping Control *<br>Parity Error Response<br>VGA Palette Snoop Enable *<br>Mem Write & Invalidate Enable *<br>Special Cycles *<br>Bus Master Enable<br>Memory Space Enable<br>IO Space Enable<br>* PCIe 中未使用，这些位必须设置为零<br>表 15-3：Command 寄存器中与错误相关的字段<br>Name Description<br>SERR# Enable 设置此位可启用向根复合体发送 ERR_FATAL 和 ERR_NONFATAL<br>错误消息。这些大致类似于在 PCI 中断言系统错误 (SERR#) 信号。<br>对于 Type 1 标头（桥），此位控制从辅助接口到主要接口的<br>ERR_FATAL 和 ERR_NONFATAL 错误消息的转发。<br>此字段不影响 ERR_COR 消息。<br>**----- End of picture text -----**<br>
-
 
 _表 15-3：Command 寄存器中与错误相关的字段（续）_
 
@@ -4419,9 +4404,6 @@ _表 15-3：Command 寄存器中与错误相关的字段（续）_
 _图 15-14：配置头中的 Status 寄存器_
 
 **==> 图片 [304 x 220] 已省略 <==**
-
-**----- Start of picture text -----**<br>
-15 14 13 12 11 10 9 8 7 6 5 4 3 2 0<br>0 0 0 R 0 1 Reserved<br>Interrupt Status<br>Capabilities List**<br>66 MHz Capable*<br>Reserved<br>Fast Back-to-back Capable*<br>Master Data Parity Error<br>DEVSEL Timing*<br>Signalled Target Abort<br>Received Target Abort<br>Received Master Abort<br>Signalled System Error<br>Detected Parity Error<br>* PCIe 中未使用，这些位必须设置为零<br>** 必须设置为 1，因为需要某些能力寄存器<br>**----- End of picture text -----**<br>
 
 
 **第 15 章：错误检测与处理**
@@ -4453,9 +4435,6 @@ _表 15-4：Status 寄存器中与错误相关的字段_
 _图 15-15：PCI Express Capability 结构_
 
 **==> 图片 [336 x 315] 已省略 <==**
-
-**----- Start of picture text -----**<br>
-31 15 7 0<br>PCI Express Capabilities Register Next Cap Pointer PCI ExpressCap ID DW0<br>Device Capabilities Register DW1<br>Device Status Device Control DW2<br>{<br>Link Capabilities DW3<br>Link Status Link Control DW4<br>{<br>Slot Capabilities DW5<br>Slot Status Slot Control DW6<br>{<br>Root Capability Root Control DW7<br>Root Status DW8<br>{<br>{<br>Device Capabilities 2 DW9<br>Device Status 2 Device Control 2 DW10<br>{<br>Link Capabilities 2 DW11<br>Link Status 2 Link Control 2 DW12<br>{<br>Slot Capabilities 2 DW13<br>Slot Status 2 Slot Control 2 DW14<br>{<br>仅 Gen2 及更高版本的设备<br>ks Pstro<br>niL ll<br>h A<br>Solst tiswe<br>h<br>ti civ<br>w e<br>str str D<br>o o r<br>P P x o<br>t tc<br>Roo elpmo Cello<br>C t<br>t n<br>o e<br>o v<br>R E<br>ks Pstro<br>niL llA<br>h<br>Solst tiswe<br>h<br>ti civ<br>w e<br>str D<br>o<br>P<br>**----- End of picture text -----**<br>
 
 
 ## **启用/禁用错误报告 (Enabling/Disabling Error Reporting)**
@@ -4525,9 +4504,6 @@ _图 15-16：与错误处理相关的 Device Control 寄存器字段_
 
 **==> 图片 [357 x 231] 已省略 <==**
 
-**----- Start of picture text -----**<br>
-15 14 12 11 10 9 8 7 5 4 3 2 1 0<br>Bridge Config. Retry Enable/<br>Initiate Function-Level Reset<br>Max Read Request Size<br>Enable No Snoop<br>Aux Power PM Enable<br>Phantom Functions Enable<br>Extended Tag Field Enable<br>Max Payload Size<br>Enable Relaxed Ordering<br>Unsupported Request<br>Reporting Enable<br>Fatal Error Reporting Enable<br>Non-Fatal Error<br>Reporting Enable<br>Correctable Error<br>Reporting Enable<br>**----- End of picture text -----**<br>
-
 
 **Device Status Register.** 每当检测到与其分类关联的错误时，Device Status 寄存器（如图 15-17 在第 682 页所示）中的错误状态位即被设置，无论 Device Control 寄存器中错误报告启用位的设置如何。由于 Unsupported Request 错误被视为 Non-Fatal 错误，因此当这些错误发生时，_Non-Fatal Error Detected_ 状态位和 _Unsupported Request Detected_ 状态位都将被设置。与其他几个状态位一样，这些是"粘性的"（Sticky）（其值不会通过重置事件清除，因此即使需要重置才能使链路正常工作以读取状态，它们也可用于诊断问题）。
 
@@ -4535,16 +4511,13 @@ _图 15-17：与错误处理相关的 Device Status 寄存器位字段_
 
 **==> 图片 [337 x 160] 已省略 <==**
 
-**----- Start of picture text -----**<br>
-15 6 5 4 3 2 1 0<br>RsvdZ<br>Transactions Pending<br>Aux Power Detected<br>Unsupported Request Detected<br>Fatal Error Detected<br>Non-Fatal Error Detected<br>Correctable Error Detected<br>**----- End of picture text -----**<br>
-
 
 ## **根对错误消息的响应 (Root's Response to Error Message)**
 
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -4556,10 +4529,7 @@ _图 15-17：与错误处理相关的 Device Status 寄存器位字段_
 <tbody><tr>
 <td>
 
-15 11 10 9 8 7 6 5 4 3 2 1 0<br>Reserved 0 0 0 0 0<br>Interrupt Disable<br>Fast Back-to-back Enable *<br>SERR# Enable<br>Stepping Control *<br>Parity Error Response<br>VGA Palette Snoop Enable *<br>Mem Write & Invalidate Enable *<br>Special Cycles *<br>Bus Master Enable<br>Memory Space Enable<br>IO Space Enable<br>* Not used in PCIe, these must be set to zero<br>Table 15‐3: Error‐Related Fields in Command Register<br>Name Description<br>SERR# Enable Setting this bit enables sending ERR_FATAL and ERR_NONFATAL<br>error messages to the Root Complex. These are considered roughly<br>analogous to asserting the System Error (SERR#) signal in PCI.<br>For Type 1 headers (bridges), this bit controls the forwarding of<br>ERR_FATAL and ERR_NONFATAL error messages from the sec‐<br>ondary interface to the primary interface.<br>This field has no affect over ERR_COR messages.<br>**----- End of picture text -----**<br>
-
-
-_Table 15‐3: Error‐Related Fields in Command Register (Continued)_ 
+15 11 10 9 8 7 6 5 4 3 2 1 0<br>Reserved 0 0 0 0 0<br>Interrupt Disable<br>Fast Back-to-back Enable *<br>SERR# Enable<br>Stepping Control *<br>Parity Error Response<br>VGA Palette Snoop Enable *<br>Mem Write & Invalidate Enable *<br>Special Cycles *<br>Bus Master Enable<br>Memory Space Enable<br>IO Space Enable<br>* Not used in PCIe, these must be set to zero<br>Table 15‐3: Error‐Related Fields in Command Register<br>Name Description<br>SERR# Enable Setting this bit enables sending ERR_FATAL and ERR_NONFATAL<br>error messages to the Root Complex. These are considered roughly<br>analogous to asserting the System Error (SERR#) signal in PCI.<br>For Type 1 headers (bridges), this bit controls the forwarding of<br>ERR_FATAL and ERR_NONFATAL error messages from the sec‐<br>ondary interface to the primary interface.<br>This field has no affect over ERR_COR messages.<br>_Table 15‐3: Error‐Related Fields in Command Register (Continued)_ 
 
 |**Name**|**Description**|
 |---|---|
@@ -4693,9 +4663,6 @@ _图 15-18：Root Control 寄存器_
 
 **==> 图片 [313 x 142] 已省略 <==**
 
-**----- Start of picture text -----**<br>
-15 5 4 3 2 1 0<br>RsvdP<br>CRS Software Visibility Enable<br>PME Interrupt Enable<br>System Error on Fatal Error Enable<br>System Error on Non-Fatal Error Enable<br>System Error on Correctable Error Enable<br>**----- End of picture text -----**<br>
-
 
 ## **链路错误 (Link Errors)**
 
@@ -4705,9 +4672,6 @@ _图 15-19：Link Control 寄存器 — 强制链路重新训练_
 
 **==> 图片 [297 x 260] 已省略 <==**
 
-**----- Start of picture text -----**<br>
-15 12 11 10 9 8 7 6 5 4 3 2 1 0<br>RsvdP<br>Link Autonomous Bandwidth<br>Interrupt Enable<br>Link Bandwidth Management<br>Interrupt Enable<br>Hardware Autonomous<br>Width Disable<br>Enable Clock<br>Power Management<br>Extended Synch<br>Common Clock<br>Configuration<br>Retrain Link<br>Link Disable<br>Read Completion<br>Boundary Control<br>RsvdP<br>Active State<br>PM Control<br>**----- End of picture text -----**<br>
-
 
 一旦请求重新训练后，软件可以轮询 Link Status 寄存器中的 _Link Training_ 位以查看训练何时完成。图 15-20 突出显示此状态位。当此位为 1b 时，链路仍处于重新训练过程中（或尚未开始重新训练）。一旦物理层报告链路处于活动状态（意味着训练过程已成功完成），硬件将清除此位。
 
@@ -4716,9 +4680,6 @@ _图 15-19：Link Control 寄存器 — 强制链路重新训练_
 _图 15-20：Link Status 寄存器中的链路训练状态_
 
 **==> 图片 [360 x 167] 已省略 <==**
-
-**----- Start of picture text -----**<br>
-15 14 13 12 11 10 9 4 3 0<br>Link Autonomous<br>Bandwidth Status<br>Link Bandwidth<br>Management Status<br>Data Link Layer<br>Link Active<br>Slot Clock<br>Configuration<br>Link Training<br>Undefined<br>Negotiated<br>Link Width<br>Current Link Speed<br>**----- End of picture text -----**<br>
 
 
 ## **高级错误报告 (AER, Advanced Error Reporting)**
@@ -4822,7 +4783,7 @@ _图 15-23：Advanced Correctable Error Status 寄存器_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -4984,9 +4945,6 @@ _图 15-24：Advanced Correctable Error Mask 寄存器_
 
 **==> 图片 [353 x 173] 已省略 <==**
 
-**----- Start of picture text -----**<br>
-31 16 15 14 13 12 11 9 8 7 6 5 1 0<br>RsvdP RsvdP RsvdP<br>Header Log Overflow Mask<br>Corrected Internal Error Mask<br>Advisory Non-Fatal Error Mask<br>Replay Timer Timeout Mask<br>REPLAY_NUM Rollover Mask<br>Bad DLLP Mask<br>Bad TLP Mask<br>Receiver Error Mask<br>注意：所有位被指定为 RWS<br>**----- End of picture text -----**<br>
-
 
 **第 15 章：错误检测与处理**
 
@@ -5001,9 +4959,6 @@ _图 15-24：Advanced Correctable Error Mask 寄存器_
 _图 15-25：Advanced Uncorrectable Error Status 寄存器_
 
 **==> 图片 [366 x 184] 已省略 <==**
-
-**----- Start of picture text -----**<br>
-31 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 6 5 4 3 1 0<br>RsvdZ RsvdZ RsvdZ<br>TLP Prefix Blocked Error Status<br>Atomic Op Egress Blocked Status Undefined<br>MC Blocked TLP Status<br> Uncorrectable Internal Error Status<br>ACS Violation Status<br>Data Link<br>Unsupported Request Error Status Protocol<br>ECRC Error Status Error Status<br>Malformed TLP Status<br>Surprise Down<br>Receiver Overflow Status Error Status<br>Unexpected Completion Status<br>Completer Abort Status<br>Completion Timeout Status<br>Flow Control Protocol Error Status<br>Poisoned TLP Status<br>注意：所有位被指定为 RW1CS<br>**----- End of picture text -----**<br>
 
 
 以下列表从右到左描述了每个寄存器位：
@@ -5060,9 +5015,6 @@ _图 15-26：Advanced Uncorrectable Error Severity 寄存器_
 
 **==> 图片 [376 x 183] 已省略 <==**
 
-**----- Start of picture text -----**<br>
-31 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 6 5 4 3 1 0<br>RsvdP 0 0 0 1 0 0 0 1 1 0 0 0 1 0 RsvdP 1 1 RsvdP x<br>TLP Prefix Blocked Error Severity<br>Atomic Op Egress Blocked Severity Undefined<br>MC Blocked TLP Severity<br> Uncorrectable Internal Error Severity Data Link<br>ACS Violation Severity Protocol Error<br>Unsupported Request Error Severity<br>Severity<br>ECRC Error Severity<br>Malformed TLP Severity Surprise Down<br>Receiver Overflow Severity Error Severity<br>Unexpected Completion Severity<br>Completer Abort Severity<br>Completion Timeout Severity<br>Flow Control Protocol Error Severity<br>Poisoned TLP Severity<br>注意：所有位被指定为 RWS<br>**----- End of picture text -----**<br>
-
 
 ## **不可纠正错误屏蔽 (Uncorrectable Error Masking)**
 
@@ -5072,9 +5024,6 @@ _图 15-27：Advanced Uncorrectable Error Mask 寄存器_
 
 **==> 图片 [369 x 187] 已省略 <==**
 
-**----- Start of picture text -----**<br>
-31 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 6 5 4 3 1 0<br>RsvdP RsvdP RsvdP<br>TLP Prefix Blocked Error Mask<br>Atomic Op Egress Blocked Mask Undefined<br>MC Blocked TLP Mask<br> Uncorrectable Internal Error Mask<br>ACS Violation Mask<br>Data Link<br>Unsupported Request Error Mask Protocol<br>ECRC Error Mask Error Mask<br>Malformed TLP Mask<br>Surprise Down<br>Receiver Overflow Mask Error Mask<br>Unexpected Completion Mask<br>Completer Abort Mask<br>Completion Timeout Mask<br>Flow Control Protocol Error Mask<br>Poisoned TLP Mask<br>注意：所有位被指定为 RWS<br>**----- End of picture text -----**<br>
-
 
 **第 15 章：错误检测与处理**
 
@@ -5083,7 +5032,7 @@ _图 15-27：Advanced Uncorrectable Error Mask 寄存器_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -5252,9 +5201,6 @@ _图 15-28：Root Error Status 寄存器_
 
 **==> 图片 [327 x 143] 已省略 <==**
 
-**----- Start of picture text -----**<br>
-31 27 26 7 6 5 4 3 2 1 0<br>RsvdZ<br>Advanced Error Interrupt Message Number (RO)<br>Fatal Error Messages Received<br>Non-Fatal Error Messages Received<br>RW1CS First Uncorrectable Fatal<br>Multiple ERR_FATAL/NONFATAL Received<br>ERR_FATAL/NONFATAL Received<br>Multiple ERR_COR Received<br>ERR_COR Received<br>**----- End of picture text -----**<br>
-
 
 最后，可能已（在 Root Error Command 寄存器中）启用中断以作为检测到这些事件之一的结果发送到主机系统。为了支持这一点，此寄存器中的 5 位 Interrupt Message Number 提供了要使用的 MSI 或 MSI-X 向量号，共有 32 种可能。对于 MSI，该号是距基本数据模式的偏移。对于 MSI-X，它表示要使用的表条目，并且必须是前 32 个中的一个，即使代理支持超过 32 个。此只读值由硬件设置，并且必须在分配给设备的 MSI 消息数更改时自动更新。
 
@@ -5266,9 +5212,6 @@ _图 15-29：Advanced Source ID 寄存器_
 
 **==> 图片 [327 x 47] 已省略 <==**
 
-**----- Start of picture text -----**<br>
-31 0<br>ERR_FATAL/NONFATAL Source ID ERR_COR Source ID<br>(ROS) (ROS)<br>ROS: Read-Only and Sticky<br>**----- End of picture text -----**<br>
-
 
 ## **根错误命令寄存器 (Root Error Command Register)**
 
@@ -5277,9 +5220,6 @@ _图 15-29：Advanced Source ID 寄存器_
 _图 15-30：Advanced Root Error Command 寄存器_
 
 **==> 图片 [332 x 93] 已省略 <==**
-
-**----- Start of picture text -----**<br>
-31 3 2 1 0<br>RsvdP<br>Fatal Error Reporting Enable<br>Non-Fatal Error Reporting Enable<br>Correctable Error Reporting Enable<br>注意：所有位被指定为 RW<br>**----- End of picture text -----**<br>
 
 
 ## **错误记录和报告摘要 (Summary of Error Logging and Reporting)**
@@ -5291,9 +5231,6 @@ _图 15-30：Advanced Root Error Command 寄存器_
 _图 15-31：函数内错误处理流程图_
 
 **==> 图片 [327 x 391] 已省略 <==**
-
-**----- Start of picture text -----**<br>
-Error Detected<br>Uncorrectable Error Type? Correctable<br>Determine severity using<br> Uncorrectable Error Severity Register<br>Advisory Yes AER Yes<br>Non-Fatal Error? Implemented?<br>No No<br>Set Fatal/NonFatal Error Detected bit Set Correctable Error Detected bit<br>in Device Status Reg Done in Device Status Reg<br>If UR, set Unsupported Request If UR, set Unsupported Request<br> Detected bit in Device Status Reg Detected bit in Device Status Reg<br>Advanced Set corresponding bit in<br>Uncorrectable Error Status RegSet corresponding bit in Error Correctable Error Status Reg<br>Reporting<br>Only Is error masked in Yes<br>Correctable Error Mask<br>Masked in Yes Register?<br>Uncorrectable Error Mask<br> Register? No Done<br>No Done 1) Set Uncorrectable Error status bit, andIf Advisory Non-Fatal Error:<br>header, and update prefix and header As appropriate, record prefix and reporting fields and registers 2) If not masked by Uncorrectable mask,header, and update prefix and header as appropriate, record prefix and reporting fields and registers<br>both SERR and UR ReportingUR Error anddisabled? Yes UR Reporting disabled?UR error and Yes<br>No Done No Done<br>Fatal Non-Fatal<br>Severity?<br>SERR enabled or No SERR enabled or No Correctable Reporting No<br>Fatal Error Reporting Non-Fatal Error Reporting Enabled?<br>Enabled? Enabled?<br>Yes Done Yes Done Yes Done<br>Send ERR_FATAL Send ERR_NONFATAL Send ERR_COR<br>Done Done Done<br>**----- End of picture text -----**<br>
 
 
 ## **软件错误调查的示例流程 (Example Flow of Software Error Investigation)**
@@ -5325,7 +5262,7 @@ _图 15-32：错误调查示例系统_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 <a id="sec-14-18"></a>
@@ -5443,9 +5380,6 @@ _Figure 15‐32: Error Investigation Example System_
 
 **==> 图片 [379 x 417] 已省略 <==**
 
-**----- Start of picture text -----**<br>
-AER Capability Structure<br>Extended Capability Header<br>00 01 00 01<br>Uncorrectable Error Status<br>00 00 00 00<br>Uncorrectable Error Mask<br>00 06 20 11<br>Uncorrectable Error Severity<br>Correctable Error Status00 00 20 00 CPU<br>00 00 20 00<br>Correctable Error Mask<br>00 00 00 06<br>Advanced Error Capability and Control00 00 00 00 Root Complex MemorySystem<br>Header Log - 1st DW00 00 00 00 P2P (DRAM)<br>Header Log - 2nd DW 0:28:0<br>00 00 00 00<br>Header Log - 3rd DW<br>00 00 00 00<br>Header Log - 4th DW<br>00 00 00 00<br>Root Error Command 2:0:0<br>00 00 00 06 Switch<br>Root Error Status P2P AER Capability Structure<br>08 00 00 7C<br>Error Source ID Extended Capability Header<br>05 00 00 00 14 01 00 01<br>3:0:0 3:5:0 Uncorrectable Error Status<br>00 04 10 00<br>Uncorrectable Error Mask<br>AER Capability Structure 00 00 00 00<br>Uncorrectable Error Severity<br>Extended Capability Header 00 06 20 11<br>14 01 00 01 Correctable Error Status<br>Uncorrectable Error Status 00 00 00 01<br>00 10 80 00 Correctable Error Mask<br>Uncorrectable Error Mask 4:0:0 5:0:0 00 00 20 00<br>00 00 00 00 Advanced Error Capability and Control<br>Uncorrectable Error Severity 00 00 00 12<br>00 16 20 11 PCIe PCIe Header Log - 1st DW<br>Correctable Error Status 60 00 80 80<br>00 00 00 40 Endpoint Endpoint Header Log - 2nd DW<br>Correctable Error Mask 00 00 04 FF<br>00 00 20 00 Header Log - 3rd DW<br>Advanced Error Capability and Control FB 80 10 00<br>00 00 00 0F Header Log - 4th DW<br>Header Log - 1st DW 00 00 00 01<br>00 00 00 80<br>Header Log - 2nd DW<br>0A 00 0C FF<br>Header Log - 3rd DW<br>FB 80 10 00<br>Header Log - 4th DW<br>00 00 00 00<br>P2P P2P<br>**----- End of picture text -----**<br>
-
 
 6. 现在错误处理程序知道 5:0:0 处的第一个不可纠正错误是 Malformed TLP，它可以检查 Header Log 寄存器以查看格式错误的数据包的标头，因为这是记录标头的错误之一。在读取 Header Log 寄存器时，它找到以下四个双字：
 
@@ -5525,7 +5459,7 @@ _表 16-1：PC PM 中涉及的主要软件/硬件元素_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 

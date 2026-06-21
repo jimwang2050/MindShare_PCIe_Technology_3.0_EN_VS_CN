@@ -36,10 +36,9 @@ The electrical sub‐block associated with each lane, as shown in Figure 13‐1 
 
 _Figure 13‐1: Electrical Sub‐Block of the Physical Layer_ 
 
-**==> picture [367 x 241] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0422.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Physical Layer Physical Layer<br>Tx Rx Tx Rx<br>Logical Logical<br>Tx Rx Tx Rx<br>Electrical Electrical<br>Link<br>Tx+ Tx- Rx+ Rx- CTX Tx- Tx+ Rx- Rx+<br>CTX<br>**----- End of picture text -----**<br>
+<br>
 
 
 When the Link is in the L0 full‐on state, the drivers apply the differential volt‐ age associated with a logical 1 and logical 0 while maintaining the correct DC common mode voltage. Receivers sense this voltage as the input stream, but if it drops below a threshold value, it’s understood to represent the Electrical Idle Link condition. Electrical Idle is entered when the Link is disabled, or when ASPM logic puts the Link into low‐power Link states such as L0s or L1 (see “Electrical Idle” on page 736 for more on this topic). 
@@ -57,20 +56,18 @@ A design goal for the 3.0 spec revision was that the 8.0 GT/s rate should still 
 
 _Figure 13‐2: Differential Transmitter/Receiver_ 
 
-**==> picture [384 x 191] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0423.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Detect<br>Logic<br>D+ CTX ZTX D+<br>+<br>Lane in<br>Transmitter one Receiver<br>CTX ZTX direction<br>-<br>D- D-<br>ZTX ZTX ZRX ZRX<br>VRX-CM = 0 V<br>VCM<br>VTX-CM = 0 - 3.6 V<br>ZTX = ZRX = 50 Ohms +/- 20%<br>CTX = 75 - 265 nF (Gen1 & Gen2)<br>= 176 - 265 nF (Gen3)<br>No Spec<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **PCI Express Technology** 
 
 _Figure 13‐3: Differential Common‐Mode Noise Rejection_ 
 
-**==> picture [374 x 246] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0424.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-D+<br>D-<br>Reference voltage shift<br>Differential<br>voltage remains<br>+ Differential the same<br>voltage<br>Tx Rx<br>- +<br>0 V 0 V<br>-<br>Single-<br>ended<br>voltage Single-ended<br>voltage changes<br>Transient Noise<br>Tx Rx<br>+ +<br>Vcm Vcm<br>- -<br>Differential<br>voltage<br>remains same<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Clock Requirements** 
@@ -96,25 +93,22 @@ The use of SCC is not required by the spec but, if will be supported, the follow
 
 _Figure 13‐4: SSC Motivation_ 
 
-**==> picture [324 x 211] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0425.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-EMI Power Threshold<br> Ordinary Signal<br>Spread-Spectrum<br>Signal<br>range = 0.5%<br>Signal<br>Frequency<br>Frequency (GHz)<br>Emitted Power (dB)<br>**----- End of picture text -----**<br>
+<br>
 
 
 _Figure 13‐5: Signal Rate Less Than Half the Clock Rate_ 
 
-**==> picture [384 x 120] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0426.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Signal on<br>the wire<br>Tx Clock<br>**----- End of picture text -----**<br>
+<br>
 
 _Figure 13‐6: SSC Modulation Example_ 
 
-**==> picture [274 x 147] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0427.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-nominal<br>nominal - 0.5%<br>Time<br>modulation modulation<br>period/2 period<br>Frequency<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Refclk Overview** 
@@ -139,10 +133,9 @@ When the 5.0 GT/s rate was developed, the spec writers chose to include the Refc
 
 _Figure 13‐7: Shared Refclk Architecture_ 
 
-**==> picture [374 x 138] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0428.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-+<br>Tx Lane in Rx<br>Register Tx directionone Rx Register<br>-<br>CDR<br>PLL<br>PLL<br>Refclk<br>**----- End of picture text -----**<br>
+<br>
 
 
 **Data Clocked Rx Architecture.** In this clock architecture, the Receiver doesn’t use a reference clock at all, but simply recovers the Transmitter clock from the data stream, as shown in Figure 13‐9 on page 457. This implementation is clearly the simplest of the three and would therefore ordinarily be preferred. The spec doesn’t prohibit the use of SSC in this model, but doing so would bring up two issues. First, the Receiver CDR must remain locked onto the input frequency as it modulates through a much wider range (5600 ppm instead of the usual 600 ppm), and that could require more complex logic. And second, the maximum clock frequency separation of 600ppm must still be maintained and it’s less clear how that would be done without a common reference. 
@@ -339,7 +332,7 @@ V-<br>
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -352,20 +345,18 @@ V-<br>
 <td>
 _Figure 13‐8: Data Clocked Rx Architecture_ 
 
-**==> picture [374 x 92] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0429.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-+<br>Tx Lane in Rx<br>Register Tx directionone Rx Register<br>-<br>CDR<br>PLL<br>Refclk<br>**----- End of picture text -----**<br>
+<br>
 
 
 **Separate Refclks.** Finally, it’s also possible for the Link partners to use dif‐ ferent reference clocks, as shown in Figure 13‐9 on page 457. However, this implementation makes substantially tighter demands on the Refclks because the jitter seen at the Receiver will be the RSS (Root Sum of Squares) combination of them both, making the timing budget difficult. It also becomes enormously more difficult to manage SSC in this model and that’s why the spec states that SSC must be turned off in this case. Overall, the spec gives the impression that this is the least desirable alternative, and states that it doesn’t explicitly define the requirements for this architecture. 
 
 _Figure 13‐9: Separate Refclk Architecture_ 
 
-**==> picture [374 x 109] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0430.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-+<br>Tx Lane in Rx<br>Register Tx directionone Rx Register<br>-<br>CDR<br>PLL<br>Refclk 1 PLL<br>Refclk 2<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **8.0 GT/s** 
@@ -382,10 +373,9 @@ Since the breakout channel introduces some effects to the signal, for 8.0 GT/s i
 
 _Figure 13‐10: Test Circuit Measurement Channels_ 
 
-**==> picture [294 x 159] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0431.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-DUT<br>TP1<br>Breakout Channel<br>Low-Jitter<br>Clock Source<br>Replica Channel<br>TP2 TP3<br>**----- End of picture text -----**<br>
+<br>
 
 ## **Tx Impedance Requirements** 
 
@@ -426,10 +416,9 @@ but mentions that future spec revisions may. Therefore, it would be wise to incl
 
 _Figure 13‐11: Receiver Detection Mechanism_ 
 
-**==> picture [370 x 380] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0432.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Detect<br>Logic Receiver Present<br>D+ CTX ZTX => Long Charge time D+<br>+<br>Lane in<br>Transmitter one Receiver<br>CTX ZTX direction<br>-<br>D- D-<br>ZTX ZTX ZRX ZRX<br>VRX-CM = 0 V<br>VCM<br>Detect<br>Logic<br>Receiver Absent<br>D+ CTX => Short Charge time<br>Transmitter<br>CTX<br>D-<br>ZTX ZTX<br>VCM<br>No Spec<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Transmitter Voltages** 
@@ -463,10 +452,9 @@ Receiver must be able to sense an attenuated version of the signal, defined as V
 
 _Figure 13‐12: Differential Signaling_ 
 
-**==> picture [301 x 145] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0433.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-V+<br>D+<br>V<br>cm<br>Receiver subtracts<br>D- from D+ value to<br>arrive at differential<br>D- voltage.<br>V<br>cm<br>V-<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Differential Notation**
@@ -611,7 +599,7 @@ PCI Express 要求在线 AC 耦合电容器放置在每个通道上，通常靠�
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -635,10 +623,9 @@ As an example, assume VCM = 0 V, then if the D+ value is 300mV and the D‐ valu
 
 _Figure 13‐13: Differential Peak‐to‐Peak (_ VDIFFp‐p _) and Peak (_ VDIFFp _) Voltages_ 
 
-**==> picture [327 x 127] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0434.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-D+<br>V VDIFFp VDIFFp<br>CMp (Logical 1) (Logical 0)<br>D-<br>0 V<br>VDIFFp-p = 2 * max | VD+ - VD- | = VDIFFp (Logical 1) + VDIFFp (Logical 0)<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Reduced-Swing Differential Voltage** 
@@ -660,10 +647,9 @@ It’s important to note that this field is only intended for debug and complian
 
 _Figure 13‐14: Transmit Margin Field in Link Control 2 Register_ 
 
-**==> picture [355 x 211] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0435.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Link Control 2 Register<br>15 12 11 10 9 7 6 5 4 3 0<br>Compliance Preset/<br>De-emphasis<br>Compliance SOS<br>Enter Modified Compliance<br>Transmit Margin<br>Selectable De-emphasis<br>Hardware Autonomous<br>Speed Disable<br>Enter Compliance<br>Target Link Speed<br>**----- End of picture text -----**<br>
+<br>
 
 
 For 8.0 GT/s, transmitters are required to implement voltage margining and use the same field in the Link Control 2 register, but equalization adds some con‐ straints to the options because it can’t require finer coefficient or preset resolu‐ tion than the 1/24 resolution defined for normal operation. 
@@ -685,10 +671,9 @@ The drawing in Figure 13‐15 on page 467 also shows an optional set of resistor
 
 _Figure 13‐15: Receiver DC Common‐Mode Voltage Adjustment_ 
 
-**==> picture [384 x 273] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0436.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Small Big<br>Ratio of resistors<br>Big sets DC common<br>mode voltage<br>Small Big<br>Detect Big<br>Logic<br>D+ CTX ZTX D+<br>+<br>Lane in<br>Transmitter one Receiver<br>CTX ZTX direction<br>-<br>D- D-<br>ZTX ZTX ZRX ZRX<br>VRX-CM = 0 V<br>VCM<br>No Spec<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Transmission Loss** 
@@ -731,10 +716,7 @@ De‐emphasis reduces the voltage for repeated bits in a bit stream. Although it
 
 _图 13-13：差分峰峰值 ( VDIFFp‐p ) 和峰值 ( VDIFFp ) 电压_
 
-**==> picture [327 x 127] intentionally omitted <==**
-
-**----- Start of picture text -----**<br>
-D+<br>V VDIFFp VDIFFp<br>CMp (Logical 1) (Logical 0)<br>D-<br>0 V<br>VDIFFp-p = 2 * max | VD+ - VD- | = VDIFFp (Logical 1) + VDIFFp (Logical 0)<br>**----- End of picture text -----**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0437.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
 
 ## **低摆幅差分电压**
@@ -759,10 +741,7 @@ D+<br>V VDIFFp VDIFFp<br>CMp (Logical 1) (Logical 0)<br>D-<br>0 V<br>VDIFFp-p = 
 
 _图 13-14：链路控制 2 寄存器中的发送裕量字段_
 
-**==> picture [355 x 211] intentionally omitted <==**
-
-**----- Start of picture text -----**<br>
-Link Control 2 Register<br>15 12 11 10 9 7 6 5 4 3 0<br>Compliance Preset/<br>De-emphasis<br>Compliance SOS<br>Enter Modified Compliance<br>Transmit Margin<br>Selectable De-emphasis<br>Hardware Autonomous<br>Speed Disable<br>Enter Compliance<br>Target Link Speed<br>**----- End of picture text -----**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0438.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
 
 **PCI Express 技术**
@@ -789,10 +768,7 @@ Link Control 2 Register<br>15 12 11 10 9 7 6 5 4 3 0<br>Compliance Preset/<br>De
 
 _图 13-15：接收器直流共模电压调整_
 
-**==> picture [384 x 273] intentionally omitted <==**
-
-**----- Start of picture text -----**<br>
-Small Big<br>Ratio of resistors<br>Big sets DC common<br>mode voltage<br>Small Big<br>Detect Big<br>Logic<br>D+ CTX ZTX D+<br>+<br>Lane in<br>Transmitter one Receiver<br>CTX ZTX direction<br>-<br>D- D-<br>ZTX ZTX ZRX ZRX<br>VRX-CM = 0 V<br>VCM<br>No Spec<br>**----- End of picture text -----**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0439.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
 
 **PCI Express 技术**
@@ -826,7 +802,7 @@ PCI Express 要求在每个 Lane 上放置内联交流耦合电容器 (in‐line
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -850,10 +826,9 @@ PCI Express 要求在每个 Lane 上放置内联交流耦合电容器 (in‐line
 
 _Figure 13‐16: Transmission with De‐emphasis_ 
 
-**==> picture [377 x 159] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0440.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-De-emphasized Voltage Level<br>1 0 0 0 0 1 0 0 0 0<br>1.3V<br>3.5 dB<br>1.225 D-<br>De-emphasized<br>VTX-DIFFp VTX-DIFFp VTX-CMp<br>=600mV =450mV =1 V<br>0.775 D+<br>3.5 dB<br>0.7 V<br>1 UI = 400 ps<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Solution for 2.5 GT/s** 
@@ -865,20 +840,18 @@ An example of the benefit of de‐emphasis is shown in Figure 13‐17 on page 47
 In the lower half of the illustration, a de‐emphasized version of the signal is cap‐ tured and compared to the original. Here we can see that reducing the voltage for repeated bits prevents the voltage from charging up as much and results in a cleaner signal because the bits that follow are not influenced as much by the previous bits. For both the 2 consecutive bits and then the 5 consecutive bits, the over‐charging problem is reduced, which improves the timing jitter as well as the voltage levels. Consequently, the troublesome bit looks much better with de‐ emphasis turned on and the received signal approaches the normal voltage swing in that bit time. 
 _Figure 13‐17: Benefit of De‐emphasis at the Receiver_ 
 
-**==> picture [358 x 283] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0441.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-5 bits in a row<br>Without De [-] Emphasis<br>With De-Emphasis<br>**----- End of picture text -----**<br>
+<br>
 
 
 In Figure 13‐18 on page 472 both positive and negative versions of the differen‐ tial signal are shown so as to illustrate the resulting eye opening. The improved signal quality from de‐emphasis is clear because the eye opening at the trouble‐ some time in the lower trace is so much larger than the one without de‐empha‐ sis in the upper trace. 
 
 _Figure 13‐18: Benefit of De‐emphasis at Receiver Shown With Differential Signals_ 
 
-**==> picture [357 x 241] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0442.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Without De [-] Emphasis<br>With De-Emphasis<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Solution for 5.0 GT/s** 
@@ -890,20 +863,18 @@ As one might expect, increasing data rates exacerbates the problem of ISI becaus
 2. When running at 5.0 GT/s speed, ‐6.0 dB de‐emphasis is recommended, while the use of ‐3.5 dB is optional. ‐6.0 dB de‐emphasis level is intended to compensate for the greater signal attenuation at higher frequency. As Fig‐ ure 13‐19 on page 473 suggests, a 3.5 dB reduction represents a 33% reduc‐ tion in voltage, while a 6 dB reduction represents a 50% reduction. To avoid a possible confusion, note that the dB measure of power and voltage are dif‐ ferent by a factor of two. A 3 dB reduction represents a 50% change in power but only a 25% change in voltage. 
 _Figure 13‐19: De‐emphasis Options for 5.0 GT/s_ 
 
-**==> picture [288 x 188] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0443.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-2.5 GT/s 3.5 dB<br>de-emphasis<br>5.0 GT/s 6.0 dB<br>de-emphasis<br>**----- End of picture text -----**<br>
+<br>
 
 
 3. Normally, a Transmitter operates in the full‐swing mode and can use the entire available voltage range to help overcome signal attenuation. The volt‐ age needs to start out at a higher value to compensate for the loss, as shown in the top half of Figure 13‐20 on page 474. However, for 5.0 GT/s another option is provided called reduced‐swing mode. This is intended to support short, low‐loss signaling environments, as shown in the lower half of Figure 13‐20 on page 474, and reduces the voltage swing by about half to save power. This mode also provides the third de‐emphasis option by turning off de‐emphasis entirely, which makes sense because, as mentioned earlier, the signal distortion it creates would not be reduced by loss in the path and the resulting signal at the Receiver would look worse. 
 
 _Figure 13‐20: Reduced‐Swing Option for 5.0 GT/s with No De‐emphasis_ 
 
-**==> picture [376 x 206] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0444.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Full Swing (high transmission amplitude)<br>Tx<br>Transmitter Receiver<br>Long path<br>Rx<br>+ +<br>_<br>_<br>Reduced Swing (low transmission amplitude)<br>Short path<br>Transmitter Receiver Tx<br>Rx<br>+ +<br>_<br>_<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Solution for 8.0 GT/s - Transmitter Equalization** 
@@ -919,10 +890,9 @@ To accomplish better wave shaping at the Transmitter, the spec requires the use 
 
 _Figure 13‐21: 3‐Tap Tx Equalizer_ 
 
-**==> picture [371 x 157] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0445.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-� Output<br>Tap (-1) Tap (0) Tap (+1)<br>C C C<br>-1 0 +1<br>Input<br>1 UI delay 1 UI delay<br>**----- End of picture text -----**<br>
+<br>
 
 
 With this in mind, the three inputs can be described by their timing position as “pre‐cursor” for C‐1, “cursor” for C0, and “post‐cursor” for C+1, which combine to create an output based on the upcoming input, the current value, and the pre‐ vious value. Adjusting the coefficients for the taps allows the output wave to be optimally shaped. This effect is illustrated by the pulse‐response waveform shown in Figure 13‐22 on page 476. Looking at a single pulse allows the adjust‐ ment to the signal to be more easily recognized. 
@@ -931,10 +901,9 @@ The filter shapes the output according to the coefficient values (or tap weights
 
 _Figure 13‐22: Tx 3‐Tap Equalizer Shaping of an Output Pulse_ 
 
-**==> picture [294 x 270] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0446.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-V<br>Unmodified Signal<br>t<br>UI UI UI UI<br>Cursor<br>V<br>Pre-cursor<br>Post-cursor<br>reduction<br>reduction<br>Equalized Signal<br>t<br>UI UI UI UI<br>Cursor<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Pre-shoot, De-emphasis, and Boost** 
@@ -1184,7 +1153,7 @@ PCIe 提供多种调试功能，包括：
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1212,10 +1181,9 @@ This scheme is backward‐compatible with the 2.5 and 5.0 GT/s model that only u
 
 _Figure 13‐23: 8.0 GT/s Tx Voltage Levels_ 
 
-**==> picture [366 x 226] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0447.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
- 1 0 1 0 0 1 1 1 1 1 0 1 0 1 0 1<br>Va Vb Vc Vd<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Presets and Ratios** 
@@ -1296,10 +1264,9 @@ Finally, the bottom trace shows the result of summing all three inputs to arrive
 
 _Figure 13‐24: Tx 3‐Tap Equalizer Output_ 
 
-**==> picture [383 x 269] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0448.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Weighted<br>Pre-Cursor<br>(C-1)<br>Weighted 1 0 1 0 0 1 1 1 1 1 0<br>Cursor (C0)<br>Weighted<br>Post-Cursor<br>(C+1)<br>Vd (0.7 + (-0.1) + (-0.2))<br>= 0.4<br>Vc<br>Va<br>Vb<br>Output<br>(C0 + C-1 + C+1) Vc<br>Va<br>Vd (-0.7 + (-0.1) + (0.2)) Vd<br>= - 0.6<br>(-0.7 + (0.1) + (-0.2))<br>(-0.7 + (-0.1) + (-0.2)) = - 0.8<br>= -1.0<br>**----- End of picture text -----**<br>
+<br>
 
 The coefficient presets are exchanged before the Link changes to 8.0 GT/s, and then they may be updated during the Link equalization process (see “Recovery.Equalization” on page 587 for more details).
 
@@ -1322,10 +1289,9 @@ The coefficient presets are exchanged before the Link changes to 8.0 GT/s, and t
 
 _图 13‐23：8.0 GT/s 发送器电压电平_
 
-**==> picture [366 x 226] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0449.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
- 1 0 1 0 0 1 1 1 1 1 0 1 0 1 0 1<br>Va Vb Vc Vd<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **预设和比率**
@@ -1411,10 +1377,9 @@ P7 系数会产生什么电压？假设以满摆幅电压 Vd 作为起点，根�
 
 _图 13‐24：发送器 3 抽头均衡器输出_
 
-**==> picture [383 x 269] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0450.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Weighted<br>Pre-Cursor<br>(C-1)<br>Weighted 1 0 1 0 0 1 1 1 1 1 0<br>Cursor (C0)<br>Weighted<br>Post-Cursor<br>(C+1)<br>Vd (0.7 + (-0.1) + (-0.2))<br>= 0.4<br>Vc<br>Va<br>Vb<br>Output<br>(C0 + C-1 + C+1) Vc<br>Va<br>Vd (-0.7 + (-0.1) + (0.2)) Vd<br>= - 0.6<br>(-0.7 + (0.1) + (-0.2))<br>(-0.7 + (-0.1) + (-0.2)) = - 0.8<br>= -1.0<br>**----- End of picture text -----**<br>
+<br>
 
 
 **第 13 章：物理层 - 电气**
@@ -1424,7 +1389,7 @@ Weighted<br>Pre-Cursor<br>(C-1)<br>Weighted 1 0 1 0 0 1 1 1 1 1 0<br>Cursor (C0)
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1448,10 +1413,9 @@ De‐emphasis is also applied to the Beacon signal, so a discussion about the Be
 
 _Figure 13‐25: Example Beacon Signal_ 
 
-**==> picture [262 x 151] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0451.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-V<br>t<br>**----- End of picture text -----**<br>
+<br>
 
 
 While a Link is in L2 power state, its main power source and clock are turned off but an auxiliary voltage source (Vaux) keeps a small part of the device work‐ ing, including the wake‐up logic. To signal a wake‐up event, a downstream device can drive the Beacon upstream to start the L2 exit sequence. A switch or bridge receiving a Beacon on its Downstream Port must forward notification upstream by sending the Beacon on its Upstream Port or by asserting the WAKE# pin. See “WAKE#” on page 773. 
@@ -1503,10 +1467,9 @@ An ideal trace capture would paint an eye pattern that matched the outline shown
 
 _Figure 13‐26: Transmitter Eye Diagram_ 
 
-**==> picture [354 x 259] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0452.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Overshoot<br>Normal<br>Minimum Eye<br>De-emphasized Eye<br>Eye Opening<br>Normal<br>Undershoot<br>Jitter Jitter<br>TTX-EYE<br>UI = Unit Interval<br>TX-DIFF-p-MAX TX-DIFFp-MIN<br>V V<br>**----- End of picture text -----**<br>
+<br>
 
 ## **Effects of Jitter** 
 
@@ -1571,10 +1534,9 @@ _Table 13‐3: Transmitter Specs (Continued)_
 
 _图 13‐25：信标信号示例_
 
-**==> picture [262 x 151] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0453.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-V<br>t<br>**----- End of picture text -----**<br>
+<br>
 
 
 当链路处于 L2 电源状态时，其主电源和时钟被关闭，但辅助电压源 (Vaux) 保持设备的一小部分继续工作，包括唤醒逻辑。为了发出唤醒事件，下游设备可以向上游驱动信标以启动 L2 退出序列。在下游端口上接收到信标的交换机或桥必须通过在上游端口上发送信标或断言 WAKE# 引脚来将通知向上游转发。参见第 773 页 "WAKE#"。
@@ -1629,10 +1591,9 @@ _先前测量的波形之上。为了增强合成图像的解释，数字示波�
 
 _图 13‐26：发送器眼图_
 
-**==> picture [354 x 259] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0454.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Overshoot<br>Normal<br>Minimum Eye<br>De-emphasized Eye<br>Eye Opening<br>Normal<br>Undershoot<br>Jitter Jitter<br>TTX-EYE<br>UI = Unit Interval<br>TX-DIFF-p-MAX TX-DIFFp-MIN<br>V V<br>**----- End of picture text -----**<br>
+<br>
 
 
 **第 13 章：物理层 - 电气**
@@ -1691,7 +1652,7 @@ _表 13‐3：发送器规格（续）_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
@@ -1772,20 +1733,18 @@ One form of receiver equalization would be a circuit like the one shown in Fig�
 
 _Figure 13‐29: Rx Discrete‐Time Linear Equalizer (DLE)_ 
 
-**==> picture [297 x 160] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0455.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Input<br>�<br>Received<br>S & H<br>Signal<br>C C<br>0 +1<br>1 UI delay 1 UI delay<br>**----- End of picture text -----**<br>
+<br>
 
 
 In contrast, CTLE is not limited to discrete time intervals and improves the sig‐ nal over a longer time interval. A simple RC network can serve as an example of a CTLE high‐pass filter, as shown in Figure 13‐30 on page 494. This serves to reduce the low‐frequency distortion caused by the channel without boosting the noise in the high‐frequency range of interest and cleans the signal for use at the next stage. Figure 13‐31 on page 495 illustrates the attenuation effect of CTLE high‐pass filter on the received low frequency component of a signal e.g. continuous 1s or continuous 0s. 
 
 _Figure 13‐30: Rx Continuous‐Time Linear Equalizer (CTLE)_ 
 
-**==> picture [239 x 96] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0456.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-R<br>Channel Input<br>C<br>**----- End of picture text -----**<br>
+<br>
 
 _Figure 13‐31: Effect of Rx Continuous‐Time Linear Equalizer (CTLE) on Received Signal_ 
 
@@ -1795,10 +1754,9 @@ An example one‐tap DFE circuit like the one described in the spec is shown in 
 
 _Figure 13‐32: Rx 1‐Tap DFE_ 
 
-**==> picture [223 x 130] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0457.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Output<br>Received<br>Signal<br>Slicer<br>- d1 Coefficient<br>1 UI<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **PCI Express Technology** 
@@ -1810,10 +1768,9 @@ The coefficients of the filter could be fixed, but if they’re adjustable the r
 Since the spec doesn’t require it, what the Receiver chooses to do regarding sig‐ nal compensation will be implementation specific. Industry literature states that DFE is more effective when working with an open eye, and that’s why it’s usu‐ ally employed after a linear equalizer that serves to clean up the input enough for DFE to work well. 
 _Figure 13‐33: Rx 2‐Tap DFE_ 
 
-**==> picture [303 x 364] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0458.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Output<br>Received Slicer<br>Signal<br>�<br>Adaptive<br>Coefficient<br>� Adjustment<br>- d2 - d1<br>1 UI 1 UI<br>V<br>1st tap reduction<br>2nd tap<br>reduction<br>t<br>UI UI UI UI Rx Original<br>Cursor Rx after DFE<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **Receiver Characteristics** 
@@ -1907,20 +1864,18 @@ _表 13‐4：8.0 GT/s 特定参数_
 
 _图 13‐29：接收器离散时间线性均衡器 (DLE)_
 
-**==> picture [297 x 160] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0459.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Input<br>�<br>Received<br>S & H<br>Signal<br>C C<br>0 +1<br>1 UI delay 1 UI delay<br>**----- End of picture text -----**<br>
+<br>
 
 
 相比之下，CTLE 不限于离散时间间隔，而是在更长的时间间隔内改善信号。一个简单的 RC 网络可以作为 CTLE 高通滤波器的示例，如图 13‐30（第 494 页）所示。这用于减少由通道引起的低频失真，而不会在感兴趣的频率范围内提升高频噪声，并为下一阶段的处理清理信号。图 13‐31（第 495 页）说明了 CTLE 高通滤波器对接收信号的低频分量（例如连续的 1 或连续的 0）的衰减效应。
 
 _图 13‐30：接收器连续时间线性均衡器 (CTLE)_
 
-**==> picture [239 x 96] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0460.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-R<br>Channel Input<br>C<br>**----- End of picture text -----**<br>
+<br>
 
 
 **第 13 章：物理层 - 电气**
@@ -1933,10 +1888,9 @@ _图 13‐31：接收器连续时间线性均衡器 (CTLE) 对接收信号的影
 
 _图 13‐32：接收器 1 抽头 DFE_
 
-**==> picture [223 x 130] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0461.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Output<br>Received<br>Signal<br>Slicer<br>- d1 Coefficient<br>1 UI<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **PCI Express Technology**
@@ -1951,10 +1905,9 @@ Output<br>Received<br>Signal<br>Slicer<br>- d1 Coefficient<br>1 UI<br>**----- En
 
 _图 13‐33：接收器 2 抽头 DFE_
 
-**==> picture [303 x 364] intentionally omitted <==**
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0462.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical Layer" width="700">
 
-**----- Start of picture text -----**<br>
-Output<br>Received Slicer<br>Signal<br>�<br>Adaptive<br>Coefficient<br>� Adjustment<br>- d2 - d1<br>1 UI 1 UI<br>V<br>1st tap reduction<br>2nd tap<br>reduction<br>t<br>UI UI UI UI Rx Original<br>Cursor Rx after DFE<br>**----- End of picture text -----**<br>
+<br>
 
 
 ## **接收器特性**
@@ -1974,7 +1927,7 @@ _表 13‐5：通用接收器特性_
 </td>
 </tr></tbody></table>
 
-[⬆️ 返回目录](#-本章目录-table-of-contents)
+[⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
