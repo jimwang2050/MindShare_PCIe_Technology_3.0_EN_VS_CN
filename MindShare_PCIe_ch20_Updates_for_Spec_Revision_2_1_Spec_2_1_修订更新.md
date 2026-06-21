@@ -9,7 +9,7 @@
 
 ## 📑 本章目录 (Table of Contents)
 
-- [Updates for Spec Revision 2.1](#-本章目录-table-of-contents)
+- [20.1 _Appendix A:_ — Spec 2.1 修订更新](#sec-20-1)
 
 <a id="sec-20-1"></a>
 ## 20.1 Updates for Spec Revision 2.1 | Spec 2.1 修订更新
@@ -20,8 +20,6 @@
 <td>
 
 This change simplifies the Transaction Ordering Table by reducing the number of entries in the table. Essentially, it no longer distinguishes between comple‐ tions for reads or completions for non‐posted writes. The motivation for this was to reduce the number of cases that needed to be tested. For more on this, see the section called “The Simplified Ordering Rules Table” on page 288. 
-
-**914** 
 
 # Appendices 
 
@@ -43,10 +41,6 @@ A new class of tools evolved to help developers visualize the state of their now
 
 Both pre‐ and post‐silicon debug share a common need for tools. In this appen‐ dix chapter, we describe some of the product offerings available for debugging PCI Express interconnects, both from a pre and post silicon perspective. 
 
-**917** 
-
-**PCI Ex ress Technolo p gy** 
-
 ## **Pre-silicon Debugging** 
 
 ## **RTL Simulation Perspective** 
@@ -62,8 +56,6 @@ A PCI Express Bus monitor is a piece of code which users insert in their RTL sim
 LeCroy has partnered with a number of the leading PCIe verification IP vendors to create tools to further enhance the visualization and analysis of pre‐silicon PCIe traffic. This involves using the vendors Bus Monitor to export raw symbol traffic into the same PETracer application used by the dedicated PCIe Analyzer hardware. SimPASS PE is LeCroy’s solution to supporting this export. 
 
 More information about LeCroy’s PETracer application and its features are described in the section “As a last resort, a flying lead probe shown in Figure 5 on page 924 may be used to attach the protocol analyzer to the system under test. This involves soldering a resistive tap circuit and connector pins to the PCIe traces. This circuitry is typically soldered to the AC coupling caps of the PCIe link as they are often the only place to access the traces. Once the probe cir‐ 
-
-**918** 
 
 **A endix A pp** 
 
@@ -81,9 +73,7 @@ For logical debug of the link, the oscilloscope is most useful when the link is 
 
 The LeCroy Oscilloscope can overlay PCIe symbols right onto the waveform for enhanced visibility of the traffic. An additional text based listing of the packet symbols can be displayed on the screen as an additional method of examining the waveform. 
 
-**919** 
-
-## **PCI Ex ress Technolo p gy** 
+## **PCI Express Technology** 
 
 LeCroy recently announced a SW package called ProtoSync for their oscillo‐ scope line which allows the user to export the captured waveform into the PETracer application. This is the same SW package that the protocol analyzer uses which includes a wide range of post processing capabilities described below. The PETracer software can run independently on the scope hardware, often on a second monitor. This allows time correlated comparison of the physi‐ cal layer data presented by the scope waveform alongside the logic layer pre‐ sentation of data presented by the PETracer software. 
 
@@ -94,8 +84,6 @@ _Figure A‐1: LeCroy Oscilloscope with ProtoSync Software Option_
 ## **Protocol Analyzer** 
 
 A growing trend in debugging PCIe links is to use a dedicated protocol analysis tool. What separates a protocol analyzer from a logic analyzer is that it is built to support a specific protocol such as PCIe. From a hardware perspective, a PCIe protocol analyzer is optimized for acquiring and storing PCIe traffic. This starts from the dedicated PCIe interposer probes, continues to the cabling choice, and caries through into the internal hardware components. For recover‐ ing PCIe traffic, specialized clock and data recovery circuits are used which can handle the electrical idle transitions, spread spectrum modulation, as well as 
-
-**920** 
 
 **A endix A pp** 
 
@@ -115,9 +103,7 @@ To record your PCIe traffic you must first find the best method for probing it. 
 
 An Interposer is a dedicated piece of hardware which includes probe circuitry required for passing a copy of the PCIe traffic to the Analyzer hardware for cap‐ ture and analysis. These interposers are designed specifically for the mechanical 
 
-**921** 
-
-## **PCI Ex ress Technolo p gy** 
+## **PCI Express Technology** 
 
 and electrical environments for which they are placed. The most common inter‐ poser is a “Slot Interposer” such as shown in Figure 2 on page 922. This inter‐ poser is used for probing standard CEM compliant PCIe add‐in cards.
 
@@ -130,8 +116,6 @@ and electrical environments for which they are placed. The most common inter‐ 
 
 传统上，企业 SSD 模块附带 SAS、SATA 和光纤通道接口，但由于上述发展，大多数 SSD 控制器、模块和系统供应商已推出具有 PCIe 接口的产品。由于管理闪存的繁重负载，大多数 SSD 控制器达到其性能和容量峰值。在高性能应用程序中，使用多个 SSD 控制器（或 ASIC）并通过 PCIe 交换机聚合。图 0-4（在第 941 页）显示了 PCIe 交换机在 SSD 附加卡中的基本用法，该用法适用于任何卡或模块形态因素。
 
-**940**
-
 **第 : 附录 B：PCI 的市场与应用**
 
 _图 0-4：SSD 附加卡中的 PCIe 交换机应用程序_
@@ -142,17 +126,13 @@ _图 0-5：服务器主板使用 PCIe 交换机_
 
 除提供连接外，PCIe 交换机还可用于通过 NT 桥接和 MR 功能提供冗余和故障转移。MR 交换机支持 1+N 故障转移能力，其中一个服务器/主机与 N 个服务器通信以检查心跳并在其中一个发生故障时启动故障转移。图 0-6（在第 942 页）中所示的服务器之一可以在 1+N 故障转移方案中用作其他服务器的备份。
 
-**941**
-
-**PCI Ex ress 3.0 Technolo p gy**
+**PCI Express 3.0 Technology**
 
 _图 0-6：1+N 故障转移方案中的服务器故障转移_
 
 ## **结论**
 
 PCIe 互连技术已成为超越芯片到芯片互连的许多高端应用程序的有力竞争者，并有望用于外部 I/O 共享、服务器集群、I/O 扩展和 TOR 交换。当前的 8 GT/s 和下一代 (Gen4) 16 GT/s 线路速率、在单个高带宽端口中聚合多个通道的能力、故障转移能力、用于数据传输的嵌入式 DMA 以及 IO 共享/虚拟化提供了至少等于（如果不优于）InfiniBand 和以太网等接口的能力。
-
-**942**
 
 ## _**附录 C：**_
 
@@ -166,9 +146,7 @@ _**使用 PCI Express 技术实现智能适配器和多主机系统**_
 
 由于使用智能适配器、主机故障转移和多主机技术的系统的广泛普及，PCI Express 硅供应商必须提供一种支持它们的手段。这实际上是一项相对低风险的努力；鉴于 PCI Express 与 PCI 软件兼容，而 PCI 系统早已实现了分布式处理。最明显的方法，也是 PLX 所倡导的方法，是为 PCI Express 模拟 PCI 空间中使用最广泛的实现。此策略允许系统设计人员不仅使用熟悉的实现，而且使用经过验证的方法，
 
-**943**
-
-**PCI Ex ress 3.0 Technolo p gy**
+**PCI Express 3.0 Technology**
 
 并在他们从 PCI 迁移到 PCI Express 时可以提供重要的软件重用。本白皮书概述了多处理器 PCI Express 系统将如何使用 PCI 范例中建立的行业标准实践来实现。但是，首先，我们将定义不同的使用模型，并回顾 PCI 社区为满足这些需求而开发机制的成功努力。最后，我们将介绍 PCI Express 系统如何利用非透明桥接来为这些类型的系统提供所需的功能。
 
@@ -183,8 +161,6 @@ _**使用 PCI Express 技术实现智能适配器和多主机系统**_
 ## **主机故障转移**
 
 主机故障转移能力被设计到需要高可用性的系统中。高可用性已成为越来越重要的要求，尤其是在存储和通信平台中。确保整个系统保持运行状态的实际方法是提供冗余
-
-**944**
 
 **第 : 附录 C：实现智能适配**
 
@@ -202,17 +178,13 @@ PCI 最初于 1992 年为个人计算机定义。由于当时 PC 的性质，协
 
 随后发明了几种方法以适应使用 PCI 的多处理器功能要求。最流行的实现，也是本文针对 PCI Express 讨论的实现，是使用处理子系统之间的非透明桥接来隔离它们的内存空间。[1]
 
-**945**
-
-**PCI Ex ress 3.0 Technolo p gy**
+**PCI Express 3.0 Technology**
 
 由于主机在首次上电或复位时不知道系统拓扑，因此它必须执行发现以了解存在的设备，然后将它们映射到内存空间中。为了支持标准发现和配置软件，PCI 规范定义了合规设备的控制和状态寄存器 (CSR) 的标准格式。标准 PCI-to-PCI 桥 CSR 头，称为 Type 1 头，包括主桥、次桥和从属总线号寄存器，当主机写入这些寄存器时，它们定义了桥另一侧设备的 CSR 地址。采用 Type 1 CSR 头的桥称为透明桥。
 
 Type 0 头用于端点。Type 0 CSR 头包括用于从主机请求内存或 I/O 孔径的基地址寄存器 (BAR)。Type 1 和 Type 0 头都包括类代码寄存器，用于指示表示哪种桥或端点，并可在子类字段以及设备 ID 和供应商 ID 寄存器中获得更多信息。CSR 头格式和寻址规则允许处理器搜索 PCI 层次结构的所有分支，从主机桥向下到每个叶节点，读取它找到的每个设备的类代码寄存器，并在发现 PCI-to-PCI 桥时相应地分配总线号。发现完成后，主机知道哪些设备存在以及每个设备运行所需的内存和 I/O 空间。这些概念如图 C-0-1 所示。
 
 1. 除非另有明确说明，使用 PCI 和 PCI Express 的多处理器系统的架构是相似的，可以互换使用。
-
-**946**
 
 **第 : 附录 C：实现智能适配**
 
@@ -224,9 +196,7 @@ _图 0-1：使用透明桥的枚举_
 
 1. 虽然我们使用智能端点作为示例，但我们应注意多主机系统也存在类似的问题。
 
-**947**
-
-**PCI Ex ress 3.0 Technolo p gy**
+**PCI Express 3.0 Technology**
 
 </td>
 </tr></tbody></table>

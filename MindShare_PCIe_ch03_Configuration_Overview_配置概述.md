@@ -9,7 +9,37 @@
 
 ## 📑 本章目录 (Table of Contents)
 
-- [Configuration Overview](#-本章目录-table-of-contents)
+- [3.1 Introduction to PCI Express — 配置概述](#sec-3-1)
+- [3.2 PCI Express Technology — 配置概述](#sec-3-2)
+- [3.3 Software Backward Compatibility — 配置概述](#sec-3-3)
+- [3.4 Serial Transport — 配置概述](#sec-3-4)
+- [3.5 The Need for Speed — 配置概述](#sec-3-5)
+- [3.6 PCIe Bandwidth Calculation — 配置概述](#sec-3-6)
+- [3.7 PCI Express Technology — 配置概述](#sec-3-7)
+- [3.8 Differential Signals — 配置概述](#sec-3-8)
+- [3.9 No Common Clock — 配置概述](#sec-3-9)
+- [3.10 Packet-based Protocol — 配置概述](#sec-3-10)
+- [3.11 Links and Lanes — 配置概述](#sec-3-11)
+- [3.12 Scalable Performance — 配置概述](#sec-3-12)
+- [3.13 Flexible Topology Options — 配置概述](#sec-3-13)
+- [3.14 Some Definitions — 配置概述](#sec-3-14)
+- [3.15 Topology Characteristics — 配置概述](#sec-3-15)
+- [3.16 Root Complex — 配置概述](#sec-3-16)
+- [3.17 Switches and Bridges — 配置概述](#sec-3-17)
+- [3.18 Native PCIe Endpoints and Legacy PCIe Endpoints — 配置概述](#sec-3-18)
+- [3.19 Software Compatibility Characteristics — 配置概述](#sec-3-19)
+- [3.20 PCI Express Technology — 配置概述](#sec-3-20)
+- [3.21 System Examples — 配置概述](#sec-3-21)
+- [3.22 Introduction to Device Layers — 配置概述](#sec-3-22)
+- [3.23 PCI Express Technology — 配置概述](#sec-3-23)
+- [3.24 _Figure 2‐14: Detailed Block Diagram of PCI Express Devic... — 配置概述](#sec-3-24)
+- [3.25 Device Core / Software Layer — 配置概述](#sec-3-25)
+- [3.26 Transaction Layer — 配置概述](#sec-3-26)
+- [3.27 PCI Express Technology — 配置概述](#sec-3-27)
+- [3.28 TLP (Transaction Layer Packet) Basics — 配置概述](#sec-3-28)
+- [3.29 PCI Express Technology — 配置概述](#sec-3-29)
+- [3.30 PCI Express Technology — 配置概述](#sec-3-30)
+- [3.31 Non-Posted Transactions — 配置概述](#sec-3-31)
 
 <a id="sec-3-1"></a>
 ## 3.1 Configuration Overview | 配置概述
@@ -23,16 +53,12 @@
 
 PCI Express represents a major shift from the parallel bus model of its predeces‐ sors. As a serial bus, it has more in common with earlier serial designs like InfiniBand or Fibre Channel, but it remains fully backward compatible with PCI in software. 
 
-**39**
-
 </td>
 <td style="background-color:#e8e8e8">
 
 ## **PCI Express 简介**
 
 PCI Express 代表了一次重大转变,摒弃了其前代产品所采用的并行总线模型。作为一种串行总线,它与早期的串行设计(如 InfiniBand 或 Fibre Channel)有更多相似之处,但在软件层面仍然与 PCI 完全向后兼容。
-
-**39**
 
 </td>
 </tr></tbody></table>
@@ -52,30 +78,23 @@ PCI Express 代表了一次重大转变,摒弃了其前代产品所采用的并�
 <tbody><tr>
 <td>
 
-## **PCI Ex ress Technolo p gy** 
+## **PCI Express Technology** 
 
 As is true of many high‐speed serial transports, PCIe uses a bidirectional con‐ nection and is capable of sending and receiving information at the same time. The model used is referred to as a dual‐simplex connection because each inter‐ face has a simplex transmit path and a simplex receive path, as shown in Figure 2‐1 on page 40. Since traffic is allowed in both directions at once, the communi‐ cation path between two devices is technically full duplex, but the spec uses the term dual‐simplex because it’s a little more descriptive of the actual communi‐ cation channels that exist. 
 
 _Figure 2‐1: Dual‐Simplex Link_ 
 
-**==> picture [384 x 86] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Packet<br>PCIe PCIe<br>Device Device<br>Link (1 to 32 lanes wide)<br>A B<br>Packet<br>**----- End of picture text -----**<br>
+<br>
 
 The term for this path between the devices is a **Link** , and is made up of one or more transmit and receive pairs. One such pair is called a **Lane** , and the spec allows a Link to be made up 1, 2, 4, 8, 12, 16, or 32 Lanes. The number of lanes is called the Link Width and is represented as x1, x2, x4, x8, x16, and x32. The trade‐off regarding the number of lanes to be used in a given design is straight‐ forward: more lanes increase the bandwidth of the Link but add to its cost, space requirement, and power consumption. For more on this, see “Links and Lanes” on page 46. 
 
 _Figure 2‐2: One Lane_ 
 
-**==> picture [257 x 142] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Transmitter Receiver<br>Receiver Transmitter<br>One  lane<br>**----- End of picture text -----**<br>
-
-**40** 
-
-**Chapter 2: PCIe Architecture Overview**
-
+<br>
 </td>
 <td style="background-color:#e8e8e8">
 
@@ -85,21 +104,17 @@ Transmitter Receiver<br>Receiver Transmitter<br>One  lane<br>**----- End of pict
 
 _图 2-1:双单工链路_ 
 
-**==> picture [384 x 86] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Packet<br>PCIe PCIe<br>Device Device<br>Link (1 to 32 lanes wide)<br>A B<br>Packet<br>**----- End of picture text -----**<br>
+<br>
 
 设备之间这条路径称为**链路 (Link)**,由一个或多个发送和接收对组成。每一对称为**通道 (Lane)**,规范允许一条链路包含 1、2、4、8、12、16 或 32 条通道。通道的数量称为链路宽度 (Link Width),用 x1、x2、x4、x8、x16 和 x32 表示。关于在特定设计中使用多少通道的权衡是直截了当的:更多的通道会增加链路的带宽,但同时也会增加其成本、空间占用和功耗。更多相关信息,请参阅第 46 页的"链路与通道"。 
 
 _图 2-2:一条通道_ 
 
-**==> picture [257 x 142] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Transmitter Receiver<br>Receiver Transmitter<br>One  lane<br>**----- End of picture text -----**<br>
-
-**40** 
+<br>
 
 **第 2 章:PCIe 架构概述**
 
@@ -172,27 +187,17 @@ Of course, a serial model must run much faster than a parallel design to accom�
 
 **Overcoming Problems.** By way of review, there are a handful of problems that limit the performance of a parallel bus and three are illustrated in Figure 2‐ 3 on page 42. To get started, recall that parallel buses use a common clock; out‐ puts are clocked out on one clock edge and clocked into the receiver on the next edge. One issue with this model is the time it takes to send a signal from trans‐ mitter to receiver, called the flight time. The flight time must be less than the clock period or the model won’t work, so going to smaller clock periods is chal‐ lenging. To make this possible, traces must get shorter and loads reduced but eventually this becomes impractical. Another factor is the difference in the arrival time of the clock at the sender and receiver, called clock skew. Board lay‐ out designers work hard to minimize this value because it detracts from the tim‐ ing budget but it can never be eliminated. A third factor is signal skew, which is 
 
-**41** 
-
-**PCI Ex ress Technolo p gy** 
-
 the difference in arrival times for all the signals needed on a given clock. Clearly, the data can’t be latched until all the bits are ready and stable, so we end up waiting for the slowest one. 
 
 _Figure 2‐3: Parallel Bus Limitations_ 
 
-**==> picture [384 x 150] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Flight Time<br>Transmitter<br>Receiver<br>Incorrect<br>Transmission<br>Media sampling<br>due to skew<br>Common Clock Common Clock<br>**----- End of picture text -----**<br>
+<br>
 
 How does a serial transport like PCIe get around these problems? First, flight time becomes a non‐issue because the clock that will latch the data into the receiver is actually built into the data stream and no external reference clock is necessary. As a result, it doesn’t matter how small the clock period is or how long it takes the signal to arrive at the receiver because the clock arrives with it at the same time. For the same reason there’s no clock skew, again because the latching clock is recovered from the data stream. Finally, signal skew is elimi‐ nated within a Lane because there’s only one data bit being sent. The signal skew problem returns if a multi‐lane design is used, but the receiver corrects for this automatically and can fix a generous amount of skew. Although serial designs overcome many of the problems of parallel models, they have their own set of complications. Still, as we’ll see later, the solutions are manageable and allow for high‐speed, reliable communication. 
 
 **Bandwidth.** The combination of high speed and wide Links that PCIe sup‐ ports can result in some impressive bandwidth numbers, as shown in Table 2‐1 on page 43. These numbers are derived from the bit rate and bus characteristics. One such characteristic is that, like many other serial transports, the first two generations of PCIe use an encoding process called **8b/10b** that generates a 10‐ bit output based on an 8‐bit input. In spite of the overhead this introduces, there are several good reasons for doing it as we’ll see later. For now it’s enough to 
-
-**42** 
-
-**Chapter 2: PCIe Architecture Overview** 
-
 know that sending one byte of data requires transmitting 10 bits. The first gen‐ eration (Gen1 or PCIe spec version 1.x) bit rate is 2.5 GT/s and dividing that by 10 means that one lane will be able to send 0.25 GB/s. Since the Link permits sending and receiving at the same time, the aggregate bandwidth can be twice that amount, or 0.5 GB/s per Lane. Doubling the frequency for the second gener‐ ation (Gen2 or PCIe 2.x) doubled the bandwidth. The third generation (Gen3 or PCIe 3.0) doubles the bandwidth yet again, but this time the spec writers chose not to double the frequency. Instead, for reasons we’ll discuss later, they chose to increase the frequency only to 8 GT/s and remove the 8b/10b encoding in favor of another encoding mechanism called **128b/130b** encoding (for more on this, see the chapter “Physical Layer ‐ Logical (Gen3)” on page 407). Table 2‐1 summarizes the bandwidth available for all the current possible combinations and shows the peak throughput the Link could deliver in that configuration. 
 
 _Table 2‐1: PCIe Aggregate Gen1, Gen2 and Gen3 Bandwidth for Various Link Widths_ 
@@ -212,18 +217,13 @@ _Table 2‐1: PCIe Aggregate Gen1, Gen2 and Gen3 Bandwidth for Various Link Widt
 
 **克服问题。** 回顾一下，限制并行总线性能的问题主要有几个，其中三个如图 2-3（第 42 页）所示。首先，回忆一下并行总线使用公共时钟；输出在一个时钟边沿被时钟输出，在下一个边沿被时钟锁存到接收器。这种模型的一个问题是信号从发送器传送到接收器所需的时间，称为飞行时间（flight time）。飞行时间必须小于时钟周期，否则模型将无法工作，因此缩短时钟周期具有挑战性。要实现这一点，走线必须更短、负载必须更小，但最终会变得不切实际。另一个因素是发送端和接收端时钟到达时间的差异，称为时钟偏移（clock skew）。板级布局设计人员努力将其最小化，因为它会消耗时序预算，但永远无法完全消除。第三个因素是信号偏移（signal skew），即 
 
-**41** 
-
-**PCI Ex ress Technolo p gy** 
-
 同一时钟下所有信号到达时间的差异。显然，在所有比特就位并稳定之前无法锁存数据，因此我们最终不得不等待最慢的那一位。 
 
 _图 2-3：并行总线的局限性_ 
 
-**==> picture [384 x 150] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-飞行时间（Flight Time）<br>发送器（Transmitter）<br>接收器（Receiver）<br>由于偏移导致的<br>错误传输<br>（Incorrect Transmission<br>Media sampling<br>due to skew）<br>公共时钟（Common Clock） 公共时钟（Common Clock）<br>**----- End of picture text -----**<br>
+<br>
 
 像 PCIe 这样的串行传输是如何规避这些问题的呢？首先，飞行时间变得不再是问题，因为用于将数据锁存到接收器中的时钟实际上内置于数据流中，不需要外部参考时钟。因此，无论时钟周期多小，或者信号到达接收器需要多长时间，都无关紧要，因为时钟与数据同时到达。出于同样的原因，也不存在时钟偏移，原因同样是锁存时钟是从数据流中恢复的。最后，在单个通道（Lane）内消除了信号偏移，因为只发送一个数据比特。如果使用多通道设计，信号偏移问题会重新出现，但接收器会自动进行补偿，并可以校正相当大的偏移。虽然串行设计克服了并行模型的许多问题，但它们也有自己的一系列复杂性。尽管如此，正如我们稍后将看到的，这些解决方案是可管理的，并且能够实现高速、可靠的通信。 
 
@@ -262,8 +262,6 @@ To calculate the bandwidth numbers included in the table above, see the calcu‐
 
 Note that in the above calculations, we divide by 10 bits per symbol not 8 bits per byte, because both Gen1 and Gen2 protocols require packet bytes to be encoded using 8b/10b encoding schemes before packet transmission. 
 
-**43**
-
 </td>
 <td style="background-color:#e8e8e8">
 
@@ -294,7 +292,7 @@ Note that in the above calculations, we divide by 10 bits per symbol not 8 bits 
 <tbody><tr>
 <td>
 
-## **PCI Ex ress Technolo p gy** 
+## **PCI Express Technology** 
 
 • Gen3 PCIe Bandwidth = (8.0 Gb/s x 2 directions) / 8 bits per byte = 2.0 GB/s. 
 
@@ -336,15 +334,9 @@ The differential receiver gets both signals and subtracts the negative voltage f
 
 _Figure 2‐4: Differential Signaling_ 
 
-**==> picture [301 x 145] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-V+<br>D+<br>V<br>cm<br>Receiver subtracts<br>D- from D+ value to<br>arrive at differential<br>D- voltage.<br>V<br>cm<br>V-<br>**----- End of picture text -----**<br>
-
-**44** 
-
-**Chapter 2: PCIe Architecture Overview**
-
+<br>
 </td>
 <td style="background-color:#e8e8e8">
 
@@ -356,22 +348,9 @@ V+<br>D+<br>V<br>cm<br>Receiver subtracts<br>D- from D+ value to<br>arrive at di
 
 _图 2-4:差分信号_
 
-**==> picture [301 x 145] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-V+<br>
-D+<br>
-V<br>
-cm<br>
-接收器将 D-<br>
-从 D+ 减去,<br>
-得到差分 D- 电压。<br>
-V<br>
-cm<br>
-V-<br>
-**----- End of picture text -----**<br>
-
-**44**
+<br>
 
 **第 2 章:PCIe 架构概述**
 
@@ -398,14 +377,9 @@ One thing to note regarding clock recovery is that the PLL does need transitions
 
 _Figure 2‐5: Simple PLL Block Diagram_ 
 
-**==> picture [350 x 120] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Reference<br>(incoming Recovered<br>bitstream) DetectorPhase Lo op Filter Voltage-Controlled Clock<br>Oscillator<br>Divide by N Counter<br>(to create multiples of<br>reference frequency)<br>**----- End of picture text -----**<br>
-
-**45** 
-
-**PCI Ex ress Technolo p gy** 
+<br>
 
 Once the clock has been recovered it’s used to latch the bits of the incoming data stream into the deserializer. Sometimes students wonder whether this recov‐ ered clock can be used to clock all the logic in the receiver, but it turns out that the answer is no. One reason is that a receiver can’t count on this reference always being present, because low power states on the Link involve stopping data transmission. Consequently, the receiver must also have it’s own internal clock that can be locally generated.
 
@@ -420,14 +394,9 @@ Once the clock has been recovered it’s used to latch the bits of the incoming 
 
 _图 2-5：简单的 PLL 框图_ 
 
-**==> picture [350 x 120] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Reference<br>(incoming Recovered<br>bitstream) DetectorPhase Lo op Filter Voltage-Controlled Clock<br>Oscillator<br>Divide by N Counter<br>(to create multiples of<br>reference frequency)<br>**----- End of picture text -----**<br>
-
-**45** 
-
-**PCI Ex ress Technolo p gy** 
+<br>
 
 一旦时钟被恢复，它就被用于将传入数据流的比特锁存到解串器 (deserializer) 中。有时学生会有疑问：是否可以使用这个恢复的时钟来为接收器中的所有逻辑提供时钟？答案是不能。原因之一是接收器无法保证该参考时钟始终存在，因为链路 (Link) 上的低功耗状态 (low power state) 会停止数据传输。因此，接收器还必须拥有自己可以在本地生成的内部时钟。
 
@@ -505,19 +474,12 @@ As mentioned earlier, a physical connection between two PCIe devices is called a
 ## **Scalable Performance** 
 
 However, using more Lanes will increase the performance of a Link, which depends on its speed and Link width. For example, using multiple Lanes increases the number of bits that can be sent with each clock and thus improves the bandwidth. As noted earlier in Table 2‐1 on page 43, the number of Lanes supported by the spec includes powers of 2 up to 32 Lanes. A x12 Link is also supported, which may have been intended to support the x12 Link width used by InfiniBand, an earlier serial design. Allowing a variety of Link widths per‐ mits a platform designer to make the appropriate trade‐off between cost and performance, easily scaling up or down based on the number of Lanes. 
-
-**46** 
-
-**Chapter 2: PCIe Architecture Overview**
-
 </td>
 <td style="background-color:#e8e8e8">
 
 ## **可扩展的性能** 
 
 然而，使用更多的通道（Lane）会提升链路（Link）的性能，这取决于其速度和链路宽度。例如，使用多个通道可以增加每个时钟周期可发送的比特数，从而提高带宽（Bandwidth）。如前文第 43 页表 2‐1 中所述，规范所支持的通道数包括 2 的幂次，最高可达 32 通道。此外还支持 x12 链路，这可能是为了兼容 InfiniBand 所采用的 x12 链路宽度，InfiniBand 是一种早期的串行设计。允许使用多种链路宽度使平台设计人员能够在成本与性能之间做出适当的权衡，可以根据通道数方便地进行扩展或缩减。 
-
-**46** 
 
 **第 2 章：PCIe 架构概述**
 
@@ -568,14 +530,9 @@ A simple PCIe topology example is shown in Figure 2‐6 on page 47, and will hel
 
 _Figure 2‐6: Example PCIe Topology_ 
 
-**==> picture [374 x 243] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-CPU<br>Root Complex<br>Memory<br>PCIe<br>PCIe<br>Switch Endpoint<br>Bridge<br>to PCI<br>or PCI-X<br>PCI/PCI-X<br>PCIe PCIe Legacy<br>Endpoint Endpoint Endpoint<br>**----- End of picture text -----**<br>
-
-**47** 
-
-**PCI Ex ress Technolo p gy**
+<br>
 
 </td>
 <td style="background-color:#e8e8e8">
@@ -586,15 +543,9 @@ CPU<br>Root Complex<br>Memory<br>PCIe<br>PCIe<br>Switch Endpoint<br>Bridge<br>to
 
 _图 2-6:PCIe 拓扑 (Topology) 示例_
 
-**==> picture [374 x 243] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-CPU<br>Root Complex<br>Memory<br>PCIe<br>PCIe<br>Switch Endpoint<br>Bridge<br>to PCI<br>or PCI-X<br>PCI/PCI-X<br>PCIe PCIe Legacy<br>Endpoint Endpoint Endpoint<br>
-**----- End of picture text -----**<br>
-
-**47**
-
-**PCI Ex ress Technolo p gy**
+<br>
 
 </td>
 </tr></tbody></table>
@@ -672,11 +623,6 @@ CPU 与 PCIe 总线之间的接口可能包含多个组件（处理器接口、D
 Switches provide a fanout or aggregation capability and allow more devices to be attached to a single PCIe Port. They act as packet routers and recognize which path a given packet will need to take based on its address or other rout‐ ing information. 
 
 Bridges provide an interface to other buses, such as PCI or PCI‐X, or even another PCIe bus. The bridge shown in the “Example PCIe Topology” on page 47 is sometimes called a “forward bridge” and allows an older PCI or PCI‐ X card to be plugged into a new system. The opposite type or “reverse bridge” allows a new PCIe card to be plugged into an old PCI system. 
-
-**48** 
-
-**Chapter 2: PCIe Architecture Overview**
-
 </td>
 <td style="background-color:#e8e8e8">
 
@@ -685,8 +631,6 @@ Bridges provide an interface to other buses, such as PCI or PCI‐X, or even ano
 交换机 (Switch) 提供扇出或聚合能力，允许将更多设备挂接到单个 PCIe 端口 (PCI Express Port)。它们充当分组路由器的角色，能够根据地址或其他路由信息识别给定分组需要经过的路径。
 
 桥 (Bridge) 提供与其他总线（例如 PCI 或 PCI-X）的接口，甚至可以连接到另一条 PCIe 总线。第 47 页"PCIe 拓扑示例"中所示的桥有时被称为"前向桥 (forward bridge)"，它允许将较旧的 PCI 或 PCI-X 卡插入新系统中。相反的类型，或称为"反向桥 (reverse bridge)"，则允许将新的 PCIe 卡插入到旧的 PCI 系统中。
-
-**48**
 
 **第 2 章：PCIe 架构概述**
 
@@ -735,16 +679,12 @@ Endpoints are devices in a PCIe topology that are not Switches or bridges and ac
 
 One way compatibility with older software is maintained is that the configura‐ tion headers for Endpoints and bridges, shown in Figure 2‐7 on page 50, are unchanged from PCI. One difference now is that bridges are often aggregated into Switches and Roots, but legacy software is unaware of that distinction and will still simply see them as bridges. At this point we just want to get familiar with the concepts, so we won’t get into the details of the registers here. An intro‐ duction to the rather large topic of configuration can be found in “Configura‐ tion Overview” on page 85. 
 
-**49**
-
 </td>
 <td style="background-color:#e8e8e8">
 
 ## **软件兼容性特性**
 
 维持与旧版软件兼容的一种方式是：端点 (Endpoint) 与桥 (Bridge) 的配置包头（见第 50 页图 2-7）相比 PCI 保持不变。现在的一个不同之处在于，桥通常被聚合到交换机 (Switch) 和根复合体 (Root Complex) 中，但旧版软件并不知晓这种区分，仍会简单地将其视为桥。此时我们只是想先熟悉相关概念，因此此处不会深入介绍寄存器的细节。有关这个相当庞大的"配置"主题的介绍，请参见第 85 页的"配置概述"。
-
-**49**
 
 </td>
 </tr></tbody></table>
@@ -761,40 +701,28 @@ One way compatibility with older software is maintained is that the configura‐
 <tbody><tr>
 <td>
 
-## **PCI Ex ress Technolo p gy** 
+## **PCI Express Technology** 
 
 _Figure 2‐7: Configuration Headers_ 
 
-**==> picture [374 x 244] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Header Type 0 Header Type 1<br>256-Byte (used by endpoints) DW (used by bridges) DW<br>Configuration Space<br>(per function) DeviceID VendorID 00 DeviceID VendorID 00<br>RegisterStatus CommandRegister 01 RegisterStatus CommandRegister 01<br>64-Byte Class Code RevisionID 02 Class Code RevisionID 02<br>PCI ConfigurationHeader Space BIST Base Address 0HeaderType LatencyTimer CacheLineSize 0304 BISTBase Address 0HeaderType LatencyTimer CacheLineSize 0304<br>Base Address 1 05 Base Address 1 05<br>Base Address 2 06 Latency TimerSecondary Bus NumberSubordinate Bus NumberSecondary Bus NumberPrimary 06<br>Base Address 3 07 SecondaryStatus LimitI/O BaseI/O 07<br>Base Address 4 08 MemoryLimit MemoryBase 08<br>Function-Specific192-Byte CardBus CIS PointerBase Address 5 0910 Memory LimitPrefetchablePrefetchable BaseUpper 32 BitsMemory BasePrefetchable 0910<br>Configuration Subsystem ID SubsystemVendor ID 11 Prefetchable LimitUpper 32 Bits 11<br>Header Space Expansion ROM 12 I/O Limit I/O Base 12<br>Base Address Upper 16 Bits Upper 16 Bits<br>Reserved CapabilitiesPointer 13 Reserved CapabilityPointer 13<br>Reserved 14 Expansion ROM Base Address 14<br>Max_Lat Min_Gnt InterruptPin InterruptLine 15 ControlBridge InterruptPin InterruptLine 15<br>**----- End of picture text -----**<br>
+<br>
 
 To illustrate the way the system appears to software, consider the example topology shown in Figure 2‐8 on page 51. As before, the Root resides at the top of the hierarchy. The Root can be quite complex internally, but it will usually implement an internal bus structure and several bridges to fan out the topology to several ports. That internal bus will appear to configuration software as PCI bus number zero and the PCIe Ports will appear as PCI‐to‐PCI bridges. This internal structure is not likely to be an actual PCI bus, but it will appear that way to software for this purpose. Since this bus is internal to the Root, its actual logical design doesn’t have to conform to any standard and can be vendor spe‐ cific. 
-
-**50** 
-
-**Chapter 2: PCIe Architecture Overview** 
-
 _Figure 2‐8: Topology Example_ 
 
-**==> picture [345 x 191] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Host<br>CPU Bridge<br>Internal Bus 0<br>Root Complex<br>Memory<br>PCI-PCI PCI-PCI PCI-PCI<br>Bridge Bridge Bridge<br>PCIe<br>Switch Endpoint PCIe<br>Bridge<br>to PCI<br>or PCI-X<br>PCIe PCIe Legacy<br>PCI/PCI-X<br>Endpoint Endpoint Endpoint<br>**----- End of picture text -----**<br>
+<br>
 
 In a similar way, the internal organization of a Switch, shown in Figure 2‐9 on page 52, will appear to software as simply a collection of bridges sharing a com‐ mon bus. A major advantage of this approach is that it allows transaction rout‐ ing to take place in the same way it did for PCI. Enumeration, the process by which configuration software discovers the system topology and assigns bus numbers and system resources, works the same way, too. We’ll see some exam‐ ples of how enumeration works later, but once it’s been completed the bus num‐ bers in the system will have all been assigned in a manner like that shown in Figure 2‐9 on page 52. 
 
-**51** 
-
-**PCI Ex ress Technolo p gy** 
-
 _Figure 2‐9: Example Results of System Enumeration_ 
 
-**==> picture [264 x 270] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-PCI-PCI<br>Bridge<br>Internal Bus 2<br>PCI-PCI PCI-PCI PCI-PCI<br>Bridge Bridge Bridge<br>CPU<br>Root Complex<br>(internal bus 0) Memory<br>Bus 1 Bus 6 Bus 7<br>PCIe Bus 3 Switch EndpointPCIe BridgePCIe<br>Endpoint to PCI<br>Bus 4 Bus 5 or PCI-X<br>PCIe Legacy<br>Endpoint Endpoint PCI/PCI-X<br>Bus 8<br>Legend<br>Downstream port<br>Upstream port<br>**----- End of picture text -----**<br>
+<br>
 
 </td>
 <td style="background-color:#e8e8e8">
@@ -803,36 +731,27 @@ PCI-PCI<br>Bridge<br>Internal Bus 2<br>PCI-PCI PCI-PCI PCI-PCI<br>Bridge Bridge 
 
 _图 2‐7：配置头 (Configuration Headers)_ 
 
-**==> picture [374 x 244] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Header Type 0 Header Type 1<br>256-Byte (used by endpoints) DW (used by bridges) DW<br>Configuration Space<br>(per function) DeviceID VendorID 00 DeviceID VendorID 00<br>RegisterStatus CommandRegister 01 RegisterStatus CommandRegister 01<br>64-Byte Class Code RevisionID 02 Class Code RevisionID 02<br>PCI ConfigurationHeader Space BIST Base Address 0HeaderType LatencyTimer CacheLineSize 0304 BISTBase Address 0HeaderType LatencyTimer CacheLineSize 0304<br>Base Address 1 05 Base Address 1 05<br>Base Address 2 06 Latency TimerSecondary Bus NumberSubordinate Bus NumberSecondary Bus NumberPrimary 06<br>Base Address 3 07 SecondaryStatus LimitI/O BaseI/O 07<br>Base Address 4 08 MemoryLimit MemoryBase 08<br>Function-Specific192-Byte CardBus CIS PointerBase Address 5 0910 Memory LimitPrefetchablePrefetchable BaseUpper 32 BitsMemory BasePrefetchable 0910<br>Configuration Subsystem ID SubsystemVendor ID 11 Prefetchable LimitUpper 32 Bits 11<br>Header Space Expansion ROM 12 I/O Limit I/O Base 12<br>Base Address Upper 16 Bits Upper 16 Bits<br>Reserved CapabilitiesPointer 13 Reserved CapabilityPointer 13<br>Reserved 14 Expansion ROM Base Address 14<br>Max_Lat Min_Gnt InterruptPin InterruptLine 15 ControlBridge InterruptPin InterruptLine 15<br>**----- End of picture text -----**<br>
+<br>
 
 为了说明系统向软件呈现的方式，请参考图 2‐8（第 51 页）中所示的示例拓扑结构。与之前一样，根复合体 (Root) 位于层级结构的顶部。根复合体在内部可能相当复杂，但通常会实现一个内部总线结构以及多个桥 (Bridge) 以将拓扑扩展到多个端口。该内部总线对配置软件呈现为 PCI 总线编号 0，而 PCIe 端口则呈现为 PCI‐to‐PCI 桥 (PCI-PCI Bridge)。这种内部结构实际上可能并不是真正的 PCI 总线，但对软件而言它在此用途上呈现为 PCI 总线。由于该总线是根复合体内部的，其实际的逻辑设计不必遵循任何标准，可以是供应商专有的。 
-
-**50** 
 
 **第 2 章：PCIe 架构概述 (PCIe Architecture Overview)** 
 
 _图 2‐8：拓扑示例 (Topology Example)_ 
 
-**==> picture [345 x 191] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Host<br>CPU Bridge<br>Internal Bus 0<br>Root Complex<br>Memory<br>PCI-PCI PCI-PCI PCI-PCI<br>Bridge Bridge Bridge<br>PCIe<br>Switch Endpoint PCIe<br>Bridge<br>to PCI<br>or PCI-X<br>PCIe PCIe Legacy<br>PCI/PCI-X<br>Endpoint Endpoint Endpoint<br>**----- End of picture text -----**<br>
+<br>
 
 类似地，图 2‐9（第 52 页）中所示的交换机 (Switch) 的内部组织结构对软件而言也仅仅呈现为一组共享同一条总线的桥 (Bridge)。这种方法的一个主要优点是它允许事务路由以与 PCI 相同的方式进行。枚举 (Enumeration)，即配置软件发现系统拓扑并分配总线编号和系统资源的过程，其工作方式也是相同的。我们稍后会看到一些枚举工作方式的示例，但一旦完成枚举，系统中的总线编号将会以类似于图 2‐9（第 52 页）所示的方式进行分配。 
 
-**51** 
-
-**PCI Express Technology** 
-
 _图 2‐9：系统枚举示例结果 (Example Results of System Enumeration)_ 
 
-**==> picture [264 x 270] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-PCI-PCI<br>Bridge<br>Internal Bus 2<br>PCI-PCI PCI-PCI PCI-PCI<br>Bridge Bridge Bridge<br>CPU<br>Root Complex<br>(internal bus 0) Memory<br>Bus 1 Bus 6 Bus 7<br>PCIe Bus 3 Switch EndpointPCIe BridgePCIe<br>Endpoint to PCI<br>Bus 4 Bus 5 or PCI-X<br>PCIe Legacy<br>Endpoint Endpoint PCI/PCI-X<br>Bus 8<br>Legend<br>Downstream port<br>Upstream port<br>**----- End of picture text -----**<br>
+<br>
 
 </td>
 </tr></tbody></table>
@@ -854,30 +773,19 @@ PCI-PCI<br>Bridge<br>Internal Bus 2<br>PCI-PCI PCI-PCI PCI-PCI<br>Bridge Bridge 
 Figure 2‐10 on page 53 illustrates an example of a PCIe‐based system designed for a low‐cost application like a consumer desktop machine. A few PCIe Ports are implemented, along with a few add‐in cards slots, but the basic architecture doesn’t differ much from the old‐style PCI system. 
 
 By contrast, the high‐end server system shown in Figure 2‐11 on page 54 shows other networking interfaces built into the system. In the early days of PCIe some thought was given to making it cable of operating as a network that could replace those older models. After all, if PCIe is basically a simplified version of other networking protocols, couldn’t it fill all the needs? For a variety of rea‐ sons, this concept never really achieved much momentum and PCIe‐based sys‐ tems still generally connect to external networks using other transports. 
-
-**52** 
-
-**Chapter 2: PCIe Architecture Overview** 
-
 This also gives us an opportunity to revisit the question of what constitutes the Root Complex. In this example, the block labeled as “Intel Processor” contains a number of components, as is true of most modern CPU architectures. This one includes a x16 PCIe Port for access to graphics, and 2 DRAM channels, which means the memory controller and some routing logic has been integrated into the CPU package. Collectively, these resources are often called the “Uncore” logic to distinguish them from the several CPU cores and their associated logic in the package. Since we previously described the Root as being the interface between the CPU and the PCIe topology, that means that part of the Root must be inside the CPU package. As shown by the dashed line in Figure 2‐11 on page 54, the Root here consists of part of several packages. This will likely be the case for many future system designs. 
 
 _Figure 2‐10: Low‐Cost PCIe System_ 
 
-**==> picture [376 x 246] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-PCIe<br>Graphics<br>DDR3<br>GFX Intel Processor<br>DDR3<br>DMI (very similar to PCIe)<br>Serial ATA<br>HiDef Audio<br>HDD<br>USB 2.0 P55 PCH  Video<br>“Ibex Peak”<br>SPI<br>BIOS<br>Gb<br>Add-in Add-in Add-in<br>Ethernet<br>PCIe ports<br>**----- End of picture text -----**<br>
-
-**53** 
-
-**PCI Ex ress Technolo p gy** 
+<br>
 
 _Figure 2‐11: Server PCIe System_ 
 
-**==> picture [369 x 296] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Intel Processor<br>PCIe DDR3<br>Uncore<br>GFX<br>DDR3<br>QPI<br>IOH Root Complex<br>10 Gb<br>LAN Switch Ethernet Switch Fibre<br>Endpoint Channel<br>Endpoint Endpoint<br>10 Gb PCI Express SAS/SATA<br>Add-In Switch Ethernet to-PCI<br>RAID<br>Endpoint Endpoint<br>Endpoint<br>PCI<br>Add-In EthernetGb IEEE Slots<br>1394<br>Endpoint Endpoint<br>**----- End of picture text -----**<br>
+<br>
 
 </td>
 <td style="background-color:#e8e8e8">
@@ -888,29 +796,19 @@ Intel Processor<br>PCIe DDR3<br>Uncore<br>GFX<br>DDR3<br>QPI<br>IOH Root Complex
 
 相比之下,第 54 页的图 2-11 所示的高端服务器系统则展示了内置的其他网络接口。在 PCIe 诞生之初,曾有人设想让它作为一种网络来替代那些较老的协议。毕竟,如果 PCIe 基本上是其他网络协议的简化版本,难道它不能胜任所有需求吗?由于种种原因,这一设想始终未能获得广泛认可,基于 PCIe 的系统在连接外部网络时通常仍采用其他传输方式。
 
-**52**
-
 **第 2 章:PCIe 架构概览**
 
 这也让我们有机会重新审视"根复合体 (Root Complex) 由什么构成"这一问题。在本例中,标注为"Intel 处理器"的模块包含了众多组件,这在现代 CPU 架构中很常见。该模块包含一个 x16 PCIe 端口用于访问图形,以及 2 条 DRAM 通道,也就是说内存控制器和一些路由逻辑已被集成到 CPU 封装内部。这些资源通常被统称为"Uncore"(非核)逻辑,以区别于封装内的若干 CPU 核心及其相关逻辑。由于我们之前将根复合体 (Root) 描述为 CPU 与 PCIe 拓扑之间的接口,因此根复合体 (Root) 的一部分必然位于 CPU 封装内部。如第 54 页图 2-11 中的虚线所示,此处的根复合体 (Root) 由多个封装的部分共同组成。这种情况在未来的许多系统设计中很可能会成为常态。
 
 _图 2-10:低成本 PCIe 系统_
 
-**==> picture [376 x 246] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-PCIe<br>Graphics<br>DDR3<br>GFX Intel Processor<br>DDR3<br>DMI (very similar to PCIe)<br>Serial ATA<br>HiDef Audio<br>HDD<br>USB 2.0 P55 PCH  Video<br>"Ibex Peak"<br>SPI<br>BIOS<br>Gb<br>Add-in Add-in Add-in<br>Ethernet<br>PCIe ports<br>**----- End of picture text -----**
-
-**53**
-
-**PCI Ex ress Technolo p gy**
 
 _图 2-11:服务器 PCIe 系统_
 
-**==> picture [369 x 296] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Intel Processor<br>PCIe DDR3<br>Uncore<br>GFX<br>DDR3<br>QPI<br>IOH Root Complex<br>10 Gb<br>LAN Switch Ethernet Switch Fibre<br>Endpoint Channel<br>Endpoint Endpoint<br>10 Gb PCI Express SAS/SATA<br>Add-In Switch Ethernet to-PCI<br>RAID<br>Endpoint Endpoint<br>Endpoint<br>PCI<br>Add-In EthernetGb IEEE Slots<br>1394<br>Endpoint Endpoint<br>**----- End of picture text -----**
 
 </td>
 </tr></tbody></table>
@@ -930,11 +828,6 @@ Intel Processor<br>PCIe DDR3<br>Uncore<br>GFX<br>DDR3<br>QPI<br>IOH Root Complex
 ## **Introduction to Device Layers** 
 
 PCIe defines a layered architecture as illustrated in Figure 2‐12 on page 56. The layers can be considered as being logically split into two parts that operate inde‐ pendently because they each have a transmit side for outbound traffic and a receive side for inbound traffic. The layered approach has some advantages for hardware designers because, if the logic is partitioned carefully, it can be easier to migrate to new versions of the spec by changing one layer of an existing design while leaving the others unaffected. Even so, it’s important to note that the layers simply define interface responsibilities and a design is not required to be partitioned according to the layers to be compliant with the spec. The goal in 
-
-**54** 
-
-**Chapter 2: PCIe Architecture Overview** 
-
 this section is to describe the responsibilities of each layer and the flow of events involved in accomplishing a data transfer. 
 
 The device layers as shown in Figure 2‐12 on page 56 consist of: 
@@ -946,8 +839,6 @@ The device layers as shown in Figure 2‐12 on page 56 consist of:
 - **Data Link Layer.** This layer is responsible for Data Link Layer Packet (DLLP) creation on the transmit side and decoding on the receive side. This layer is also responsible for Link error detection and correction. This Data Link Layer function is referred to as the Ack/Nak protocol. Both these Data Link Layer functions are described in book **Part Three** . 
 
 - **Physical Layer.** This layer is responsible for Ordered‐Set packet creation on the transmit side and Ordered‐Set packet decoding on the receive side. This layer processes all three types of packets (TLPs, DLLPs and Ordered‐Sets) to be transmitted on the Link and processes all types of packets received from the Link. Packets are processed on the transmit side by byte striping logic, scramblers, 8b/10b encoders (associated with Gen1/Gen2 protocol) or 128b/130b encoders (associated with Gen3 protocol) and packet serializers. The packet is finally differentially clocking out on all Lanes at the trained Link speed. On the receive Physical Layer, packet processing consists of serially receiving differentially encoded bits and converting to digital for‐ mat and then deserializing the incoming bit‐stream. The is done at a clock rate derived from a recovered clock from the CDR (Clock and Data Recov‐ ery) circuit. The received packets are processed by elastic buffers, 8b/10b decoders (associated with Gen1/Gen2 protocol) or 128b/130b decoders (associated with Gen3 protocol), de‐scramblers and byte un‐striping logic. Finally, the Link Training and Status State Machine (LTSSM) of the Physical Layer is responsible for Link Initialization and Training. All these Physical Layer functions are described in book **Part Four** . 
-
-**55**
 
 </td>
 <td style="background-color:#e8e8e8">
@@ -966,8 +857,6 @@ PCIe 定义了一个分层架构,如图 2-12(第 56 页)所示。这些层在逻
 
 - **物理层 (Physical Layer)。** 该层负责发送侧的有序集 (Ordered-Set) 包创建以及接收侧的有序集包解码。该层处理要在链路上发送的所有三种类型包(TLP、DLLP 和有序集),并处理从链路接收的所有类型包。在发送侧,这些包经由字节拆分逻辑、加扰器、8b/10b 编码器(对应 Gen1/Gen2 协议)或 128b/130b 编码器(对应 Gen3 协议)以及报文并串转换器进行处理。最终,报文以训练后的链路速度在所有通道 (Lane) 上以差分时钟方式输出。在接收物理层,报文处理包括:串行接收差分编码的比特,转换为数字格式,然后对输入比特流进行解串。这一过程以从 CDR(Clock and Data Recovery,时钟和数据恢复)电路恢复得到的时钟频率运行。接收到的报文经由弹性缓冲器、8b/10b 解码器(对应 Gen1/Gen2 协议)或 128b/130b 解码器(对应 Gen3 协议)、解扰器以及字节去拆分逻辑进行处理。最后,物理层的链路训练与状态机 (LTSSM,Link Training and Status State Machine) 负责链路的初始化与训练。这些物理层功能都将在本书的**第四部分**中介绍。 
 
-**55**
-
 </td>
 </tr></tbody></table>
 
@@ -983,35 +872,24 @@ PCIe 定义了一个分层架构,如图 2-12(第 56 页)所示。这些层在逻
 <tbody><tr>
 <td>
 
-## **PCI Ex ress Technolo p gy** 
+## **PCI Express Technology** 
 
 _Figure 2‐12: PCI Express Device Layers_ 
 
-**==> picture [232 x 201] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIe Core  PCIe Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>Transaction Layer Transaction Layer<br>Data Link Layer Data Link Layer<br>Physical Layer Physical Layer<br>(RX) (TX) (RX) (TX)<br>Link<br>**----- End of picture text -----**<br>
+<br>
 
 Every PCIe interface supports the functionality of these layers, including Switch Ports, as shown in Figure 2‐13 on page 57. A question often came up in earlier classes as to whether a Switch Port needs to implement all the layers, since it’s typically only forwarding packets. The answer is yes, and the reason is that evaluating the contents of packets to determine their routing requires looking into the internal details of a packet, and that takes place in the Transaction Layer logic. 
-
-**56** 
-
-**Chapter 2: PCIe Architecture Overview** 
-
 _Figure 2‐13: Switch Port Layers_ 
 
-**==> picture [189 x 218] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Transaction Layer<br>Data Link Layer<br>Physical Layer<br>Switch<br>Core<br>**----- End of picture text -----**<br>
+<br>
 
 In principle, each layer communicates with the corresponding layer in the device on the other end of the Link. The upper two layers do so by organizing a string of bits into a packet, creating a pattern that is recognizable by the corre‐ sponding layer in the receiver. The packets are forwarded through the other lay‐ ers along the way to get to or from the Link. The Physical Layer also communicates directly with that layer in the other device but it does differently. 
 
 Before we go deeper, let’s first walk through an overview to see how the layers interact. In broad terms, the contents of an outgoing request or completion packet from the device are assembled in the Transaction Layer based on infor‐ mation presented by the device core logic, which we also sometimes call the Software Layer (although the spec doesn’t use that term). That information would usually include the type of command desired, the address of the target device, attributes of the request, and so on. The newly created packet is then stored in a buffer called a Virtual Channel until it’s ready for passing to the next layer. When the packet is passed down to the Data Link Layer, additional infor‐ mation is added to the packet for error checking at the neighboring receiver, and a copy is stored locally so we can send it again if a transmission error occurs. When the packet arrives at the Physical Layer it’s encoded and transmit‐ ted differentially using all the available Lanes of the Link. 
-
-**57** 
-
-**PCI Ex ress Technolo p gy**
 
 </td>
 <td style="background-color:#e8e8e8">
@@ -1037,8 +915,6 @@ PCIe 核心　　　　　　　　　　　PCIe 核心<br>
 
 每一个 PCIe 接口都支持这些层的功能，包括交换机端口，如图 2‐13（第 57 页）所示。在早期的课程中经常有人会问：交换机端口是否需要实现所有层，因为它通常只是转发数据包？答案是肯定的，原因是评估数据包内容以确定其路由需要查看数据包的内部细节，而这些操作是在事务层逻辑中完成的。
 
-**56**
-
 **第 2 章：PCIe 架构概述**
 
 _图 2‐13：交换机端口分层_
@@ -1056,8 +932,6 @@ _图 2‐13：交换机端口分层_
 原则上，每一层都与链路另一端设备中的对应层进行通信。上两层通过将一串比特组织成数据包来实现通信，创建一个能被接收方对应层识别的模式。数据包在传输过程中会经过其他各层，最终到达链路或从链路发出。物理层也会直接与另一设备的物理层通信，但其方式有所不同。
 
 在深入之前，我们先总体浏览一下，看看各层是如何交互的。从广义上讲，从设备发出的请求或完成报文的内容是由事务层根据设备核心逻辑（我们有时也称为软件层，尽管规范中没有使用这个术语）提供的信息组装而成的。这些信息通常包括所需的命令类型、目标设备的地址、请求的属性等。新创建的数据包被存储在一个称为虚通道 (VC) 的缓冲区中，直到准备好传递给下一层。当数据包向下传递到数据链路层时，会向数据包添加额外的信息以供相邻接收方进行错误检查，同时在本地保存一个副本，以便在发生传输错误时能够重新发送。当数据包到达物理层时，它会被编码，并使用链路上所有可用的通道以差分方式发送出去。
-
-**57**
 
 **PCI Express 技术**
 
@@ -1078,30 +952,21 @@ _图 2‐13：交换机端口分层_
 
 ## _Figure 2‐14: Detailed Block Diagram of PCI Express Device’s Layers_ 
 
-**==> picture [338 x 344] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Memory, I/O, Configuration Requests, Message Requests or Completions<br>“Software (Software layer sends / receives address, transaction type, data)<br>Layer”<br>Transmit Receive<br>Transaction Layer Packet (TLP) Transaction Layer Packet (TLP)<br>Header Data Payload ECRC Header Data Payload ECRC<br>Transaction<br>Transmit Flow Control Receive<br>Layer Buffers Buffers<br>(VCs) Virtual Channel<br>(VCs)<br>Management<br>VC Arbitration Ordering<br>Link Packet DLLPs e.g. DLLPs Link Packet<br>Sequence TLP LCRC Ack/Nak CRC Ack/Nak CRC Sequence TLP LCRC<br>Data Link<br>TLP Retry De-mux<br>Layer Buffer<br>TLP Error<br>Mux Check<br>Physical Packet Physical Packet<br>Start Link Packet End Start Link Packet End<br>Physical Encode Decode<br>Layer<br>Parallel-to-Serial Serial-to-Parallel<br>Link<br>Differential Driver Training Differential Receiver<br>Port<br>Link<br>**----- End of picture text -----**<br>
+<br>
 
 The receiver decodes the incoming bits in the Physical Layer, checks for errors that can be seen at this level and, if there are none, forwards the resulting packet up to the Data Link Layer. Here the packet is checked for different errors and, if there are no errors, is forwarded up to the Transaction Layer. The packet is buff‐ ered, checked for errors, and disassembled into the original information (com‐ mand, attributes, etc.) so the contents can be delivered to the device core of the receiver. Next, let’s explore in greater depth what each of the layers must do to make this process work, using Figure 2‐14 on page 58. We start at the top. 
-
-**58** 
-
-**Chapter 2: PCIe Architecture Overview**
-
 </td>
 <td style="background-color:#e8e8e8">
 
 ## _图 2‐14：PCI Express 设备各层的详细框图_
 
-**==> picture [338 x 344] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-内存、I/O、配置请求、消息请求或完成报文<br>"软件 (软件层发送 / 接收地址、事务类型、数据)<br>层"<br>发送 接收<br>事务层包 (TLP) 事务层包 (TLP)<br>包头 数据负载 ECRC 包头 数据负载 ECRC<br>事务层<br>发送 流控 接收<br>缓冲区 缓冲区<br>(VC) 虚通道<br>(VC)<br>管理<br>VC 仲裁 排序<br>链路包 DLLPs 例如 DLLPs 链路包<br>序列号 TLP LCRC Ack/Nak CRC Ack/Nak CRC 序列号 TLP LCRC<br>数据链路层<br>TLP 重发 解复用<br>缓冲区<br>TLP 错误<br>复用 检查<br>物理层 物理包 物理包<br>包起始 链路包 结束 包起始 链路包 结束<br>编码 解码<br>物理层<br>并行转串行 串行转并行<br>链路<br>差分驱动器 训练 差分接收器<br>端口<br>链路<br>**----- End of picture text -----**<br>
+<br>
 
 接收器在物理层对传入的比特进行解码，检查该层级可发现的错误，若没有错误，则将得到的包向上转发到数据链路层。在数据链路层，包被检查是否存在不同的错误，若没有错误，则被向上转发到事务层。包被缓冲，进行错误检查，并被拆解为原始信息(命令、属性等)，以便将其内容传送到接收器的设备核心。接下来，让我们结合第 58 页的图 2‐14 更深入地探讨每一层为使此过程正常运作所必须完成的工作。我们从最顶层开始。
-
-**58**
 
 **第 2 章：PCIe 架构概述**
 
@@ -1168,8 +1033,6 @@ _Table 2‐2: PCI Express Request Types_
 |Memory Write|Posted|
 |Memory Read Lock|Non‐Posted|
 
-**59**
-
 </td>
 <td style="background-color:#e8e8e8">
 
@@ -1195,8 +1058,6 @@ _表 2‐2：PCI Express 请求类型 (Request Types)_
 |Memory Write（内存写）|Posted|
 |Memory Read Lock（内存读锁定）|Non-Posted|
 
-**59**
-
 </td>
 </tr></tbody></table>
 
@@ -1212,7 +1073,7 @@ _表 2‐2：PCI Express 请求类型 (Request Types)_
 <tbody><tr>
 <td>
 
-## **PCI Ex ress Technolo p gy** 
+## **PCI Express Technology** 
 
 _Table 2‐2: PCI Express Request Types (Continued)_ 
 
@@ -1265,11 +1126,6 @@ _表 2‐2：PCI Express 请求类型（续）_
 ## **TLP (Transaction Layer Packet) Basics** 
 
 A list of all of the PCIe request and completion packet types is given in Table 2‐ 3 on page 61. 
-
-**60** 
-
-**Chapter 2: PCIe Architecture Overview** 
-
 _Table 2‐3: PCI Express TLP Types_ 
 
 |**TLP Packet Types**|**Abbreviated**<br>**Name**|
@@ -1290,16 +1146,12 @@ _Table 2‐3: PCI Express TLP Types_
 
 TLPs originate at the Transaction Layer of a transmitter and terminate at the Transaction Layer of a receiver, as shown in Figure 2‐15 on page 62. The Data Link Layer and Physical Layer add parts to the packet as it moves through the layers of the transmitter, and then verify at the receiver that those parts were transmitted correctly across the Link. 
 
-**61**
-
 </td>
 <td style="background-color:#e8e8e8">
 
 ## **TLP（事务层包）基础**
 
 所有 PCIe 请求和完成报文类型的列表见第 61 页的表 2-3。
-
-**60**
 
 **第 2 章：PCIe 架构概述**
 
@@ -1323,8 +1175,6 @@ _表 2-3：PCI Express TLP 类型_
 
 TLP 在发送端的**事务层**产生，并在接收端的**事务层**终止，如图 2-15（第 62 页）所示。**数据链路层**和**物理层**在报文通过发送端各层时为其添加相应的部分，然后在接收端验证这些部分是否已通过**链路**正确传输。
 
-**61**
-
 </td>
 </tr></tbody></table>
 
@@ -1340,35 +1190,26 @@ TLP 在发送端的**事务层**产生，并在接收端的**事务层**终止�
 <tbody><tr>
 <td>
 
-## **PCI Ex ress Technolo p gy** 
+## **PCI Express Technology** 
 
 _Figure 2‐15: TLP Origin and Destination_ 
 
-**==> picture [290 x 186] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIe Core  PCIe Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>TransmittedTLP Transaction Layer Transaction Layer ReceivedTLP<br>Data Link Layer Data Link Layer<br>Physical Layer Physical Layer<br>(RX) (TX) (RX) (TX)<br>Link<br>**----- End of picture text -----**<br>
+<br>
 
 **TLP Packet Assembly.** An illustration of the parts of a finished TLP as it is sent over the Link is shown in Figure 2‐16 on page 63, where it can be seen that different parts of the packet are added in each of the layers. To make it easier to recognize how the packet gets constructed, the different parts of the TLP are color coded to indicate which layer is responsible for them: red for Transaction Layer, blue for Data Link Layer, and green for the Physical Layer. 
 
 The device core sends the information required to assemble the core section of the TLP in the Transaction Layer. Every TLP will have a header, although some, like a read request, won’t contain data. An optional End‐to‐End CRC (ECRC) field may be calculated and appended to the packet. CRC stands for Cyclic Redundancy Check (or Code) and is employed by almost all serial architectures for the simple reason that it’s simple to implement and provides very robust error detection capability. The CRC also detects “burst errors,” or string of repeated mistaken bits, up to the length of the CRC value (32 bits for PCIe). Since this type of error is likely to be encountered when sending a long string of bits, this characteristic is very useful for serial transports. The ECRC field is passed unchanged through any service points (“service point” usually refers to a Switch or Root Port that has TLP routing options) between the sender and receiver of the packet, making it useful for verifying at the destination that there were no errors anywhere along the way. 
-
-**62** 
-
-**Chapter 2: PCIe Architecture Overview** 
-
 For transmission, the core section of the TLP is forwarded to the Data Link Layer, which is responsible to append a Sequence Number and another CRC field called the Link CRC (LCRC). The LCRC is used by the neighboring receiver to check for errors and report the results of that check back to the trans‐ mitter for every packet sent on that Link. The thoughtful reader may wonder why the ECRC would be helpful if the mandatory LCRC check already verifies error‐free transmission across the Link. The reason is that there is still a place where transmission errors aren’t checked, and that is within devices that route packets. A packet arrives and is checked for errors on one port, the routing is checked, and when it’s sent out on another port a new LCRC value is calculated and added to it. The internal forwarding between ports could encounter an error that isn’t checked as part of the normal PCIe protocol, and that’s why ECRC is helpful. 
 
 Finally, the resulting packet is forwarded to the Physical Layer where other characters are added to the packet to let the receiver know what to expect. For the first two generations of PCIe, these were control characters added to the beginning and end of the packet. For the third generation, control characters are no longer used but other bits are appended to the blocks that give the needed information about the packets. The packet is then encoded and differentially transmitted on the Link using all of the available lanes. 
 
 _Figure 2‐16: TLP Assembly_ 
 
-**==> picture [278 x 187] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Information in core section of TLP comes<br>from Software Layer / Device Core<br>Bit transmit direction<br>Sequence<br>Start Header Data ECRC LCRC End<br>Number<br>Created by Transaction Layer<br>Appended by Data Link Layer<br>Appended by PHY Layer<br>**----- End of picture text -----**<br>
-
-**63**
+<br>
 
 </td>
 <td style="background-color:#e8e8e8">
@@ -1377,17 +1218,13 @@ Information in core section of TLP comes<br>from Software Layer / Device Core<br
 
 _图 2-15：TLP 的源端与目的端_
 
-**==> picture [290 x 186] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIe Core  PCIe Core<br>Hardware/Software Hardware/Software<br>Interface Interface<br>TransmittedTLP Transaction Layer Transaction Layer ReceivedTLP<br>Data Link Layer Data Link Layer<br>Physical Layer Physical Layer<br>(RX) (TX) (RX) (TX)<br>Link<br>
-**----- End of picture text -----**<br>
+<br>
 
 **TLP 数据包组装。** 关于已完成的 TLP 在链路上发送时各组成部分的示意图，请参见第 63 页的图 2-16，从中可以看出数据包的不同部分在每一层中添加。为了更容易识别数据包是如何构建的，TLP 的不同部分用颜色编码以指示负责该部分的层：事务层为红色，数据链路层为蓝色，物理层为绿色。
 
 设备核心在事务层中发送组装 TLP 核心部分所需的信息。每个 TLP 都有一个包头（Header），尽管某些 TLP（如读请求）不包含数据。可以选择性地计算并附加一个端到端 CRC（ECRC）字段。CRC 代表循环冗余校验（Cyclic Redundancy Check 或 Code），几乎所有串行架构都采用它，原因很简单——它易于实现，并提供非常强大的错误检测能力。CRC 还能检测"突发错误"，即重复的误位串，其长度可达 CRC 值的长度（PCIe 中为 32 位）。由于在发送长串比特时很可能遇到此类错误，因此这一特性对串行传输非常有用。ECRC 字段在发送端和接收端之间的任何服务点（"服务点"通常指具有 TLP 路由选项的交换机或根端口）保持不变地传递，这使得它在目的地验证沿途没有发生错误时非常有用。
-
-**62**
 
 **第 2 章：PCIe 架构概述**
 
@@ -1397,20 +1234,9 @@ PCIe Device A PCIe Device B<br>Device Core Device Core<br>PCIe Core  PCIe Core<b
 
 _图 2-16：TLP 组装_
 
-**==> picture [278 x 187] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Information in core section of TLP comes<br>from Software Layer / Device Core<br>
-Bit transmit direction<br>
-Sequence<br>
-Start Header Data ECRC LCRC End<br>
-Number<br>
-Created by Transaction Layer<br>
-Appended by Data Link Layer<br>
-Appended by PHY Layer<br>
-**----- End of picture text -----**<br>
-
-**63**
+<br>
 
 </td>
 </tr></tbody></table>
@@ -1427,7 +1253,7 @@ Appended by PHY Layer<br>
 <tbody><tr>
 <td>
 
-## **PCI Ex ress Technolo p gy** 
+## **PCI Express Technology** 
 
 **TLP Packet Disassembly.** When the neighboring receiver sees the incom‐ ing TLP bit stream, it needs to identify and remove the parts that were added to recover the original information requested by the core logic of the transmitter. As shown in Figure 2‐17 on page 64, the Physical Layer will verify that the proper Start and End or other characters are present and remove them, for‐ warding the remainder of the TLP to the Data Link Layer. This layer first checks for LCRC and Sequence Number errors. If no errors are found, it removes those fields from the TLP and forwards it to the Transaction Layer. If the receiver is a Switch, the packet is evaluated in the Transaction Layer to find the routing information in the header of the TLP and determine to which port the packet should be forwarded. Even when it’s not the intended destination, a Switch is allowed to check and report an ECRC error if it finds one. However, it’s not allowed to modify the ECRC, so the targeted device will be able to detect the ECRC error as well. 
 
@@ -1435,15 +1261,9 @@ The target device can check ECRC errors if it’s capable and was enabled. If th
 
 _Figure 2‐17: TLP Disassembly_ 
 
-**==> picture [366 x 228] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Information in core section of TLP is<br>sent to Software Layer / Device Core<br>Bit receive direction<br>Sequence<br>Start Header Data ECRC LCRC End<br>Number<br>Stripped by Transaction Layer<br>Stripped by Data Link Layer<br>Stripped by PHY Layer<br>**----- End of picture text -----**<br>
-
-**64** 
-
-**Chapter 2: PCIe Architecture Overview**
-
+<br>
 </td>
 <td style="background-color:#e8e8e8">
 
@@ -1455,15 +1275,9 @@ Information in core section of TLP is<br>sent to Software Layer / Device Core<br
 
 _图 2-17:TLP 解封装_ 
 
-**==> picture [366 x 228] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Information in core section of TLP is<br>sent to Software Layer / Device Core<br>Bit receive direction<br>Sequence<br>Start Header Data ECRC LCRC End<br>Number<br>Stripped by Transaction Layer<br>Stripped by Data Link Layer<br>Stripped by PHY Layer<br>**----- End of picture text -----**<br>
-
-**64** 
-
-**Chapter 2: PCIe Architecture Overview**
-
+<br>
 </td>
 </tr></tbody></table>
 
@@ -1485,12 +1299,9 @@ Information in core section of TLP is<br>sent to Software Layer / Device Core<br
 
 _Figure 2‐18: Non‐Posted Read Example_ 
 
-**==> picture [326 x 259] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Completer<br>Processor<br>Step 2: Root receives MRd<br>Step 3: Root fetches data,<br>returns CplD<br>Root Complex<br>CplD MRd System<br>Memory<br>Switch A Switch C<br>CplD<br>MRd<br>Switch B Endpoint Endpoint Endpoint<br>MRd<br>CplD<br>Requester<br>Endpoint Endpoint Step 1: Endpoint initiates MRd<br>Step 4: Endpoint receives CplD<br>**----- End of picture text -----**<br>
-
-**65**
+<br>
 
 </td>
 <td style="background-color:#e8e8e8">
@@ -1501,13 +1312,9 @@ Completer<br>Processor<br>Step 2: Root receives MRd<br>Step 3: Root fetches data
 
 _Figure 2‐18: Non‐Posted Read Example（图 2-18：非 Posted 读示例）_
 
-**==> picture [326 x 259] intentionally omitted <==**
+<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
 
-**----- Start of picture text -----**<br>
-Completer（完成者）<br>Processor（处理器）<br>Step 2: Root 接收 MRd（步骤 2：Root 收到 MRd）<br>Step 3: Root 取回数据，<br>返回 CplD（步骤 3：Root 取回数据并返回 CplD）<br>Root Complex（根复合体）<br>CplD MRd System<br>Memory（系统内存）<br>Switch A（交换机 A） Switch C（交换机 C）<br>CplD<br>MRd<br>Switch B（交换机 B） Endpoint（端点） Endpoint（端点） Endpoint（端点）<br>MRd<br>CplD<br>Requester（请求者）<br>Endpoint（端点） Endpoint（端点） Step 1: Endpoint 发起 MRd（步骤 1：Endpoint 发起 MRd）<br>Step 4: Endpoint 接收 CplD（步骤 4：Endpoint 收到 CplD）<br>
-**----- End of picture text -----**<br>
-
-**65**
+<br>
 
 </td>
 </tr></tbody></table>

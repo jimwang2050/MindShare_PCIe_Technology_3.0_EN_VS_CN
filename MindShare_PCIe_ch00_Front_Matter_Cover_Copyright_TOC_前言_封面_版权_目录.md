@@ -223,10 +223,9 @@ MindShare offers numerous courses in a self‐paced training format (eLearning).
 
 ## ARBOR 
 
-**==> picture [9 x 6] intentionally omitted <==**
+<img src="figures/chapter_00_Front_Matter_Cover_Copyright/embedded/page0001_img1.png" alt="Figure 1" width="700">
 
-**----- Start of picture text -----**<br>
-BY<br>**----- End of picture text -----**<br>
+<br>
 
 
 [⬆️ 返回目录](#-本章目录-table-of-contents)
@@ -241,10 +240,9 @@ BY<br>**----- End of picture text -----**<br>
 
 ## **The Ultimate Tool to View, Edit and Verify Configuration Settings of a Computer** 
 
-**==> picture [246 x 277] intentionally omitted <==**
+<img src="figures/chapter_00_Front_Matter_Cover_Copyright/embedded/page0547_img1.png" alt="Figure 2" width="700">
 
-**----- Start of picture text -----**<br>
-Decode Data from<br>| SaaS, Live Systems<br>a<br> cs ene eee {<br>= er<br>™ P| nineaeeteeeereerrerenarerrwrerret palefe= ie \ieitertermie, etl ' ti)<br>tamepeer rte areeeetea Ahem tem aot tanta Ea ———<br>ES)Ee eee Snee eaten<br>HESSfas]— cenSicaevetattepanenenseerssertaeureceetanice’ enSaveiOPAarSl LipreesREapeeuenttot=~=S~S*S~*C~S*~*~CS*~Sainichin Ieeepon] ncn aia<br>‘pean ree th Capen<br>=: Se one<br>Apply Standard and  a teen pet tata  ———————4<br>Custom Rule Checks ankleaeil, ——or<br>——— on<br>rote=aman : omlinieaniseSinsel inicio<br>SR. | EEF<br>i<br>‘eaeeeon ‘caeneeeSSane meeeee e eeeteers] arapo—=—ay i<br>Directly Edit Config,<br>Memory and IO Space<br>**----- End of picture text -----**<br>
+<br>
 
 
 [⬆️ 返回目录](#-本章目录-table-of-contents)
@@ -277,10 +275,9 @@ Decode Data from<br>| SaaS, Live Systems<br>a<br> cs ene eee {<br>= er<br>™ P|
 
 - Save system scans for viewing later or on other systems 
 
-**==> picture [104 x 24] intentionally omitted <==**
+<img src="figures/chapter_00_Front_Matter_Cover_Copyright/embedded/page0697_img1.png" alt="Figure 3" width="700">
 
-**----- Start of picture text -----**<br>
-Everything Driven from<br>Open Format XML<br>**----- End of picture text -----**<br>
+<br>
 
 - All decode files and saved system scans are XML-based and open-format
 
@@ -299,7 +296,7 @@ Everything Driven from<br>Open Format XML<br>**----- End of picture text -----**
 
 Decoded view of x86 structures (MSRs, ACPI, Paging, Virtualization, etc.) 
 
-**mindshare.com  |  800.633.1440  |  training@mindshare.com**
+**mindshare.com | 800.633.1440 | training@mindshare.com**
 
 
 [⬆️ 返回目录](#-本章目录-table-of-contents)
@@ -407,9 +404,9 @@ After a system scan has been performed, MindShare Arbor allows saving of that sy
 
 _Technical Edit by Joe Winkles and Don Anderson_ 
 
-Many of the designations used by manufacturers and sellers to distinguish their prod‐ ucts are claimed as trademarks. Where those designators appear in this book, and MindShare was aware of the trademark claim, the designations have been printed in ini‐ tial capital letters or all capital letters. 
+Many of the designations used by manufacturers and sellers to distinguish their products are claimed as trademarks. Where those designators appear in this book, and MindShare was aware of the trademark claim, the designations have been printed in ini‐ tial capital letters or all capital letters. 
 
-The authors and publishers have taken care in preparation of this book, but make no expressed or implied warranty of any kind and assume no responsibility for errors or omissions. No liability is assumed for incidental or consequential damages in connec‐ tion with or arising out of the use of the information or programs contained herein.
+The authors and publishers have taken care in preparation of this book, but make no expressed or implied warranty of any kind and assume no responsibility for errors or omissions. No liability is assumed for incidental or consequential damages in connection with or arising out of the use of the information or programs contained herein.
 
 
 [⬆️ 返回目录](#-本章目录-table-of-contents)
@@ -425,7 +422,7 @@ Jackson, Mike and Budruk, Ravi PCI Express Technology / MindShare, Inc., Mike Ja
 
 Includes index ISBN: 978‐0‐9836465‐2‐5 (alk. paper) 1. Computer Architecture. 2.0 Microcomputers ‐ buses. 
 
-I. Jackson, Mike    II. MindShare, Inc.   III. Title 
+I. Jackson, Mike II. MindShare, Inc. III. Title 
 
 Library of Congress Number: 2011921066 ISBN: 978‐0‐9836465‐2‐5 Copyright ©2012 by MindShare, Inc. 
 
@@ -781,7 +778,7 @@ Receiver (Rx) Equalization .....................................................
 <a id="sec-0-46"></a>
 ## 0.46 Chapter 14: Link Initialization & Training (TOC)
 
-## **Chapter 14:  Link Initialization & Training** 
+## **Chapter 14: Link Initialization & Training** 
 
 **Overview.................................................................................................................................. 506 Ordered Sets in Link Training ............................................................................................ 509** General............................................................................................................................... 509 TS1 and TS2 Ordered Sets............................................................................................... 510 **Link Training and Status State Machine (LTSSM)......................................................... 518** General............................................................................................................................... 518 Overview of LTSSM States ............................................................................................. 519 Introductions, Examples and State/Substates............................................................. 521 **Detect State.............................................................................................................................. 522** Introduction ...................................................................................................................... 522 Detailed Detect Substate ................................................................................................. 523 Detect.Quiet............................................................................................................... 523 Detect.Active ............................................................................................................. 524 **Polling State ............................................................................................................................ 525** Introduction ...................................................................................................................... 525 Detailed Polling Substates .............................................................................................. 526 Polling.Active ............................................................................................................ 526 Polling.Configuration............................................................................................... 527 Polling.Compliance .................................................................................................. 529 Compliance Pattern for 8b/10b....................................................................... 529 Compliance Pattern for 128b/130b................................................................. 530 Modified Compliance Pattern for 8b/10b...................................................... 532 Modified Compliance Pattern for 128b/130b................................................ 533 Compliance Pattern........................................................................................... 537 Modified Compliance Pattern ......................................................................... 537 **Configuration State................................................................................................................ 539** Configuration State — General...................................................................................... 540 Designing Devices with Links that can be Merged .................................................... 541 Configuration State — Training Examples .................................................................. 542 Introduction............................................................................................................... 542 Link Configuration Example 1................................................................................ 542 Link Number Negotiation................................................................................ 542 Lane Number Negotiation ............................................................................... 543 Confirming Link and Lane Numbers ............................................................. 544 <br><small>p. xxiii</small>
 
@@ -1837,8 +1834,6 @@ _Table 1: PC Architecture Book Series_
 
 **1** 
 
-**PCI Ex ress Technolo p gy** 
-
 _Table 1: PC Architecture Book Series (Continued)_ 
 
 |**Category**|**Title**|**Edition**|**ISBN**|
@@ -1958,9 +1953,6 @@ This section defines the typographical convention used throughout this book.
 PCI Express™ is a trademark of the PCI SIG, commonly abbreviated as “PCIe”. 
 
 **3** 
-
-**PCI Ex ress Technolo p gy**
-
 
 [⬆️ 返回目录](#-本章目录-table-of-contents)
 
@@ -2118,8 +2110,6 @@ MindShare values your comments and suggestions. Contact us at:
 MindShare, Inc. 481 Highway 105 Suite B, # 246 Monument, CO 80132 USA 
 
 **5** 
-
-**PCI Ex ress Technolo p gy** 
 
 **6**
 
