@@ -43,10 +43,24 @@ def rebuild_chapter_toc(ch_file):
                         # Take first sentence or first ~50 chars
                         desc = re.sub(r'[#*_]+', '', line).strip()
                         break
+        # Filter out known cross-chapter / non-descriptive headings
+        BAD_TITLES = {
+            'The Next Chapter', 'The Previous Chapter', 'This Chapter',
+            'PCI Express Technology', 'PCI Express 3.0 Technology',
+            'Chapter', 'Contents',
+        }
         if desc:
             desc = re.sub(r'\*+', '', desc).strip()
             if len(desc) > 60:
                 desc = desc[:57] + '...'
+            # If the extracted title is bad, try the next heading or fallback to chapter name
+            if desc in BAD_TITLES or desc.startswith('Chapter ') or desc.startswith('Part '):
+                # Try second ## heading in the td
+                h2_match = re.search(r'## \*?\*?(.+?)\*?\*?\s*\n.*?## \*?\*?(.+?)\*?\*?\s*\n', td_content, re.DOTALL)
+                if h2_match:
+                    desc2 = h2_match.group(2).strip()
+                    if desc2 not in BAD_TITLES and not desc2.startswith('Chapter '):
+                        desc = desc2
             en_title = desc
 
         sections.append((anchor, sec_num, en_title, zh_title))
@@ -54,8 +68,8 @@ def rebuild_chapter_toc(ch_file):
     if not sections:
         return False
 
-    # Build TOC
-    toc_lines = ['## 📑 本章目录 (Table of Contents)\n']
+    # Build TOC (single newlines between entries for clean GitHub rendering)
+    toc_lines = ['## 📑 本章目录 (Table of Contents)', '']
     for anchor, sec_num, en_title, zh_title in sections:
         en_clean = en_title.replace('**', '').strip()
         zh_clean = zh_title.replace('**', '').strip() if zh_title else ''
