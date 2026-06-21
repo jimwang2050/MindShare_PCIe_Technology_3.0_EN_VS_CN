@@ -24,8 +24,9 @@
 <a id="sec-5-1"></a>
 ## 5.1 TLP Elements | TLP 元素
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -714,8 +715,9 @@ DLLP 源自 PCI Express 端口的数据链路层，通过物理层传递，退�
 <a id="sec-5-2"></a>
 ## 5.2 TLP Elements | TLP 元素
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1221,8 +1223,9 @@ _表 5-5：4DW 内存请求头字段_
 <a id="sec-5-3"></a>
 ## 5.3 TLP Elements | TLP 元素
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1611,8 +1614,9 @@ PCI Express 规范定义了多个消息代码。这些代码分为几类：
 <a id="sec-5-4"></a>
 ## 5.4 TLP Elements | TLP 元素
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -2133,8 +2137,9 @@ PCI Express 规范定义了多个消息代码。这些代码分为几类：
 <a id="sec-5-5"></a>
 ## 5.5 TLP Elements | TLP 元素
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -2171,8 +2176,6 @@ _Figure 5‐1: TLP And DLLP Packets_
 
 <br>
 
-
-**Chapter 5: TLP Elements** 
 
 ## **Motivation for a Packet-Based Protocol** 
 
@@ -2239,8 +2242,6 @@ The request includes:
 
  - Attributes of the Request (No Snoop, Relaxed Ordering, etc.) 
 
-**Chapter 5: TLP Elements** 
-
 2. Based on that request, the Transaction Layer builds the TLP header, appends any data payload, and optionally calculates and appends the
 digest (End‐to‐End CRC, ECRC) if that’s supported and has been enabled. At this point the TLP is placed into a Virtual Channel buffer. The
 Virtual Channel manages the sequence of TLPs according to the Transaction Order‐ ing rules and also verifies that the receiver has enough
@@ -2296,8 +2297,6 @@ length of 1 DW<br>and Byte Enables of all zero. The resulting data from<br>the C
 it, so the result is the same.|
 |Digest/ECRC|Transaction<br>Layer|Optional. When present, ECRC is always 1 DW in<br>size.|
 
-
-**Chapter 5: TLP Elements** 
 
 ## **Generic TLP Header Format** 
 
@@ -2510,8 +2509,9 @@ PCI Express 规范定义了多个消息代码。这些代码分为几类：
 <a id="sec-5-6"></a>
 ## 5.6 TLP Elements | TLP 元素
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -2552,8 +2552,6 @@ more,<br>see “ID Based Ordering (IDO)” on page 301.|
 best to handle<br>this TLP. See “TPH (TLP Processing Hints)” on<br>page 899 for a discussion on their usage.|
 
 
-**Chapter 5: TLP Elements** 
-
 _Table 5‐2: Generic Header Field Summary (Continued)_ 
 
 |**Header**<br>**Field**|**Header**<br>**Location**||**Field Use**|
@@ -2593,8 +2591,6 @@ Byte 1 in first DW is valid; otherwise not<br>Bit 0 = 1: Byte 0 in first DW is v
 ## **Generic Header Field Details** 
 
 In the following sections, we describe details of each TLP Header field depicted in Figure 5‐3 on page 175. 
-
-**Chapter 5: TLP Elements** 
 
 ## **Header** _**Type/Format**_ **Field Encodings** 
 
@@ -2652,8 +2648,6 @@ errors across a given Link, but that gets recalculated for the packet at the egr
 before being forwarded to the next Link, which could mask an internal error in the routing element. To protect against that, the ECRC is
 carried forward unchanged on its journey between the Requester and Completer. When the target device checks the ECRC, any error
 possibilities along the way have a high probability of being detected.
-
-**Chapter 5: TLP Elements** 
 
 The spec makes two statements regarding a Switch’s role in ECRC checking: 
 
@@ -2846,8 +2840,9 @@ TLP 摘要位报告端到端 CRC (ECRC) 的存在。如果软件支持并启用�
 <a id="sec-5-7"></a>
 ## 5.7 TLP Elements | TLP 元素
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -2868,8 +2863,6 @@ _Figure 5‐4: Using First DW and Last DW Byte Enable Fields_
 As transactions move between requester and completer, it’s necessary to uniquely identify a transaction, since many split transactions may
 be queued up from the same Requester at any instant. To help with this, the spec defines sev‐ eral important header fields that form a
 unique Transaction Descriptor, as illus‐ trated in Figure 5‐5.
-
-**Chapter 5: TLP Elements** 
 
 _Figure 5‐5: Transaction Descriptor Fields_ 
 
@@ -2934,8 +2927,6 @@ range, in reality many systems (and CPUs) restrict IO access to the lower 16 bit
 system IO map and the 16‐ and 32‐bit address boundaries. Devices that don’t identify themselves as Legacy devices are not permitted to
 request IO address space in their configuration Base Address Registers.
 
-**Chapter 5: TLP Elements** 
-
 _Figure 5‐6: System IO Map_ 
 
 **IO Request Header Format.** A 3 DW IO request header is shown in Fig‐ ure 5‐7 on page 185 and each of the fields is described in the
@@ -2969,8 +2960,6 @@ interfere with any high‐priority<br>packets.|
 no more than 4 bytes can<br>be transferred. The First DW Byte<br>Enables qualify which bytes are used.|
 
 
-**Chapter 5: TLP Elements** 
-
 _Table 5‐4: IO Request Header Fields (Continued)_ 
 
 |**Field Name**|**Header Byte/Bit**|**Function**|
@@ -3002,8 +2991,6 @@ _Figure 5‐8: 3DW And 4DW Memory Request Header Formats_
 
 **Memory Request Header Fields.** The location and use of each field in a 4DW memory request header is listed in Table 5‐5 on page 189. Note
 that the difference between a 3DW header and a 4DW header is simply the location and size of the starting Address field.
-
-**Chapter 5: TLP Elements** 
 
 _Table 5‐5: 4DW Memory Request Header Fields_ 
 
@@ -3165,8 +3152,9 @@ _表 5-5：4DW 内存请求头字段_
 <a id="sec-5-8"></a>
 ## 5.8 TLP Elements | TLP 元素
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -3193,8 +3181,6 @@ for<br>coherency for this TLP. Otherwise,<br>cache snooping is required.|
 described in a<br>separate spec called_Address Transla‐_<br>_tion Services_, where it can be seen that<br>the field encodes as:<br>00 =
 Default/Untranslated<br>01 = Translation Request<br>10 = Translated<br>11 = Reserved|
 
-
-**Chapter 5: TLP Elements** 
 
 _Table 5‐5: 4DW Memory Request Header Fields (Continued)_ 
 
@@ -3242,8 +3228,6 @@ is converted from Type 1 to Type 0 by the bridge. The bridge knows when to forwa
 programmed bus number registers: Primary, Secondary, and Subordinate Bus Numbers. For more on this topic, refer to the section “Legacy PCI
 Mechanism” on page 91.
 
-**Chapter 5: TLP Elements** 
-
 _Figure 5‐9: 3DW Configuration Request And Header Format_ 
 
 <img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
@@ -3278,8 +3262,6 @@ never interfere with any<br>high‐priority packets.|
 |Length [9:0]|Byte 2 Bit 1:0<br>Byte 3 Bit 7:0|Data payload size in DW is always = 1<br>for configuration requests. Byte<br>Enables qualify
 bytes within the DW<br>and any combination is legal.|
 
-
-**Chapter 5: TLP Elements** 
 
 _Table 5‐6: Configuration Request Header Fields (Continued)_ 
 
@@ -3327,8 +3309,6 @@ Requester ID (used to route the completion back to the Requester). Figure 5‐10
 request, and the 3DW header format it uses. Completions also supply the Completer ID in the header. Completer ID is not interesting during
 normal operation, but knowing where the Completion came from could be useful for error diagnosis during system debug.
 
-**Chapter 5: TLP Elements** 
-
 _Figure 5‐10: 3DW Completion Header Format_ 
 
 <img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
@@ -3364,8 +3344,6 @@ data (CplD)|
 Snoop<br>。<br>如果为 1，则系统硬件不需要为此 TLP 触发处理器缓存窥探以保证一致性。否则需要缓存窥探。|
 |Address Type [1:0]|Byte 2 Bit 3:2||此字段支持虚拟化系统的地址转换。转换协议在名为_Address Translation Services_的单独规范中描述，可以看到该字段编码如下：<br>00 =
 Default/Untranslated<br>01 = Translation Request<br>10 = Translated<br>11 = Reserved|
-
-**Chapter 5: TLP Elements**
 
 *Table 5‐5: 4DW Memory Request Header Fields (Continued)*
 
@@ -3404,15 +3382,6 @@ Number<br>Byte 5, 2:0 = Function Number|
 PCI Express 使用与 PCI 相同的 Type 0 和 Type 1 配置请求来保持向后兼容性。Type 1 周期向下游传播，直到到达其 secondary bus 与目标 bus 匹配的桥为止。在那时，配置事务由该桥从 Type 1 转换为 Type
 0。桥根据先前编程的总线号寄存器（Primary、Secondary 和 Subordinate Bus Numbers）知道何时转发和转换配置周期。有关此主题的更多信息，请参见第 91 页 "Legacy PCI Mechanism" 一节。
 
-**Chapter 5: TLP Elements**
-
-*Figure 5‐9: 3DW Configuration Request And Header Format*
-
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
-
-<br>
-
-
 在第 193 页的图 5‐9 中，显示了一个 Type 1 配置周期向下游传播，并由该总线的桥将其转换为 Type 0（通过改变 Type 字段的位 0 实现）。请注意，与 PCI 不同的是，一个链路上只能驻留一个下游设备。因此，不需要 IDSEL
 或其他硬件指示来告知设备应该认领 Type 0 周期；任何在其上游链路上看到的 Type 0 配置周期都将被理解为针对该设备。
 
@@ -3434,8 +3403,6 @@ PCI Express 使用与 PCI 相同的 Type 0 和 Type 1 配置请求来保持向�
 |Attr [1:0]<br>(Attributes)|Byte 2 Bit 5:4|在配置请求中，Relaxed Ordering 和 No Snoop 位始终 = 0。|
 |AT [1:0]<br>(Address Type)|Byte 2 Bit 3:2|对于配置请求，Address Type 被保留且必须为零。|
 |Length [9:0]|Byte 2 Bit 1:0<br>Byte 3 Bit 7:0|对于配置请求，DW 中的数据负载大小始终 = 1。Byte Enables 限定 DW 中的字节，任何组合都是合法的。|
-
-**Chapter 5: TLP Elements**
 
 *Table 5‐6: Configuration Request Header Fields (Continued)*
 
@@ -3470,15 +3437,6 @@ DW (4096 字节) 空间所需的 10 位地址。对于 PCI 兼容的配置空间
 完成中的许多字段使用与相应请求相同的值，包括 Traffic Class、Attribute 位以及原始 Requester ID（用于将完成路由回 Requester）。第 197 页的图 5‐10 显示了为 Non‐posted 请求返回的完成及其使用的 3DW
 头格式。完成还在头中提供 Completer ID。Completer ID 在正常操作期间并不重要，但在系统调试期间知道完成来自何处可能对错误诊断有用。
 
-**Chapter 5: TLP Elements**
-
-*Figure 5‐10: 3DW Completion Header Format*
-
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
-
-<br>
-
-
 **Definitions Of Completion Header Fields.** 第 197 页的表 5‐7 描述了完成头中每个字段的位置和用途。
 
 *Table 5‐7: Completion Header Fields*
@@ -3490,6 +3448,22 @@ DW (4096 字节) 空间所需的 10 位地址。对于 PCI 兼容的配置空间
 </td>
 </tr></tbody></table>
 
+<p align="center"><b>Figure 5‐9: 3DW Configuration Request And Header Format</b></p>
+<p align="center"><img src="figures/page/page0244.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/page/page0244.png">Page 244</a></sub></p>
+
+
+<p align="center"><b>Figure 5‐10: 3DW Completion Header Format</b></p>
+<p align="center"><img src="figures/page/page0241.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/page/page0241.png">Page 241</a></sub></p>
+
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<tbody><tr>
+
+</tr></tbody></table>
+
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
@@ -3497,8 +3471,9 @@ DW (4096 字节) 空间所需的 10 位地址。对于 PCI 兼容的配置空间
 <a id="sec-5-9"></a>
 ## 5.9 TLP Elements | TLP 元素
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -3525,8 +3500,6 @@ data payload associated with this<br>completion.|
 |Completer ID [15:0]|Byte 4 Bit 7:0<br>Byte 5 Bit 7:0|Identifies the Completer to support<br>debugging problems.<br>Byte 4 7:0 = Completer
 Bus #<br>Byte 5 7:3 = Completer Dev #<br>Byte 5 2:0 = Completer Function #|
 
-
-**Chapter 5: TLP Elements** 
 
 _Table 5‐7: Completion Header Fields (Continued)_ 
 
@@ -3582,8 +3555,6 @@ start address.
 start address + 1.
 
 - If the First DW Byte Enable field is 1100b, the upper two bytes are enabled 
-
-**Chapter 5: TLP Elements** 
 
 - in the first DW and the offset is 2. This field is the DW start address + 2. 
 
@@ -3663,8 +3634,6 @@ read or write will simply be automatically retried by the Root as a new Request 
 with a status other than SC, no data is included with the completion and the Requester must consider this Request terminated. How the
 Requester handles this case is implementation‐specific.
 
-**Chapter 5: TLP Elements** 
-
 7. In the event multiple completions are being returned for a read request, a completion status other than SC ends the transaction. Device
 handling of data received prior to the error is implementation‐specific.
 
@@ -3704,8 +3673,6 @@ _Figure 5‐11: 4DW Message Request Header Format_
 |Length [9:0]|Byte 2 Bit 1:0<br>Byte 3 Bit 7:0|指示 DW 中的数据负载大小。对于 Completion，此字段反映与此完成相关联的数据负载大小。|
 |Completer ID [15:0]|Byte 4 Bit 7:0<br>Byte 5 Bit 7:0|标识 Completer 以支持问题调试。<br>Byte 4 7:0 = Completer Bus #<br>Byte 5 7:3 = Completer Dev
 #<br>Byte 5 2:0 = Completer Function #|
-
-**Chapter 5: TLP Elements**
 
 *Table 5‐7: Completion Header Fields (Continued)*
 
@@ -3750,8 +3717,6 @@ Byte Enable 模式来计算此值。
 - 如果 First DW Byte Enable 字段为 1110b，则第一个 DW 中的高三字节被启用，偏移量为 1。此字段是 DW 起始地址 + 1。
 
 - 如果 First DW Byte Enable 字段为 1100b，则第一个 DW 中的高二字节被启用
-
-**Chapter 5: TLP Elements**
 
 - 在第一个 DW 中，偏移量为 2。此字段是 DW 起始地址 + 2。
 
@@ -3811,8 +3776,6 @@ Completion，但实际上此 Completion 之后还会有其他 Completion 来满�
 
 5. 状态码为保留代码的 Completion 按代码为 UR 进行处理。6. 如果收到的读完成或 AtomicOp 完成的状态不是 SC，则完成中不包含数据，Requester 必须认为此 Request 已终止。Requester 如何处理这种情况是实现特定的。
 
-**Chapter 5: TLP Elements**
-
 7. 在为读请求返回多个完成的情况下，状态码不是 SC 的完成将结束事务。设备对错误之前接收的数据的处理是实现特定的。
 
 8. 为了与 PCI 兼容，当配置周期以指示 Unsupported Request 的完成结束时，根复合体可能需要合成全"1"的读值。这类似于当枚举软件尝试从未存在的设备读取时发生的 PCI Master Abort。
@@ -3835,8 +3798,9 @@ Message Request 取代了 PCI 和 PCI‐X 上使用的许多中断、错误和�
 <a id="sec-5-10"></a>
 ## 5.10 TLP Elements | TLP 元素
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -3919,8 +3883,6 @@ Ordering (IDO)” on page 301.|
 |EP|Byte 2 Bit 6||If = 1, indicates the data payload (if<br>present) is poisoned.|
 
 
-**Chapter 5: TLP Elements** 
-
 _Table 5‐8: Message Request Header Fields (Continued)_ 
 
 |**Field Name**|**Header Byte/**<br>**Bit**|**Function**|
@@ -3981,8 +3943,6 @@ and deassertion of the PCI inter‐ rupt pins (INTA‐INTD) by sending Messages.
 upstream device that an interrupt has been asserted. Once the interrupt has been serviced, the interrupting device sends a second Message to
 communicate that the signal has been released. For more on this protocol, refer to the section called “Virtual INTx Signaling” on page 805
 for details.
-
-**Chapter 5: TLP Elements** 
 
 _Table 5‐9: INTx Interrupt Signaling Message Coding_ 
 
@@ -4073,8 +4033,6 @@ receiver<br>101b = Gather & route to RC<br>其他 = 保留，视为 Local|
 |TD|Byte 2 Bit 7||如果 = 1，指示 TLP 末端（紧接 LCRC 和 END 之前）存在 digest 字段（1 DW）。|
 |EP|Byte 2 Bit 6||如果 = 1，指示数据负载（如果存在）已被 poison。|
 
-**Chapter 5: TLP Elements**
-
 *Table 5‐8: Message Request Header Fields (Continued)*
 
 |**Field Name**|**Header Byte/**<br>**Bit**|**Function**|
@@ -4124,8 +4082,6 @@ Ignored Messages<br>0101 0000b = Set Slot Power Message<br>0111 111xb = Vendor�
 Messages 来模拟 PCI 中断引脚（INTA‐INTD）的断言和取消断言。中断设备发送第一个 Message 通知上游设备已断言中断。一旦中断被服务，中断设备发送第二个 Message 通信信号已释放。有关此协议的更多信息，请参见第 805 页 "Virtual INTx
 Signaling" 一节。
 
-**Chapter 5: TLP Elements**
-
 *Table 5‐9: INTx Interrupt Signaling Message Coding*
 
 |**INTx Message**|**Message**<br>**Code 7:0**|**Routing 2:0**|
@@ -4144,8 +4100,9 @@ Signaling" 一节。
 <a id="sec-5-11"></a>
 ## 5.11 TLP Elements | TLP 元素
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -4216,8 +4173,6 @@ L1 but it has chosen not to do so (Local ‐ Terminate at Receiver routing).
 6. PME_TO_Ack is sent upstream by endpoints. For switches with multiple Downstream Ports, this message won’t be forwarded upstream until all
 Downstream Ports have received it (Gather and Route to the Root Complex routing).
 
-**Chapter 5: TLP Elements** 
-
 **Error Messages.** Error Messages are sent upstream (Implicitly Routed to the Root Complex) by enabled components that detect errors. To
 assist software in knowing how to service the error, the Error Message identifies the requesting agent in the Requester ID field of the
 message header. Table 5‐11 on page 209 describes the three error message types.
@@ -4282,8 +4237,6 @@ Capabilities Register occurs while the Data Link Layer is already reporting DL_U
 
 **Vendor‐Defined Message 0 and 1.** These are intended to allow expan‐ sion of the PCIe messaging capabilities either by the spec or by
 vendor‐specific extensions. The header for them is shown in Figure 5‐12 on page 211, and the codes are given in Figure 5‐14 on page 211.
-
-**Chapter 5: TLP Elements** 
 
 _Figure 5‐12: Vendor‐Defined Message Header_ 
 
@@ -4350,8 +4303,6 @@ _Figure 5‐13: LTR Message Header_
 
 <br>
 
-
-**Chapter 5: TLP Elements** 
 
 _Table 5‐16: LTR Message Coding_ 
 
@@ -4464,8 +4415,6 @@ Management"，位于第 703 页。第 208 页的表 5‐10 总结了四种电源
 
 6. PME_TO_Ack 由端点向上游发送。对于具有多个 Downstream Ports 的交换机，在所有 Downstream Ports 收到此消息之前，该消息不会被转发到上游（Gather and Route to the Root Complex 路由）。
 
-**Chapter 5: TLP Elements**
-
 **Error Messages.** Error Messages 由检测到错误的已启用组件向上游发送（Implicitly Routed to the Root Complex）。为了帮助软件了解如何处理错误，Error Message 在消息头的 Requester ID
 字段中标识请求代理。第 209 页的表 5‐11 描述了三种错误消息类型。
 
@@ -4521,15 +4470,6 @@ Set_Slot_Power_Limit 消息规则：
 
 **Vendor‐Defined Message 0 and 1.** 这些旨在允许通过规范或供应商特定扩展来扩展 PCIe 消息传递能力。它们的头显示在第 211 页的图 5‐12 中，代码在第 211 页的图 5‐14 中给出。
 
-**Chapter 5: TLP Elements**
-
-*Figure 5‐12: Vendor‐Defined Message Header*
-
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
-
-<br>
-
-
 *Table 5‐14: Vendor‐Defined Message Coding*
 
 |**Vendor‐Defined Message**|**Message Code 7:0**|**Routing 2:0**|
@@ -4575,15 +4515,6 @@ Hot Plug Message 规则：
 **Latency Tolerance Reporting Message.** LTR Messages 用于可选地报告设备的可接受读/写服务延迟。要了解有关此电源管理技术的更多信息，请参见第 784 页 "LTR (Latency Tolerance Reporting)"
 一节。
 
-*Figure 5‐13: LTR Message Header*
-
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
-
-<br>
-
-
-**Chapter 5: TLP Elements**
-
 *Table 5‐16: LTR Message Coding*
 
 |**Latency Tolerance Reporting Message**|**Message Code 7:0**|**Routing 2:0**|
@@ -4598,13 +4529,6 @@ LTR Message 规则：
 
 **Optimized Buffer Flush and Fill Messages.** OBFF Messages 用于向 Endpoints 报告平台电源状态并促进更有效的系统电源管理。要了解有关此技术的更多信息，请参见第 776 页 "OBFF (Optimized
 Buffer Flush and Fill)" 讨论。
-
-*Figure 5‐14: OBFF Message Header*
-
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
-
-<br>
-
 
 *Table 5‐17: LTR Message Coding*
 
@@ -4634,6 +4558,27 @@ Buffer Flush and Fill)" 讨论。
 ## **This Chapter**
 
 </td>
+</tr></tbody></table>
+
+<p align="center"><b>Figure 5‐12: Vendor‐Defined Message Header</b></p>
+<p align="center"><img src="figures/page/page0241.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/page/page0241.png">Page 241</a></sub></p>
+
+
+<p align="center"><b>Figure 5‐13: LTR Message Header</b></p>
+<p align="center"><img src="figures/page/page0244.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/page/page0244.png">Page 244</a></sub></p>
+
+
+<p align="center"><b>Figure 5‐14: OBFF Message Header</b></p>
+<p align="center"><img src="figures/page/page0241.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/page/page0241.png">Page 241</a></sub></p>
+
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<tbody><tr>
+
 </tr></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)

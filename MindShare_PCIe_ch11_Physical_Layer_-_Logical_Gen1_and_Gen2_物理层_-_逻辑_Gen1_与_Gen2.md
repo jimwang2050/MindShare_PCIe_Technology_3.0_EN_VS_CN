@@ -20,8 +20,9 @@
 <a id="sec-11-1"></a>
 ## 11.1 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 ## **Component Interfaces** 
@@ -406,8 +407,9 @@ V-<br>
 <a id="sec-11-2"></a>
 ## 11.2 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 _Figure 13‐8: Data Clocked Rx Architecture_ 
@@ -743,8 +745,9 @@ interference）**。
 <a id="sec-11-3"></a>
 ## 11.3 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1025,8 +1028,9 @@ inter‐symbol interference**)。
 <a id="sec-11-4"></a>
 ## 11.4 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1436,8 +1440,9 @@ PCIe 提供多种调试功能，包括：
 <a id="sec-11-5"></a>
 ## 11.5 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1735,8 +1740,9 @@ Layer" width="700">
 <a id="sec-11-6"></a>
 ## 11.6 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -2066,8 +2072,9 @@ _表 13‐3：发送器规格（续）_
 <a id="sec-11-7"></a>
 ## 11.7 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 

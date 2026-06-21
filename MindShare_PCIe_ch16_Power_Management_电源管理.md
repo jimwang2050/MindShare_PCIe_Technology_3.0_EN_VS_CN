@@ -22,8 +22,9 @@
 <a id="sec-16-1"></a>
 ## 16.1 Power Management | 电源管理
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -43,8 +44,6 @@ L0s is a Link power state that can only be entered under hardware control and is
 large volume of traffic in conventional PC‐based systems results from Functions sending data to main system memory. As a result, the
 upstream lanes carry heavy traffic while the downstream lanes may carry very little. These downstream lanes can enter the L0s state to
 conserve power during stretches of idle bus time.
-
-**Chapter 16: Power Management** 
 
 ## **Entry into L0s** 
 
@@ -118,8 +117,6 @@ ini‐ tiate an L0s exit to other of its ports. Two specific cases are considere
 - **Switch Downstream Port Receives L0s to L0 transition.** The switch must signal an L0s to L0 on its upstream port if it is currently in
 the L0s state because the packet coming up from the Endpoint or downstream switch will most likely need to go upstream to the Root Complex.
 
-**Chapter 16: Power Management** 
-
 - **Switch Upsteam Port Receives L0s to L0 transition.** The switch must signal an L0s to L0 transition on all downstream ports currently in
 the L0s state because it doesn’t want to wait until the packet arrives to begin waking the target path.
 
@@ -175,8 +172,6 @@ that all transac‐ tions have completed in both directions and no new transacti
 
 **Downstream Component Requests L1 State.** If the downstream com‐ ponent wishes to transition to the L1 state, it can send the request to
 enter L1 after the following steps have completed:
-
-**Chapter 16: Power Management** 
 
 1. TLP scheduling is blocked at the Transaction Layer. 
 
@@ -395,8 +390,9 @@ _图 16-17：进入 L1 Active State PM 所需的协商序列_
 <a id="sec-16-2"></a>
 ## 16.2 Power Management | 电源管理
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -406,8 +402,6 @@ _图 16-17：进入 L1 Active State PM 所需的协商序列_
 This scenario presumes that the upstream component has just been instructed by its core logic to send a TLP downstream before it receives
 the request to enter L1 from the downstream device. Several negotiation rules define the actions to ensure that this situation is managed
 correctly.
-
-**Chapter 16: Power Management** 
 
 **TLP Must Be Accepted by Downstream Component.** Note that after the downstream device sends the PM_Active_State_L1 DLLP it must wait for a
 response from the upstream component. While waiting, the down‐ stream component must be able to accept TLPs and DLLPs from the upstream
@@ -464,8 +458,6 @@ _Figure 16‐18: Negotiation Sequence Resulting in Rejection to Enter L1 ASPM St
 <br>
 
 
-**Chapter 16: Power Management** 
-
 ## **Exit from L1 ASPM State** 
 
 Either component can initiate the transition from L1 back to L0 when it needs to use the Link. The procedure is the same in either case and
@@ -497,8 +489,6 @@ in a sequential fashion.
 **Switch Receives L1 Exit from Upstream Component.** In this case, the switch must respond with TS1s back upstream, and within 1μs it must
 also send TS1s to all downstream ports that are in the L1 ASPM state to return them to L0. As in the previous example, the goal is to
 minimize the
-
-**Chapter 16: Power Management** 
 
 overall exit latency of returning to the L0 state for every Link in the path from the initiator to the target of the transaction. Figure
 16‐20 on page 755 summarizes these requirements. The Link between Switch F and EndPoint (EP) E is in the L1 state because software put EP E
@@ -762,8 +752,9 @@ _图 16-25：与准备设备以移除参考时钟和电源相关的链路状态�
 <a id="sec-16-3"></a>
 ## 16.3 Power Management | 电源管理
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -774,8 +765,6 @@ common then the default values will be correct and no further action is required
 
 **L0s Exit Latency Update.** Exit latency for L0s is reported in the Link Capability register based on the default assumption that a common
 clock implementation does not exist. L0s exit latency is also reported in the TS1s
-
-**Chapter 16: Power Management** 
 
 used during Link training as the number of FTS Ordered Sets (N_FTS) required to exit L0s. If software then detects a common clock
 implementa‐ tion, it sets the Common Clock field writes to the _Retrain Link_ bit in the Link Control register to force Link training to
@@ -802,8 +791,6 @@ all Links in the path are in the L1 state, let’s take the example that Endpoin
 5. Link F/RC completes exit from L1 in 8μs, completing at T+10μs. 
 
 6. Total latency to transition path to target back to L0 = T+17μs. 
-
-**Chapter 16: Power Management** 
 
 _Figure 16‐22: Example of Total L1 Latency_ 
 
@@ -840,8 +827,6 @@ greater detail in the following list:
 
 1. Once a device recognizes that all its Functions are in the D2 state, it must prepare to transition the Link into L1. This begins with
 blocking new TLPs from being scheduled.
-
-**Chapter 16: Power Management** 
 
 2. A TLP may from the downstream Endpoint may not have been acknowledged prior to receiving the request to enter D2. The device must not
 respond to a request to change the Link power until all outstanding TLPs have been acknowledged. In other words, the Replay Buffer must be
@@ -888,8 +873,6 @@ the signaling pro‐ tocol used to exit L1.
 Manage‐ ment software must issue a configuration write to change its power state back to D0. When the configuration Request is ready to be
 sent from the upstream component (a Root Port or downstream Switch Port) the port will exit the electrical idle state and initiate
 re‐training to return the Link to the
-
-**Chapter 16: Power Management** 
 
 L0 state. Once the Link is active, the configuration write can be delivered to the device to transition it back to D0, at which point it’s
 ready for normal use.
@@ -1059,8 +1042,9 @@ _图 16-25：与准备设备以移除参考时钟和电源相关的链路状态�
 <a id="sec-16-4"></a>
 ## 16.4 Power Management | 电源管理
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1083,8 +1067,6 @@ The following steps detail the sequence illustrated in Figure 16‐26 on page 76
 2. All devices transition their Links to the L1 state when they enter D3. 
 
 3. Power Management software initiates a PME_Turn_Off TLP message, 
-
-**Chapter 16: Power Management** 
 
 which is broadcast from all Root Complex ports to all devices. This prevents PME Messages from being lost in case they were in progress
 upstream when power was removed. Note that delivery of this TLP causes each Link to transition back to L0 so it can be forwarded downstream.
@@ -1110,8 +1092,6 @@ _Figure 16‐26: Negotiation for Entering L2/L3 Ready State_
 
 <br>
 
-
-**Chapter 16: Power Management** 
 
 ## **Exiting the L2/L3 Ready State — Clock and Power Removed** 
 
@@ -1160,8 +1140,6 @@ notification has been turned off, in preparation for clock and power to be remov
 3. PME is delivered (L0) — If the Link is in the L0 state, the device transfers the PME message to the Root Complex, notifying Power
 Management soft‐ ware that the device has observed an event that requires the device be placed back into its D0 state. Note that the message
 contains the Requester ID (Bus#, Device#, and Function#) of the device. This quickly informs soft‐ ware which device needs service.
-
-**Chapter 16: Power Management** 
 
 ## **The PME Message** 
 
@@ -1213,8 +1191,6 @@ If so, device soft‐ ware restores information within the device.
 
 The Root Complex typically stores the PME messages it receives in a queue, and calls PM software to handle each one. A PME is held in this
 queue until PM soft‐
-
-**Chapter 16: Power Management** 
 
 ware reads the PME_Status bit from the requesting device’s PMCSR register. Once the configuration read transaction completes, this PME
 message can be removed from the internal queue.
@@ -1371,8 +1347,9 @@ PME 消息是一个事务层数据包，具有以下特征：
 <a id="sec-16-5"></a>
 ## 16.5 Power Management | 电源管理
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1433,8 +1410,6 @@ Some form‐factors require beacon support for waking the system while others do
 and doesn’t require beacon support for devices if their form‐factor doesn’t. However, for “universal” components designed for use in a
 variety of form‐factors, beacon support is required. See “Beacon Signaling” on page 483 for details.
 
-**Chapter 16: Power Management** 
-
 ## **WAKE#** 
 
 PCI Express provides a sideband signal called WAKE# as a alternative to the beacon that can be routed directly to the Root or to other
@@ -1460,8 +1435,6 @@ _Figure 16‐29: WAKE# Signal Implementations_
 
 <br>
 
-
-**Chapter 16: Power Management** 
 
 ## **Auxiliary Power** 
 
@@ -1525,8 +1498,6 @@ power state and therefore the best times to do data transfers to and from the sy
 The problem with bus‐master capable devices is that if they’re not aware of the system power status, they may initiate transactions at times
 when it would be better to wait. The diagram in Figure 16‐31 on page 777 illustrates the problem in simple terms: there are many components
 initiating events and as a result,
-
-**Chapter 16: Power Management** 
 
 the times without activity when the system is idle and can go to sleep are few and short‐lived. In contrast, Figure 16‐32 on page 777
 illustrates an improve‐ ment in which the same events are grouped and serviced together so that the times when the system is idle enough to
@@ -1702,8 +1673,9 @@ _图 16-32：改进后的系统空闲时间_
 <a id="sec-16-6"></a>
 ## 16.6 Power Management | 电源管理
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1726,8 +1698,6 @@ _Figure 16‐33: OBFF Signaling Example_
 
 <br>
 
-
-**Chapter 16: Power Management** 
 
 **Using the WAKE# Pin.** This pin, previously only used to inform the sys‐ tem that a component needed to have power restored, is given an
 extra meaning as the simplest and lowest‐power option for communicating sys‐ tem power status to PCIe components. It’s optional, and the
@@ -1778,8 +1748,6 @@ are reserved):
 If a reserved code is received, components must treat it as “CPU Active.” If a Port receives an OBFF message but doesn’t support OBFF or
 hasn’t enabled it yet, it must treat it as an Unsupported Request (Completion sta‐ tus UR).
 
-**Chapter 16: Power Management** 
-
 _Figure 16‐35: OBFF Message Contents_ 
 
 <img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
@@ -1813,8 +1781,6 @@ was enabled. However, selectively enabling some Ports and not others is permitte
 When enabling Ports for OBFF, the spec recommends that all Upstream Ports be enabled before Downstream Ports, and Root Ports be enabled last
 of all. For unpopulated hot plug slots this isn’t possible. For that case enabling OBFF using the WAKE# pin to the slot is permitted, but
 it’s recom‐ mended that the Downstream Port above the slot not be enabled to deliver OBFF messages.
-
-**Chapter 16: Power Management** 
 
 ## _Figure 16‐37: OBFF Enable Register_ 
 
@@ -1962,8 +1928,9 @@ Link 返回到 L0 来指示其对非紧急关注的需要时，对于下游端�
 <a id="sec-16-7"></a>
 ## 16.7 Power Management | 电源管理
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1975,8 +1942,6 @@ support LTR while others do not. If a Root Port or switch Downstream Port receiv
 enabled yet, the message must be treated as an Unsupported Request. It’s recommended that Endpoints send an LTR message shortly after being
 enabled to do so. It’s strongly recommended that Endpoints not send more than two LTR messages within any 500  s period unless required by
 the spec. However, if they do, Downstream Ports must properly handle them and not generate an error based on that.
-
-**Chapter 16: Power Management** 
 
 ## _Figure 16‐38: LTR Capability Status_ 
 
@@ -2029,8 +1994,6 @@ for the LTR message to be delivered, and for the platform to prepare to handle t
 
 2. If the latency tolerance is being reduced, it’s recommended that the LTR message be sent far enough ahead of the first associated Request
 to ensure that the platform is ready.
-
-**Chapter 16: Power Management** 
 
 3. If the latency tolerance is being increased, then the LTR message to report that should immediately follow the final Request that used
 the previous latency value.
@@ -2089,8 +2052,6 @@ _Figure 16‐40: LTR Message Format_
 <br>
 
 
-**Chapter 16: Power Management** 
-
 ## **LTR Example** 
 
 To illustrate the concepts discussed so far, consider the example topology shown in Figure 16‐41 on page 789. Here, the Endpoint on the
@@ -2125,8 +2086,6 @@ DL_Down. Con‐ sequently, the LTR value for that Port must be considered invali
 value, the conglomerate will be updated to the lowest value that is still valid, which is the 1200ns reported by the left‐most Endpoint. The
 Switch will then subtract its internal latency and report 1150ns to the Root Port with a new LTR message.
 
-**Chapter 16: Power Management** 
-
 _Figure 16‐43: LTR ‐ Change with Update_ 
 
 <img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
@@ -2147,14 +2106,6 @@ _Figure 16‐43: LTR ‐ Change with Update_
 <img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
 
 <br>
-
-
-_Figure 16-39: LTR Enable_
-
-<img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
-
-<br>
-
 
 LTR 信息的目标是根复合体 (Root Complex)。参与的下游设备都会报告其值，但端口仅使用所报告的最小值作为通过该端口访问的所有设备的延迟限制。根不需要遵守请求的服务延迟，但强烈鼓励这样做。
 
@@ -2217,13 +2168,6 @@ LTR 消息本身具有图 16-40（第 788 页）所示的格式，从图中可�
 
 2. 如果在多个请求进行时更新了延迟要求，则新值必须在 RC 处理下一个请求之前被理解，并且时间应少于先前报告的延迟要求。
 
-_Figure 16-40: LTR Message Format_
-
-<img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
-
-<br>
-
-
 **第 16 章：电源管理**
 
 ## **LTR 示例**
@@ -2231,21 +2175,7 @@ _Figure 16-40: LTR Message Format_
 为了说明到目前为止讨论的概念，请考虑图 16-41（第 789 页）中所示的示例拓扑。这里，左下角的端点已向交换机传送了一条 LTR 消息，报告侦听延迟要求为 1200ns。此时，连接到交换机的其他端点都未报告 LTR
 值，因此这将成为要向上游报告的合并值。但是，交换机的内部延迟为 50ns，因此必须从要报告的值中减去该值，结果上游端口向上游发送一条 LTR 消息，报告 1150ns 给根端口。
 
-_Figure 16-41: LTR Example_
-
-<img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
-
-<br>
-
-
 接下来，遗留端点传送了一条 LTR 消息，延迟要求较大，为 5000ns，如图 16-42（第 790 页）所示。由于这大于交换机的当前合并值，因此不会为此情况发送 LTR 消息。
-
-_Figure 16-42: LTR ‐ Change but no Update_
-
-<img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
-
-<br>
-
 
 在下一阶段，中间的端点将其 LTR 值报告为 700ns。这小于当前合并值，因此交换机通过减去其内部延迟来计算新值 650ns，并将其作为 LTR 消息转发到上游。这使得该根端口的当前延迟要求为 650ns，如图 16-43（第 791 页）所示。
 
@@ -2254,13 +2184,38 @@ _Figure 16-42: LTR ‐ Change but no Update_
 
 **第 16 章：电源管理**
 
-_Figure 16-43: LTR ‐ Change with Update_
-
-<img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
-
-<br>
-
 </td>
+</tr></tbody></table>
+
+<p align="center"><b>Figure 16-39: LTR Enable</b></p>
+<p align="center"><img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/chapter_16_Power_Management/embedded/page0761_img1.png">Page 761</a></sub></p>
+
+
+<p align="center"><b>Figure 16-40: LTR Message Format</b></p>
+<p align="center"><img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/chapter_16_Power_Management/embedded/page0761_img1.png">Page 761</a></sub></p>
+
+
+<p align="center"><b>Figure 16-41: LTR Example</b></p>
+<p align="center"><img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/chapter_16_Power_Management/embedded/page0761_img1.png">Page 761</a></sub></p>
+
+
+<p align="center"><b>Figure 16-42: LTR ‐ Change but no Update</b></p>
+<p align="center"><img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/chapter_16_Power_Management/embedded/page0761_img1.png">Page 761</a></sub></p>
+
+
+<p align="center"><b>Figure 16-43: LTR ‐ Change with Update</b></p>
+<p align="center"><img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/chapter_16_Power_Management/embedded/page0761_img1.png">Page 761</a></sub></p>
+
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<tbody><tr>
+
 </tr></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
@@ -2273,8 +2228,9 @@ _Figure 16-43: LTR ‐ Change with Update_
 <a id="sec-16-8"></a>
 ## 16.8 Power Management | 电源管理
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -2306,8 +2262,6 @@ INTx# method and the newer versions of MSI/MSI‐ X are described.
 The next chapter describes three types of resets defined for PCIe: Fundamental reset (consisting of cold and warm reset), hot reset, and
 function‐level reset (FLR). The use of a sideband reset PERST# signal to generate a system reset is discussed, and so is the inband TS1
 based Hot Reset described.
-
-**PCI Express 3.0 Technology** 
 
 ## **Interrupt Support Background** 
 
@@ -2355,8 +2309,6 @@ Figure 17‐2 illustrates the delivery of interrupts from various types of PCIe 
 software may or may not support MSI, in which case, the INTx messages would be used. Figure 17‐2 also shows how a PCIe‐to‐PCI Bridge is
 required to convert sideband interrupts from connected PCI devices to PCIe‐supported INTx messages.
 
-**PCI Express 3.0 Technology** 
-
 _Figure 17‐2: Interrupt Delivery Options in PCIe System_ 
 
 <img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
@@ -2393,8 +2345,6 @@ _Figure 17‐3: Legacy Interrupt Example_
 <br>
 
 
-**PCI Express 3.0 Technology** 
-
 ## **Changes to Support Multiple Processors** 
 
 This model works well for single‐CPU systems, but has a limitation that makes it sub‐optimal in a multi‐CPU system. The problem is that the
@@ -2427,8 +2377,6 @@ path which already exists in the form of the PCI bus and the processor bus. So t
 to the Local APICs in the form of memory writes, referred to as MSIs or Message Signaled Interrupts. These MSIs were targeting a special
 address that the system understood to be an inter‐ rupt message targeting the Local APICs. (This special address address was tra‐
 
-**PCI Express 3.0 Technology** 
-
 ditionally FEEx_xxxxh for x86‐based systems.) Even the IO APIC was programmed to send its interrupt notifications over the ordinary data bus
 using memory writes (MSI). Now it simply sends an MSI memory write across the data bus targeting the memory address of the desired
 processor’s Local APIC, and that has the effect of notifying the processor of the interrupt.
@@ -2439,13 +2387,6 @@ page 827.
 
 </td>
 <td style="background-color:#e8e8e8">
-
-_Figure 16-44: LTR ‐ Link Down Case_
-
-<img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
-
-<br>
-
 
 ## _**17 Interrupt Support**_
 
@@ -2462,8 +2403,6 @@ _Figure 16-44: LTR ‐ Link Down Case_
 ## **下一章**
 
 下一章描述了为 PCIe 定义的三种类型的复位：基本复位（包括冷复位和热复位）、热复位和功能级复位 (FLR)。讨论了使用边带复位 PERST# 信号来生成系统复位，还讨论了描述的基于带内 TS1 的热复位。
-
-**PCI Express 3.0 Technology**
 
 ## **中断支持背景**
 
@@ -2498,15 +2437,6 @@ _Figure 17-1: PCI Interrupt Delivery_
 图 17-2 说明了从各种类型的 PCIe 设备传递中断。所有 PCIe 设备都需要支持 MSI，但软件可能支持也可能不支持 MSI，在这种情况下，将使用 INTx 消息。图 17-2 还显示了 PCIe-to-PCI 桥如何需要将来自连接的 PCI 设备的边带中断转换为
 PCIe 支持的 INTx 消息。
 
-**PCI Express 3.0 Technology**
-
-_Figure 17-2: Interrupt Delivery Options in PCIe System_
-
-<img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
-
-<br>
-
-
 ## **旧式模型**
 
 ## **概述**
@@ -2525,15 +2455,6 @@ _Figure 17-2: Interrupt Delivery Options in PCIe System_
 
 5. 该地址将指向已设置为处理此中断的 ISR 的第一条指令。此处理程序将被执行，服务该中断并告诉其设备取消其 INTx# 线的断言，然后将控制权返回给先前被中断的任务。
 
-_Figure 17-3: Legacy Interrupt Example_
-
-<img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
-
-<br>
-
-
-**PCI Express 3.0 Technology**
-
 ## **对多处理器的支持变更**
 
 此模型在单 CPU 系统中运行良好，但有一个限制使其在多 CPU 系统中不是最优的。问题是 INTR 引脚只能连接到一个 CPU。如果存在多个处理器，则只有其中一个处理器将看到中断，并且必须为所有中断提供服务，而其他 CPU
@@ -2545,26 +2466,43 @@ _Figure 17-3: Legacy Interrupt Example_
 
 **第 17 章：中断支持**
 
-_Figure 17-4: APIC Model for Interrupt Delivery_
-
-<img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
-
-<br>
-
-
 该模型称为 APIC 模型，多年来已经足够使用，但仍然依赖于来自外围设备的边带引脚。该模型的另一个限制是到 IO APIC 的 IRQ（中断请求线）数量。如果没有大量的 IRQ，外围设备必须共享 IRQ，这意味着每当该 IRQ
 被断言时都会增加延迟，因为可能有多个设备可以断言它，并且软件必须评估所有这些设备。这种将多个 ISR 链接在一起的技术通常称为中断链接 (interrupt chaining)。最终，由于这个问题和另外一些小问题，又出现了另一个改进。
 
 为什么不让外围设备本身直接向本地 APIC 发送中断消息？所需的只是一种通信路径，它已经以 PCI 总线和处理器总线的形式存在。因此，APIC 总线被消除，所有中断都以内存写入的形式传递到本地 APIC，称为 MSI 或消息信号中断。这些 MSI 针对系统理解为针对本地 APIC
 的中断消息的特殊地址。（此特殊地址是
 
-**PCI Express 3.0 Technology**
-
 对于 x86 基础系统，传统上为 FEEx_xxxxh。）甚至 IO APIC 也被编程为使用内存写入 (MSI) 通过普通数据总线发送其中断通知。现在它只需通过数据总线发送针对所需处理器的本地 APIC 的内存地址的 MSI 内存写入，这具有通知处理器中断的效果。
 
 该模型称为 xAPIC 模型，由于它不基于进入输入有限的中断控制器的边带信号，因此几乎消除了共享中断的需要。有关此模型的更多信息可以在第 827 页的"An MSI Solution"中找到。
 
 </td>
+</tr></tbody></table>
+
+<p align="center"><b>Figure 16-44: LTR ‐ Link Down Case</b></p>
+<p align="center"><img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/chapter_16_Power_Management/embedded/page0761_img1.png">Page 761</a></sub></p>
+
+
+<p align="center"><b>Figure 17-2: Interrupt Delivery Options in PCIe System</b></p>
+<p align="center"><img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/chapter_16_Power_Management/embedded/page0761_img1.png">Page 761</a></sub></p>
+
+
+<p align="center"><b>Figure 17-3: Legacy Interrupt Example</b></p>
+<p align="center"><img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/chapter_16_Power_Management/embedded/page0761_img1.png">Page 761</a></sub></p>
+
+
+<p align="center"><b>Figure 17-4: APIC Model for Interrupt Delivery</b></p>
+<p align="center"><img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/chapter_16_Power_Management/embedded/page0761_img1.png">Page 761</a></sub></p>
+
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<tbody><tr>
+
 </tr></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
@@ -2577,8 +2515,9 @@ _Figure 17-4: APIC Model for Interrupt Delivery_
 <a id="sec-16-9"></a>
 ## 16.9 Power Management | 电源管理
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -2627,8 +2566,6 @@ _Figure 17‐5: Interrupt Registers in PCI Configuration Header_
 <br>
 
 
-**PCI Express 3.0 Technology** 
-
 ## **Interrupt Routing** 
 
 The Interrupt Line register shown in Figure 17‐5 on page 801 gives the next information that a driver needs to know: the input pin of the
@@ -2673,8 +2610,6 @@ be read by system soft‐ ware to see if an interrupt is currently pending. (See
 **Interrupt Disable.** The 2.3 PCI spec added an Interrupt Disable bit (Bit 10) to the Command register of the config header. See Figure
 17‐7 on page 804. The bit is cleared at reset permitting INTx# signal generation, but software may set it
 
-**PCI Express 3.0 Technology** 
-
 to prevent that. Note that the Interrupt Disable bit has no effect on Message Sig‐ nalled Interrupts (MSI). MSIs are enabled via the Command
 Register in the MSI Capability structure. Enabling MSI automatically has the effect of disabling interrupt pins or emulation.
 
@@ -2712,8 +2647,6 @@ initialization. Gener‐ ally, a minimum of three subsystems are needed for boot
 the operator which is typically the key‐ board, and a device that can be used to fetch the OS, typically a hard drive. PCIe devices involved
 in initializing the system are called “boot devices.” Boot devices will use legacy interrupt support until the OS and device drivers are
 loaded, after which it’s preferable they use MSI.
-
-**PCI Express 3.0 Technology** 
 
 ## **Virtual INTx Wire Delivery** 
 
@@ -2764,15 +2697,6 @@ PCI 设备最多可以实现 4 个 INTx# 信号（INTA#、INTB#、INTC# 和 INTD
 
 PCI Function 在其配置头中指示对 INTx# 信号的支持。图 17-5 中所示的只读中断引脚寄存器指示此 Function 是否支持 INTx#，如果是，将在请求中断时断言哪个中断引脚。
 
-_Figure 17-5: Interrupt Registers in PCI Configuration Header_
-
-<img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
-
-<br>
-
-
-**PCI Express 3.0 Technology**
-
 ## **中断路由**
 
 图 17-5（第 801 页）中所示的中断行寄存器提供了驱动程序需要了解的下一个信息：该设备的引脚已连接到的 PIC 的输入引脚。PIC
@@ -2790,13 +2714,6 @@ Function 设备驱动程序关联的中断服务例程的入口点。
 
 **第 17 章：中断支持**
 
-_Figure 17-6: INTx Signal Routing is Platform Specific_
-
-<img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
-
-<br>
-
-
 ## **INTx# 信令**
 
 INTx# 线是低电平有效信号，作为漏极开路实现，由系统在线上提供上拉电阻。连接到同一 PCI 中断请求信号线的多个设备可以同时断言它而不会损坏。
@@ -2805,28 +2722,12 @@ INTx# 线是低电平有效信号，作为漏极开路实现，由系统在线�
 
 **中断禁用。** 2.3 PCI 规范将中断禁用位（第 10 位）添加到配置头的命令寄存器中。参见第 804 页的图 17-7。该位在复位时清零，允许 INTx# 信号生成，但软件可以设置它
 
-**PCI Express 3.0 Technology**
-
 以防止这种情况。注意，中断禁用位对消息信号中断 (MSI) 没有影响。MSI 通过 MSI 能力结构中的命令寄存器启用。启用 MSI 自动具有禁用中断引脚或仿真的效果。
 
 **中断状态。** PCI 2.3 规范将一个只读中断状态位添加到配置状态寄存器中（如图 17-8（第 805 页）所示）。Function 在中断挂起时必须设置此状态位。此外，如果配置头的命令寄存器中的中断禁用位被清零（即中断已启用），则当此状态位被设置时，Function 的
 INTx# 信号被断言。此位不受中断禁用位状态的影响。
 
-_Figure 17-7: Configuration Command Register — Interrupt Disable Field_
-
-<img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
-
-<br>
-
-
 **第 17 章：中断支持**
-
-_Figure 17-8: Configuration Status Register — Interrupt Status Field_
-
-<img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
-
-<br>
-
 
 ## **虚拟 INTx 信令**
 
@@ -2839,8 +2740,6 @@ _Figure 17-8: Configuration Status Register — Interrupt Status Field_
 **启动设备** — PC 系统通常在启动序列期间使用旧式中断模型，因为 MSI 通常需要操作系统级初始化。通常，引导至少需要三个子系统：到操作员的输出（例如视频）、来自操作员的输入（通常是键盘）以及可用于获取操作系统的设备（通常是硬盘驱动器）。参与初始化系统的 PCIe
 设备称为"启动设备"。启动设备将使用旧式中断支持，直到加载操作系统和设备驱动程序，此后最好使用 MSI。
 
-**PCI Express 3.0 Technology**
-
 ## **虚拟 INTx 线传递**
 
 图 17-9（第 806 页）说明了具有 PCIe 端点和 PCI Express-to-PCI 桥的系统。如果我们假设软件未在端点上启用 MSI，它将使用 INTx 消息传递中断请求。在此示例中，桥使用 INTx 消息传播来自所连接 PCI
@@ -2852,12 +2751,38 @@ _Figure 17-8: Configuration Status Register — Interrupt Status Field_
 
 当 Function 传递 Assert_INTx 消息时，它还会在配置状态寄存器中设置其中断状态位，就像它断言物理 INTx# 引脚一样（参见第 805 页的图 17-8）。
 
-_Figure 17-9: Example of INTx Messages to Virtualize INTA#-INTD# Signal Transitions_
-
-<img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" alt="Figure 16‐15: Active State PM Control Field" width="700">
-
-
 </td>
+</tr></tbody></table>
+
+<p align="center"><b>Figure 17-5: Interrupt Registers in PCI Configuration Header</b></p>
+<p align="center"><img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/chapter_16_Power_Management/embedded/page0761_img1.png">Page 761</a></sub></p>
+
+
+<p align="center"><b>Figure 17-6: INTx Signal Routing is Platform Specific</b></p>
+<p align="center"><img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/chapter_16_Power_Management/embedded/page0761_img1.png">Page 761</a></sub></p>
+
+
+<p align="center"><b>Figure 17-7: Configuration Command Register — Interrupt Disable Field</b></p>
+<p align="center"><img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/chapter_16_Power_Management/embedded/page0761_img1.png">Page 761</a></sub></p>
+
+
+<p align="center"><b>Figure 17-8: Configuration Status Register — Interrupt Status Field</b></p>
+<p align="center"><img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/chapter_16_Power_Management/embedded/page0761_img1.png">Page 761</a></sub></p>
+
+
+<p align="center"><b>Figure 17-9: Example of INTx Messages to Virtualize INTA#-INTD# Signal Transitions</b></p>
+<p align="center"><img src="figures/chapter_16_Power_Management/embedded/page0761_img1.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/chapter_16_Power_Management/embedded/page0761_img1.png">Page 761</a></sub></p>
+
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<tbody><tr>
+
 </tr></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)

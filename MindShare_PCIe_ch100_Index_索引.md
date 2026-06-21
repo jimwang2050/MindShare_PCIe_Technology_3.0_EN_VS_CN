@@ -15,8 +15,9 @@
 <a id="sec-100-1"></a>
 ## 100.1 Index | 索引
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -362,8 +363,9 @@ MindShare Arbor 可以对其运行的系统执行扫描,以记录所有 PCI 可�
 <a id="sec-100-2"></a>
 ## 100.2 Index | 索引
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 

@@ -20,8 +20,9 @@
 <a id="sec-15-1"></a>
 ## 15.1 Error Detection and Handling | 错误检测与处理
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -299,8 +300,9 @@ _表 16-4：默认设备类 PM 状态_
 <a id="sec-15-2"></a>
 ## 15.2 Error Detection and Handling | 错误检测与处理
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -613,8 +615,9 @@ _表 16-6：D1 电源管理策略_
 <a id="sec-15-3"></a>
 ## 15.3 Error Detection and Handling | 错误检测与处理
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -967,8 +970,9 @@ _图 16-7：PCI 函数的 PM 寄存器_
 <a id="sec-15-4"></a>
 ## 15.4 Error Detection and Handling | 错误检测与处理
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1302,8 +1306,9 @@ PM 状态**<br>0 0 D0<br>0 1 D1<br>1 0 D2<br>1 1 D3hot|
 <a id="sec-15-5"></a>
 ## 15.5 Error Detection and Handling | 错误检测与处理
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1607,8 +1612,9 @@ _图 16-9：Gen1/Gen2 模式 EIOS 模式_
 <a id="sec-15-6"></a>
 ## 15.6 Error Detection and Handling | 错误检测与处理
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -2076,8 +2082,9 @@ _图 16-17：进入 L1 Active State PM 所需的协商序列_
 <a id="sec-15-7"></a>
 ## 15.7 Error Detection and Handling | 错误检测与处理
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 

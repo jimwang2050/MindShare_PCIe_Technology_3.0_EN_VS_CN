@@ -15,8 +15,9 @@
 <a id="sec-7-1"></a>
 ## 7.1 Quality of Service | 服务质量
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -67,8 +68,6 @@ to packets of the same TC, it may be simpler to design endpoint devices/switches
 all packets within a VC even though multiple TCs are mapped to the same VC.
 
 As one would expect, there are no ordering relationships between packets that map to different VCs no matter their TC. 
-
-**PCI Express 3.0 Technology** 
 
 ## **Ordering Rules Based On Packet Type** 
 
@@ -126,8 +125,6 @@ must be able to pass a Completion, or a deadlock may occur.
 
 - **D5b** — Completions with the same Transaction ID are not allowed to pass each other. This ensures that multiple completions for a single
 request will remain in ascending address order.
-
-**PCI Express 3.0 Technology** 
 
 ## **Producer/Consumer Model** 
 
@@ -213,8 +210,6 @@ _Figure 8‐2: Producer/Consumer Sequence Example — Part 1_
 <br>
 
 
-**PCI Express 3.0 Technology** 
-
 _Figure 8‐3: Producer/Consumer Sequence Example — Part 2_ 
 
 <img src="figures/chapter_07_Quality_of_Service/page/page0308.png" alt="Figure 8‐1: Example Producer/Consumer Topology" width="700">
@@ -245,8 +240,6 @@ Consumer.
 The problem is avoided with ordering rules supported by virtual PCI bridges within the topology. In this example, when the Consumer
 performed the Mem‐ ory Read transaction in steps 3 and 4, the Virtual PCI bridge at the upstream switch port should not allow the contents
 of the flag (Completion 4) to be for‐ warded ahead of the previously posted data.
-
-**PCI Express 3.0 Technology** 
 
 _Figure 8‐4: Producer/Consumer Sequence with Error_ 
 
@@ -286,8 +279,6 @@ handle these transactions as follows:
 
 - Switches are permitted to reorder memory write transactions just posted ahead of previously posted memory write transactions or message
 transac‐ tions. Similarly, message transactions just posted may be ordered ahead of
-
-**PCI Express 3.0 Technology** 
 
 previously posted memory write or message transactions. Switches must also forward the RO bit unmodified. The RO bit is ignored by PCI‐X
 bridges, which always forward writes in order (there would be little pur‐ pose in allowing them to go out of order anyway; if one is blocked
@@ -342,8 +333,6 @@ Since TLPs are binned into their respective three sub‐buffers in order to proc
 flow control mechanism between each virtual channel sub‐buffer (P, NP, CPL) of neighboring ports at opposite ends of the Link. In fact, you
 may recall that there is an independent flow control mechanism between Header (Hdr) and Data (D) sub‐buffers of each sub‐buffer category (P,
 NP, CPL) of each virtual channel number.
-
-**PCI Express 3.0 Technology** 
 
 ## **Transaction Stalls** 
 
@@ -524,8 +513,9 @@ Completions<br>8 6 3<br>Tx Rx<br>Rx Tx<br>Posted<br>Full<br>**----- 图片文字
 <a id="sec-7-2"></a>
 ## 7.2 Quality of Service | 服务质量
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -554,8 +544,6 @@ To get improved performance, we need another option.
 The solution is simple: allow packets to be reordered if they don’t use the same Requester ID (or Completer ID, for Completion packets).
 This optional capabil‐ ity allows software to enable a device to use IDO and a switch port can recog‐ nize that the packets are part of
 different TLP streams. This is done by setting the enable bits in Device Control 2 Register.
-
-**PCI Express 3.0 Technology** 
 
 _Figure 8‐7: Different Sources are Unlikely to Have Dependencies_ 
 

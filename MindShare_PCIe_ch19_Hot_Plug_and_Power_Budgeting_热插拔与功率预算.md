@@ -16,8 +16,9 @@
 <a id="sec-19-1"></a>
 ## 19.1 Hot Plug and Power Budgeting | 热插拔与功率预算
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -296,8 +297,9 @@ _图 A-1：带 ProtoSync 软件选项的 LeCroy 示波器_
 <a id="sec-19-2"></a>
 ## 19.2 Hot Plug and Power Budgeting | 热插拔与功率预算
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -597,8 +599,9 @@ FPGA 中实现的，则使用专用流量生成工具（如 LeCroy PETrainer 或
 <a id="sec-19-3"></a>
 ## 19.3 Hot Plug and Power Budgeting | 热插拔与功率预算
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 

@@ -15,8 +15,9 @@
 <a id="sec-18-1"></a>
 ## 18.1 Latency Tolerance Reporting (LTR) | 延迟容忍度上报 (LTR)
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -505,8 +506,9 @@ Tag（有关更多详细信息，请参阅第 908 页上的"TLP Prefixes"）。
 <a id="sec-18-2"></a>
 ## 18.2 Latency Tolerance Reporting (LTR) | 延迟容忍度上报 (LTR)
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 

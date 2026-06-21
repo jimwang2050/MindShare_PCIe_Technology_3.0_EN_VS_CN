@@ -44,8 +44,9 @@
 <a id="sec-3-1"></a>
 ## 3.1 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -74,8 +75,9 @@ PCI Express 代表了一次重大转变,摒弃了其前代产品所采用的并�
 <a id="sec-3-2"></a>
 ## 3.2 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -139,8 +141,9 @@ _图 2-2:一条通道_
 <a id="sec-3-3"></a>
 ## 3.3 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -177,8 +180,9 @@ PCIe 上实现这一点,PCI 所使用的所有地址空间都被原封不动或�
 <a id="sec-3-4"></a>
 ## 3.4 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -199,8 +203,9 @@ PCIe 上实现这一点,PCI 所使用的所有地址空间都被原封不动或�
 <a id="sec-3-5"></a>
 ## 3.5 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -305,8 +310,9 @@ _表 2-1：各种链路宽度下 PCIe Gen1、Gen2 和 Gen3 的聚合带宽_
 <a id="sec-3-6"></a>
 ## 3.6 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -346,8 +352,9 @@ packet bytes to be encoded using 8b/10b encoding schemes before packet transmiss
 <a id="sec-3-7"></a>
 ## 3.7 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -382,8 +389,9 @@ These 3 calculated bandwidth numbers are multiplied by Link width to result in t
 <a id="sec-3-8"></a>
 ## 3.8 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -432,8 +440,9 @@ _图 2-4:差分信号_
 <a id="sec-3-9"></a>
 ## 3.9 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -497,8 +506,9 @@ power state) 会停止数据传输。因此，接收器还必须拥有自己可�
 <a id="sec-3-10"></a>
 ## 3.10 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -533,8 +543,9 @@ types and their uses can be found in this chapter; see “Data Link Layer” on 
 <a id="sec-3-11"></a>
 ## 3.11 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -561,8 +572,9 @@ between devices and no other signals are required.
 <a id="sec-3-12"></a>
 ## 3.12 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -593,8 +605,9 @@ designer to make the appropriate trade‐off between cost and performance, easil
 <a id="sec-3-13"></a>
 ## 3.13 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -624,8 +637,9 @@ following section.
 <a id="sec-3-14"></a>
 ## 3.14 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -662,8 +676,9 @@ _图 2-6:PCIe 拓扑 (Topology) 示例_
 <a id="sec-3-15"></a>
 ## 3.15 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -697,8 +712,9 @@ same way they always have. We’ll come back to this discussion a little later, 
 <a id="sec-3-16"></a>
 ## 3.16 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -728,8 +744,9 @@ CPU 与 PCIe 总线之间的接口可能包含多个组件（处理器接口、D
 <a id="sec-3-17"></a>
 ## 3.17 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -763,8 +780,9 @@ or “reverse bridge” allows a new PCIe card to be plugged into an old PCI sys
 <a id="sec-3-18"></a>
 ## 3.18 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -799,8 +817,9 @@ Transaction) 支持,或者锁定请求 (Locked Request) 支持。相对而言,"�
 <a id="sec-3-19"></a>
 ## 3.19 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -830,8 +849,9 @@ tion Overview” on page 85.
 <a id="sec-3-20"></a>
 ## 3.20 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -909,8 +929,9 @@ _图 2‐9：系统枚举示例结果 (Example Results of System Enumeration)_
 <a id="sec-3-21"></a>
 ## 3.21 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -980,8 +1001,9 @@ _图 2-11:服务器 PCIe 系统_
 <a id="sec-3-22"></a>
 ## 3.22 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1056,8 +1078,9 @@ Complex),根核心实现一个虚拟的 PCI 总线 0,芯片组的所有嵌入式
 <a id="sec-3-23"></a>
 ## 3.23 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1149,8 +1172,9 @@ _图 2‐13：交换机端口分层_
 <a id="sec-3-24"></a>
 ## 3.24 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1189,8 +1213,9 @@ of the layers must do to make this process work, using Figure 2‐14 on page 58.
 <a id="sec-3-25"></a>
 ## 3.25 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1220,8 +1245,9 @@ incoming packets have been received.
 <a id="sec-3-26"></a>
 ## 3.26 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1289,8 +1315,9 @@ _表 2‐2：PCI Express 请求类型 (Request Types)_
 <a id="sec-3-27"></a>
 ## 3.27 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1353,8 +1380,9 @@ non‐posted 的。尽管它们正在为命令传送数据，这些请求仍然�
 <a id="sec-3-28"></a>
 ## 3.28 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1422,8 +1450,9 @@ TLP 在发送端的**事务层**产生，并在接收端的**事务层**终止�
 <a id="sec-3-29"></a>
 ## 3.29 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1511,8 +1540,9 @@ _图 2-16：TLP 组装_
 <a id="sec-3-30"></a>
 ## 3.30 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1562,8 +1592,9 @@ _图 2-17:TLP 解封装_
 <a id="sec-3-31"></a>
 ## 3.31 Configuration Overview | 配置概述
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1594,13 +1625,18 @@ Elements（TLP 元素）ʺ，但任何内存读请求的一个重要部分是目
 解码该请求并识别到报文中的地址指向系统内存时，它会取回所请求的数据。为了将这些数据返回给 Requester（请求者），Root Port（根端口）的 Transaction Layer（事务层）会按需生成尽可能多的 Completion（完成报文）以将所有请求数据传送到
 Requester（请求者）。PCIe 单个报文最大数据载荷为 4 KB，但设备通常被设计为使用更小的载荷，因此可能需要多个 Completion（完成报文）才能返回大量数据。
 
-_Figure 2‐18: Non‐Posted Read Example（图 2-18：非 Posted 读示例）_
-
-<img src="figures/page/page0177.png" alt="Figure 2‐1: Dual‐Simplex Link" width="700">
-
-<br>
-
 </td>
+</tr></tbody></table>
+
+<p align="center"><b>Figure 2‐18: Non‐Posted Read Example（图 2-18：非 Posted 读示例）</b></p>
+<p align="center"><img src="figures/page/page0177.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/page/page0177.png">Page 177</a></sub></p>
+
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<tbody><tr>
+
 </tr></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)

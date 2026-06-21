@@ -22,8 +22,9 @@
 <a id="sec-99-1"></a>
 ## 99.1 Appendices | 附录
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -326,8 +327,9 @@ _Figure A‐12: BitTracer View of Gen2 Traffic_
 <a id="sec-99-2"></a>
 ## 99.2 Appendices | 附录
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -451,8 +453,6 @@ technology from a single‐root domain to a multi‐root domain. The MR‐IOV sp
 hosts and multiple system images simultaneously, as illustrated in Figure 0‐1 on page 938. This illustration shows a multi‐host environment
 where MR‐IOV capable NIC and HBA are shared across multiple servers or virtual machines via an MR‐IOV switch.
 
-**PCI Express 3.0 Technology** 
-
 _Figure 0‐1: MR‐IOV Switch Usage_ 
 
 In order to implement MR‐IOV specifications, three components of the system need to be developed – MR‐IOV PCIe switches, endpoints, and
@@ -539,8 +539,6 @@ Akber Kazmi（PLX Technology, Inc. 高级市场总监）
 
 PCIe 是 PCI 的天然继任者，开发用于提供先进的、高速串行互连技术的优势以及基于分层的分组架构，但保持与大型 PCI 软件基础的向后兼容性。关键目标是为各种未来平台提供优化的通用互连解决方案，包括桌面、服务器、工作站、存储、通信和嵌入式系统。
 
-**PCI Express 3.0 Technology**
-
 PCIe 于 2001 年推出后，已经历了三代增强。在第一代 (Gen1) 中，信号速率设定为 2.5 GT/s，后来增强到 5 GT/s (Gen2)，最终达到 8 GT/s (Gen3)。PCIe 规范允许将 2、4、8、12、16 或 32
 条通道组合成单个端口。但是，今天可用的产品不支持 12 和 32 通道宽度的端口。重要的是，所有 PCIe Gen2 和 Gen3 设备都需要在速度上向后兼容上一代。
 
@@ -575,8 +573,6 @@ PCIe 技术最初被定义为单主机互连技术，但在过去几年中，已
 PCI-SIG 随后于 2008 年完成了其多根 I/O 虚拟化 (MR-IOV) 规范的工作，该规范将 PCIe 技术的使用从单根域扩展到多根域。MR-IOV 规范允许多个主机和多个系统映像同时使用单个 I/O 设备，如图 0-1 所示（在第 938
 页）。此插图显示了一个多主机环境，其中具有 MR-IOV 功能的 NIC 和 HBA 通过 MR-IOV 交换机在多个服务器或虚拟机之间共享。
 
-**PCI Express 3.0 Technology**
-
 _图 0-1：MR-IOV 交换机使用_
 
 为了实现 MR-IOV 规范，需要开发系统的三个组件 — MR-IOV PCIe 交换机、端点和管理软件。所有这三个组件必须同时可用并无缝工作。不幸的是，在规范开发四年后，没有一个硅供应商具有 MR-IOV 功能的 PCIe 交换机或端点。PCIe
@@ -599,8 +595,6 @@ _图 0-2：MR-IOV 交换机内部架构_
 
 盒外的 PCIe 连接取决于行业领导者以较低成本推出的 PCIe 铜缆或光缆。PCIe TOR 结构适用于服务器/计算集群，并可能取代 InfiniBand 成为 PCIe 作为结构增长时的生态系统。
 
-**PCI Express 3.0 Technology**
-
 _图 0-3：用于 HPC 应用程序的数据中心中的 PCIe_
 
 ## **SSD/存储 IO 扩展框**
@@ -618,8 +612,9 @@ _图 0-3：用于 HPC 应用程序的数据中心中的 PCIe_
 <a id="sec-99-3"></a>
 ## 99.3 Appendices | 附录
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -651,8 +646,6 @@ In addition to providing connectivity, PCIe switches can be used for providing r
 functionality. The MR switches support 1+N failover capability, in which one server/host communi‐ cates with N number of servers to check
 the heartbeat and initiate a failover if one of them fails. One of the servers illustrated in Figure 0‐6 on page 942 can be used as backup
 for the others in 1+N failover scheme.
-
-**PCI Express 3.0 Technology** 
 
 _Figure 0‐6: Server Failover in 1 + N Failover Scheme_ 
 
@@ -799,8 +792,6 @@ _图 0-5：服务器主板使用 PCIe 交换机_
 除提供连接外，PCIe 交换机还可用于通过 NT 桥接和 MR 功能提供冗余和故障转移。MR 交换机支持 1+N 故障转移能力，其中一个服务器/主机与 N 个服务器通信以检查心跳并在其中一个发生故障时启动故障转移。图 0-6（在第 942 页）中所示的服务器之一可以在 1+N
 故障转移方案中用作其他服务器的备份。
 
-**PCI Express 3.0 Technology**
-
 _图 0-6：1+N 故障转移方案中的服务器故障转移_
 
 ## **结论**
@@ -821,8 +812,6 @@ _**使用 PCI Express 技术实现智能适配器和多主机系统**_
 
 由于使用智能适配器、主机故障转移和多主机技术的系统的广泛普及，PCI Express 硅供应商必须提供一种支持它们的手段。这实际上是一项相对低风险的努力；鉴于 PCI Express 与 PCI 软件兼容，而 PCI 系统早已实现了分布式处理。最明显的方法，也是 PLX
 所倡导的方法，是为 PCI Express 模拟 PCI 空间中使用最广泛的实现。此策略允许系统设计人员不仅使用熟悉的实现，而且使用经过验证的方法，
-
-**PCI Express 3.0 Technology**
 
 并在他们从 PCI 迁移到 PCI Express 时可以提供重要的软件重用。本白皮书概述了多处理器 PCI Express 系统将如何使用 PCI 范例中建立的行业标准实践来实现。但是，首先，我们将定义不同的使用模型，并回顾 PCI
 社区为满足这些需求而开发机制的成功努力。最后，我们将介绍 PCI Express 系统如何利用非透明桥接来为这些类型的系统提供所需的功能。
@@ -858,8 +847,6 @@ PCI 最初于 1992 年为个人计算机定义。由于当时 PC 的性质，协
 
 随后发明了几种方法以适应使用 PCI 的多处理器功能要求。最流行的实现，也是本文针对 PCI Express 讨论的实现，是使用处理子系统之间的非透明桥接来隔离它们的内存空间。[1]
 
-**PCI Express 3.0 Technology**
-
 由于主机在首次上电或复位时不知道系统拓扑，因此它必须执行发现以了解存在的设备，然后将它们映射到内存空间中。为了支持标准发现和配置软件，PCI 规范定义了合规设备的控制和状态寄存器 (CSR) 的标准格式。标准 PCI-to-PCI 桥 CSR 头，称为 Type 1
 头，包括主桥、次桥和从属总线号寄存器，当主机写入这些寄存器时，它们定义了桥另一侧设备的 CSR 地址。采用 Type 1 CSR 头的桥称为透明桥。
 
@@ -879,8 +866,6 @@ _图 0-1：使用透明桥的枚举_
 
 1. 虽然我们使用智能端点作为示例，但我们应注意多主机系统也存在类似的问题。
 
-**PCI Express 3.0 Technology**
-
 </td>
 </tr></tbody></table>
 
@@ -894,8 +879,9 @@ _图 0-1：使用透明桥的枚举_
 <a id="sec-99-4"></a>
 ## 99.4 Appendices | 附录
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -926,8 +912,6 @@ direction.
 **Chapter : Appendix C: Implementing Intelligent Adapt-** 
 
 _Figure 0‐2: Direct Address Translation_ 
-
-**PCI Express 3.0 Technology** 
 
 _Figure 0‐3: Look Up Table Translation Creates Multiple Windows_ 
 
@@ -1058,8 +1042,6 @@ C-0-3 显示了用于在本地 I/O 处理器域中创建跨系统内存空间的
 
 _Figure 0‐2: Direct Address Translation_
 
-**PCI Express 3.0 Technology**
-
 _Figure 0‐3: Look Up Table Translation Creates Multiple Windows_
 
 ## **示例:在 PCI Express 基础系统中实现智能适配器**
@@ -1140,8 +1122,9 @@ _Figure 0‐6: Dual Host in PCI and PCI Express System_
 <a id="sec-99-5"></a>
 ## 99.5 Appendices | 附录
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1166,8 +1149,6 @@ Through non‐transparent bridging, PCI Express Base offers vendors the ability 
 their next genera‐ tion designs. This appendix demonstrated how these features will be deployed using de‐facto standard techniques adopted
 in the PCI environment and showed how they would be utilized for various applications. Because of this, we can expect this methodology to
 become the industry standard in the PCI Express paradigm.
-
-**PCI Express 3.0 Technology** 
 
 ## **Address Translation** 
 
@@ -1220,8 +1201,6 @@ utilized for Direct Address Translations.
 On the secondary side, BAR3 uses a special lookup table based address transla‐ tion for transactions that fall inside its window as seen in
 Figure C‐0‐9 on page 960. The lookup table provides more flexibility in secondary bus local addresses
 
-**PCI Express 3.0 Technology** 
-
 to primary bus addresses. The location of the index field with the address bus is programmable to adjust aperture size. 
 
 _Figure 0‐9: Lookup Table Based Translation_ 
@@ -1247,8 +1226,6 @@ bus domain. The mapping is performed by substituting a new base address for the 
 
 A 64‐bit BAR pair on the system side of the bridge is used to translate a window of 64‐bit addresses in packets originated on the system
 side of the bridge down below 232 in local space.
-
-**PCI Express 3.0 Technology** 
 
 ## _**Appendix D:**_ 
 
@@ -1352,8 +1329,6 @@ _Figure 0‐7: Dual‐Star Fabric_
 通过非透明桥接,PCI Express Base 为供应商提供了将智能适配器和多主机系统集成到其下一代设计中的能力。本附录演示了如何使用在 PCI 环境中采用的业界事实标准技术来部署这些功能,并展示了如何将其用于各种应用。因此,我们可以预期此方法将成为 PCI Express
 范例中的行业标准。
 
-**PCI Express 3.0 Technology**
-
 ## **地址转换 (Address Translation)**
 
 本节提供使用非透明桥的系统如何使用地址转换进行通信的深入描述。我们提供有关系统如何确定不仅分配的内存大小,还提供有关如何使用内存指针的机制的详细信息。将讨论使用直接地址转换和基于查找表的地址转换的实现。通过将 PCI 范例中流行的非透明桥接的相同标准化架构实现引入 PCI
@@ -1386,8 +1361,6 @@ _Figure 0‐8: Direct Address Translation_
 
 在次级侧,BAR 3 对落入其窗口内的事务使用特殊的基于查找表的地址转换,如第 960 页的图 C-0-9 所示。查找表在次级总线本地地址
 
-**PCI Express 3.0 Technology**
-
 到主总线地址方面提供更大的灵活性。索引字段在地址总线中的位置是可编程的,以调整孔径大小。
 
 _Figure 0‐9: Lookup Table Based Translation_
@@ -1407,8 +1380,6 @@ _Figure 0‐10: Use of Limit Register_
 位事务的情况一样,当内存事务从主总线转发到次级总线时,主地址可以映射到次级总线域中的另一个地址。该映射通过用新基地址替换原始地址的基地址来执行。
 
 桥系统侧的 64 位 BAR 对用于将在桥系统侧发起且包含 64 位地址的分组窗口转换到本地空间中低于 2³² 的地址。
-
-**PCI Express 3.0 Technology**
 
 ## _**Appendix D:**_
 
@@ -1491,8 +1462,9 @@ PCI Express 定义以下事务,它们共同充当虚拟连线并替代 LOCK# 信
 <a id="sec-99-6"></a>
 ## 99.6 Appendices | 附录
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1706,13 +1678,6 @@ access with a Suc‐ cessful Completion status:
 
 **Appendix D**
 
-_Figure D‐1: Lock Sequence Begins with Memory Read Lock Request_
-
-<img src="figures/chapter_99_Appendices/embedded/page0961_img1.png" alt="Figure A‐2: LeCroy PCI Express Slot Interposer x16" width="700">
-
-<br>
-
-
 ## **读取数据修改并写入目标以及锁定完成**
 
 设备驱动程序接收信号量值,对其进行修改,然后启动内存写入以更新旧版 PCI 设备内存中的信号量。第 969 页的图 E-2 说明了写序列,然后是
@@ -1734,13 +1699,6 @@ _Figure D‐1: Lock Sequence Begins with Memory Read Lock Request_
 16. 在检测到 Unlock 消息时,桥也必须释放 PCI 总线上的锁定。
 
 **Appendix D**
-
-_Figure D‐2: Lock Completes with Memory Write Followed by Unlock Message_
-
-<img src="figures/chapter_99_Appendices/embedded/page0962_img1.png" alt="Figure A‐2: LeCroy PCI Express Slot Interposer x16" width="700">
-
-<br>
-
 
 ## **不成功锁定的通知**
 
@@ -1819,6 +1777,22 @@ PCI Express/PCI 桥的要求类似于对交换机的要求,只是因为这些桥
 </td>
 </tr></tbody></table>
 
+<p align="center"><b>Figure D‐1: Lock Sequence Begins with Memory Read Lock Request</b></p>
+<p align="center"><img src="figures/chapter_99_Appendices/embedded/page0961_img1.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/chapter_99_Appendices/embedded/page0961_img1.png">Page 961</a></sub></p>
+
+
+<p align="center"><b>Figure D‐2: Lock Completes with Memory Write Followed by Unlock Message</b></p>
+<p align="center"><img src="figures/chapter_99_Appendices/embedded/page0962_img1.png" width="700"></p>
+<p align="center"><sub>📄 <a href="figures/chapter_99_Appendices/embedded/page0962_img1.png">Page 962</a></sub></p>
+
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<tbody><tr>
+
+</tr></tbody></table>
+
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
@@ -1829,8 +1803,9 @@ PCI Express/PCI 桥的要求类似于对交换机的要求,只是因为这些桥
 <a id="sec-99-7"></a>
 ## 99.7 Appendices | 附录
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -2100,8 +2075,9 @@ this type of routing.|
 <a id="sec-99-8"></a>
 ## 99.8 Appendices | 附录
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -2364,8 +2340,9 @@ AtomicOp 150 AtomicOps 897, 974 Attention Button 854, 862 Attention Indicator 85
 <a id="sec-99-9"></a>
 ## 99.9 Appendices | 附录
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 

@@ -35,8 +35,9 @@
 <a id="sec-1-1"></a>
 ## 1.1 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -68,8 +69,9 @@ _**1 背景**_
 <a id="sec-1-2"></a>
 ## 1.2 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -101,8 +103,9 @@ PCI-X（PCI-eXtended），并描述它们的基本特性和特点，随后讨论
 <a id="sec-1-3"></a>
 ## 1.3 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -129,8 +132,9 @@ describes the responsibilities of each layer.
 <a id="sec-1-4"></a>
 ## 1.4 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -171,8 +175,9 @@ operation. For this reason and others, under‐ standing PCI and its models of o
 <a id="sec-1-5"></a>
 ## 1.5 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -203,8 +208,6 @@ to the new serial bus model.
 
 These earlier bus definitions are listed in Table 1‐1 on page 11, which shows the development over time of higher frequencies and
 bandwidths. One of the inter‐
-
-**Chapter 1: Background** 
 
 esting things to note in this table is the correlation of clock frequency and the number of add‐in card slots on the bus. This was due to
 PCI’s low‐power signal‐ ing model, which meant that higher frequencies required shorter traces and fewer loads on the bus (see
@@ -264,8 +267,9 @@ Special Interest Group，PCI 特殊兴趣小组）的组织。全新开发的总
 <a id="sec-1-6"></a>
 ## 1.6 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -286,8 +290,9 @@ Special Interest Group，PCI 特殊兴趣小组）的组织。全新开发的总
 <a id="sec-1-7"></a>
 ## 1.7 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -318,8 +323,9 @@ pro‐ vided system signals like reset, reference clock, and error reporting.
 <a id="sec-1-8"></a>
 ## 1.8 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -354,8 +360,9 @@ _图 1‐1：传统 PCI 总线架构平台_
 <a id="sec-1-9"></a>
 ## 1.9 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -370,8 +377,6 @@ located in the bridge that is hierarchically above the bus and receives arbitrat
 (Bus Masters) on that bus. The arbiter decides which requester should be the next owner of the bus and asserts the Grant (GNT#) pin for that
 device. According to the protocol, whenever the previous transaction finishes and the bus goes idle, whichever device sees its GNT# asserted
 at that time is designated as the next Bus Master and can begin its transaction.
-
-**Chapter 1: Background** 
 
 _Figure 1‐2: PCI Bus Arbitration_ 
 
@@ -407,8 +412,9 @@ _图 1-2:PCI 总线仲裁_
 <a id="sec-1-10"></a>
 ## 1.10 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -446,8 +452,9 @@ decoding the address to see whether it’s a match for them.
 <a id="sec-1-11"></a>
 ## 1.11 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -483,8 +490,6 @@ stalled.
 
 8. On clock edge 8, the third data set is transferred and now FRAME# has been deasserted so the target can tell that this was the last data
 item. Conse‐ quently, after this clock, all the control lines are turned off and the bus once again goes to the idle state.
-
-**Chapter 1: Background** 
 
 In keeping with the low cost design goal for PCI, several signals have more than one meaning on the bus to reduce the pin count. The 32
 address and data sig‐ nals are multiplexed and the C/BE# (Command/Byte Enable) signals share their four pins for the same reason. Although
@@ -540,8 +545,9 @@ _**图 1‐3:简单的 PCI 总线传输**_
 <a id="sec-1-12"></a>
 ## 1.12 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -562,8 +568,6 @@ As the length of the trace and the number of electrical loads on a bus increase,
 increases. A 33 MHz PCI bus can only meet the signal timing with about 10‐12 electrical loads. An electri‐ cal load is one device installed
 on the system board, but a populated connector slot actually counts as two loads. Therefore, as indicated in Table 1‐1 on page 11, a 33 MHz
 PCI bus can only be designed for reliable operation with a maximum of 4 or 5 add‐in card connectors.
-
-**Chapter 1: Background** 
 
 _Figure 1‐4: PCI Reflected‐Wave Signaling_ 
 
@@ -657,8 +661,9 @@ COM2 编解码器（CODEC）编解码器（CODEC）以太网（Ethernet） ROM<b
 <a id="sec-1-13"></a>
 ## 1.13 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -679,8 +684,9 @@ COM2 编解码器（CODEC）编解码器（CODEC）以太网（Ethernet） ROM<b
 <a id="sec-1-14"></a>
 ## 1.14 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -706,8 +712,9 @@ illustrated in Figure 1‐6 on page 19 and described in the following sections.
 <a id="sec-1-15"></a>
 ## 1.15 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -716,8 +723,6 @@ illustrated in Figure 1‐6 on page 19 and described in the following sections.
 PIO was commonly used in the early days of the PC because designers were reluctant to add the expense or complexity to their devices of
 transaction man‐ agement logic. The processor could do the job faster than any other device any‐ way so, in this model, it handles all the
 work. For example, if a PCI device
-
-**Chapter 1: Background** 
 
 interrupts the CPU to indicate that it needs to put data in memory, the CPU will end up reading data from the PCI device into an internal
 register and then copying that register to memory. Going the other way, if data is to be moved from memory to the PCI device, software
@@ -769,8 +774,9 @@ HDD<br>USB 南桥 逻辑错误 以太网 SCSI<br>ISA<br>启动 调制解调器 �
 <a id="sec-1-16"></a>
 ## 1.16 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -813,8 +819,9 @@ the CPU is not involved in the data movement, and a single bus cycle may be suff
 <a id="sec-1-17"></a>
 ## 1.17 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -848,8 +855,9 @@ the target, defeating the goal of a peer‐to‐peer transfer.
 <a id="sec-1-18"></a>
 ## 1.18 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -860,8 +868,6 @@ peer‐to‐peer transfers. In a shared bus architecture like PCI, they have to 
 transactions must first request ownership of the bus from the bus arbiter. The arbiter sees all the current requests and uses an imple‐
 mentation‐specific algorithm to decide which Bus Master gets ownership of the bus next. The PCI spec doesn’t describe this algorithm, but
 does state that it must be “fair” and not starve any device for access.
-
-**Chapter 1: Background** 
 
 The arbiter can grant bus ownership to the next requesting device while the pre‐ vious Bus Master is still executing its transfer, so that
 no clocks are used on the bus to sort out the next owner. As a result, the arbitration appears to happen behind the scenes and is referred
@@ -890,8 +896,9 @@ to as “hidden” bus arbitration, which was a design improvement over earlier 
 <a id="sec-1-19"></a>
 ## 1.19 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -912,8 +919,9 @@ to as “hidden” bus arbitration, which was a design improvement over earlier 
 <a id="sec-1-20"></a>
 ## 1.20 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -959,8 +967,9 @@ _图 1-7:PCI 交易重试机制_
 <a id="sec-1-21"></a>
 ## 1.21 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -996,8 +1005,9 @@ cycle again and the process is repeated until the master successfully transfers 
 <a id="sec-1-22"></a>
 ## 1.22 Background | 背景
 
-<table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%" style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
+<table style="width:100%;table-layout:fixed">
+<colgroup><col style="width:50%"><col style="width:50%"></colgroup>
+<thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr></thead>
 <tbody><tr>
 <td>
 
@@ -1019,8 +1029,6 @@ address. During the time that the Bus Master is disconnected, the arbiter may gr
 is utilized more efficiently. By the time the disconnected master is granted the bus and continues the bus cycle, hope‐ fully the target is
 ready to continue the data transfer until it is completed. Oth‐ erwise, the target once again retries or disconnects the master’s bus cycle
 and the process is repeated until the master successfully transfers all its data.
-
-**Chapter 1: Background** 
 
 _Figure 1-8: PCI Transaction Disconnect Mechanism_ 
 
