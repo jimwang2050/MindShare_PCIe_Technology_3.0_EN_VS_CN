@@ -16,16 +16,8 @@
 ## 7.1 Quality of Service | 服务质量
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -296,7 +288,7 @@ The specification states that the Producer/Consumer model will work regard‐ le
 example, the Flag and Status elements reside in the same physical device, but could be located in different devices.
 _Figure 8‐1: Example Producer/Consumer Topology_ 
 
-<img src="figures/chapter_07_Quality_of_Service/page/page0306.png" alt="Figure 8‐1: Example Producer/Consumer Topology" width="700">
+<img src="figures/chapter_07_Quality_of_Service/page/page0306.png" alt="Figure from page 306" width="700">
 
 <br>
 
@@ -380,14 +372,14 @@ sent to Memory.
 16. The sequence of events starting with step 1. is repeated by the Producer. 
 _Figure 8‐2: Producer/Consumer Sequence Example — Part 1_ 
 
-<img src="figures/chapter_07_Quality_of_Service/page/page0307.png" alt="Figure 8‐1: Example Producer/Consumer Topology" width="700">
+<img src="figures/chapter_07_Quality_of_Service/page/page0307.png" alt="Figure from page 307" width="700">
 
 <br>
 
 
 _Figure 8‐3: Producer/Consumer Sequence Example — Part 2_ 
 
-<img src="figures/chapter_07_Quality_of_Service/page/page0308.png" alt="Figure 8‐1: Example Producer/Consumer Topology" width="700">
+<img src="figures/chapter_07_Quality_of_Service/page/page0308.png" alt="Figure from page 308" width="700">
 
 <br>
 
@@ -452,7 +444,7 @@ of the flag (Completion 4) to be for‐ warded ahead of the previously posted da
 
 _Figure 8‐4: Producer/Consumer Sequence with Error_ 
 
-<img src="figures/chapter_07_Quality_of_Service/page/page0309.png" alt="Figure 8‐1: Example Producer/Consumer Topology" width="700">
+<img src="figures/chapter_07_Quality_of_Service/page/page0309.png" alt="Figure from page 309" width="700">
 
 <br>
 
@@ -482,7 +474,7 @@ required that they should.
 
 _Figure 8‐5: Relaxed Ordering Bit in a 32‐bit Header_ 
 
-<img src="figures/chapter_07_Quality_of_Service/page/page0310.png" alt="Figure 8‐1: Example Producer/Consumer Topology" width="700">
+<img src="figures/chapter_07_Quality_of_Service/page/page0310.png" alt="Figure from page 310" width="700">
 
 <br>
 
@@ -608,7 +600,7 @@ previously queued read transaction.
 
 _Figure 8‐6: Strongly Ordered Example Results in Temporary Stall_ 
 
-<img src="figures/chapter_07_Quality_of_Service/page/page0311.png" alt="Figure 8‐1: Example Producer/Consumer Topology" width="700">
+<img src="figures/chapter_07_Quality_of_Service/page/page0311.png" alt="Figure from page 311" width="700">
 
 <br>
 
@@ -621,7 +613,7 @@ _Figure 8‐6: Strongly Ordered Example Results in Temporary Stall_
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -631,16 +623,8 @@ _Figure 8‐6: Strongly Ordered Example Results in Temporary Stall_
 ## 7.2 Quality of Service | 服务质量
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -695,7 +679,7 @@ different TLP streams. This is done by setting the enable bits in Device Control
 
 _Figure 8‐7: Different Sources are Unlikely to Have Dependencies_ 
 
-<img src="figures/chapter_07_Quality_of_Service/page/page0312.png" alt="Figure 8‐1: Example Producer/Consumer Topology" width="700">
+<img src="figures/chapter_07_Quality_of_Service/page/page0312.png" alt="Figure from page 312" width="700">
 
 <br>
 
@@ -768,7 +752,7 @@ other words, Completions may use IDO even if the Request that initiated them did
 
 _Figure 8‐8: IDO Attribute in 64‐bit Header_ 
 
-<img src="figures/chapter_07_Quality_of_Service/page/page0313.png" alt="Figure 8‐1: Example Producer/Consumer Topology" width="700">
+<img src="figures/chapter_07_Quality_of_Service/page/page0313.png" alt="Figure from page 313" width="700">
 
 <br>
 
@@ -955,7 +939,7 @@ communicated between the Data Link Layers of each device. Figure 9‐1 on page 3
 
 _Figure 9‐1: Data Link Layer Sends A DLLP_ 
 
-<img src="figures/chapter_07_Quality_of_Service/page/page0314.png" alt="Figure 8‐1: Example Producer/Consumer Topology" width="700">
+<img src="figures/chapter_07_Quality_of_Service/page/page0314.png" alt="Figure from page 314" width="700">
 
 <br>
 
@@ -1087,7 +1071,7 @@ transit, showing the framing symbols and the general contents of the packet.
 
 _Figure 9‐2: Generic Data Link Layer Packet Format_ 
 
-<img src="figures/chapter_07_Quality_of_Service/page/page0315.png" alt="Figure 8‐1: Example Producer/Consumer Topology" width="700">
+<img src="figures/chapter_07_Quality_of_Service/page/page0315.png" alt="Figure from page 315" width="700">
 
 </td>
 <td width="50%">
@@ -1124,7 +1108,7 @@ Byte 4 16 Bit CRC<br>
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 

@@ -18,16 +18,8 @@
 ## 12.1 Physical Layer - Logical (Gen3) | 物理层 - 逻辑 (Gen3)
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -53,7 +45,7 @@ _Table 13‐5: Common Receiver Characteristics (Continued)_
 
 _Figure 13‐34: 2.5 GT/s Receiver Eye Diagram_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0468.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0468.png" alt="Figure from page 468" width="700">
 
 <br>
 
@@ -81,7 +73,7 @@ GHz，<br>8（最小）<br>，频率 >1.25 ‐<br>2.5 GHz，<br>5（最小）<br
 
 _图 13‐34：2.5 GT/s 接收器眼图_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0475.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0475.png" alt="Figure from page 475" width="700">
 
 <br>
 
@@ -98,7 +90,7 @@ implemented as active logic
 
 _Figure 13‐35: L0 Full‐On Link State_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0469.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0469.png" alt="Figure from page 469" width="700">
 
 <br>
 
@@ -111,7 +103,7 @@ _Figure 13‐35: L0 Full‐On Link State_
 
 _图 13‐35：L0 全开链路状态_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0476.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0476.png" alt="Figure from page 476" width="700">
 
 <br>
 
@@ -125,7 +117,7 @@ _图 13‐35：L0 全开链路状态_
 
 ## _Figure 13‐36: L0s Low Power Link State_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0470.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0470.png" alt="Figure from page 470" width="700">
 
 <br>
 
@@ -145,7 +137,7 @@ _图 13‐35：L0 全开链路状态_
 
 ## _图 13‐36：L0s 低功耗链路状态_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0477.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0477.png" alt="Figure from page 477" width="700">
 
 <br>
 
@@ -179,13 +171,13 @@ _图 13‐35：L0 全开链路状态_
 
 ## _Figure 13‐37: L1 Low Power Link State_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0471.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0471.png" alt="Figure from page 471" width="700">
 
 <br>
 
 _Figure 13‐38: L2 Low Power Link State_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0472.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0472.png" alt="Figure from page 472" width="700">
 
 <br>
 
@@ -194,7 +186,7 @@ _Figure 13‐38: L2 Low Power Link State_
 
 ## _图 13‐37：L1 低功耗链路状态_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0478.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0478.png" alt="Figure from page 478" width="700">
 
 <br>
 
@@ -203,7 +195,7 @@ _Figure 13‐38: L2 Low Power Link State_
 
 _图 13‐38：L2 低功耗链路状态_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0479.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0479.png" alt="Figure from page 479" width="700">
 
 <br>
 
@@ -226,7 +218,7 @@ _图 13‐38：L2 低功耗链路状态_
 
 ## _Figure 13‐39: L3 Link Off State_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0473.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0473.png" alt="Figure from page 473" width="700">
 
 <br>
 
@@ -235,7 +227,7 @@ _图 13‐38：L2 低功耗链路状态_
 
 ## _图 13‐39：L3 链路关闭状态_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0480.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0480.png" alt="Figure from page 480" width="700">
 
 <br>
 
@@ -320,7 +312,7 @@ initializes a device’s link and port so that normal packet traffic proceeds on
 
 _Figure 14‐1: Link Training and Status State Machine Location_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0474.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0474.png" alt="Figure from page 474" width="700">
 
 <br>
 
@@ -351,7 +343,7 @@ progress. For more on this, see “Achieving Symbol Lock” on page 396.
 
 _图 14‐1：链路训练和状态状态机位置_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0481.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0481.png" alt="Figure from page 481" width="700">
 
 <br>
 
@@ -389,7 +381,7 @@ Lane 直接连接而不必交叉（参见第 508 页的图 14‐2）。只要一
 
 _图 14‐2：Lane 反转示例（支持可选）_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0482.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0482.png" alt="Figure from page 482" width="700">
 
 <br>
 
@@ -400,7 +392,7 @@ _图 14‐2：Lane 反转示例（支持可选）_
 
 _图 14‐3：极性反转示例（支持必需）_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0483.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0483.png" alt="Figure from page 483" width="700">
 
 <br>
 
@@ -445,7 +437,7 @@ Skew"）。他们必须自动纠正较大的偏移（在 2.5GT/s 时允许 20ns 
 
 _图 14‐4：Gen1 或 Gen2 模式下的 TS1 和 TS2 有序集_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0484.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0484.png" alt="Figure from page 484" width="700">
 
 <br>
 
@@ -469,7 +461,7 @@ _图 14‐4：Gen1 或 Gen2 模式下的 TS1 和 TS2 有序集_
 
 _图 14‐5：Gen3 操作模式下的 TS1 和 TS2 有序集块_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0485.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0485.png" alt="Figure from page 485" width="700">
 
 <br>
 
@@ -527,7 +519,7 @@ Selectable De‐emphasis 字段匹配。由于该寄存器位是硬件初始化�
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -537,16 +529,8 @@ Selectable De‐emphasis 字段匹配。由于该寄存器位是硬件初始化�
 ## 12.2 Physical Layer - Logical (Gen3) | 物理层 - 逻辑 (Gen3)
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -570,7 +554,7 @@ designers will need to verify that at least one of the connected devices support
 
 _Figure 14‐2: Lane Reversal Example (Support Optional)_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0486.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0486.png" alt="Figure from page 486" width="700">
 
 <br>
 
@@ -582,7 +566,7 @@ of a D10.2 in a TS1, or a D26.5 instead of the D5.2 expected for a TS2, then the
 Unlike Lane reversal, support for this feature is manda‐ tory.
 _Figure 14‐3: Polarity Inversion Example (Support Required)_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0487.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0487.png" alt="Figure from page 487" width="700">
 
 <br>
 
@@ -732,7 +716,7 @@ Recovery.RcvrLock LTSSM 状态中设置为 1，在所有其他状态中保留。
 
 _Figure 14‐4: TS1 and TS2 Ordered Sets When In Gen1 or Gen2 Mode_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0488.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0488.png" alt="Figure from page 488" width="700">
 
 <br>
 
@@ -758,7 +742,7 @@ numbers is represented by the K23.7 character for the lower data rates, but as t
 between the types of PAD is not interesting and will simply be implied.
 _Figure 14‐5: TS1 and TS2 Ordered Set Block When In Gen3 Mode of Operation_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0489.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0489.png" alt="Figure from page 489" width="700">
 
 <br>
 
@@ -861,7 +845,7 @@ LTSSM 由 11 个顶层状态组成：Detect、Polling、Configuration、Recovery
 
 _图 14‐6：链路训练和状态状态机 (LTSSM)_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0490.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0490.png" alt="Figure from page 490" width="700">
 
 <br>
 
@@ -1102,7 +1086,7 @@ Detection” on page 460. To simplify the discussions that follow, Lanes that de
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 <p align="center"><b>Figure 14‐7: States Involved in Initial Link Training at 2.5 Gb/s</b></p>
 <p align="center"><img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0494.png" width="700"></p>
@@ -1114,13 +1098,6 @@ Detection” on page 460. To simplify the discussions that follow, Lanes that de
 <p align="center"><sub>📄 <a href="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0495.png">Page 495</a></sub></p>
 
 <table>
-<thead><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
 <tr><table>
@@ -1211,7 +1188,7 @@ Detection” on page 460. To simplify the discussions that follow, Lanes that de
 
 _图 14‐9：Polling 状态机_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0496.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0496.png" alt="Figure from page 496" width="700">
 
 <br>
 
@@ -1225,7 +1202,7 @@ lock)，并解决任何极性反转问题。一旦完成此操作，每个设备
 
 _图 14-9：Polling 状态机_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0500.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0500.png" alt="Figure from page 500" width="700">
 
 
 **PCI Express 技术**
@@ -1484,7 +1461,7 @@ LTSSM。在两个设备都准备好之前，任何一个设备都不能继续到
 
 _图 14‐10：具有传统速度更改的 Polling 状态机_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0497.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0497.png" alt="Figure from page 497" width="700">
 
 <br>
 
@@ -1505,7 +1482,7 @@ _图 14‐10：具有传统速度更改的 Polling 状态机_
 
 _图 14-10：具有旧式速度更改的 Polling 状态机_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0501.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0501.png" alt="Figure from page 501" width="700">
 
 
 如今，链路在复位后始终训练到 2.5 GT/s，即使其他速度可用。如果在 LTSSM 达到 L0 后有更高速率可用，则它转换到 Recovery 并尝试更改为最高共同支持或通告的速率。支持的速度在交换的 TS1 中报告。
@@ -1590,8 +1567,6 @@ _表 14‐3：8b/10b 合规模式的符号序列（续）_
 </td>
 </tr>
 </tbody>
-</table>
-</tbody>
 </table></tbody></table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
@@ -1625,11 +1600,7 @@ _表 14-3：8b/10b 合规模式的符号序列（续）_
 </td>
 </tr><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-
-
 <tr>
 <td width="50%">
 
@@ -1638,11 +1609,7 @@ _表 14-3：8b/10b 合规模式的符号序列（续）_
 <table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
 </tbody>
-</table>
-</tbody>
 </table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
 <tr>
 <td width="50%">
@@ -1710,7 +1677,7 @@ the substates of the Polling state machine.
 
 _Figure 14‐9: Polling State Machine_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0498.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0498.png" alt="Figure from page 498" width="700">
 
 <br>
 
@@ -1909,7 +1876,7 @@ page 528.
 
 _Figure 14‐10: Polling State Machine with Legacy Speed Change_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0499.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0499.png" alt="Figure from page 499" width="700">
 
 <br>
 
@@ -1988,7 +1955,7 @@ _Table 14‐3: Symbol Sequence 8b/10b Compliance Pattern (Continued)_
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -1998,16 +1965,8 @@ _Table 14‐3: Symbol Sequence 8b/10b Compliance Pattern (Continued)_
 ## 12.4 Physical Layer - Logical (Gen3) | 物理层 - 逻辑 (Gen3)
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -2263,7 +2222,7 @@ _Table 14‐7: Sequence of Compliance Tx Settings_
 
 _图 14‐12：Link Control 2 寄存器的 "Enter Compliance" 位_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0503.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0503.png" alt="Figure from page 503" width="700">
 
 <br>
 
@@ -2288,7 +2247,7 @@ _Table 14‐7: Sequence of Compliance Tx Settings (Continued)_
 
 _Figure 14‐11: Link Control 2 Register_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0502.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0502.png" alt="Figure from page 502" width="700">
 
 <br>
 
@@ -2336,7 +2295,7 @@ Lane 和上游 Lane 的行为。下游端口（向下游发送的端口）在此
 
 _图 14‐13：TS1/TS2 中的链路和 Lane 编号编码_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0504.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0504.png" alt="Figure from page 504" width="700">
 
 <br>
 
@@ -2366,7 +2325,7 @@ If any of these conditions are true:
 
 _图 14‐14：组合 Lane 以形成更宽的链路（链路合并）_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0505.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0505.png" alt="Figure from page 505" width="700">
 
 <br>
 
@@ -2424,7 +2383,7 @@ _图 14‐14：组合 Lane 以形成更宽的链路（链路合并）_
 
 _图 14‐15：示例 1 — 步骤 1 和 2_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0506.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0506.png" alt="Figure from page 506" width="700">
 
 <br>
 
@@ -2456,7 +2415,7 @@ Lane 号时，它将传入的编号与其正在发送的值进行比较。如果
 
 _图 14‐16：示例 1 — 步骤 3 和 4_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0507.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0507.png" alt="Figure from page 507" width="700">
 
 <br>
 
@@ -2480,7 +2439,7 @@ _图 14‐16：示例 1 — 步骤 3 和 4_
 
 _图 14‐17：示例 1 — 步骤 5 和 6_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0468.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0468.png" alt="Figure from page 468" width="700">
 
 <br>
 
@@ -2526,7 +2485,7 @@ _图 14‐17：示例 1 — 步骤 5 和 6_
 
 _图 14‐18：示例 2 — 步骤 1_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0469.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0469.png" alt="Figure from page 469" width="700">
 
 <br>
 
@@ -2537,7 +2496,7 @@ _图 14‐18：示例 2 — 步骤 1_
 
 _图 14‐19：示例 2 — 步骤 2_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0470.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0470.png" alt="Figure from page 470" width="700">
 
 <br>
 
@@ -2573,7 +2532,7 @@ Lane 号。如果它支持 Lane 反转，那么它将纠正编号并开始使用
 
 _图 14‐20：示例 2 — 步骤 3、4 和 5_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0471.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0471.png" alt="Figure from page 471" width="700">
 
 <br>
 
@@ -2639,7 +2598,7 @@ TS1，如图 14‐21（第 550 页）所示。
 
 _图 14‐21：示例 3 — 步骤 1 和 2_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0472.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0472.png" alt="Figure from page 472" width="700">
 
 <br>
 
@@ -2663,7 +2622,7 @@ PAD 的 TS1，如图 14‐22（第 551 页）所示。
 
 _图 14‐22：示例 3 — 步骤 3 和 4_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0473.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0473.png" alt="Figure from page 473" width="700">
 
 <br>
 
@@ -2685,7 +2644,7 @@ TS1。这在第 552 页的图 14‐23 中示出。
 
 _图 14‐23：示例 3 — 步骤 5 和 6_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0478.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0478.png" alt="Figure from page 478" width="700">
 
 <br>
 
@@ -2708,7 +2667,7 @@ _图 14‐23：示例 3 — 步骤 5 和 6_
 
 _图 14‐24：Configuration 状态机_
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0479.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0479.png" alt="Figure from page 479" width="700">
 
 <br>
 
@@ -3636,7 +3595,7 @@ _退出到 "Detect 状态"_
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -3646,16 +3605,8 @@ _退出到 "Detect 状态"_
 ## 12.5 Physical Layer - Logical (Gen3) | 物理层 - 逻辑 (Gen3)
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -3692,7 +3643,7 @@ point those Lanes will attempt the training process like normal.
 
 _Figure 14‐16: Example 1 ‐ Steps 3 and 4_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0480.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0480.png" alt="Figure from page 480" width="700">
 
 <br>
 
@@ -3720,7 +3671,7 @@ and proceed to L0 by sending TS2s back. This is shown in Figure 14‐17 on page 
 7. Once a Port receives at least 8 TS2s and transmits at least 16, it sends some logical idle data and then transitions to L0. 
 _Figure 14‐17: Example 1 ‐ Steps 5 and 6_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0481.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0481.png" alt="Figure from page 481" width="700">
 
 <br>
 
@@ -3778,7 +3729,7 @@ process where the Port is trying to determine the connections for each Lane.
 
 _Figure 14‐18: Example 2 ‐ Step 1_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0482.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0482.png" alt="Figure from page 482" width="700">
 
 <br>
 
@@ -3788,7 +3739,7 @@ differ‐ ent Upstream Ports. This means there will actually be _two_ Downstream
 1 as shown in Figure 14‐20 on page 548.
 _Figure 14‐19: Example 2 ‐ Step 2_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0483.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0483.png" alt="Figure from page 483" width="700">
 
 <br>
 
@@ -3884,7 +3835,7 @@ numbers.
 
 _Figure 14‐20: Example 2 ‐ Steps 3, 4 and 5_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0484.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0484.png" alt="Figure from page 484" width="700">
 
 <br>
 
@@ -3974,7 +3925,7 @@ PAD in the Link and Lane number fields as shown in Figure 14‐21 on page 550.
 
 _Figure 14‐21: Example 3 ‐ Steps 1 and 2_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0485.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0485.png" alt="Figure from page 485" width="700">
 
 <br>
 
@@ -4038,7 +3989,7 @@ receiving PAD TS1s, it advertises its Lane number for Lanes 0 and 1 but all the 
 both the Lane and Link number fields as shown in Figure 14‐22 on page 551.
 _Figure 14‐22: Example 3 ‐ Steps 3 and 4_ 
 
-<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0486.png" alt="Figure 13‐34: 2.5 GT/s Receiver Eye Diagram" width="700">
+<img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0486.png" alt="Figure from page 486" width="700">
 
 <br>
 
@@ -4078,7 +4029,7 @@ detected a Receiver.
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 <p align="center"><b>Figure 14‐23: Example 3 ‐ Steps 5 and 6</b></p>
 <p align="center"><img src="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0487.png" width="700"></p>
@@ -4090,20 +4041,13 @@ detected a Receiver.
 <p align="center"><sub>📄 <a href="figures/chapter_12_Physical_Layer_Logical_Gen3/page/page0488.png">Page 488</a></sub></p>
 
 <table>
-<thead><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
 <tr>
 
 </tr>
 </tbody>
-</table></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 

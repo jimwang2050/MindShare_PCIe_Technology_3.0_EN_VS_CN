@@ -25,16 +25,8 @@
 ## 5.1 TLP Elements | TLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -211,7 +203,7 @@ why the notion of memory space being designated as prefetchable was helpful in P
 interesting than it was, but it’s carried forward for backward compatibility.
 _Figure 4‐1: Generic Memory And IO Address Maps_ 
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -251,7 +243,7 @@ ID 列表的定义需求。
 
 _图 4-13：PCI Express 事务请求和完成 TLP_
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -293,7 +285,7 @@ with all 0’s notifying software that these BARs are not implemented.
 
 _Figure 4‐2: BARs in Configuration Space_ 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -304,7 +296,7 @@ because it is the target.
 
 _Figure 4‐3: PCI Express Devices And Type 0 And Type 1 Header Use_ 
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -397,7 +389,7 @@ _Figure 4‐4: 32‐Bit Non‐Prefetchable Memory BAR Set Up_
 
 ## **Type 0 Header** 
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -410,7 +402,7 @@ _Figure 4‐4: 32‐Bit Non‐Prefetchable Memory BAR Set Up_
 
 _图 4-14：事务层包通用 3DW 和 4DW 头_
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -501,7 +493,7 @@ _表 4-9：TLP 头格式和类型字段编码（续）_
 
 ## **Type 0 Header** 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -615,7 +607,7 @@ PCI Express 支持与 PCI 和 PCI-X 相同的拓扑限制：
 
 _图 4-15：3DW TLP 头 - ID 路由字段_
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -657,7 +649,7 @@ Secondary-Subordinate 总线范围内，则它将在 Upstream Port 上作为不�
 
 _图 4-17：交换机使用 ID 路由检查入站 TLP 的路由_
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -694,14 +686,14 @@ _图 4-17：交换机使用 ID 路由检查入站 TLP 的路由_
 
 _图 4-18：3DW TLP 头 - 地址路由字段_
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
 
 _图 4-19：4DW TLP 头 - 地址路由字段_
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -722,7 +714,7 @@ BAR 的更多信息，请参见第 126 节的"基地址寄存器 (BAR)"。
 
 _图 4-20：端点检查传入 TLP 地址_
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -742,7 +734,7 @@ _图 4-20：端点检查传入 TLP 地址_
 
 _图 4-21：交换机使用地址检查入站 TLP 的路由_
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -850,7 +842,7 @@ PCI 中的外侧带信号通常要么是主机通知所有设备事件，要么�
 
 _图 4-22：4DW 消息 TLP 头 - 隐式路由字段_
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -989,29 +981,21 @@ DLLP 源自 PCI Express 端口的数据链路层，通过物理层传递，退�
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0244_img1_tight.png" alt="Figure from page 244" width="700">
+<img src="figures/embedded/page0244_img1_tight.png" alt="Figure from page 244 (img 1)" width="700">
 
 <a id="sec-5-2"></a>
 ## 5.2 TLP Elements | TLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -1025,7 +1009,7 @@ device will accept and respond to IO transactions within the range 4000h ‐ 40F
 
 _图 5-3：通用 TLP 头字段_
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -1038,7 +1022,7 @@ _图 5-3：通用 TLP 头字段_
 
 _Figure 4‐6: IO BAR Set Up_ 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -1178,7 +1162,7 @@ The Base and Limit registers of every bridge upstream of the endpoint will need 
 the bridge that is connected to the endpoint (Port B).
 _Figure 4‐7: Example Topology for Setting Up Base and Limit Values_ 
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -1235,7 +1219,7 @@ lives beneath that bridge (Port B). The meaning of each field in those registers
 
 _Figure 4‐8: Example Prefetchable Memory Base/Limit Register Values_ 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -1292,7 +1276,7 @@ would be programmed with the values shown in Figure 4‐9 on page 140. The meani
 
 _Figure 4‐9: Example Non‐Prefetchable Memory Base/Limit Register Values_ 
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -1343,7 +1327,7 @@ Table 4‐6.
 
 _Figure 4‐10: Example IO Base/Limit Register Values_ 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -1434,7 +1418,7 @@ request address space too. The Base/Limit registers in a bridge do NOT include t
 Base/Limit registers only represent the addresses that live downstream of that bridge.
 _Figure 4‐11: Final Example Address Routing Setup_ 
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -1449,7 +1433,7 @@ _Figure 4‐11: Final Example Address Routing Setup_
 
 _图 5-5：事务描述符字段_
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -1498,7 +1482,7 @@ bridge. Since PCIe Links are point‐to‐point, more routing will be needed to 
 
 _Figure 4‐12: Multi‐Port PCIe Devices Have Routing Responsibilities_ 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -1551,7 +1535,7 @@ _图 5-6：系统 IO 映射_
 
 _图 5-7：3DW IO 请求头格式_
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -1600,7 +1584,7 @@ PCI Express 内存事务包括两类：读请求及其相应的完成，以及�
 
 _图 5-8：3DW 和 4DW 内存请求头格式_
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -1623,7 +1607,7 @@ _表 5-5：4DW 内存请求头字段_
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -1633,16 +1617,8 @@ _表 5-5：4DW 内存请求头字段_
 ## 5.3 TLP Elements | TLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -1810,7 +1786,7 @@ software reading data from an Endpoint.
 
 _Figure 4‐13: PCI Express Transaction Request And Completion TLPs_ 
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -1880,7 +1856,7 @@ writes and failed reads,<br>while a completion with data will be returned for su
 
 图 4-23（第 166 页）显示了 4DW 完成头格式。带数据完成使用 4DW 头，而完成（Cpl）使用 3DW 头。
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -1956,7 +1932,7 @@ topology.
 
 _Figure 4‐14: Transaction Layer Packet Generic 3DW And 4DW Headers_ 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -2039,7 +2015,7 @@ _Table 4‐9: TLP Header Format and Type Field Encodings (Continued)_
 
 图 4-24（第 167 页）显示了消息 TLP 头格式。消息使用 4DW 头。
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -2136,7 +2112,7 @@ PCI Express 规范定义了多个消息代码。这些代码分为几类：
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -2146,16 +2122,8 @@ PCI Express 规范定义了多个消息代码。这些代码分为几类：
 ## 5.4 TLP Elements | TLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -2175,7 +2143,7 @@ PCI Express 规范定义了多个消息代码。这些代码分为几类：
 
 _图 4-23：3DW 和 4DW 完成头格式_
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -2349,7 +2317,7 @@ routing.
 
 _Figure 4‐15: 3DW TLP Header ‐ ID Routing Fields_ 
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -2382,7 +2350,7 @@ Requester ID value in the completion packet(s). The Requester ID in a completion
 
 _图 4-24：消息 TLP 头格式_
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -2414,7 +2382,7 @@ Header and performs the same two checks on TLPs when they are seen by that port.
 
 _Figure 4‐17: Switch Checks Routing Of An Inbound TLP Using ID Routing_ 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -2514,14 +2482,14 @@ registers targeted with these TLPs are able to reside above the 4GB memory bound
 
 _Figure 4‐18: 3DW TLP Header ‐ Address Routing Fields_ 
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
 
 _Figure 4‐19: 4DW TLP Header ‐ Address Routing Fields_ 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -2559,7 +2527,7 @@ accept the packet or reject it. The End‐ point will accept the packet if the t
 into its BARs. More info on how the BARs are used can be found in section “Base Address Registers (BARs)” on page 126.
 _Figure 4‐20: Endpoint Checks Incoming TLP Address_ 
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -2590,7 +2558,7 @@ on how the Base/Limit register pairs are evaluated can be found in section “Ba
 
 _Figure 4‐21: Switch Checks Routing Of An Inbound TLP Using Address_ 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -2714,7 +2682,7 @@ a message TLP using implicit routing.
 
 _Figure 4‐22: 4DW Message TLP Header ‐ Implicit Routing Fields_ 
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -2872,7 +2840,7 @@ routing, ID‐based routing and implicit routing.
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -2882,16 +2850,8 @@ routing, ID‐based routing and implicit routing.
 ## 5.5 TLP Elements | TLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -2908,7 +2868,7 @@ details of their related fields. DLLPs are described separately in Chapter 9, en
 
 _图 4-23：3DW 和 4DW 完成头格式_
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -3014,7 +2974,7 @@ Link.
 
 _Figure 5‐1: TLP And DLLP Packets_ 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -3108,7 +3068,7 @@ differ‐ ences between Gen3 encoding and the earlier versions, see Chapter 12, 
 
 _图 4-24：消息 TLP 头格式_
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -3269,7 +3229,7 @@ also passed on to the Physical Layer.
 
 _Figure 5‐2: PCIe TLP Assembly/Disassembly_ 
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -3355,7 +3315,7 @@ it, so the result is the same.|
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -3365,16 +3325,8 @@ it, so the result is the same.|
 ## 5.6 TLP Elements | TLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -3383,7 +3335,7 @@ transactions are summa‐ rized. Header format differences associated with speci
 
 _Figure 5‐3: Generic TLP Header Fields_ 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -3394,7 +3346,7 @@ _Figure 5‐3: Generic TLP Header Fields_
 
 _图 5-3：通用 TLP 头字段_
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -3762,7 +3714,7 @@ two DWs.
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -3771,16 +3723,8 @@ two DWs.
 ## 5.7 TLP Elements | TLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -3828,7 +3772,7 @@ unique Transaction Descriptor, as illus‐ trated in Figure 5‐5.
 
 _Figure 5‐5: Transaction Descriptor Fields_ 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -3854,7 +3798,7 @@ topology to the Compl‐ eter. On every Link, the TC is mapped to one of the Vir
 
 _图 5-5：事务描述符字段_
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -3978,7 +3922,7 @@ section that fol‐ lows.
 
 _Figure 5‐7: 3DW IO Request Header Format_ 
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -4035,7 +3979,7 @@ _图 5-6：系统 IO 映射_
 
 _图 5-7：3DW IO 请求头格式_
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -4083,7 +4027,7 @@ several times: a memory transfer is never permitted to cross a 4KB address bound
 
 _Figure 5‐8: 3DW And 4DW Memory Request Header Formats_ 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -4115,7 +4059,7 @@ PCI Express 内存事务包括两类：读请求及其相应的完成，以及�
 
 _图 5-8：3DW 和 4DW 内存请求头格式_
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -4138,7 +4082,7 @@ _表 5-5：4DW 内存请求头字段_
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -4148,16 +4092,8 @@ _表 5-5：4DW 内存请求头字段_
 ## 5.8 TLP Elements | TLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -4304,7 +4240,7 @@ Mechanism” on page 91.
 
 _Figure 5‐9: 3DW Configuration Request And Header Format_ 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -4461,7 +4397,7 @@ normal operation, but knowing where the Completion came from could be useful for
 
 _Figure 5‐10: 3DW Completion Header Format_ 
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -4497,7 +4433,7 @@ data (CplD)|
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 <p align="center"><b>Figure 5‐9: 3DW Configuration Request And Header Format</b></p>
 <p align="center"><img src="figures/page/page0244.png" width="700"></p>
@@ -4509,20 +4445,13 @@ data (CplD)|
 <p align="center"><sub>📄 <a href="figures/page/page0241.png">Page 241</a></sub></p>
 
 <table>
-<thead><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
 <tr>
 
 </tr>
 </tbody>
-</table></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -4532,16 +4461,8 @@ data (CplD)|
 ## 5.9 TLP Elements | TLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -4906,7 +4827,7 @@ Message Request 取代了 PCI 和 PCI‐X 上使用的许多中断、错误和�
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -4916,16 +4837,8 @@ Message Request 取代了 PCI 和 PCI‐X 上使用的许多中断、错误和�
 ## 5.10 TLP Elements | TLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -5233,7 +5146,7 @@ Signaling" 一节。
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -5243,16 +5156,8 @@ Signaling" 一节。
 ## 5.11 TLP Elements | TLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -5422,7 +5327,7 @@ vendor‐specific extensions. The header for them is shown in Figure 5‐12 on p
 
 _Figure 5‐12: Vendor‐Defined Message Header_ 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -5481,7 +5386,7 @@ learn more about this power management technique, see the section called “LTR 
 
 _Figure 5‐13: LTR Message Header_ 
 
-<img src="figures/page/page0241.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0241.png" alt="Figure from page 241" width="700">
 
 <br>
 
@@ -5505,7 +5410,7 @@ on page 776.
 
 _Figure 5‐14: OBFF Message Header_ 
 
-<img src="figures/page/page0244.png" alt="Figure 4‐1: Generic Memory And IO Address Maps" width="700">
+<img src="figures/page/page0244.png" alt="Figure from page 244" width="700">
 
 <br>
 
@@ -5758,7 +5663,7 @@ DLLPs are described separately in Chapter 9, enti‐ tled ʺDLLP Elements,ʺ on 
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 <p align="center"><b>Figure 5‐12: Vendor‐Defined Message Header</b></p>
 <p align="center"><img src="figures/page/page0241.png" width="700"></p>
@@ -5775,20 +5680,13 @@ DLLPs are described separately in Chapter 9, enti‐ tled ʺDLLP Elements,ʺ on 
 <p align="center"><sub>📄 <a href="figures/page/page0241.png">Page 241</a></sub></p>
 
 <table>
-<thead><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
 <tr>
 
 </tr>
 </tbody>
-</table></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 

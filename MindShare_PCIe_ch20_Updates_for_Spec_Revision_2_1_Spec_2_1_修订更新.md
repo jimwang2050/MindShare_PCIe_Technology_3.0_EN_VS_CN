@@ -15,16 +15,8 @@
 ## 20.1 Updates for Spec Revision 2.1 | Spec 2.1 修订更新
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -401,7 +393,7 @@ and electrical environments for which they are placed. The most common inter‐ 
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 

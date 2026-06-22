@@ -17,16 +17,8 @@
 ## 19.1 Hot Plug and Power Budgeting | 热插拔与功率预算
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -113,7 +105,7 @@ so on.
 
 _Figure 20‐7: Multicast Address Example_ 
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -146,7 +138,7 @@ operation. If the size is given as 5 or lower, no overlay will take place and th
 
 _Figure 20‐8: Multicast Overlay BAR_ 
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -190,7 +182,7 @@ ensure that the target will see it as an error condition.
 
 _Figure 20‐9: Overlay Example_ 
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -397,29 +389,21 @@ _图 A-1：带 ProtoSync 软件选项的 LeCroy 示波器_
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0909_img1_tight.png" alt="Figure from page 909" width="700">
+<img src="figures/embedded/page0909_img1_tight.png" alt="Figure from page 909 (img 1)" width="700">
 
 <a id="sec-19-2"></a>
 ## 19.2 Hot Plug and Power Budgeting | 热插拔与功率预算
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -447,7 +431,7 @@ protocol and the spec states that Locked Transactions and AtomicOps can operate 
 
 _Figure 20‐10: Device Capabilities 2 Register_ 
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -523,7 +507,7 @@ a write‐back cycle from the CPU to update the system memory before the transac
 
 _Figure 20‐11: TPH Example_ 
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -548,7 +532,7 @@ other targets.
 
 _Figure 20‐12: TPH Example with System Cache_ 
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -566,7 +550,7 @@ Switch to the RC and the path to memory.
 
 _Figure 20‐13: TPH Usage for TLPs to Endpoint_ 
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -590,7 +574,7 @@ width="700">
 
 _Figure 20‐14: TPH Usage Between Endpoints_ 
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -633,7 +617,7 @@ level of information.
 
 _Figure 20‐15: TPH Header Bits_ 
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -786,29 +770,21 @@ FPGA 中实现的，则使用专用流量生成工具（如 LeCroy PETrainer 或
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0910_img1_tight.png" alt="Figure from page 910" width="700">
+<img src="figures/embedded/page0910_img1_tight.png" alt="Figure from page 910 (img 1)" width="700">
 
 <a id="sec-19-3"></a>
 ## 19.3 Hot Plug and Power Budgeting | 热插拔与功率预算
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -832,7 +808,7 @@ _Figure 20‐16: TPH Requester Capability Structure_
 
 _Figure 20‐17: TPH Capability and Control Registers_ 
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -894,7 +870,7 @@ _图 20‐16：TPH Requester Capability 结构_
 
 _图 20‐17：TPH 能力和控制寄存器_
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -948,7 +924,7 @@ TLP, the header reports it by setting the most significant bit in the Format fie
 
 _Figure 20‐19: TPH Prefix Indication_ 
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -964,7 +940,7 @@ width="700">
 
 _图 20‐19：TPH 前缀指示_
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -1193,7 +1169,7 @@ A few rules apply to the use of these registers:
 
 ## _Figure 20‐20: Resizable BAR Registers_ 
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -1203,7 +1179,7 @@ width="700">
 
 ## _图 20‐20：可调整大小的 BAR 寄存器_
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -1229,7 +1205,7 @@ This register simply reports which BAR sizes will work for this Function. Bits 4
 
 _Figure 20‐21: Resizable BAR Capability Register_ 
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -1253,7 +1229,7 @@ width="700">
 
 _图 20‐21：可调整大小的 BAR Capability 寄存器_
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -1276,7 +1252,7 @@ the BAR Size field is pro‐ grammed by software to specify the desired size the
 
 _Figure 20‐22: Resizable BAR Control Register_ 
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -1300,7 +1276,7 @@ space for a Type 0 header.
 
 _图 20‐22：可调整大小的 BAR Control 寄存器_
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -1318,7 +1294,7 @@ BAR 寄存器。
 
 ## _Figure 20‐23: BARs in a Type0 Configuration Header_ 
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -1331,7 +1307,7 @@ width="700">
 
 ## _图 20‐23：Type0 配置头中的 BAR_
 
-<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure 20‐7: Multicast Address Example"
+<img src="figures/chapter_19_Hot_Plug_and_Power_Budgeting/embedded/page0902_img1.png" alt="Figure from page 902 (img 1)"
 width="700">
 
 <br>
@@ -1343,7 +1319,7 @@ width="700">
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -1352,5 +1328,5 @@ width="700">
 > 🤖 Generated by `tools/merge_chapters.py`
 
 
-<img src="figures/embedded/page0923_img1_tight.png" alt="Figure from page 923" width="700">
+<img src="figures/embedded/page0923_img1_tight.png" alt="Figure from page 923 (img 1)" width="700">
 

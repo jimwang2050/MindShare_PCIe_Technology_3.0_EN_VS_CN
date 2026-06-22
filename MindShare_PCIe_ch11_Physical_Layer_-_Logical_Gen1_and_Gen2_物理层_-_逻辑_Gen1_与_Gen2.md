@@ -19,13 +19,6 @@
 ## 11.1 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
 <table>
-<thead><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
 <tr>
@@ -49,8 +42,7 @@ positive or negative, generate a one or zero internally to rep‐ resent the int
 
 _Figure 13‐1: Electrical Sub‐Block of the Physical Layer_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0422.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0422.png" alt="Figure from page 422" width="700">
 
 <br>
 
@@ -84,8 +76,7 @@ This goal will probably change with the next speed step (Gen4).
 
 _Figure 13‐2: Differential Transmitter/Receiver_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0423.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0423.png" alt="Figure from page 423" width="700">
 
 <br>
 
@@ -94,8 +85,7 @@ Layer" width="700">
 
 _Figure 13‐3: Differential Common‐Mode Noise Rejection_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0424.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0424.png" alt="Figure from page 424" width="700">
 
 <br>
 
@@ -139,23 +129,20 @@ on page 456).
 
 _Figure 13‐4: SSC Motivation_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0425.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0425.png" alt="Figure from page 425" width="700">
 
 <br>
 
 
 _Figure 13‐5: Signal Rate Less Than Half the Clock Rate_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0426.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0426.png" alt="Figure from page 426" width="700">
 
 <br>
 
 _Figure 13‐6: SSC Modulation Example_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0427.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0427.png" alt="Figure from page 427" width="700">
 
 <br>
 
@@ -191,8 +178,7 @@ drifting as much as they otherwise would, resulting in a reduced recovery time b
 
 _Figure 13‐7: Shared Refclk Architecture_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0428.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0428.png" alt="Figure from page 428" width="700">
 
 <br>
 
@@ -640,7 +626,7 @@ interference）**。
 </td>
 </tr>
 </tbody>
-</table></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -659,11 +645,7 @@ interference）**。
 </td>
 </tr><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-
-
 <tr>
 <td width="50%">
 
@@ -672,18 +654,13 @@ interference）**。
 <table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
 </tbody>
-</table>
-</tbody>
 </table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
 <tr>
 <td>
 _Figure 13‐8: Data Clocked Rx Architecture_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0429.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0429.png" alt="Figure from page 429" width="700">
 
 <br>
 
@@ -696,8 +673,7 @@ the least desirable alternative, and states that it doesn’t explicitly define 
 
 _Figure 13‐9: Separate Refclk Architecture_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0430.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0430.png" alt="Figure from page 430" width="700">
 
 <br>
 
@@ -750,8 +726,7 @@ the channel, allowing its effects to be de‐embedded from the DUT signals so th
 
 _Figure 13‐10: Test Circuit Measurement Channels_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0431.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0431.png" alt="Figure from page 431" width="700">
 
 <br>
 
@@ -859,8 +834,7 @@ but mentions that future spec revisions may. Therefore, it would be wise to incl
 
 _Figure 13‐11: Receiver Detection Mechanism_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0432.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0432.png" alt="Figure from page 432" width="700">
 
 <br>
 
@@ -930,8 +904,7 @@ Receiver must be able to sense an attenuated version of the signal, defined as V
 
 _Figure 13‐12: Differential Signaling_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0433.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0433.png" alt="Figure from page 433" width="700">
 
 <br>
 
@@ -945,7 +918,7 @@ Layer" width="700">
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -955,16 +928,8 @@ Layer" width="700">
 ## 11.3 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -986,8 +951,7 @@ allowed VDIFFp‐p range for 2.5 GT/s and 5.0 GT/s is 800 to 1200 mV, while for 
 
 _Figure 13‐13: Differential Peak‐to‐Peak (_ VDIFFp‐p _) and Peak (_ VDIFFp _) Voltages_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0434.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0434.png" alt="Figure from page 434" width="700">
 
 <br>
 
@@ -1010,8 +974,7 @@ VDIFFp‐p 将为 1200 mV。在应用均衡之前，2.5 GT/s 和 5.0 GT/s 的允
 
 _图 13-13：差分峰峰值 ( VDIFFp‐p ) 和峰值 ( VDIFFp ) 电压_
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0437.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0437.png" alt="Figure from page 437" width="700">
 
 </td>
 </tr>
@@ -1084,8 +1047,7 @@ modify it during those times. At all other times, the value is required to be se
 
 _Figure 13‐14: Transmit Margin Field in Link Control 2 Register_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0435.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0435.png" alt="Figure from page 435" width="700">
 
 <br>
 
@@ -1110,8 +1072,7 @@ the tolerance is defined by the coefficient granularity and the normal equalizer
 
 _图 13-14：链路控制 2 寄存器中的发送裕量字段_
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0438.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0438.png" alt="Figure from page 438" width="700">
 
 
 **PCI Express 技术**
@@ -1180,8 +1141,7 @@ resistor ladder serves to offset the Receiver’s common‐mode voltage in one d
 
 _Figure 13‐15: Receiver DC Common‐Mode Voltage Adjustment_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0436.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0436.png" alt="Figure from page 436" width="700">
 
 <br>
 
@@ -1201,8 +1161,7 @@ Spec"，因为规范中没有提到它们。这里的故事是，接收器设计
 
 _图 13-15：接收器直流共模电压调整_
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0439.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0439.png" alt="Figure from page 439" width="700">
 
 
 **PCI Express 技术**
@@ -1333,7 +1292,7 @@ are:
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -1343,16 +1302,8 @@ are:
 ## 11.4 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -1369,8 +1320,7 @@ voltage as specified by VTX‐DIFFp‐p (see Table 13‐3 on page 489).
 
 _Figure 13‐16: Transmission with De‐emphasis_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0440.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0440.png" alt="Figure from page 440" width="700">
 
 <br>
 
@@ -1394,8 +1344,7 @@ dB。预冲是一项新特性，旨在通过在当前位时间内提升电压来
 
 _图 13‐23：8.0 GT/s 发送器电压电平_
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0449.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0449.png" alt="Figure from page 449" width="700">
 
 <br>
 
@@ -1431,8 +1380,7 @@ over‐charging problem is reduced, which improves the timing jitter as well as 
 much better with de‐ emphasis turned on and the received signal approaches the normal voltage swing in that bit time.
 _Figure 13‐17: Benefit of De‐emphasis at the Receiver_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0441.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0441.png" alt="Figure from page 441" width="700">
 
 <br>
 
@@ -1443,8 +1391,7 @@ much larger than the one without de‐empha‐ sis in the upper trace.
 
 _Figure 13‐18: Benefit of De‐emphasis at Receiver Shown With Differential Signals_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0442.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0442.png" alt="Figure from page 442" width="700">
 
 <br>
 
@@ -1495,8 +1442,7 @@ measure of power and voltage are dif‐ ferent by a factor of two. A 3 dB reduct
 voltage.
 _Figure 13‐19: De‐emphasis Options for 5.0 GT/s_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0443.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0443.png" alt="Figure from page 443" width="700">
 
 <br>
 
@@ -1510,8 +1456,7 @@ distortion it creates would not be reduced by loss in the path and the resulting
 
 _Figure 13‐20: Reduced‐Swing Option for 5.0 GT/s with No De‐emphasis_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0444.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0444.png" alt="Figure from page 444" width="700">
 
 <br>
 
@@ -1616,8 +1561,7 @@ affected by both the bit value that preceded it and the bit that comes after it.
 
 _Figure 13‐21: 3‐Tap Tx Equalizer_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0445.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0445.png" alt="Figure from page 445" width="700">
 
 <br>
 
@@ -1633,8 +1577,7 @@ Consequently, only C‐1 and C+1 are given in the spec and C0 is always implied 
 
 _Figure 13‐22: Tx 3‐Tap Equalizer Shaping of an Output Pulse_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0446.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0446.png" alt="Figure from page 446" width="700">
 
 <br>
 
@@ -1649,8 +1592,7 @@ Layer" width="700">
 
 _图 13‐24：发送器 3 抽头均衡器输出_
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0450.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0450.png" alt="Figure from page 450" width="700">
 
 <br>
 
@@ -2210,7 +2152,7 @@ PCIe 提供多种调试功能，包括：
 </td>
 </tr>
 </tbody>
-</table></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -2224,11 +2166,7 @@ PCIe 提供多种调试功能，包括：
 </td>
 </tr><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-
-
 <tr>
 <td width="50%">
 
@@ -2237,11 +2175,7 @@ PCIe 提供多种调试功能，包括：
 <table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
 </tbody>
-</table>
-</tbody>
 </table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
 <tr>
 <td width="50%">
@@ -2267,8 +2201,7 @@ for these voltages as follows:
 
 _Figure 13‐23: 8.0 GT/s Tx Voltage Levels_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0447.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0447.png" alt="Figure from page 447" width="700">
 
 <br>
 
@@ -2425,8 +2358,7 @@ voltages are obtained.
 
 _Figure 13‐24: Tx 3‐Tap Equalizer Output_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0448.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0448.png" alt="Figure from page 448" width="700">
 
 <br>
 
@@ -2440,7 +2372,7 @@ The coefficient presets are exchanged before the Link changes to 8.0 GT/s, and t
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -2450,16 +2382,8 @@ The coefficient presets are exchanged before the Link changes to 8.0 GT/s, and t
 ## 11.6 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -2511,8 +2435,7 @@ well.
 
 _Figure 13‐25: Example Beacon Signal_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0451.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0451.png" alt="Figure from page 451" width="700">
 
 <br>
 
@@ -2539,8 +2462,7 @@ other devices would need to be involved or use Vaux.
 
 _图 13‐25：信标信号示例_
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0453.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0453.png" alt="Figure from page 453" width="700">
 
 <br>
 
@@ -2692,8 +2614,7 @@ be represented in an eye diagram. Figure 13‐27 on page 488 shows a screen capt
 
 _Figure 13‐26: Transmitter Eye Diagram_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0452.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0452.png" alt="Figure from page 452" width="700">
 
 <br>
 
@@ -2707,8 +2628,7 @@ Layer" width="700">
 
 _图 13‐26：发送器眼图_
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0454.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0454.png" alt="Figure from page 454" width="700">
 
 <br>
 
@@ -2870,7 +2790,7 @@ _表 13‐3：发送器规格（续）_
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -2880,16 +2800,8 @@ _表 13‐3：发送器规格（续）_
 ## 11.7 Physical Layer - Logical (Gen1 and Gen2) | 物理层 - 逻辑 (Gen1 与 Gen2)
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -3123,8 +3035,7 @@ cost, so only a small number are prac‐ tical.
 
 _Figure 13‐29: Rx Discrete‐Time Linear Equalizer (DLE)_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0455.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0455.png" alt="Figure from page 455" width="700">
 
 <br>
 
@@ -3137,8 +3048,7 @@ e.g. continuous 1s or continuous 0s.
 
 _Figure 13‐30: Rx Continuous‐Time Linear Equalizer (CTLE)_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0456.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0456.png" alt="Figure from page 456" width="700">
 
 <br>
 
@@ -3151,8 +3061,7 @@ _Figure 13‐31: Effect of Rx Continuous‐Time Linear Equalizer (CTLE) on Recei
 
 _图 13‐29：接收器离散时间线性均衡器 (DLE)_
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0459.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0459.png" alt="Figure from page 459" width="700">
 
 <br>
 
@@ -3162,8 +3071,7 @@ Layer" width="700">
 
 _图 13‐30：接收器连续时间线性均衡器 (CTLE)_
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0460.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0460.png" alt="Figure from page 460" width="700">
 
 <br>
 
@@ -3188,8 +3096,7 @@ received signal for use as the new input to the data slicer.
 
 _Figure 13‐32: Rx 1‐Tap DFE_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0457.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0457.png" alt="Figure from page 457" width="700">
 
 <br>
 
@@ -3203,8 +3110,7 @@ Layer" width="700">
 
 _图 13‐32：接收器 1 抽头 DFE_
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0461.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0461.png" alt="Figure from page 461" width="700">
 
 <br>
 
@@ -3230,8 +3136,7 @@ literature states that DFE is more effective when working with an open eye, and 
 that serves to clean up the input enough for DFE to work well.
 _Figure 13‐33: Rx 2‐Tap DFE_ 
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0458.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0458.png" alt="Figure from page 458" width="700">
 
 <br>
 
@@ -3252,8 +3157,7 @@ Layer" width="700">
 
 _图 13‐33：接收器 2 抽头 DFE_
 
-<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0462.png" alt="Figure 13‐1: Electrical Sub‐Block of the Physical
-Layer" width="700">
+<img src="figures/chapter_11_Physical_Layer_Logical_Gen1_Gen2/page/page0462.png" alt="Figure from page 462" width="700">
 
 <br>
 
@@ -3308,7 +3212,7 @@ _表 13‐5：通用接收器特性_
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 

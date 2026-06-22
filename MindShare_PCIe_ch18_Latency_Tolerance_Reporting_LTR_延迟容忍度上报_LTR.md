@@ -16,16 +16,8 @@
 ## 18.1 Latency Tolerance Reporting (LTR) | 延迟容忍度上报 (LTR)
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -98,7 +90,7 @@ The message updates the Captured Slot Power Limit Value and Scale registers with
 available to its device driver.
 _Figure 19‐8: Device Capabilities Register_ 
 
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+<img src="figures/page/page0902.png" alt="Figure from page 902" width="700">
 
 <br>
 
@@ -414,7 +406,7 @@ were allocated in case they are later removed during runtime.
 
 _Figure 19‐9: Power Budget Registers_ 
 
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+<img src="figures/page/page0902.png" alt="Figure from page 902" width="700">
 
 <br>
 
@@ -499,7 +491,7 @@ higher software authority.
 
 _Figure 19‐10: Elements Involved in Power Budget_ 
 
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+<img src="figures/page/page0902.png" alt="Figure from page 902" width="700">
 
 <br>
 
@@ -563,7 +555,7 @@ expansion device. This procedure is illustrated in Figure 19‐11 on page 882.
 
 _Figure 19‐11: Slot Power Limit Sequence_ 
 
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+<img src="figures/page/page0902.png" alt="Figure from page 902" width="700">
 
 <br>
 
@@ -660,29 +652,21 @@ for accessing the power budget information.
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0902_img2_tight.png" alt="Figure from page 902" width="700">
+<img src="figures/embedded/page0902_img2_tight.png" alt="Figure from page 902 (img 2)" width="700">
 
 <a id="sec-18-2"></a>
 ## 18.2 Latency Tolerance Reporting (LTR) | 延迟容忍度上报 (LTR)
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -694,13 +678,13 @@ format and types of information available from the data field.
 
 _Figure 19‐12: Power Budget Capability Registers_ 
 
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+<img src="figures/page/page0902.png" alt="Figure from page 902" width="700">
 
 <br>
 
 _Figure 19‐13: Power Budget Data Field Format and Definition_ 
 
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+<img src="figures/page/page0902.png" alt="Figure from page 902" width="700">
 
 <br>
 
@@ -895,7 +879,7 @@ this is very efficient in terms of Link usage since it doesn’t require a recip
 
 _Figure 20‐1: Multicast System Example_ 
 
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+<img src="figures/page/page0902.png" alt="Figure from page 902" width="700">
 
 <br>
 
@@ -973,7 +957,7 @@ address size needed for this purpose as a power of two.
 
 _Figure 20‐3: Multicast Capability Register_ 
 
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+<img src="figures/page/page0902.png" alt="Figure from page 902" width="700">
 
 <br>
 
@@ -1002,7 +986,7 @@ mechanism for this component.
 
 _Figure 20‐4: Multicast Control Register_ 
 
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+<img src="figures/page/page0902.png" alt="Figure from page 902" width="700">
 
 <br>
 
@@ -1032,7 +1016,7 @@ this TLP.
 
 _Figure 20‐5: Multicast Base Address Register_ 
 
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+<img src="figures/page/page0902.png" alt="Figure from page 902" width="700">
 
 <br>
 
@@ -1065,7 +1049,7 @@ must be 12 or greater to be valid. If it’s less than 12 and the MC_Enable bit 
 
 _Figure 20‐6: Position of Multicast Group Number_ 
 
-<img src="figures/page/page0902.png" alt="Figure 19‐8: Device Capabilities Register" width="700">
+<img src="figures/page/page0902.png" alt="Figure from page 902" width="700">
 
 <br>
 
@@ -1176,7 +1160,7 @@ CapabilitiesPointer 13<br>14<br>Max_Lat Min_Gnt InterruptPin InterruptLine 15<br
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -1185,5 +1169,5 @@ CapabilitiesPointer 13<br>14<br>Max_Lat Min_Gnt InterruptPin InterruptLine 15<br
 > 🤖 Generated by `tools/merge_chapters.py`
 
 
-<img src="figures/embedded/page0902_img3_tight.png" alt="Figure from page 902" width="700">
+<img src="figures/embedded/page0902_img3_tight.png" alt="Figure from page 902 (img 3)" width="700">
 

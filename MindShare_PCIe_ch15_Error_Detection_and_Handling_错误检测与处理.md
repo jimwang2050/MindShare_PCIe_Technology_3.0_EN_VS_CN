@@ -21,20 +21,12 @@
 ## 15.1 Error Detection and Handling | 错误检测与处理
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
-<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure 1" width="700">
+<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure from page 724 (img 1)" width="700">
 
 <br>
 
@@ -361,29 +353,21 @@ the ACPI driver, but rather<br>by the PCI Express Bus Driver (see entry in this 
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0724_img1_tight.png" alt="Figure from page 724" width="700">
+<img src="figures/embedded/page0724_img1_tight.png" alt="Figure from page 724 (img 1)" width="700">
 
 <a id="sec-15-2"></a>
 ## 15.2 Error Detection and Handling | 错误检测与处理
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -746,29 +730,21 @@ capabilities. Other examples include:
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0761_img1_tight.png" alt="Figure from page 761" width="700">
+<img src="figures/embedded/page0761_img1_tight.png" alt="Figure from page 761 (img 1)" width="700">
 
 <a id="sec-15-3"></a>
 ## 15.3 Error Detection and Handling | 错误检测与处理
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -784,8 +760,7 @@ allows it to “execute” a Control Method.
 
 _Figure 16‐1: Relationship of OS, Device Drivers, Bus Driver, PCI Express Registers, and ACPI_ 
 
-<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure 16‐1: Relationship of OS, Device Drivers,
-Bus Driver, PCI Express Registers, and ACPI" width="700">
+<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure from page 724 (img 1)" width="700">
 
 <br>
 
@@ -882,8 +857,7 @@ of the linked list. A description of all the PM registers can be found in “Det
 
 _Figure 16‐2: PCI Power Management Capability Register Set_ 
 
-<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure 16‐1: Relationship of OS, Device Drivers,
-Bus Driver, PCI Express Registers, and ACPI" width="700">
+<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure from page 724 (img 1)" width="700">
 
 <br>
 
@@ -1034,8 +1008,7 @@ registers to support DPA, illustrated in Figure 16‐3 on page 715, are found in
 
 _Figure 16‐3: Dynamic Power Allocation Registers_ 
 
-<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure 16‐1: Relationship of OS, Device Drivers,
-Bus Driver, PCI Express Registers, and ACPI" width="700">
+<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure from page 724 (img 1)" width="700">
 
 <br>
 
@@ -1053,8 +1026,7 @@ implemented in subsequent dwords.
 
 _Figure 16‐4: DPA Capability Register_ 
 
-<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure 16‐1: Relationship of OS, Device Drivers,
-Bus Driver, PCI Express Registers, and ACPI" width="700">
+<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure from page 724 (img 1)" width="700">
 
 <br>
 
@@ -1066,8 +1038,7 @@ enabled by default after a reset, and software would need to disable it by writi
 
 _Figure 16‐5: DPA Status Register_ 
 
-<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure 16‐1: Relationship of OS, Device Drivers,
-Bus Driver, PCI Express Registers, and ACPI" width="700">
+<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure from page 724 (img 1)" width="700">
 
 <br>
 
@@ -1160,7 +1131,7 @@ _图 16-7：PCI 函数的 PM 寄存器_
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -1170,16 +1141,8 @@ _图 16-7：PCI 函数的 PM 寄存器_
 ## 15.4 Error Detection and Handling | 错误检测与处理
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -1459,8 +1422,7 @@ Table 16‐11 on page 724 illustrates the transitions from one state to another 
 
 _Figure 16‐6: PCIe Function D‐State Transitions_ 
 
-<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure 16‐1: Relationship of OS, Device Drivers,
-Bus Driver, PCI Express Registers, and ACPI" width="700">
+<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure from page 724 (img 1)" width="700">
 
 <br>
 
@@ -1550,7 +1512,7 @@ _Figure 16‐7: PCI Function’s PM Registers_
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -1560,16 +1522,8 @@ _Figure 16‐7: PCI Function’s PM Registers_
 ## 15.5 Error Detection and Handling | 错误检测与处理
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -1909,7 +1863,7 @@ well as the Data_Scale and Data_Select fields of the PMCSR registers are imple�
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -1918,16 +1872,8 @@ well as the Data_Scale and Data_Select fields of the PMCSR registers are imple�
 ## 15.6 Error Detection and Handling | 错误检测与处理
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -2271,8 +2217,7 @@ but the Receiver only needs to see two IDL control characters to recognize this 
 
 _Figure 16‐9: Gen1/Gen2 Mode EIOS Pattern_ 
 
-<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure 16‐1: Relationship of OS, Device Drivers,
-Bus Driver, PCI Express Registers, and ACPI" width="700">
+<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure from page 724 (img 1)" width="700">
 
 <br>
 
@@ -2464,7 +2409,7 @@ _图 16-17：进入 L1 Active State PM 所需的协商序列_
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -2474,16 +2419,8 @@ _图 16-17：进入 L1 Active State PM 所需的协商序列_
 ## 15.7 Error Detection and Handling | 错误检测与处理
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -2495,8 +2432,7 @@ Receiver because it only needs to see Symbols 0 ‐ 3 of the EIOS to recognize i
 
 _Figure 16‐10: Gen3 Mode EIOS Pattern_ 
 
-<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure 16‐1: Relationship of OS, Device Drivers,
-Bus Driver, PCI Express Registers, and ACPI" width="700">
+<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure from page 724 (img 1)" width="700">
 
 <br>
 
@@ -2539,8 +2475,7 @@ under the following conditions:
 reset to zero whenever an EIEOS is sent or the first TS2 is received in the Recovery.RcvrCfg state.
 _Figure 16‐11: Gen1/Gen2 Mode EIEOS Symbol Pattern_ 
 
-<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure 16‐1: Relationship of OS, Device Drivers,
-Bus Driver, PCI Express Registers, and ACPI" width="700">
+<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure from page 724 (img 1)" width="700">
 
 <br>
 
@@ -2578,8 +2513,7 @@ value.
 
 _Figure 16‐12: 128b/130b EIEOS Block_ 
 
-<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure 16‐1: Relationship of OS, Device Drivers,
-Bus Driver, PCI Express Registers, and ACPI" width="700">
+<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure from page 724 (img 1)" width="700">
 
 <br>
 
@@ -2737,8 +2671,7 @@ path from L0s to L1, so the Link must be returned to the L0 state before changin
 
 _Figure 16‐13: ASPM Link State Transitions_ 
 
-<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure 16‐1: Relationship of OS, Device Drivers,
-Bus Driver, PCI Express Registers, and ACPI" width="700">
+<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure from page 724 (img 1)" width="700">
 
 <br>
 
@@ -2748,8 +2681,7 @@ bit 22 indicates whether all the options are avail‐ able.
 
 _Figure 16‐14: ASPM Support_ 
 
-<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure 16‐1: Relationship of OS, Device Drivers,
-Bus Driver, PCI Express Registers, and ACPI" width="700">
+<img src="figures/chapter_15_Error_Detection_and_Handling/embedded/page0724_img1.png" alt="Figure from page 724 (img 1)" width="700">
 
 <br>
 
@@ -3033,7 +2965,7 @@ _图 16-17：进入 L1 Active State PM 所需的协商序列_
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 

@@ -20,16 +20,8 @@
 ## 9.1 DLLP Elements | DLLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -190,7 +182,7 @@ sequence is complete.
 
 _Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0368.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0368.png" alt="Figure from page 368"
 width="700">
 
 <br>
@@ -352,7 +344,7 @@ packets, and forwards TLPs and DLLPs up to the Data Link Layer.
 
 _Figure 11‐1: PCIe Port Layers_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0369.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0369.png" alt="Figure from page 369"
 width="700">
 
 <br>
@@ -376,7 +368,7 @@ independent transmit and receive logic, allowing dual‐simplex communication.
 
 _Figure 11‐2: Logical and Electrical Sub‐Blocks of the Physical Layer_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0370.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0370.png" alt="Figure from page 370"
 width="700">
 
 <br>
@@ -479,7 +471,7 @@ LFSR 中的值与发送方 LFSR 值失去同步。
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -489,16 +481,8 @@ LFSR 中的值与发送方 LFSR 值失去同步。
 ## 9.2 DLLP Elements | DLLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -508,7 +492,7 @@ data. The Sync Header informs the receiver whether the received block is a Data 
 Since there are no control characters in Gen3 mode, the D/K# bit is not needed.
 _Figure 11‐3: Physical Layer Transmit Details_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0371.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0371.png" alt="Figure from page 371"
 width="700">
 
 <br>
@@ -569,13 +553,13 @@ the other end of the link.
 
 _图 11-8：x1 字节条带化_
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0370.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0370.png" alt="Figure from page 370"
 width="700">
 
 
 _图 11-9：x4 字节条带化_
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0371.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0371.png" alt="Figure from page 371"
 width="700">
 
 
@@ -583,7 +567,7 @@ width="700">
 
 _图 11-10：使用双字并行数据的 x8 字节条带化_
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0372.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0372.png" alt="Figure from page 372"
 width="700">
 
 </td>
@@ -607,7 +591,7 @@ out of the Elastic Buffer.
 
 _Figure 11‐4: Physical Layer Receive Logic Details_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0372.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0372.png" alt="Figure from page 372"
 width="700">
 
 <br>
@@ -672,7 +656,7 @@ Idles)，以表示发送器没有更多数据包可发送并使用空闲字符�
 
 _图 11-11：x1 数据包格式_
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0373.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0373.png" alt="Figure from page 373"
 width="700">
 
 </td>
@@ -697,7 +681,7 @@ character to insert. There are also two end characters, the End Good character (
 characters are inserted (see Table 11‐1 on page 386 for a list of Control characters).
 _Figure 11‐5: Physical Layer Transmit Logic Details (Gen1 and Gen2 Only)_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0373.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0373.png" alt="Figure from page 373"
 width="700">
 
 <br>
@@ -752,14 +736,14 @@ Idle characters are inserted for that case. Logical Idle is very simple, and con
 
 _Figure 11‐6: Transmit Logic Multiplexer_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0374.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0374.png" alt="Figure from page 374"
 width="700">
 
 <br>
 
 _Figure 11‐7: TLP and DLLP Packet Framing with Start and End Control Characters_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0375.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0375.png" alt="Figure from page 375"
 width="700">
 
 <br>
@@ -824,7 +808,7 @@ the sections that follow.
 
 _Figure 11‐8: x1 Byte Striping_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0376.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0376.png" alt="Figure from page 376"
 width="700">
 
 <br>
@@ -832,14 +816,14 @@ width="700">
 
 _Figure 11‐9: x4 Byte Striping_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0377.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0377.png" alt="Figure from page 377"
 width="700">
 
 <br>
 
 _Figure 11‐10: x8 Byte Striping with DWord Parallel Data_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0368.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0368.png" alt="Figure from page 368"
 width="700">
 
 <br>
@@ -912,7 +896,7 @@ case when the transmitter has no more packets to send and uses idle characters a
 
 _Figure 11‐11: x1 Packet Format_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0369.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0369.png" alt="Figure from page 369"
 width="700">
 
 <br>
@@ -1133,7 +1117,7 @@ has to be a design‐specific implementation.
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -1143,16 +1127,8 @@ has to be a design‐specific implementation.
 ## 9.3 DLLP Elements | DLLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -1286,7 +1262,7 @@ non‐trivial price to pay but is still considered acceptable to gain the advant
 
 _Figure 11‐15: Example of 8‐bit Character 00h Encoding_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0374.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0374.png" alt="Figure from page 374"
 width="700">
 
 <br>
@@ -1359,7 +1335,7 @@ of the 5‐bit field, and y is the decimal equivalent of the 3‐bit field.
 
 _Figure 11‐16: 8b/10b Nomenclature_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0375.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0375.png" alt="Figure from page 375"
 width="700">
 
 <br>
@@ -1458,7 +1434,7 @@ Figure 11‐18 on page 385 shows some sample 8b/10b encod‐ ings that will be u
 
 _Figure 11‐17: 8‐bit to 10‐bit (8b/10b) Encoder_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0376.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0376.png" alt="Figure from page 376"
 width="700">
 
 <br>
@@ -1839,7 +1815,7 @@ _图 11-19：示例 8b/10b 传输_
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -1849,16 +1825,8 @@ _图 11-19：示例 8b/10b 传输_
 ## 9.4 DLLP Elements | DLLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -2242,7 +2210,7 @@ PCIe，这些可以删除的字符采用 SKIP 有序集合的形式，由一个 
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -2252,16 +2220,8 @@ PCIe，这些可以删除的字符采用 SKIP 有序集合的形式，由一个 
 ## 9.5 DLLP Elements | DLLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -2281,7 +2241,7 @@ ter isn’t signaling, and it wouldn’t make sense to wake up the link to send 
 
 _Figure 11‐20: SKIP Ordered Set_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0377.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0377.png" alt="Figure from page 377"
 width="700">
 
 <br>
@@ -2317,7 +2277,7 @@ Figure 11‐21 shows the receiver logic of the Logical Physical Layer. This sect
 received serially on each lane until the packet byte stream is clocked into the Data Link Layer.
 _Figure 11‐21: Physical Layer Receive Logic Details (Gen1 and Gen2 Only)_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0368.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0368.png" alt="Figure from page 368"
 width="700">
 
 <br>
@@ -2375,7 +2335,7 @@ For a detailed discussion of receiver characteristics, see section “Receiver C
 
 _Figure 11‐22: Receiver Logic’s Front End Per Lane_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0369.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0369.png" alt="Figure from page 369"
 width="700">
 
 <br>
@@ -2711,7 +2671,7 @@ Sources of Lane‐to‐Lane skew include:
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -2721,16 +2681,8 @@ Sources of Lane‐to‐Lane skew include:
 ## 9.6 DLLP Elements | DLLP 元素
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -2830,7 +2782,7 @@ sibly resulting in replayed TLPs.
 
 _Figure 11‐23: Receiver’s Link De‐Skew Logic_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0370.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0370.png" alt="Figure from page 370"
 width="700">
 
 <br>
@@ -2981,7 +2933,7 @@ into a valid 8‐bit character. Such an error won’t be detected in the Physica
 
 _Figure 11‐24: 8b/10b Decoder per Lane_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0371.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0371.png" alt="Figure from page 371"
 width="700">
 
 <br>
@@ -3127,7 +3079,7 @@ Figure 11‐26 on page 403 shows eight character streams from the descramblers o
 is fed to the char‐ acter filter logic.
 _Figure 11‐26: Example of x8 Byte Un‐Striping_ 
 
-<img src="figures/chapter_09_DLLP_Elements/page/page0372.png" alt="Figure 10‐16: Switch Cut‐Through Mode Showing Error Handling"
+<img src="figures/chapter_09_DLLP_Elements/page/page0372.png" alt="Figure from page 372"
 width="700">
 
 <br>
@@ -3597,7 +3549,7 @@ UI UI UI<br>
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 

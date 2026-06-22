@@ -125,7 +125,7 @@ For training, visit **mindshare.com**
 ---
 
 
-<img src="figures/embedded/page0001_img2_tight.png" alt="Figure from page 1" width="700">
+<img src="figures/embedded/page0001_img2_tight.png" alt="Figure from page 1 (img 2)" width="700">
 
 <a id="sec-0-2"></a>
 ## 0.2 MindShare Technology Series
@@ -142,7 +142,7 @@ PCI Express Technology Comprehensive Guide to Generations 1.x, 2.x and 3.0
 ---
 
 
-<img src="figures/embedded/page0001_img1.png" alt="Figure from page 1" width="700">
+<img src="figures/embedded/page0001_img1.png" alt="Figure from page 1 (img 1)" width="700">
 
 <a id="sec-0-3"></a>
 ## 0.3 PCI Express Technology — Title Page
@@ -155,7 +155,7 @@ PCI Express Technology Comprehensive Guide to Generations 1.x, 2.x and 3.0
 ---
 
 
-<img src="figures/embedded/page0004_img1_tight.png" alt="Figure from page 4" width="700">
+<img src="figures/embedded/page0004_img1_tight.png" alt="Figure from page 4 (img 1)" width="700">
 
 <a id="sec-0-4"></a>
 ## 0.4 MINDSHARE, INC.
@@ -168,7 +168,7 @@ PCI Express Technology Comprehensive Guide to Generations 1.x, 2.x and 3.0
 ---
 
 
-<img src="figures/embedded/page0004_img2_tight.png" alt="Figure from page 4" width="700">
+<img src="figures/embedded/page0004_img2_tight.png" alt="Figure from page 4 (img 2)" width="700">
 
 <a id="sec-0-5"></a>
 ## 0.5 Authors — Mike Jackson, Ravi Budruk
@@ -183,7 +183,7 @@ _Technical Edit by Joe Winkles and Don Anderson_
 ---
 
 
-<img src="figures/embedded/page0004_img3_tight.png" alt="Figure from page 4" width="700">
+<img src="figures/embedded/page0004_img3_tight.png" alt="Figure from page 4 (img 3)" width="700">
 
 <a id="sec-0-6"></a>
 ## 0.6 MindShare Live Training and Self-Paced Training
@@ -216,14 +216,14 @@ MindShare offers numerous courses in a self‐paced training format (eLearning).
 ---
 
 
-<img src="figures/embedded/page0004_img4_tight.png" alt="Figure from page 4" width="700">
+<img src="figures/embedded/page0004_img4_tight.png" alt="Figure from page 4 (img 4)" width="700">
 
 <a id="sec-0-7"></a>
 ## 0.7 ARBOR — Debug / Validation / Analysis Tool
 
 ## ARBOR 
 
-<img src="figures/chapter_00_Front_Matter_Cover_Copyright/embedded/page0001_img1.png" alt="Figure 1" width="700">
+<img src="figures/chapter_00_Front_Matter_Cover_Copyright/embedded/page0001_img1.png" alt="Figure from page 1 (img 1)" width="700">
 
 <br>
 
@@ -233,14 +233,14 @@ MindShare offers numerous courses in a self‐paced training format (eLearning).
 ---
 
 
-<img src="figures/embedded/page0004_img5_tight.png" alt="Figure from page 4" width="700">
+<img src="figures/embedded/page0004_img5_tight.png" alt="Figure from page 4 (img 5)" width="700">
 
 <a id="sec-0-8"></a>
 ## 0.8 The Ultimate Tool to View, Edit and Verify Configuration Settings
 
 ## **The Ultimate Tool to View, Edit and Verify Configuration Settings of a Computer** 
 
-<img src="figures/chapter_00_Front_Matter_Cover_Copyright/embedded/page0547_img1.png" alt="Figure 2" width="700">
+<img src="figures/chapter_00_Front_Matter_Cover_Copyright/embedded/page0547_img1.png" alt="Figure from page 547 (img 1)" width="700">
 
 <br>
 
@@ -250,7 +250,7 @@ MindShare offers numerous courses in a self‐paced training format (eLearning).
 ---
 
 
-<img src="figures/embedded/page0004_img6_tight.png" alt="Figure from page 4" width="700">
+<img src="figures/embedded/page0004_img6_tight.png" alt="Figure from page 4 (img 6)" width="700">
 
 <a id="sec-0-9"></a>
 ## 0.9 Arbor — Feature List
@@ -275,7 +275,7 @@ MindShare offers numerous courses in a self‐paced training format (eLearning).
 
 - Save system scans for viewing later or on other systems 
 
-<img src="figures/chapter_00_Front_Matter_Cover_Copyright/embedded/page0697_img1.png" alt="Figure 3" width="700">
+<img src="figures/chapter_00_Front_Matter_Cover_Copyright/embedded/page0697_img1.png" alt="Figure from page 697 (img 1)" width="700">
 
 <br>
 
@@ -287,7 +287,7 @@ MindShare offers numerous courses in a self‐paced training format (eLearning).
 ---
 
 
-<img src="figures/embedded/page0004_img7_tight.png" alt="Figure from page 4" width="700">
+<img src="figures/embedded/page0004_img7_tight.png" alt="Figure from page 4 (img 7)" width="700">
 
 <a id="sec-0-10"></a>
 ## 0.10 Arbor — COMING SOON: Decoded x86 Structures

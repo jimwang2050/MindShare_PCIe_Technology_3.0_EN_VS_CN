@@ -18,16 +18,8 @@
 ## 13.1 Physical Layer - Electrical | 物理层 - 电气
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -41,7 +33,7 @@ Link and Lane numbers. This is shown in Figure 14‐23 on page 552.
 
 _Figure 14‐23: Example 3 ‐ Steps 5 and 6_ 
 
-<img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" alt="Figure 14‐23: Example 3 ‐ Steps 5 and 6"
+<img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" alt="Figure from page 554 (img 1)"
 width="700">
 
 <br>
@@ -69,7 +61,7 @@ A detailed explanation of each substate is presented here to cover all the sub�
 553. The Configura‐ tion Substates should be easier to follow, given the Link Training examples discussed previously.
 _Figure 14‐24: Configuration State Machine_ 
 
-<img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" alt="Figure 14‐23: Example 3 ‐ Steps 5 and 6"
+<img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" alt="Figure from page 554 (img 1)"
 width="700">
 
 <br>
@@ -953,29 +945,21 @@ different rate than the current rate.
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0547_img1_tight.png" alt="Figure from page 547" width="700">
+<img src="figures/embedded/page0547_img1_tight.png" alt="Figure from page 547 (img 1)" width="700">
 
 <a id="sec-13-2"></a>
 ## 13.2 Physical Layer - Electrical | 物理层 - 电气
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -2110,14 +2094,14 @@ Configuration.Lanenum.Wait。
 </td>
 </tr>
 </tbody>
-</table></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0547_img2_tight.png" alt="Figure from page 547" width="700">
+<img src="figures/embedded/page0547_img2_tight.png" alt="Figure from page 547 (img 2)" width="700">
 
 <a id="sec-13-3"></a>
 
@@ -2127,11 +2111,7 @@ Configuration.Lanenum.Wait。
 </td>
 </tr><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-
-
 <tr>
 <td width="50%">
 
@@ -2140,11 +2120,7 @@ Configuration.Lanenum.Wait。
 <table>
 <thead><tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
 </tbody>
-</table>
-</tbody>
 </table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
 <tr>
 <td width="50%">
@@ -2481,29 +2457,21 @@ different rate than the current rate.
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0554_img1_tight.png" alt="Figure from page 554" width="700">
+<img src="figures/embedded/page0554_img1_tight.png" alt="Figure from page 554 (img 1)" width="700">
 
 <a id="sec-13-4"></a>
 ## 13.4 Physical Layer - Electrical | 物理层 - 电气
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -2514,7 +2482,7 @@ A Port will not attempt a speed change (the directed_speed_change variable won�
 as advertised by the other Port in the Configuration.Complete or Recovery.RcvrCfg substates.
 _Figure 14‐25: Link Control Register_ 
 
-<img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" alt="Figure 14‐23: Example 3 ‐ Steps 5 and 6"
+<img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" alt="Figure from page 554 (img 1)"
 width="700">
 
 <br>
@@ -2533,7 +2501,7 @@ width="700">
 
 ## _Figure 14‐26: Link Control 2 Register_ 
 
-<img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" alt="Figure 14‐23: Example 3 ‐ Steps 5 and 6"
+<img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" alt="Figure from page 554 (img 1)"
 width="700">
 
 <br>
@@ -2762,7 +2730,7 @@ proceed to the other substates as needed. This is shown in Figure 14‐27 on pag
 substates is provided in the sections that follow.
 _Figure 14‐27: Recovery State Machine_ 
 
-<img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" alt="Figure 14‐23: Example 3 ‐ Steps 5 and 6"
+<img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" alt="Figure from page 554 (img 1)"
 width="700">
 
 <br>
@@ -3063,7 +3031,7 @@ EQ TS1 和 EQ TS2 接收到的预设值的 TS1。如果支持，它将使用所�
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 <p align="center"><b>Figure 14‐25: Link Control Register</b></p>
 <p align="center"><img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" width="700"></p>
@@ -3095,20 +3063,13 @@ EQ TS1 和 EQ TS2 接收到的预设值的 TS1。如果支持，它将使用所�
 <p align="center"><sub>📄 <a href="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png">Page 554</a></sub></p>
 
 <table>
-<thead><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
 <tr>
 
 </tr>
 </tbody>
-</table></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -3118,16 +3079,8 @@ EQ TS1 和 EQ TS2 接收到的预设值的 TS1。如果支持，它将使用所�
 ## 13.5 Physical Layer - Electrical | 物理层 - 电气
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -3354,7 +3307,7 @@ equalization phase in use is indicated by the EC (Equalization Control) field in
 
 _Figure 14‐28: EC Field in TS1s and TS2s for 8.0 GT/s_ 
 
-<img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" alt="Figure 14‐23: Example 3 ‐ Steps 5 and 6"
+<img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" alt="Figure from page 554 (img 1)"
 width="700">
 
 <br>
@@ -3381,7 +3334,7 @@ values for each Lane. The Downstream Port will use the DSP values for its own Tr
 USP values to the Upstream Port for it to use when going to the higher speed.
 _Figure 14‐29: Equalization Control Registers_ 
 
-<img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" alt="Figure 14‐23: Example 3 ‐ Steps 5 and 6"
+<img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" alt="Figure from page 554 (img 1)"
 width="700">
 
 <br>
@@ -3451,7 +3404,7 @@ USP sets EC=01b in its TS1s thereby moving to Phase 1 and handing control of the
 
 _Figure 14‐30: Equalization Process: Starting Point_ 
 
-<img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" alt="Figure 14‐23: Example 3 ‐ Steps 5 and 6"
+<img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" alt="Figure from page 554 (img 1)"
 width="700">
 
 <br>
@@ -3694,7 +3647,7 @@ _退出至 "Phase 3 Upstream"_
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 <p align="center"><b>Figure 14‐31: Equalization Process: Initiating Phase 2</b></p>
 <p align="center"><img src="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png" width="700"></p>
@@ -3736,20 +3689,13 @@ _退出至 "Phase 3 Upstream"_
 <p align="center"><sub>📄 <a href="figures/chapter_13_Physical_Layer_-_Electrical/embedded/page0554_img1.png">Page 554</a></sub></p>
 
 <table>
-<thead><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
 <tr>
 
 </tr>
 </tbody>
-</table></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 

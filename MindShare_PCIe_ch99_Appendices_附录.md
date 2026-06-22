@@ -23,16 +23,8 @@
 ## 99.1 Appendices | 附录
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -430,29 +422,21 @@ traffic generation tool such as the LeCroy PETrainer or LeCroy PTC card.
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0001_img2_tight.png" alt="Figure from page 1" width="700">
+<img src="figures/embedded/page0001_img2_tight.png" alt="Figure from page 1 (img 2)" width="700">
 
 <a id="sec-99-2"></a>
 ## 99.2 Appendices | 附录
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -814,29 +798,21 @@ _Figure 0‐3: PCIe in a Data Center for HPC Applications_
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0001_img1.png" alt="Figure from page 1" width="700">
+<img src="figures/embedded/page0001_img1.png" alt="Figure from page 1 (img 1)" width="700">
 
 <a id="sec-99-3"></a>
 ## 99.3 Appendices | 附录
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -1196,29 +1172,21 @@ non‐functional system.[1]
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0004_img1_tight.png" alt="Figure from page 4" width="700">
+<img src="figures/embedded/page0004_img1_tight.png" alt="Figure from page 4 (img 1)" width="700">
 
 <a id="sec-99-4"></a>
 ## 99.4 Appendices | 附录
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -1498,29 +1466,21 @@ communicate with each other.
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0004_img2_tight.png" alt="Figure from page 4" width="700">
+<img src="figures/embedded/page0004_img2_tight.png" alt="Figure from page 4 (img 2)" width="700">
 
 <a id="sec-99-5"></a>
 ## 99.5 Appendices | 附录
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -1961,29 +1921,21 @@ This section explains the PCI Express lock protocol by example. The example incl
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0004_img3_tight.png" alt="Figure from page 4" width="700">
+<img src="figures/embedded/page0004_img3_tight.png" alt="Figure from page 4 (img 3)" width="700">
 
 <a id="sec-99-6"></a>
 ## 99.6 Appendices | 附录
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -2063,7 +2015,7 @@ device, and the completion data is sent to the CPU.
 
 _Figure D‐1: Lock Sequence Begins with Memory Read Lock Request_ 
 
-<img src="figures/chapter_99_Appendices/embedded/page0923_img1.png" alt="Figure A‐2: LeCroy PCI Express Slot Interposer x16" width="700">
+<img src="figures/chapter_99_Appendices/embedded/page0923_img1.png" alt="Figure from page 923 (img 1)" width="700">
 
 <br>
 
@@ -2119,7 +2071,7 @@ other Switches and/ or bridges in the locked path that the lock must be cleared.
 
 _Figure D‐2: Lock Completes with Memory Write Followed by Unlock Message_ 
 
-<img src="figures/chapter_99_Appendices/embedded/page0960_img1.png" alt="Figure A‐2: LeCroy PCI Express Slot Interposer x16" width="700">
+<img src="figures/chapter_99_Appendices/embedded/page0960_img1.png" alt="Figure from page 960 (img 1)" width="700">
 
 <br>
 
@@ -2375,7 +2327,7 @@ access with a Suc‐ cessful Completion status:
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 <p align="center"><b>Figure D‐1: Lock Sequence Begins with Memory Read Lock Request</b></p>
 <p align="center"><img src="figures/chapter_99_Appendices/embedded/page0961_img1.png" width="700"></p>
@@ -2387,42 +2339,27 @@ access with a Suc‐ cessful Completion status:
 <p align="center"><sub>📄 <a href="figures/chapter_99_Appendices/embedded/page0962_img1.png">Page 962</a></sub></p>
 
 <table>
-<thead><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
 <tr>
 
 </tr>
 </tbody>
-</table></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0004_img4_tight.png" alt="Figure from page 4" width="700">
+<img src="figures/embedded/page0004_img4_tight.png" alt="Figure from page 4 (img 4)" width="700">
 
 <a id="sec-99-7"></a>
 ## 99.7 Appendices | 附录
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -2736,29 +2673,21 @@ this type of routing.|
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0004_img5_tight.png" alt="Figure from page 4" width="700">
+<img src="figures/embedded/page0004_img5_tight.png" alt="Figure from page 4 (img 5)" width="700">
 
 <a id="sec-99-8"></a>
 ## 99.8 Appendices | 附录
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -3080,29 +3009,21 @@ AtomicOp 150 AtomicOps 897, 974 Attention Button 854, 862 Attention Indicator 85
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
 ---
 
 
-<img src="figures/embedded/page0004_img6_tight.png" alt="Figure from page 4" width="700">
+<img src="figures/embedded/page0004_img6_tight.png" alt="Figure from page 4 (img 6)" width="700">
 
 <a id="sec-99-9"></a>
 ## 99.9 Appendices | 附录
 
 <table>
-<thead><table>
 <thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
 <tbody>
-<tr><th>🇬🇧 English</th><th style="background-color:#e8e8e8">🇨🇳 中文</th></tr>
-</tbody>
-</table></thead>
-<tbody><table>
-<thead><tr><th width="50%">🇬🇧 English</th><th width="50%">🇨🇳 中文</th></tr></thead>
-<tbody>
-<tr>
 <tr>
 <td width="50%">
 
@@ -3473,7 +3394,7 @@ PCI Transaction Model 18 PCI-Based System 11 PCI-Compatible Error Reporting 674 
 </tr>
 
 </tbody>
-</table></tr></tbody></table>
+</table>
 
 [⬆️ 返回目录](#本章目录-table-of-contents)
 
@@ -3482,5 +3403,5 @@ PCI Transaction Model 18 PCI-Based System 11 PCI-Compatible Error Reporting 674 
 > 🤖 Generated by `tools/merge_chapters.py`
 
 
-<img src="figures/embedded/page0004_img7_tight.png" alt="Figure from page 4" width="700">
+<img src="figures/embedded/page0004_img7_tight.png" alt="Figure from page 4 (img 7)" width="700">
 
